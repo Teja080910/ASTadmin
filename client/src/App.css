@@ -8,6 +8,7 @@
   width:100px;
   height:30px;
   border-radius: 10%;
+
   /* background-color:rgba(55, 231, 28, 0.114); */
 }
  .log1
@@ -21,32 +22,32 @@
  .h{
   margin-top: 20%;
  }
- /*  */
-
- /* signup.js */
 .body{
   width: 100%;
-  height:97vh;
+  height:100vh;
   background-color:lightgray;
 }
 .inputwidth{
   
-  width:40%;
+  width:60%;
   height:30px;
 }
 .buttonwidth{
   width:100px;
   height:30px;
-  border-radius: 10%;
+  border-radius:5px;
+  border: none;
   /* background-color:rgba(55, 231, 28, 0.114); */
 }
 .marq{
   color:red;
-  font-size: 10px;
+  font-size: 20px;
 }
 .border{
-  width:100%;
-  height:100%;
+  width:50%;
+  height:80vh;
+  margin-top:8vh;
+  background-color: aliceblue;
 }
 /*  */
 
@@ -74,6 +75,32 @@
 }
 .display{
   display:flex;
+  height: 10vh;
+  width: 100%;
+  position: fixed;
+  background-color:rgb(122, 122, 255);
+}
+.display1{
+  display:flex;
+  height: 8vh;
+  width: 100%;
+  margin-top: 10vh;
+  position: fixed;
+  justify-content: space-between;
+  background-color:blue;
+}
+.display1item
+{
+  color: aliceblue;
+  margin-left: 10%;
+  text-decoration: none;
+  padding: 1%;
+  border-radius: 5px;
+  font-size: 20px;
+}
+.display1item:hover
+{
+  color:aqua;
 }
 .center{
   margin-left: 37%;
@@ -82,13 +109,47 @@
 {
   width: 90%;
   background-color: rgb(180, 251, 251);
-  margin:2% 5% 5% 5%;
+  margin:8vh 5% 5% 5%;
   font-size: x-large;
 }
 .studentcheck
 {
-  margin: 3% 0% 0% 10%;
+  margin: 10% 0% 0% 10%;
   width: 80%;
   height: 5vh;
   font-size: x-large;
+}
+.addproject
+{
+  background-color: grey;
+  width: 30%;
+  height: 30vh;
+  margin: 20% 0% 0% 35%;
+}
+.addproject input
+{
+  margin-left: 5%;
+  width: 50%;
+  height: 4vh;
+}
+.addproject button
+{
+  background-color: slateblue;
+  color: white;
+  border: none;
+  padding: 2%;
+  margin-left: 80%;
+}
+.addproject label
+{
+  margin-left: 10%;
+}
+.projectlink
+{
+  padding: 100% 150%;
+  margin: 100%;
+  display: inline-flex;
+  text-decoration: none;
+  color:blue;
+  background-color: yellow;
 }

@@ -10,9 +10,14 @@ app.get('/',(req,res)=>{
 
 try
 {
-app.get('/admin/:name/:password',async(req,res)=>
+app.get('/admincheck/:name',async(req,res)=>
 {
-    const details=await db.collection('admin').findOne({Name:req.params.name,Password:req.params.password})
+    const details=await db.collection('admin').findOne({Name:req.params.name})
+    res.json(details);
+})
+app.post('/updateadmin/:name/:date',async(req,res)=>
+{
+    const details=await db.collection('admin').findOneAndUpdate({Name:req.params.name},{$set:{Dates:req.params.date}})
     res.json(details);
 })
  app.get('/mailcheck/:mail',async(req,res)=>
@@ -54,6 +59,16 @@ app.post('/streak/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
 app.post('/delete',async(req,res)=>
 {
     const details=await db.collection('login').deleteMany()
+    res.json(details);
+})
+app.post('/project/:name/:project',async(req,res)=>
+{
+    const details=await db.collection("projects").insertOne({Name:req.params.name,Project:req.params.project})
+    res.json(details);
+})
+app.get('/projects',async(req,res)=>
+{
+    const details=await db.collection("projects").find().toArray()
     res.json(details);
 })
 }

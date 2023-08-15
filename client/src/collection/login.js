@@ -12,15 +12,18 @@ const Login=()=>{
         if(responce.data)
         {
             atnd.Num=(parseInt(responce.data.Num)+1);
-            console.log(atnd.Num)
             await axios.post("http://localhost:8000/streak/"+atnd.Gmail+"/"+atnd.Name+"/"+atnd.Reg_No+"/"+atnd.Year+"/"+atnd.Branch+"/"+atnd.Num)
             const responce1=await axios.post("http://localhost:8000/savestudent/"+atnd.Gmail+"/"+atnd.Reg_No)
             if(responce1.data)
             {
-                alert("Attend");
+                alert(atnd.Reg_No+" Attend");
                 window.location.reload(1);
             }
         }
+    }
+    const Complete=()=>
+    {
+        localStorage.gmail='';
     }
     useEffect(()=>
     {
@@ -41,9 +44,14 @@ const Login=()=>{
         <h1>MERN</h1>
         <h1 className="center">ATTENDANCE</h1>
         <Link to='/register' className="signup">Register</Link>
-        </div><br/>
+        </div>
+        <div className="display1">
+            <Link to='/addproject' className="display1item">Add Project</Link>
+            <Link to='/projects' className="display1item" style={{marginRight:'11%'}}>Projects</Link>
+        </div>
+        <br/>
         <div>
-        {/* <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input> */}
+        <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input>
             <table className="studetail">
                     <tr>
                         <th>SNO</th>
@@ -73,7 +81,7 @@ const Login=()=>{
                      ))}
             </table>
             <div>
-            {/* <Link to='/' style={{border:'none',textDecoration:'none',padding:'1%',backgroundColor:'green',marginLeft:'80%',color:'white',borderRadius:'3px',height:'6vh',width:'15vh'}}><b>Complete Day</b></Link> */}
+            <Link onClick={Complete} to='/' style={{border:'none',textDecoration:'none',padding:'1%',backgroundColor:'green',marginLeft:'80%',color:'white',borderRadius:'3px',height:'6vh',width:'15vh'}}><b>Complete Day</b></Link>
             </div>
             {
                 savestu.map((x)=>

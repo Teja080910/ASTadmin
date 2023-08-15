@@ -5,20 +5,29 @@ const Home=()=>{
     const nav=useNavigate();
     const[username,setusername]=useState([]);
     const[password,setpassword]=useState([]);
+    const date=new Date();
     const Submit=async()=>{
         try{
-        const res=await axios.get("http://localhost:8000/admin/"+username+"/"+password)
-        if(res)
-        {
-            const responce=await axios.post("http://localhost:8000/delete")
-            if(responce.data)
+            const responce=axios.get("http://localhost:8000/admincheck/"+username)
+            if ((await responce).data.Dates !== date.toDateString())
             {
-                nav('/login');
+                const responce2=await axios.post("http://localhost:8000/delete") && await axios.post("http://localhost:8000/updateadmin/"+username+"/"+date.toDateString())
+                if (responce2.data)
+                {
+                    alert("Admin sucessfully logged in Today");
+                    localStorage.name=username;
+                    nav('/login')
+                }
+                else
+                {
+                    alert("Try again");
+                }
             }
-        }
-        else{
-            alert("Invalid Details");
-        }
+            else
+            {
+                alert("Admin sucessfully logged in again");
+                nav('/login')
+            }
     }
     catch(e)
     {
