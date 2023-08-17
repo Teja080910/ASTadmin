@@ -8,10 +8,10 @@ const Home=()=>{
     const date=new Date();
     const Submit=async()=>{
         try{
-            const responce=axios.get("http://localhost:8000/admincheck/"+username)
+            const responce=axios.get("http://https://attendance-api-pied.vercel.app/"+username)
             if ((await responce).data.Dates !== date.toDateString())
             {
-                const responce2=await axios.post("http://localhost:8000/delete") && await axios.post("http://localhost:8000/updateadmin/"+username+"/"+date.toDateString())
+                const responce2=await axios.post("http://localhost:8000/delete") && await axios.post("http://https://attendance-api-pied.vercel.app/"+username+"/"+date.toDateString())
                 if (responce2.data)
                 {
                     alert("Admin sucessfully logged in Today");
