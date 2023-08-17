@@ -6,7 +6,7 @@
   "main": "db.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/server.js"
+    "start": "node src/server.js"
   },
   "author": "sanju",
   "license": "ISC",
