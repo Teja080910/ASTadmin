@@ -11,7 +11,7 @@ const Home=()=>{
             const responce=axios.get("https://attendance-339a.onrender.com/admincheck/"+username)
             if ((await responce).data.Dates !== date.toDateString())
             {
-                const responce2=await axios.post("http://localhost:8000/delete") && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+username+"/"+date.toDateString())
+                const responce2=await axios.post("http://attendance-339a.onrender.com/delete") && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+username+"/"+date.toDateString())
                 if (responce2.data)
                 {
                     alert("Admin sucessfully logged in Today");
