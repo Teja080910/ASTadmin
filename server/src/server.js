@@ -16,9 +16,9 @@ app.get('/',(req,res)=>{
 
 try
 {
-app.get('/admincheck/:name',async(req,res)=>
+app.get('/admincheck/:name/:password',async(req,res)=>
 {
-    const details=await db.collection('admin').findOne({Name:req.params.name})
+    const details=await db.collection('admin').findOne({Name:req.params.name,Password:req.params.password})
     res.json(details);
 })
 app.post('/updateadmin/:name/:date',async(req,res)=>

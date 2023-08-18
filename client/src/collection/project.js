@@ -9,7 +9,7 @@ export const Addproject=()=>
     {
         try
         {
-         const responce=await axios.post("http://localhost:8000/project/"+name+"/"+project)
+         const responce=await axios.post("http://attendance-339a.onrender.com/project/"+name+"/"+project)
         if(responce.data)
         {
             alert("Sucessfully Submitted");
@@ -45,7 +45,7 @@ export const Projects=()=>
     const [data,sdata]=useState([]);
     useEffect(()=>
     {
-        axios.get("http://localhost:8000/projects")
+        axios.get("http://attendance-339a.onrender.com/projects")
         .then((result)=>
         {
             sdata(result.data);
