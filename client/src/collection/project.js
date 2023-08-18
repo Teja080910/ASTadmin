@@ -9,7 +9,7 @@ export const Addproject=()=>
     {
         try
         {
-         const responce=await axios.post("http://attendance-339a.onrender.com/project/"+name+"/"+project)
+         const responce=await axios.post("https://attendance-339a.onrender.com/project/"+name+"/"+project)
         if(responce.data)
         {
             alert("Sucessfully Submitted");

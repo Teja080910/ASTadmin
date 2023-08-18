@@ -8,12 +8,12 @@ const Login=()=>{
     const [select,sselect]=useState([]);
     const Attend=async()=>
     {
-        const responce=await axios.get("http://attendance-339a.onrender.com/student/"+atnd.Gmail)
+        const responce=await axios.get("https://attendance-339a.onrender.com/student/"+atnd.Gmail)
         if(responce.data)
         {
             atnd.Num=(parseInt(responce.data.Num)+1);
-            await axios.post("http://attendance-339a.onrender.com/streak/"+atnd.Gmail+"/"+atnd.Name+"/"+atnd.Reg_No+"/"+atnd.Year+"/"+atnd.Branch+"/"+atnd.Num)
-            const responce1=await axios.post("http://attendance-339a.onrender.com/savestudent/"+atnd.Gmail+"/"+atnd.Reg_No)
+            await axios.post("https://attendance-339a.onrender.com/streak/"+atnd.Gmail+"/"+atnd.Name+"/"+atnd.Reg_No+"/"+atnd.Year+"/"+atnd.Branch+"/"+atnd.Num)
+            const responce1=await axios.post("https://attendance-339a.onrender.com/savestudent/"+atnd.Gmail+"/"+atnd.Reg_No)
             if(responce1.data)
             {
                 alert(atnd.Reg_No+" Attend");

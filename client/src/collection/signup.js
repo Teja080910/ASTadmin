@@ -15,14 +15,14 @@ const Signup=()=>{
         try{
        if(emailRegex.test(email))
         {
-        const  responce1 = await axios.get("http://attendance-339a.onrender.com/mailcheck/"+email);
+        const  responce1 = await axios.get("https://attendance-339a.onrender.com/mailcheck/"+email);
         if(responce1.data)
         {
             SetCheck("E-mail or Register Number is already exists");
         }
         else
         {
-            const  responce2 = await axios.post("http://attendance-339a.onrender.com/signup/"+email+"/"+name+"/"+regd+"/"+year+"/"+branch+"/"+num);
+            const  responce2 = await axios.post("https://attendance-339a.onrender.com/signup/"+email+"/"+name+"/"+regd+"/"+year+"/"+branch+"/"+num);
            if(responce2.data)
            {
             alert("Register Successfully");
