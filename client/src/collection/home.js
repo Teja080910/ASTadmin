@@ -8,10 +8,10 @@ const Home=()=>{
     const date=new Date();
     const Submit=async()=>{
         try{
-            const responce=axios.get("https://attendance-339a.onrender.com/admincheck/"+username+"/"+password)
+            const responce=await axios.get("https://attendance-339a.onrender.com/admincheck/"+username+"/"+password)
            if(responce.data)
            {
-            if ((await responce).data.Dates !== date.toDateString())
+            if (responce.data.Dates !== date.toDateString())
             {
                 const responce2=await axios.post("https://attendance-339a.onrender.com/delete") && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+username+"/"+date.toDateString())
                 if (responce2.data)
