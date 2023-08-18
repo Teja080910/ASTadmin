@@ -40,7 +40,7 @@ const Login=()=>{
     },[])
     return(
         <>
-        <div className="display">
+        {/* <div className="display">
         <h1>MERN</h1>
         <h1 className="center">ATTENDANCE</h1>
         <Link to='/register' className="signup">Register</Link>
@@ -49,7 +49,8 @@ const Login=()=>{
             <Link to='/addproject' className="display1item">Add Project</Link>
             <Link to='/projects' className="display1item" style={{marginRight:'11%'}}>Projects</Link>
         </div>
-        <br/>
+        <br/> */}
+        <div className="clgname">SRKREC Teach Center</div>
         <div>
         <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input>
             <table className="studetail">

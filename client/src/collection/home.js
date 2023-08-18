@@ -16,8 +16,8 @@ const Home=()=>{
                 const responce2=await axios.post("https://attendance-339a.onrender.com/delete") && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+username+"/"+date.toDateString())
                 if (responce2.data)
                 {
-                    alert("Admin sucessfully logged in Today");
                     localStorage.name=username;
+                    alert("Admin sucessfully logged in Today");
                     nav('/login')
                 }
                 else
@@ -27,6 +27,7 @@ const Home=()=>{
             }
             else
             {
+                localStorage.name=username;
                 alert("Admin sucessfully logged in again");
                 nav('/login')
             }

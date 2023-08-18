@@ -153,3 +153,13 @@
   color:blue;
   background-color: yellow;
 }
+.clgname
+{
+  margin-top: 5%;
+  text-align: center;
+  background:linear-gradient(180deg,#2900de,#b10f0f);
+  font-size: 80px;
+  font-family: poppins;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
