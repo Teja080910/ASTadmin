@@ -9,6 +9,8 @@ const Home=()=>{
     const Submit=async()=>{
         try{
             const responce=axios.get("https://attendance-339a.onrender.com/admincheck/"+username+"/"+password)
+           if(responce.data)
+           {
             if ((await responce).data.Dates !== date.toDateString())
             {
                 const responce2=await axios.post("https://attendance-339a.onrender.com/delete") && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+username+"/"+date.toDateString())
@@ -28,6 +30,11 @@ const Home=()=>{
                 alert("Admin sucessfully logged in again");
                 nav('/login')
             }
+           }
+           else
+           {
+            alert("Please register as admin");
+           }
     }
     catch(e)
     {
