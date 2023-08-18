@@ -23,7 +23,7 @@ const Login=()=>{
     }
     const Complete=()=>
     {
-        localStorage.gmail='';
+        localStorage.name='';
     }
     useEffect(()=>
     {
