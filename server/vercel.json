@@ -1,11 +1,1 @@
-{
-   "version": 2,
-   "name": "at_backend",
-   "builds": [
-      { "src": "*.js", "use": "@vercel/node" }
-   ],
-   "routes": [
-      { "src": "/(.*)", "dest": "/" }
-   ]
-}
 
