@@ -27,12 +27,12 @@ const Login=()=>{
     }
     useEffect(()=>
     {
-        axios.get("http://attendance-339a.onrender.com/students")
+        axios.get("https://attendance-339a.onrender.com/students")
         .then((result)=>
         {
             sdat((result.data));
         })
-        axios.get("http://attendance-339a.onrender.com/showsavestu")
+        axios.get("https://attendance-339a.onrender.com/showsavestu")
         .then((result)=>
         {
             ssavestu(result.data);
