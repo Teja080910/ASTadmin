@@ -20,9 +20,9 @@ app.post('/adminregi/:gmail/:password',async(req,res)=>
     const details=await db.collection('admin').insertOne({Gmail:req.params.gmail,Password:req.params.password})
     res.json(details);
 })
-app.post('/updateadmin/:name/:date',async(req,res)=>
+app.post('/updateadmin/:gmail/:date',async(req,res)=>
 {
-    const details=await db.collection('admin').findOneAndUpdate({Name:req.params.name},{$set:{Dates:req.params.date}})
+    const details=await db.collection('admin').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Dates:req.params.date}})
     res.json(details);
 })
  app.get('/mailcheck/:mail',async(req,res)=>
