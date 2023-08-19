@@ -1,11 +1,10 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { BrowserRouter,Route,Routes } from 'react-router-dom';
-import { Admin } from './collection/admin/admin';
+import { Admin, Adminreg } from './collection/admin/admin';
 import Login from './collection/cerdentials/login';
 import Signup from './collection/cerdentials/signup';
 import { Home } from './collection/home/home';
-import { Adminreg } from './collection/admin/admin';
-import { Projects,Addproject } from './collection/project/project';
+import { Addproject, Projects } from './collection/project/project';
 function App() {
   return (
     <>
