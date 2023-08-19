@@ -55,7 +55,8 @@ const Login=()=>{
     },[])
     return(
         <>
-        <div className="clgname">SRKREC Teach Center</div><div>
+        <div className="clgname">SRKREC Teach Center</div>
+        <div>
         <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input>
             <table className="studetail">
                     <tr>
@@ -84,11 +85,7 @@ const Login=()=>{
                             </tr>
                            </>
                      ))}
-            </table>
-            <div>
-            <Link onClick={Complete} to='/' style={{border:'none',textDecoration:'none',padding:'1%',backgroundColor:'green',marginLeft:'80%',color:'white',borderRadius:'3px',height:'6vh',width:'15vh'}}><b>Complete Day</b></Link>
-            </div>
-            {
+                      {
                 savestu.map((x)=>
                 {
                     dat.map((y)=>
@@ -107,6 +104,10 @@ const Login=()=>{
                     })
                 })
             }
+            </table>
+            <div>
+            <Link onClick={Complete} to='/' style={{border:'none',textDecoration:'none',padding:'1%',backgroundColor:'green',marginLeft:'80%',color:'white',borderRadius:'3px',height:'6vh',width:'15vh'}}><b>Complete Day</b></Link>
+            </div>
         </div>
         </>
     )
