@@ -6,6 +6,7 @@ const Login=()=>{
     const [atnd,satnd]=useState([]);
     const [savestu,ssavestu]=useState([]);
     const [select,sselect]=useState([]);
+    const [year,syear]=useState(3);
     const date=new Date();
     const Attend=async()=>
     {
@@ -37,6 +38,7 @@ const Login=()=>{
             console.log(e);
         }
     }
+    console.log(year);
     const Complete=()=>
     {
         localStorage.name='';
@@ -57,36 +59,22 @@ const Login=()=>{
     return(
         <>
         <div className="clgname">SRKREC Teach Center</div>
-        <div>
-        <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input>
-            <table className="studetail">
-                    <tr>
-                        <th>SNO</th>
-                        <th>REGISTER NUMBER</th>
-                        <th>NAME</th>
-                        <th>CLICK</th>
-                        <th>STREAK</th>
-                    </tr>
-                    <tr>
-                        <td colSpan={5} style={{ background: 'red' }}></td>
-                    </tr>
-            {dat.filter(user=>(user.Reg_No).toLowerCase().includes(select)||(user.Reg_No).toUpperCase().includes(select)||(user.Name).toUpperCase().includes(select)||(user.Name).toLowerCase().includes(select)).map((x,index) => (
-                           <>
-                            <tr>
-                                <td style={{paddingLeft:"3%",height:'7vh'}}>{index + 1}</td>
-                                <td style={{paddingLeft:"11%"}}>{x.Reg_No}</td>
-                                <td style={{paddingLeft:"12%"}}>{x.Name}</td>
-                                <td style={{paddingLeft:"3%"}}>
-                                    <button id={x.Gmail} onClick={Attend} onClickCapture={(e)=>{satnd(x)}} style={{border:'none',backgroundColor:'blue',color:'white',borderRadius:'3px',height:'6vh',width:'15vh',cursor:'pointer'}}><b>Attend</b></button>
-                                </td>
-                                <td style={{paddingLeft:"4.5%"}}>
-                                    <p style={{position:'absolute',margin:'12px 0px 1px 1.3%',fontSize:'15px'}}><b>{x.Num}</b></p>
-                                    <img src={"streak.png"} alt="streak" width={"55px"}></img>
-                                </td>
-                            </tr>
-                           </>
-                     ))}
-                      {
+        <br/>
+        <tr>
+            <td>
+                <button style={{marginLeft:'5vh'}} onClick={(e)=>{syear(1)}}><b>1st Year</b></button>
+            </td>
+            <td>
+                <button style={{marginLeft:'35vh',backgroundColor:'red'}} onClick={(e)=>{syear(2)}}><b>2nd Year</b></button>
+            </td>
+            <td>
+                <button style={{marginLeft:'35vh',backgroundColor:'blueviolet'}} onClick={(e)=>{syear(3)}}><b>3rd Year</b></button>
+            </td>
+            <td>
+                <button style={{marginLeft:'35vh',backgroundColor:'green'}} onClick={(e)=>{syear(4)}}><b>4th Year</b></button>
+            </td>
+        </tr>
+        {
                 savestu.map((x)=>
                 {
                     dat.map((y)=>
@@ -105,6 +93,44 @@ const Login=()=>{
                     })
                 })
             }
+        <br/>
+        <div>
+        <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input>
+            <table className="studetail">
+            <tr>
+                <td style={{height:'6vh'}} colSpan={5}><Link to='/register' className="signup">Register</Link></td>
+            </tr>
+                    <tr>
+                        <th>SNO</th>
+                        <th>REGISTER NUMBER</th>
+                        <th>NAME</th>
+                        <th>CLICK</th>
+                        <th>STREAK</th>
+                    </tr>
+                    <tr>
+                        <td colSpan={5} style={{ background: 'red' }}></td>
+                    </tr>
+            {dat.filter(user=>(user.Reg_No).toLowerCase().includes(select)||(user.Reg_No).toUpperCase().includes(select)||(user.Name).toUpperCase().includes(select)||(user.Name).toLowerCase().includes(select)).map((x,index) => (
+                           <>
+                            <tr>
+                               {
+                                x.Year==year?
+                                <>
+                                <td style={{paddingLeft:"3%",height:'7vh'}}>{index + 1}</td>
+                                <td style={{paddingLeft:"11%"}}>{x.Reg_No}</td>
+                                <td style={{paddingLeft:"12%"}}>{x.Name}</td>
+                                <td style={{paddingLeft:"3%"}}>
+                                    <button id={x.Gmail} onClick={Attend} onClickCapture={(e)=>{satnd(x)}} style={{border:'none',backgroundColor:'blue',color:'white',borderRadius:'3px',height:'6vh',width:'15vh',cursor:'pointer'}}><b>Attend</b></button>
+                                </td>
+                                <td style={{paddingLeft:"4.5%"}}>
+                                    <p style={{position:'absolute',margin:'12px 0px 1px 1.3%',fontSize:'15px'}}><b>{x.Num}</b></p>
+                                    <img src={"streak.png"} alt="streak" width={"55px"}></img>
+                                </td>
+                                </>:<b></b>
+                               }
+                            </tr>
+                           </>
+                     ))}
             </table>
             <div>
             <Link onClick={Complete} to='/' style={{border:'none',textDecoration:'none',padding:'1%',backgroundColor:'green',marginLeft:'80%',color:'white',borderRadius:'3px',height:'6vh',width:'15vh'}}><b>Complete Day</b></Link>

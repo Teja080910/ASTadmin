@@ -52,16 +52,16 @@
 /*  */
 
 /* login.js */
-.signup{
+.signup
+{
   text-decoration: none;
   padding: 0.5%;
   background-color: blueviolet;
-  margin-top: 2%;
-  margin-left: 30%;
+  margin-left: 90%;
   border-radius: 5%;
   color: aliceblue;
   font-size: 25px;
-  width:10%;
+  width:30%;
   text-align: center;
 }
 .border1{
@@ -162,4 +162,11 @@
   font-family: poppins;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+button
+{
+  width: 18vh;
+  height: 5vh;
+  background-color:blue;
+  color: white;
 }

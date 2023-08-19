@@ -7,7 +7,6 @@ export const Nav=()=>
         <div className="display">
         <h1>MERN</h1>
         <h1 className="center">ATTENDANCE</h1>
-        <Link to='/register' className="signup">Register</Link>
         </div>
         <div className="display1">
             <Link to='/addproject' className="display1item">Add Project</Link>
