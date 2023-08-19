@@ -2,14 +2,14 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Nav } from "../nav&foot/nav";
-const Home=()=>{
+export const Admin=()=>{
     const nav=useNavigate();
-    const[username,setusername]=useState([]);
+    const[gmail,setgmail]=useState([]);
     const[password,setpassword]=useState([]);
     const date=new Date();
     const Submit=async()=>{
         try{
-            const responce=await axios.get("https://attendance-339a.onrender.com/admincheck/"+username+"/"+password)
+            const responce=await axios.get("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password)
            if(responce.data)
            {
             if (responce.data.Dates !== date.toDateString())
@@ -48,11 +48,35 @@ const Home=()=>{
     <Nav/>
         <div className="log1">
         <h1 className="h">MERN</h1><br/>
-        <input className="inwidth" type="text" name="admin" id="admin" placeholder="Admin User Name" onChange={(e)=>setusername(e.target.value)}/><br/><br/>
+        <input className="inwidth" type="text" name="admin" id="admin" placeholder="Admin Gmail" onChange={(e)=>setgmail(e.target.value)}/><br/><br/>
         <input className="inwidth" type="password" name="password" id="password" placeholder="Password" onChange={(e)=>setpassword(e.target.value)}/><br/><br/>
         <button className="bwidth" onClick={Submit}>Submit</button>
         </div>
     </>
     )
 }
-export default Home;
+
+
+
+export const Adminreg=()=>
+{
+    const nav=useNavigate();
+    const[gmail,setgmail]=useState([]);
+    const[password,setpassword]=useState([]);
+    const Submit=async()=>
+    {
+        const responce=await axios.post("https://attendance-339a.onrender.com/adminregi/"+gmail+"/"+password)
+        if(responce.data)
+        {
+            alert("Sucessfully Registered");
+            nav('/adminlogin')
+        }
+    }
+    return(
+        <>
+        <input className="inwidth" type="text" name="admin" id="admin" placeholder="Admin User Name" onChange={(e)=>setgmail(e.target.value)}/><br/><br/>
+        <input className="inwidth" type="password" name="password" id="password" placeholder="Password" onChange={(e)=>setpassword(e.target.value)}/><br/><br/>
+        <button className="bwidth" onClick={Submit}>Submit</button>
+        </>
+    )
+}
