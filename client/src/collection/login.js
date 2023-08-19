@@ -50,8 +50,7 @@ const Login=()=>{
             <Link to='/projects' className="display1item" style={{marginRight:'11%'}}>Projects</Link>
         </div>
         <br/> */}
-        <div className="clgname">SRKREC Teach Center</div>
-        <div>
+        <div className="clgname">SRKREC Teach Center</div><div>
         <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input>
             <table className="studetail">
                     <tr>

@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import { connectToDB, db } from "./db.js";
+import {connectToDBS,dbs} from './db1.js';
 const app = express()
 app.use(cors(
     // {
@@ -28,53 +29,53 @@ app.post('/updateadmin/:name/:date',async(req,res)=>
 })
  app.get('/mailcheck/:mail',async(req,res)=>
 {
-    const details=await db.collection('signup').findOne({Gmail:req.params.mail})
+    const details=await dbs.collection('Signup').findOne({Gmail:req.params.mail})
     res.json(details);
 })
 app.post('/signup/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
 {
-    const details=await db.collection('signup').insertOne({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch,Num:req.params.num});
+    const details=await dbs.collection('Signup').insertOne({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch,Num:req.params.num});
     res.json(details);
 })
 app.get('/students',async(req,res)=>
 {
-    const details=await db.collection('signup').find().toArray()
+    const details=await dbs.collection('Signup').find().toArray()
     res.json(details);
 })
 app.get('/student/:gmail',async(req,res)=>
 {
-    const details=await db.collection('signup').findOne({Gmail:req.params.gmail})
+    const details=await dbs.collection('Signup').findOne({Gmail:req.params.gmail})
     res.json(details);
 })
 app.post('/savestudent/:gmail/:regi',async(req,res)=>
 {
-    const details=await db.collection('login').insertOne({Gmail:req.params.gmail,Reg_No:req.params.regi})
+    const details=await dbs.collection('Login').insertOne({Gmail:req.params.gmail,Reg_No:req.params.regi})
     res.json(details);
 })
 
 app.get('/showsavestu',async(req,res)=>
 {
-    const details=await db.collection('login').find().toArray()
+    const details=await dbs.collection('Login').find().toArray()
     res.json(details);
 })
 app.post('/streak/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
 {
-    const details=await db.collection('signup').findOneAndUpdate({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch},{$set:{Num:req.params.num}})
+    const details=await dbs.collection('Signup').findOneAndUpdate({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch},{$set:{Num:req.params.num}})
     res.json(details);
 })
 app.post('/delete',async(req,res)=>
 {
-    const details=await db.collection('login').deleteMany()
+    const details=await dbs.collection('Login').deleteMany()
     res.json(details);
 })
 app.post('/project/:name/:project',async(req,res)=>
 {
-    const details=await db.collection("projects").insertOne({Name:req.params.name,Project:req.params.project})
+    const details=await dbs.collection("Projects").insertOne({Name:req.params.name,Project:req.params.project})
     res.json(details);
 })
 app.get('/projects',async(req,res)=>
 {
-    const details=await db.collection("projects").find().toArray()
+    const details=await dbs.collection("Projects").find().toArray()
     res.json(details);
 })
 }
@@ -85,5 +86,10 @@ catch(e)
 connectToDB(()=>{
     app.listen(8000,()=>{
       console.log("Server Running At port 8000");
+    })
+})
+connectToDBS(()=>{
+    app.listen(8001,()=>{
+      console.log("Server Running At port 8001");
     })
 })

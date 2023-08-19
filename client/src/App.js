@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter,Route,Routes } from 'react-router-dom';
-import Home from './collection/home';
+import Home from './collection/admin';
 import Signup from './collection/signup';
 import Login from './collection/login';
 import { Addproject, Projects } from './collection/project';
