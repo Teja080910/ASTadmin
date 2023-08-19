@@ -11,6 +11,7 @@ function App() {
     <>
     <BrowserRouter>
     <Routes>
+      <Route path='/' element={<Home/>}/>
       <Route path="/adminlogin" element={<Admin/>}/>
       <Route path='adminregister' element={<Adminreg/>}/>
       <Route path="/login" element={localStorage.name===''?<Home/>:<Login/>}/>

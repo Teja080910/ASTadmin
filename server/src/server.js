@@ -12,7 +12,12 @@ try
 {
 app.get('/admincheck/:name/:password',async(req,res)=>
 {
-    const details=await db.collection('admin').findOne({Name:req.params.name,Password:req.params.password})
+    const details=await db.collection('admin').findOne({Gmail:req.params.name,Password:req.params.password})
+    res.json(details);
+})
+app.post('/adminregi/:gmail/:password',async(req,res)=>
+{
+    const details=await db.collection('admin').insertOne({Gmail:req.params.gmail,Password:req.params.password})
     res.json(details);
 })
 app.post('/updateadmin/:name/:date',async(req,res)=>
