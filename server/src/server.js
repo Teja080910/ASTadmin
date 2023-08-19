@@ -40,14 +40,14 @@ app.get('/students',async(req,res)=>
     const details=await db.collection('Signup').find().toArray()
     res.json(details);
 })
-app.get('/studentcheck/:gmail',async(req,res)=>
-{
-    const details=await db.collection('Login').findOne({Gmail:req.params.gmail})
-    res.json(details);
-})
 app.get('/student/:gmail',async(req,res)=>
 {
     const details=await db.collection('Signup').findOne({Gmail:req.params.gmail})
+    res.json(details);
+})
+app.get('/studentcheck/:gmail',async(req,res)=>
+{
+    const details=await db.collection('Login').findOne({Gmail:req.params.gmail})
     res.json(details);
 })
 app.post('/savestudent/:gmail/:regi',async(req,res)=>

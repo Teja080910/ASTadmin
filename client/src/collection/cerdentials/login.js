@@ -8,6 +8,8 @@ const Login=()=>{
     const [select,sselect]=useState([]);
     const Attend=async()=>
     {
+        try
+        {
         const res=await axios.get("https://attendance-339a.onrender.com/studentcheck/"+atnd.Gmail)
         if(res.data)
         {
@@ -27,6 +29,11 @@ const Login=()=>{
                     window.location.reload(1);
                 }
             }
+        }
+        }
+        catch(e)
+        {
+            console.log(e);
         }
     }
     const Complete=()=>
