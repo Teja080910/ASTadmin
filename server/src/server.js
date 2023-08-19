@@ -1,15 +1,8 @@
 import cors from 'cors';
 import express from 'express';
 import { connectToDB, db } from "./db.js";
-import {connectToDBS,dbs} from './db1.js';
 const app = express()
-app.use(cors(
-    // {
-    //     origin:["https://ast-attendence.vercel.app"],
-    //     methods:["POST","GET"],
-    //     credentials:true
-    // }
-))
+app.use(cors())
 app.use(express.json())
 app.get('/',(req,res)=>{
     res.json("server is running successfully!");
@@ -34,48 +27,48 @@ app.post('/updateadmin/:name/:date',async(req,res)=>
 })
 app.post('/signup/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
 {
-    const details=await dbs.collection('Signup').insertOne({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch,Num:req.params.num});
+    const details=await db.collection('Signup').insertOne({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch,Num:req.params.num});
     res.json(details);
 })
 app.get('/students',async(req,res)=>
 {
-    const details=await dbs.collection('Signup').find().toArray()
+    const details=await db.collection('Signup').find().toArray()
     res.json(details);
 })
 app.get('/student/:gmail',async(req,res)=>
 {
-    const details=await dbs.collection('Signup').findOne({Gmail:req.params.gmail})
+    const details=await db.collection('Signup').findOne({Gmail:req.params.gmail})
     res.json(details);
 })
 app.post('/savestudent/:gmail/:regi',async(req,res)=>
 {
-    const details=await dbs.collection('Login').insertOne({Gmail:req.params.gmail,Reg_No:req.params.regi})
+    const details=await db.collection('Login').insertOne({Gmail:req.params.gmail,Reg_No:req.params.regi})
     res.json(details);
 })
 
 app.get('/showsavestu',async(req,res)=>
 {
-    const details=await dbs.collection('Login').find().toArray()
+    const details=await db.collection('Login').find().toArray()
     res.json(details);
 })
 app.post('/streak/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
 {
-    const details=await dbs.collection('Signup').findOneAndUpdate({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch},{$set:{Num:req.params.num}})
+    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch},{$set:{Num:req.params.num}})
     res.json(details);
 })
 app.post('/delete',async(req,res)=>
 {
-    const details=await dbs.collection('Login').deleteMany()
+    const details=await db.collection('Login').deleteMany()
     res.json(details);
 })
 app.post('/project/:name/:project',async(req,res)=>
 {
-    const details=await dbs.collection("Projects").insertOne({Name:req.params.name,Project:req.params.project})
+    const details=await db.collection("Projects").insertOne({Name:req.params.name,Project:req.params.project})
     res.json(details);
 })
 app.get('/projects',async(req,res)=>
 {
-    const details=await dbs.collection("Projects").find().toArray()
+    const details=await db.collection("Projects").find().toArray()
     res.json(details);
 })
 }
@@ -86,10 +79,5 @@ catch(e)
 connectToDB(()=>{
     app.listen(8000,()=>{
       console.log("Server Running At port 8000");
-    })
-})
-connectToDBS(()=>{
-    app.listen(8001,()=>{
-      console.log("Server Running At port 8001");
     })
 })
