@@ -82,9 +82,11 @@ export const Adminreg=()=>
     }
     return(
         <>
+        <div className="log1">
         <input className="inwidth" type="text" name="admin" id="admin" placeholder="Admin Gmail" onChange={(e)=>setgmail(e.target.value)}/><br/><br/>
         <input className="inwidth" type="password" name="password" id="password" placeholder="Password" onChange={(e)=>setpassword(e.target.value)}/><br/><br/>
         <button className="bwidth" onClick={Submit}>Submit</button>
+        </div>
         </>
     )
 }
