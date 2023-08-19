@@ -3,7 +3,7 @@ import './App.css';
 import { Admin, Adminreg } from './collection/admin/admin';
 import Login from './collection/cerdentials/login';
 import Signup from './collection/cerdentials/signup';
-import { Home } from './collection/home/home';
+import { Home } from './collection/home/homes';
 import { Addproject, Projects } from './collection/project/project';
 function App() {
   return (
