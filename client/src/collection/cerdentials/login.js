@@ -6,6 +6,7 @@ const Login=()=>{
     const [atnd,satnd]=useState([]);
     const [savestu,ssavestu]=useState([]);
     const [select,sselect]=useState([]);
+    const date=new Date();
     const Attend=async()=>
     {
         try
@@ -22,7 +23,7 @@ const Login=()=>{
             {
                 atnd.Num=(parseInt(responce.data.Num)+1);
                 await axios.post("https://attendance-339a.onrender.com/streak/"+atnd.Gmail+"/"+atnd.Name+"/"+atnd.Reg_No+"/"+atnd.Year+"/"+atnd.Branch+"/"+atnd.Num)
-                const responce1=await axios.post("https://attendance-339a.onrender.com/savestudent/"+atnd.Gmail+"/"+atnd.Reg_No)
+                const responce1=await axios.post("https://attendance-339a.onrender.com/savestudent/"+atnd.Gmail+"/"+atnd.Reg_No) && await axios.post("https://attendance-339a.onrender.com/loginstudent/"+atnd.Gmail+"/"+atnd.Reg_No+"/"+date.date.toLocaleDateString())
                 if(responce1.data)
                 {
                     alert(atnd.Reg_No+" Attend");

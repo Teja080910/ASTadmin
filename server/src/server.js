@@ -55,7 +55,11 @@ app.post('/savestudent/:gmail/:regi',async(req,res)=>
     const details=await db.collection('Login').insertOne({Gmail:req.params.gmail,Reg_No:req.params.regi})
     res.json(details);
 })
-
+app.post('/loginstudent/:gmail/:regi/:date',async(req,res)=>
+{
+    const details=await db.collection('Daily_login').insertOne({date:{Gmail:req.params.gmail,Reg_No:req.params.regi}})
+    res.json(details);
+})
 app.get('/showsavestu',async(req,res)=>
 {
     const details=await db.collection('Login').find().toArray()
