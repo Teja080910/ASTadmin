@@ -14,10 +14,10 @@ export const Admin=()=>{
            {
             if (responce.data.Dates !== date.toDateString())
             {
-                const responce2=await axios.post("https://attendance-339a.onrender.com/delete") && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+username+"/"+date.toDateString())
+                const responce2=await axios.post("https://attendance-339a.onrender.com/delete") && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail+"/"+date.toDateString())
                 if (responce2.data)
                 {
-                    localStorage.name=username;
+                    localStorage.name=gmail;
                     alert("Admin sucessfully logged in Today");
                     nav('/login')
                 }
@@ -28,7 +28,7 @@ export const Admin=()=>{
             }
             else
             {
-                localStorage.name=username;
+                localStorage.name=gmail;
                 alert("Admin sucessfully logged in again");
                 nav('/login')
             }
