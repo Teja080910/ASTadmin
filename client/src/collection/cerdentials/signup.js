@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Nav } from "../nav&foot/nav";
 const Signup=()=>{
     const nav=useNavigate();
     const[check,SetCheck]=useState("");
@@ -41,6 +42,8 @@ const Signup=()=>{
     }
     }
     return(
+        <>
+        <Nav/>
         <div className="body">
         <br/ >
         <table className="border" align="center">
@@ -90,6 +93,7 @@ const Signup=()=>{
         <br/>
         </table>
         </div>
+        </>
     );
 }
 export default Signup;

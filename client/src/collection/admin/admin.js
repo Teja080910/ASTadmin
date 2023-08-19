@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Nav } from "../nav&foot/nav";
 const Home=()=>{
     const nav=useNavigate();
     const[username,setusername]=useState([]);
@@ -44,6 +45,7 @@ const Home=()=>{
     }
     return(
     <>
+    <Nav/>
         <div className="log1">
         <h1 className="h">MERN</h1><br/>
         <input className="inwidth" type="text" name="admin" id="admin" placeholder="Admin User Name" onChange={(e)=>setusername(e.target.value)}/><br/><br/>

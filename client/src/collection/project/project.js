@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Nav } from "../nav&foot/nav";
 export const Addproject=()=>
 {
     const [name,sname]=useState([]);
@@ -22,6 +23,7 @@ export const Addproject=()=>
     }
     return(
         <>
+        <Nav/>
         <div className="addproject">
         <tr>
             <td style={{width:'30%'}}>
@@ -53,6 +55,7 @@ export const Projects=()=>
     })
     return(
         <>
+        <Nav/>
        {
         data.map((dat)=>
         (
