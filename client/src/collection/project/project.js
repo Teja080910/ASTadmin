@@ -49,7 +49,7 @@ export const Projects=()=>
     const [data,sdata]=useState([]);
     useEffect(()=>
     {
-        axios.get("http://attendance-339a.onrender.com/projects")
+        axios.get("https://attendance-339a.onrender.com/projects")
         .then((result)=>
         {
             sdata(result.data);
