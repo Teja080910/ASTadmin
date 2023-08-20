@@ -13,10 +13,10 @@ function App() {
       <Route path='/' element={<Home/>}/>
       <Route path="/adminlogin" element={<Admin/>}/>
       <Route path='adminregister' element={<Adminreg/>}/>
-      <Route path="/login" element={localStorage.name===''?<Home/>:<Login/>}/>
+      <Route path="/login" element={localStorage.name===''?<Admin/>:<Login/>}/>
       <Route path="/register" element={localStorage.name===''?<Home/>:<Signup/>}/>
-      <Route path='/addproject' element={localStorage.name===''?<Home/>:<Addproject/>}/>
-      <Route path='/projects' element={localStorage.name===''?<Home/>:<Projects/>}/>
+      <Route path='/addproject' element={<Addproject/>}/>
+      <Route path='/projects' element={<Projects/>}/>
     </Routes>
     </BrowserRouter>
     

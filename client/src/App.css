@@ -157,6 +157,16 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.homename
+{
+  margin-top: 17%;
+  text-align: center;
+  background:linear-gradient(180deg,#100445,#ff01a2);
+  font-size: 100px;
+  font-family: poppins;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 button
 {
   width: 18vh;
