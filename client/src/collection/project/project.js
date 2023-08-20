@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Navbars } from "../nav&foot/nav";
 export const Addproject=()=>
 {
     const [name,sname]=useState([]);
     const [project,sproject]=useState([]);
+    const nav=useNavigate();
     const Project=async()=>
     {
         try
@@ -14,6 +15,7 @@ export const Addproject=()=>
         if(responce.data)
         {
             alert("Sucessfully Submitted");
+            nav('/projects')
         }
         }
         catch(e)
