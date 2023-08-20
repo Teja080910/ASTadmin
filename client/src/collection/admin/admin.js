@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Nav } from "../nav&foot/nav";
+import { Navbars } from "../nav&foot/nav";
 export const Admin=()=>{
     const nav=useNavigate();
     const[gmail,setgmail]=useState([]);
@@ -45,7 +45,7 @@ export const Admin=()=>{
     }
     return(
     <>
-    <Nav/>
+    <Navbars/>
         <div className="log1">
         <h1 className="h">MERN</h1><br/>
         <input className="inwidth" type="text" name="admin" id="admin" placeholder="Admin Gmail" onChange={(e)=>setgmail(e.target.value)}/><br/><br/>

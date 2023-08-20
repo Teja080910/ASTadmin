@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Navbars } from "../nav&foot/nav";
 const Login=()=>{
     const [dat,sdat]=useState([]);
     const [atnd,satnd]=useState([]);
@@ -58,6 +59,7 @@ const Login=()=>{
     },[])
     return(
         <>
+        <Navbars/>
         <div className="clgname">SRKREC Teach Center</div>
         <br/>
         <tr>

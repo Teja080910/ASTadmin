@@ -121,16 +121,10 @@
 }
 .addproject
 {
-  background-color: grey;
-  width: 30%;
+  background-color: rgb(186, 184, 184);
+  width: 50vh;
   height: 30vh;
   margin: 20% 0% 0% 35%;
-}
-.addproject input
-{
-  margin-left: 5%;
-  width: 50%;
-  height: 4vh;
 }
 .addproject button
 {
@@ -138,7 +132,7 @@
   color: white;
   border: none;
   padding: 2%;
-  margin-left: 80%;
+  margin-left:35%;
 }
 .addproject label
 {
@@ -155,7 +149,7 @@
 }
 .clgname
 {
-  margin-top: 5%;
+  /* margin-top: 5%; */
   text-align: center;
   background:linear-gradient(180deg,#2900de,#b10f0f);
   font-size: 80px;

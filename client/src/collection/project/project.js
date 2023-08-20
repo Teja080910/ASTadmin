@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Nav } from "../nav&foot/nav";
+import { Navbars } from "../nav&foot/nav";
 export const Addproject=()=>
 {
     const [name,sname]=useState([]);
@@ -23,7 +23,7 @@ export const Addproject=()=>
     }
     return(
         <>
-        <Nav/>
+        <Navbars/>
         <div className="addproject">
         <tr>
             <td style={{width:'30%'}}>
@@ -33,7 +33,7 @@ export const Addproject=()=>
         <br/><br/>
         <tr>
             <td style={{width:'30%'}}>
-            <label>Project::<textPath><input type="text" placeholder="Github Repository" value={project} onChange={(e)=>sproject(e.target.value)}/></textPath></label>
+            <label>Project::<input type="text" placeholder="Github Repository" value={project} onChange={(e)=>sproject(e.target.value)}/></label>
             </td>
         </tr>
         <br/><br/>
@@ -55,7 +55,7 @@ export const Projects=()=>
     })
     return(
         <>
-        <Nav/>
+        <Navbars/>
        {
         data.map((dat)=>
         (

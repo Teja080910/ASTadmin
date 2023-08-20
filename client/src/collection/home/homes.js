@@ -1,10 +1,10 @@
 import React from "react";
-import { Nav } from "../nav&foot/nav";
+import { Navbars } from "../nav&foot/nav";
 export const Home=()=>
 {
     return(
         <>
-        <Nav/>
+        <Navbars/>
         </>
     )
 }
