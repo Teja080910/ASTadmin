@@ -35,7 +35,7 @@ export const Addproject=()=>
         <br/><br/>
         <tr>
             <td style={{width:'30%'}}>
-            <label>Project::<input type="text" placeholder="Github Repository" value={project} onChange={(e)=>sproject(e.target.value)}/></label>
+            <label>Project::<input type="text" placeholder="project link" value={project} onChange={(e)=>sproject(e.target.value)}/></label>
             </td>
         </tr>
         <br/><br/>

@@ -7,7 +7,7 @@ export const Home=()=>
         <>
         <Navbars/>
         <div className="homename">
-            Devloping Sadhana App
+            Developing Sadhana App
         </div>
         </>
     )
