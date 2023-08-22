@@ -202,3 +202,6 @@ button
   height: 50vh;
   background-color:rgb(178, 252, 254);
 }
+body{
+  background-color: red;
+}

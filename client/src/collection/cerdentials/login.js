@@ -13,24 +13,25 @@ const Login=()=>{
     {
         try
         {
-        const res=await axios.get("https://attendance-339a.onrender.com/studentcheck/"+atnd.Gmail)
-        if(res.data)
+        if(await axios.get("https://attendance-339a.onrender.com/studentcheck/"+atnd.Gmail))
         {
            alert("Already Attend");
         }
         else
         {
             const responce=await axios.get("https://attendance-339a.onrender.com/student/"+atnd.Gmail)
-            if(responce.data)
+            {
+                if(responce.data)
             {
                 atnd.Num=(parseInt(responce.data.Num)+1);
                 await axios.post("https://attendance-339a.onrender.com/streak/"+atnd.Gmail+"/"+atnd.Name+"/"+atnd.Reg_No+"/"+atnd.Year+"/"+atnd.Branch+"/"+atnd.Num)
-                const responce1=await axios.post("https://attendance-339a.onrender.com/savestudent/"+atnd.Gmail+"/"+atnd.Reg_No) && await axios.post("https://attendance-339a.onrender.com/loginstudent/"+atnd.Gmail+"/"+atnd.Reg_No+"/"+date.date.toLocaleDateString())
+                const responce1=await axios.post("https://attendance-339a.onrender.com/savestudent/"+atnd.Gmail+"/"+atnd.Reg_No) && await axios.post("https://attendance-339a.onrender.com/loginstudent/"+atnd.Gmail+"/"+atnd.Reg_No+"/"+date.toLocaleDateString())
                 if(responce1.data)
                 {
                     alert(atnd.Reg_No+" Attend");
                     window.location.reload(1);
                 }
+            }
             }
         }
         }
