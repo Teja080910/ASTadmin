@@ -25,11 +25,6 @@ app.post('/updateadmin/:gmail/:date',async(req,res)=>
     const details=await db.collection('admin').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Dates:req.params.date}})
     res.json(details);
 })
- app.get('/mailcheck/:mail',async(req,res)=>
-{
-    const details=await dbs.collection('Signup').findOne({Gmail:req.params.mail})
-    res.json(details);
-})
 app.post('/signup/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
 {
     const details=await db.collection('Signup').insertOne({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch,Num:req.params.num});

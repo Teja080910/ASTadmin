@@ -11,12 +11,12 @@ const Signup=()=>{
     const[branch,Setbranch]=useState("");
     const[email,SetEmail]=useState("");
     const [num,snum]=useState(0);
-    const handleclick =async(event)=>{
+    const Handleclick =async()=>{
         const emailRegex =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         try{
        if(emailRegex.test(email))
         {
-        const  responce1 = await axios.get("https://attendance-339a.onrender.com/mailcheck/"+email);
+        const  responce1 = await axios.get("https://attendance-339a.onrender.com/student/"+email);
         if(responce1.data)
         {
             SetCheck("E-mail or Register Number is already exists");
@@ -48,7 +48,7 @@ const Signup=()=>{
         <br/ >
         <table className="border" align="center">
         <tr>
-            <th colspan="10" className="center">SIGNUP FORM</th>
+            <th colspan="10" className="center" style={{paddingLeft:'40%'}}>SIGNUP FORM</th>
         </tr>
         <br/>
         <tr><td className="marq" colspan="4"><marquee>{check}</marquee></td></tr>
@@ -89,7 +89,7 @@ const Signup=()=>{
         <td colspan="4"><input className="inputwidth" type="email"  id="email" placeholder="G-mail"  name="email" onChange={(e)=>SetEmail(e.target.value)}/></td></tr><br/>    
         <tr>
             <td><Link to='/login' style={{textDecoration:'none',padding:'1.5% 10%',backgroundColor:'greenyellow',marginLeft:'70%',borderRadius:'5px'}}>Login</Link></td>
-        <td colspan="5" align="center"><button className="buttonwidth" type="button" onClick={handleclick}><b>Register</b></button></td></tr>
+        <td colspan="5" align="center"><button className="buttonwidth" type="button" onClick={Handleclick}><b>Register</b></button></td></tr>
         <br/>
         </table>
         </div>

@@ -7,7 +7,7 @@ const Login=()=>{
     const [atnd,satnd]=useState([]);
     const [savestu,ssavestu]=useState([]);
     const [select,sselect]=useState([]);
-    const [year,syear]=useState(3);
+    const [year,syear]=useState();
     const date=new Date();
     const Attend=async()=>
     {
@@ -39,10 +39,14 @@ const Login=()=>{
             console.log(e);
         }
     }
-    console.log(year);
     const Complete=()=>
     {
         localStorage.name='';
+    }
+    const Year=()=>
+    {
+        localStorage.year=year;
+        window.location.reload(1);
     }
     useEffect(()=>
     {
@@ -64,37 +68,18 @@ const Login=()=>{
         <br/>
         <tr>
             <td>
-                <button style={{marginLeft:'5vh'}} onClick={(e)=>{syear(1)}}><b>1st Year</b></button>
+                <button style={{marginLeft:'5vh'}} onClick={Year} onClickCapture={(e)=>{syear(1)}}><b>1st Year</b></button>
             </td>
             <td>
-                <button style={{marginLeft:'35vh',backgroundColor:'red'}} onClick={(e)=>{syear(2)}}><b>2nd Year</b></button>
+                <button style={{marginLeft:'35vh',backgroundColor:'red'}} onClick={Year} onClickCapture={(e)=>{syear(2)}}><b>2nd Year</b></button>
             </td>
             <td>
-                <button style={{marginLeft:'35vh',backgroundColor:'blueviolet'}} onClick={(e)=>{syear(3)}}><b>3rd Year</b></button>
+                <button style={{marginLeft:'35vh',backgroundColor:'blueviolet'}} onClick={Year} onClickCapture={(e)=>{syear(3)}}><b>3rd Year</b></button>
             </td>
             <td>
-                <button style={{marginLeft:'35vh',backgroundColor:'green'}} onClick={(e)=>{syear(4)}}><b>4th Year</b></button>
+                <button style={{marginLeft:'35vh',backgroundColor:'green'}} onClick={Year} onClickCapture={(e)=>{syear(4)}}><b>4th Year</b></button>
             </td>
         </tr>
-        {
-                savestu.map((x)=>
-                {
-                    dat.map((y)=>
-                    {
-                        if(x.Gmail===y.Gmail)
-                        {
-                           try
-                           {
-                            document.getElementById(y.Gmail).style.display="none";
-                           }
-                           catch(e)
-                           {
-                            console.log(e);
-                           }
-                        }
-                    })
-                })
-            }
         <br/>
         <div>
         <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input>
@@ -116,7 +101,7 @@ const Login=()=>{
                            <>
                             <tr>
                                {
-                                x.Year==year?
+                                x.Year==localStorage.year?
                                 <>
                                 <td style={{paddingLeft:"3%",height:'7vh'}}>{index + 1}</td>
                                 <td style={{paddingLeft:"11%"}}>{x.Reg_No}</td>
@@ -133,6 +118,25 @@ const Login=()=>{
                             </tr>
                            </>
                      ))}
+                     {
+                savestu.map((x)=>
+                {
+                    dat.map((y)=>
+                    {
+                        if(x.Gmail===y.Gmail)
+                        {
+                           try
+                           {
+                            document.getElementById(y.Gmail).style.display="none";
+                           }
+                           catch(e)
+                           {
+                            console.log(e);
+                           }
+                        }
+                    })
+                })
+            }
             </table>
             <div>
             <Link onClick={Complete} to='/' style={{border:'none',textDecoration:'none',padding:'1%',backgroundColor:'green',marginLeft:'80%',color:'white',borderRadius:'3px',height:'6vh',width:'15vh'}}><b>Complete Day</b></Link>

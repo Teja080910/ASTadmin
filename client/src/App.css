@@ -31,6 +31,7 @@
   
   width:60%;
   height:30px;
+  margin-left: 10%;
 }
 .buttonwidth{
   width:100px;
@@ -48,6 +49,10 @@
   height:80vh;
   margin-top:8vh;
   background-color: aliceblue;
+}
+.border th
+{
+  padding-left: 10%;
 }
 /*  */
 
@@ -103,7 +108,9 @@
   color:aqua;
 }
 .center{
-  margin-left: 37%;
+  padding-left:57%;
+  color:green;
+  font-size: x-large;
 }
 .studetail
 {
