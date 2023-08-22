@@ -14,12 +14,11 @@ export const Admin=()=>{
            {
             if (responce.data.Dates !== date.toDateString())
             {
-                const responce2=await axios.post("https://attendance-339a.onrender.com/delete") && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail+"/"+date.toDateString())
-                if (responce2.data)
+                if (await axios.post("https://attendance-339a.onrender.com/delete") && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail+"/"+date.toDateString()))
                 {
                     localStorage.name=gmail;
                     alert("Admin sucessfully logged in Today");
-                    nav('/login')
+                    nav("/login")
                 }
                 else
                 {
@@ -65,15 +64,13 @@ export const Adminreg=()=>
     const[password,setpassword]=useState([]);
     const Submit=async()=>
     {
-       const res=await axios.get("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password)
-        if(res.data)
+        if(await axios.get("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password))
         {
             alert("Already Register")
         }
         else
         {
-            const responce=await axios.post("https://attendance-339a.onrender.com/adminregi/"+gmail+"/"+password)
-            if(responce.data)
+            if(await axios.post("https://attendance-339a.onrender.com/adminregi/"+gmail+"/"+password))
             {
                 alert("Sucessfully Registered");
                 nav('/adminlogin')
