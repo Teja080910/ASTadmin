@@ -20,7 +20,7 @@ export const Navbars=()=>
               <NavDropdown.Item href="/login">Attendance</NavDropdown.Item>
               <NavDropdown.Item href="/addproject">Add Project</NavDropdown.Item>
               <NavDropdown.Item href="/projects">Projects</NavDropdown.Item>
-              <NavDropdown.Item href="#">Daily Attendance</NavDropdown.Item>
+              <NavDropdown.Item href="/scrummaster">Scrum Masters</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

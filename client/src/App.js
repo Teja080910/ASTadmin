@@ -5,6 +5,7 @@ import Login from './collection/cerdentials/login';
 import Signup from './collection/cerdentials/signup';
 import { Home } from './collection/home/homes';
 import { Addproject, Projects } from './collection/project/project';
+import { Scrum } from './collection/scrummaster/scrum';
 function App() {
   return (
     <>
@@ -17,6 +18,7 @@ function App() {
       <Route path="/register" element={localStorage.name===''?<Home/>:<Signup/>}/>
       <Route path='/addproject' element={<Addproject/>}/>
       <Route path='/projects' element={<Projects/>}/>
+      <Route path='/scrummaster' element={<Scrum/>}/>
     </Routes>
     </BrowserRouter>
     
