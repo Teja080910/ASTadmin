@@ -181,3 +181,24 @@ button
   background-color:blue;
   color: white;
 }
+.scrmbtn
+{
+  width: 30vh;
+  margin-top: 5%;
+  margin-left: 23%;
+  height: 10vh;
+  font-size: larger;
+  background-color: Green;
+}
+.dailywork
+{
+  width: 40%;
+  height: 50vh;
+  background-color:rgb(215, 172, 255);
+}
+.dailyattend
+{
+  width: 40%;
+  height: 50vh;
+  background-color:rgb(178, 252, 254);
+}
