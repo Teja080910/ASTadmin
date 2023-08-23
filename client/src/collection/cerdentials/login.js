@@ -68,7 +68,7 @@ const Login=()=>{
     return(
         <>
         <Navbars/>
-        <div className="clgname">SRKREC Teach Center</div>
+        <div className="clgname">SRKREC Tech Center</div>
         <br/>
         <tr>
             <td>
