@@ -66,7 +66,7 @@ export const Projects=()=>
         (
             <tr>
             <td>
-                <Link className="projectlink" to={dat.Project}>{dat.Name}</Link>
+                <Link className="projectlink" to={"https://"+dat.Project}>{dat.Name}</Link>
             </td>
         </tr>
         ))
