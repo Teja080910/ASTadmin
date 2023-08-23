@@ -9,9 +9,10 @@ export const Admin=()=>{
     const date=new Date();
     const Submit=async()=>{
         try{
-            const responce=await axios.get("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password)
-           if(responce.data)
+            
+           if(await axios.get("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password))
            {
+            const responce=await axios.get("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password)
             if (responce.data.Dates !== date.toDateString())
             {
                 if (await axios.post("https://attendance-339a.onrender.com/delete") && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail+"/"+date.toDateString()))
