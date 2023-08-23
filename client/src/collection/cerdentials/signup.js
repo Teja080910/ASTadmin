@@ -16,18 +16,21 @@ const Signup=()=>{
         try{
        if(emailRegex.test(email))
         {
-        if(await axios.get("https://attendance-339a.onrender.com/student/"+email))
-        {
-            SetCheck("E-mail or Register Number is already exists");
+            const res=await axios.get("https://attendance-339a.onrender.com/student/"+email)
+            {
+                if(res.data)
+                {
+                    SetCheck("E-mail or Register Number is already exists");
+                }
+                else
+                {
+                    await axios.post("https://attendance-339a.onrender.com/signup/"+email+"/"+name+"/"+regd+"/"+year+"/"+branch+"/"+num)? alert("Register Successfully") && nav('/login'):alert("Try again");
+                }
+                }
         }
         else
         {
-            await axios.post("https://attendance-339a.onrender.com/signup/"+email+"/"+name+"/"+regd+"/"+year+"/"+branch+"/"+num)? alert("Register Successfully") && nav('/login'):alert("Try again");
-        }
-        }
-       else
-        {
-            SetCheck("Invalid Email");
+             SetCheck("Invalid Email");
         }
     }
     catch(err)
