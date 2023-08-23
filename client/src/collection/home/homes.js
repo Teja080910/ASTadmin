@@ -6,9 +6,7 @@ export const Home=()=>
     return(
         <>
         <Navbars/>
-        <div className="homename">
-            Developing Sadhana App
-        </div>
+        <div className="homename">Developing Sadhana App</div>
         </>
     )
 }
