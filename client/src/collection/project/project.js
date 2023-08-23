@@ -11,7 +11,15 @@ export const Addproject=()=>
     {
         try
         {
-         await axios.post("https://attendance-339a.onrender.com/project/"+name+"/"+project)?(alert("Sucessfully Submitted") && nav('/projects')):alert("Try again");
+         if(await axios.post("https://attendance-339a.onrender.com/project/"+name+"/"+project))
+         {
+            alert("Sucessfully Submitted");
+            nav('/projects');
+         }
+         else
+         {
+            alert("Try again");
+         }
         }
         catch(e)
         {
