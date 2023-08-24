@@ -102,7 +102,7 @@ const Login=()=>{
                         <td colSpan={5} style={{ background: 'red' }}></td>
                     </tr>
             {
-            (dat.filter(itemA => savestu.some(itemB => itemB.Gmail !== itemA.Gmail))).filter(user=>(user.Reg_No).toLowerCase().includes(select)||(user.Reg_No).toUpperCase().includes(select)||(user.Name).toUpperCase().includes(select)||(user.Name).toLowerCase().includes(select)).map((x,index) => (
+            (dat.filter(itemA => savestu.some(itemB=>itemB.Gmail!==itemA.Gmail))).filter(user=>(user.Reg_No).toLowerCase().includes(select)||(user.Reg_No).toUpperCase().includes(select)||(user.Name).toUpperCase().includes(select)||(user.Name).toLowerCase().includes(select)).map((x,index) => (
                            <>
                             <tr>
                            {
@@ -125,7 +125,7 @@ const Login=()=>{
                      ))}
             </table>
             <div>
-                
+
             <Link onClick={Complete} to='/' style={{border:'none',textDecoration:'none',padding:'1%',backgroundColor:'green',marginLeft:'80%',color:'white',borderRadius:'3px',height:'6vh',width:'15vh'}}><b>Complete Day</b></Link>
             </div>
         </div>
