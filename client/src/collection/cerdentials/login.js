@@ -125,6 +125,7 @@ const Login=()=>{
                      ))}
             </table>
             <div>
+                
             <Link onClick={Complete} to='/' style={{border:'none',textDecoration:'none',padding:'1%',backgroundColor:'green',marginLeft:'80%',color:'white',borderRadius:'3px',height:'6vh',width:'15vh'}}><b>Complete Day</b></Link>
             </div>
         </div>
