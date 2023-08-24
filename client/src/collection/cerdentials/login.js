@@ -102,7 +102,7 @@ const Login=()=>{
                         <td colSpan={5} style={{ background: 'red' }}></td>
                     </tr>
             {
-            (savestu.filter(itemA => dat.some(itemB=>itemB.Reg_No!==itemA.Reg_No))).filter(user=>(user.Reg_No).toLowerCase().includes(select)||(user.Reg_No).toUpperCase().includes(select)||(user.Name).toUpperCase().includes(select)||(user.Name).toLowerCase().includes(select)).map((x,index) => (
+            (dat.filter(itemA => savestu.some(itemB=>itemB.Reg_No!==itemA.Reg_No))).filter(user=>(user.Reg_No).toLowerCase().includes(select)||(user.Reg_No).toUpperCase().includes(select)||(user.Name).toUpperCase().includes(select)||(user.Name).toLowerCase().includes(select)).map((x,index) => (
                            <>
                             <tr>
                            {
