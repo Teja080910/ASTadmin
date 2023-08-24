@@ -198,10 +198,17 @@ button
 }
 .dailyattend
 {
-  width: 40%;
+  width: 100%;
   height: 50vh;
   background-color:rgb(178, 252, 254);
 }
 body{
   background-color: red;
+}
+
+@media print{
+  body
+  { visibility: hidden; }
+  .dailyattend 
+  { visibility: visible; }
 }

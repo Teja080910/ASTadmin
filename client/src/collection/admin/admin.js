@@ -6,6 +6,7 @@ export const Admin=()=>{
     const nav=useNavigate();
     const[gmail,setgmail]=useState([]);
     const[password,setpassword]=useState([]);
+    const [tdays,stdays]=useState([]);
     const date=new Date();
     const Submit=async()=>{
         try{
@@ -15,7 +16,8 @@ export const Admin=()=>{
             const responce=await axios.get("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password)
             if (responce.data.Dates !== date.toDateString())
             {
-                if (await axios.post("https://attendance-339a.onrender.com/delete") && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail+"/"+date.toDateString()))
+                stdays(parseInt(responce.data.Days)+1);
+                if (await axios.post("https://attendance-339a.onrender.com/delete")&&await axios.post("https://attendance-339a.onrender.com/savestudent/"+"project"+"/"+date) && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail+"/"+date.toDateString())+"/"+tdays)
                 {
                     localStorage.name=gmail;
                     alert("Admin sucessfully logged in Today");

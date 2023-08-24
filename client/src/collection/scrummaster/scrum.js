@@ -42,8 +42,23 @@ export const Dailattend=()=>
     return(
         <>
         <div className="dailyattend">
-            
+            <tr>
+                <td width={"10%"}>Sno</td>
+                <td width={"40%"}>Gmail</td>
+                <td width={"50%"}>Regi_number</td>
+            </tr>
+            {
+                data.map((x,index)=>
+                (
+                    <tr>
+                        <td>{index+1}</td>
+                        <td>{x.Gmail}</td>
+                        <td>{x.Reg_No}</td>
+                    </tr>
+                ))
+            }
         </div>
+        <button onClick={()=>window.print()}>Print</button>
         </>
     )
 }
