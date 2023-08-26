@@ -14,27 +14,12 @@ const Login=()=>{
     {
         try
         {
-            const res=await axios.get("https://attendance-339a.onrender.com/studentcheck/"+atnd.Gmail)
+            const responce1=await axios.post("https://attendance-339a.onrender.com/savestudent/"+atnd.Gmail+"/"+atnd.Reg_No) && await axios.post("https://attendance-339a.onrender.com/loginstudent/"+atnd.Gmail+"/"+date.toLocaleDateString())
             {
-                if(res.data)
+                if(responce1)
                 {
-                   alert("Already Attend");
-                }
-                else
-                {
-                    const responce=await axios.get("https://attendance-339a.onrender.com/student/"+atnd.Gmail)
-                    {
-                        if(responce.data)
-                    {
-                        atnd.Num=(parseInt(responce.data.Num)+1);
-                        const responce1=await axios.post("https://attendance-339a.onrender.com/streak/"+atnd.Gmail+"/"+atnd.Name+"/"+atnd.Reg_No+"/"+atnd.Year+"/"+atnd.Branch+"/"+atnd.Num)&&await axios.post("https://attendance-339a.onrender.com/savestudent/"+atnd.Gmail+"/"+atnd.Reg_No) && await axios.post("https://attendance-339a.onrender.com/loginstudent/"+atnd.Gmail+"/"+atnd.Reg_No+"/"+date.toLocaleDateString())
-                        if(responce1.data)
-                        {
-                            alert(atnd.Reg_No+" Attend");
-                            window.location.reload(1);
-                        }
-                    }
-                    }
+                    alert(atnd.Reg_No+" Attend");
+                    window.location.reload(1);
                 }
             }
         }
@@ -54,11 +39,6 @@ const Login=()=>{
     }
     useEffect(()=>
     {
-        axios.get("https://attendance-339a.onrender.com/showsavestu")
-        .then((result)=>
-        {
-            ssavestu(result.data);
-        })
         axios.get("https://attendance-339a.onrender.com/students")
         .then((result)=>
         {
@@ -112,7 +92,10 @@ const Login=()=>{
                              <td style={{paddingLeft:"11%"}}>{x.Reg_No}</td>
                              <td style={{paddingLeft:"12%"}}>{x.Name}</td>
                              <td style={{paddingLeft:"3%"}}>
-                                 <button id={x.Gmail} onClick={Attend} onClickCapture={(e)=>{satnd(x)}} style={{border:'none',backgroundColor:'blue',color:'white',borderRadius:'3px',height:'6vh',width:'15vh',cursor:'pointer'}}><b>Attend</b></button>
+                                {
+                                    x.Login===date.toLocaleDateString()?
+                                    <button id={x.Gmail} onClick={Attend} onClickCapture={(e)=>{satnd(x)}} style={{border:'none',backgroundColor:'blue',color:'white',borderRadius:'3px',height:'6vh',width:'15vh',cursor:'pointer'}}><b>Attend</b></button>:<b></b>
+                                }
                              </td>
                              <td style={{paddingLeft:"4.5%"}}>
                                  <p style={{position:'absolute',margin:'12px 0px 1px 1.3%',fontSize:'15px'}}><b>{x.Num}</b></p>

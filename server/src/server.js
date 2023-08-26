@@ -40,29 +40,29 @@ app.get('/student/:gmail',async(req,res)=>
     const details=await db.collection('Signup').findOne({Gmail:req.params.gmail})
     res.json(details);
 })
-app.get('/studentcheck/:gmail',async(req,res)=>
-{
-    const details=await db.collection('Login').findOne({Gmail:req.params.gmail})
-    res.json(details);
-})
+// app.get('/studentcheck/:gmail',async(req,res)=>
+// {
+//     const details=await db.collection('Login').findOne({Gmail:req.params.gmail})
+//     res.json(details);
+// })
 app.post('/savestudent/:gmail/:regi',async(req,res)=>
 {
     const details=await db.collection('Login').insertOne({Gmail:req.params.gmail,Reg_No:req.params.regi})
     res.json(details);
 })
-app.post('/loginstudent/:gmail/:regi/:date',async(req,res)=>
+app.post('/loginstudent/:gmail/:date',async(req,res)=>
 {
-    const details=await db.collection('Daily_login').insertOne({date:{Gmail:req.params.gmail,Reg_No:req.params.regi}})
+    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Login:req.params.date}})
     res.json(details);
 })
 app.get('/showsavestu',async(req,res)=>
 {
     const details=await db.collection('Login').find().toArray()
-    res.json(details);
+    res.json(details);                                                                          
 })
 app.post('/streak/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
 {
-    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch},{$set:{Num:req.params.num}})
+    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.email},{$set:{Num:req.params.num}})
     res.json(details);
 })
 app.post('/update',async(req,res)=>
