@@ -40,11 +40,6 @@ app.get('/student/:gmail',async(req,res)=>
     const details=await db.collection('Signup').findOne({Gmail:req.params.gmail})
     res.json(details);
 })
-// app.get('/studentcheck/:gmail',async(req,res)=>
-// {
-//     const details=await db.collection('Login').findOne({Gmail:req.params.gmail})
-//     res.json(details);
-// })
 app.post('/savestudent/:gmail/:regi',async(req,res)=>
 {
     const details=await db.collection('Login').insertOne({Gmail:req.params.gmail,Reg_No:req.params.regi})
@@ -60,16 +55,12 @@ app.get('/showsavestu',async(req,res)=>
     const details=await db.collection('Login').find().toArray()
     res.json(details);                                                                          
 })
-app.post('/streak/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
+app.post('/streak/:email/:num',async(req,res)=>
 {
     const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.email},{$set:{Num:req.params.num}})
     res.json(details);
 })
-app.post('/update',async(req,res)=>
-{
-    const details=await db.collection('Signup').updateMany({Year:3},{$set:{Login:0}})
-    res.json(details);
-})
+
 app.post('/project/:name/:project',async(req,res)=>
 {
     const details=await db.collection("Projects").insertOne({Name:req.params.name,Project:req.params.project})
