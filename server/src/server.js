@@ -67,7 +67,7 @@ app.post('/streak/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
 })
 app.post('/update',async(req,res)=>
 {
-    const details=await db.collection('Signup').findAndUpdate({$set:{Login:req.params=0}})
+    const details=await db.collection('Signup').updateMany({$set:{Login:req.params=0}})
     res.json(details);
 })
 app.post('/project/:name/:project',async(req,res)=>
