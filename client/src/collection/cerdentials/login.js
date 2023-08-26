@@ -104,7 +104,7 @@ const Login=()=>{
                              <td style={{paddingLeft:"12%"}}>{x.Name}</td>
                              <td style={{paddingLeft:"3%"}}>
                                 {
-                                    x.Login!==date.toLocaleDateString()?
+                                    x.Login!==date.toDateString()?
                                     <button id={x.Gmail} onClick={Attend} onClickCapture={(e)=>{satnd(x)}} style={{border:'none',backgroundColor:'blue',color:'white',borderRadius:'3px',height:'6vh',width:'15vh',cursor:'pointer'}}><b>Attend</b></button>:<b></b>
                                 }
                              </td>
