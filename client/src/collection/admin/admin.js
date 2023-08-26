@@ -17,11 +17,12 @@ export const Admin=()=>{
             if (responce.data.Dates !== date.toDateString())
             {
                 stdays(parseInt(responce.data.Days)+1);
-                if (await axios.post("https://attendance-339a.onrender.com/delete")&&await axios.post("https://attendance-339a.onrender.com/savestudent/"+"project"+"/"+date) && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail+"/"+date.toDateString())+"/"+tdays)
+                if (await axios.post("https://attendance-339a.onrender.com/update")&&await axios.post("https://attendance-339a.onrender.com/savestudent/"+"project"+"/"+date) && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail+"/"+date.toDateString()+"/"+tdays))
                 {
                     localStorage.name=gmail;
                     alert("Admin sucessfully logged in Today");
                     nav("/login")
+                    window.location.reload(1);
                 }
                 else
                 {
@@ -33,6 +34,7 @@ export const Admin=()=>{
                 localStorage.name=gmail;
                 alert("Admin sucessfully logged in again");
                 nav('/login')
+                window.location.reload(1);
             }
            }
            else

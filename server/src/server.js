@@ -65,9 +65,9 @@ app.post('/streak/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
     const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch},{$set:{Num:req.params.num}})
     res.json(details);
 })
-app.post('/delete',async(req,res)=>
+app.post('/update',async(req,res)=>
 {
-    const details=await db.collection('Login').deleteMany()
+    const details=await db.collection('Signup').updateMany({$set:{Login:req.params=0}})
     res.json(details);
 })
 app.post('/project/:name/:project',async(req,res)=>
