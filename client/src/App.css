@@ -147,12 +147,16 @@
 }
 .projectlink
 {
-  padding: 100% 150%;
-  margin: 100%;
-  display: inline-flex;
+  padding: 3% 50%;
+  margin: 1%;
+  font-size: 30px;
+  width: 100%;
+  display:flex;
   text-decoration: none;
   color:blue;
   background-color: yellow;
+  border-radius: 15px;
+  border-top: 5px solid blue;
 }
 .clgname
 {
@@ -180,6 +184,7 @@ button
   height: 5vh;
   background-color:blue;
   color: white;
+  font-size: 30px;
 }
 .scrmbtn
 {

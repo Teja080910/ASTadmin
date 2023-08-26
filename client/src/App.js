@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import './responce.css';
 import { Admin, Adminreg } from './collection/admin/admin';
 import Login from './collection/cerdentials/login';
 import Signup from './collection/cerdentials/signup';

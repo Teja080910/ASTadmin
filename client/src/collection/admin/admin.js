@@ -17,7 +17,9 @@ export const Admin=()=>{
             if (responce.data.Dates !== date.toDateString())
             {
                 stdays(parseInt(responce.data.Days)+1);
-                if (await axios.post("https://attendance-339a.onrender.com/update")&&await axios.post("https://attendance-339a.onrender.com/savestudent/"+"project"+"/"+date) && await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail+"/"+date.toDateString()+"/"+tdays))
+                const res=await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail+"/"+date.toDateString()+"/"+tdays)
+                {
+                if(res)
                 {
                     localStorage.name=gmail;
                     alert("Admin sucessfully logged in Today");
@@ -27,6 +29,7 @@ export const Admin=()=>{
                 else
                 {
                     alert("Try again");
+                }
                 }
             }
             else

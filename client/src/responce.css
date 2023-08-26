@@ -1,0 +1,56 @@
+@media only screen and (max-width:410px)
+{
+.log1
+ {
+   text-align: center;
+   width: 100%;
+   height:100%;
+   background-color:lightgray;
+ }
+ .h{
+  margin-top: 50%;
+ }
+ .inwidth
+ {
+  width:70%;
+  height:40px;
+  margin-left: 10%;
+}
+.homename
+{
+  margin-top: 40%;
+  font-size: 80px;
+}
+.clgname
+{
+  font-size: 80px;
+  font-family: poppins;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.addproject
+{
+  width:100%;
+  height: 40vh;
+  margin: 45% 0% 0% 0%;
+}
+.addproject label
+{
+  margin-top: 3%;
+  font-size: 25px;
+}
+.addproject input
+{
+  width: 90%;
+  height: 5vh;
+}
+.projectlink
+{
+  padding: 10% 35%;
+  margin: 1%;
+  width: 100%;
+  font-size: 20px;
+  border-radius: 15px;
+  border-top: 5px solid blue;
+}
+}

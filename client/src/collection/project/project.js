@@ -56,11 +56,9 @@ export const Projects=()=>
        {
         data.map((dat)=>
         (
-            <tr>
-            <td>
+            <div>
                 <Link className="projectlink" to={"https://"+dat.Project}>{dat.Name}</Link>
-            </td>
-        </tr>
+            </div>
         ))
        }
         </>
