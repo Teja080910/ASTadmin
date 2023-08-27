@@ -1,6 +1,6 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navbars } from "../nav&foot/nav";
-import axios from "axios";
 export const Scrum=()=>
 {
     const [set,sset]=useState(0);
@@ -27,41 +27,64 @@ export const Scrum=()=>
         
     )
 }
-
 export const Dailattend=()=>
 {
     const date=new Date();
     const [data,sdata]=useState([]);
+    const Scrm=async()=>
+    {
+        let scrm=prompt("Enter your pin");
+        if(scrm==="AST@9899")
+        {
+            window.print();
+        }
+        else
+        {
+            scrm=prompt("Only For Scrum Masters Plaese Correct Pin");
+        }
+    }
     useEffect(()=>
     {
         axios.get("https://attendance-339a.onrender.com/students")
         .then((result)=>
         {
-            sdata(result.data);
+            sdata(result.data.sort(result.data.Year));
         })
     },[])
     return(
         <>
         <div className="dailyattend">
-            <tr>
-                <td width={"10%"}>Sno</td>
-                <td width={"40%"}>Gmail</td>
-                <td width={"50%"}>Regi_number</td>
+        <button className="scrmpntbtn" onClick={Scrm}>Print</button>
+           <table>
+           <tr>
+                <th>Sno</th>
+                <th>Gmail</th>
+                <th>Regi_number</th>
+                <th>Year</th>
+                <th>Work</th>
             </tr>
             {
                 data.map((x,index)=>
                 (
-                    x.Login===date.toDateString()?
+                    x.Login!==date.toDateString()?
+                   <>
                     <tr>
-                        <td>{index+1}</td>
-                        <td>{x.Gmail}</td>
-                        <td>{x.Reg_No}</td>
-                        <td>{x.Work}</td>
-                    </tr>:<b></b>
+                        <td width={"5%"}>{index+1}</td>
+                        <td width={"20%"}>{x.Gmail}</td>
+                        <td width={"10%"}>{x.Reg_No}</td>
+                        <td width={"5%"}>{x.Year}</td>
+                        <td width={"30%"}>{x.Work}</td>
+                    </tr>
+                    <tr>
+                        <td colSpan={5}>
+                        <hr color="blue"/>
+                        </td>
+                    </tr>
+                   </>:<b></b>
                 ))
             }
+           </table>
         </div>
-        <button onClick={()=>window.print()}>Print</button>
         </>
     )
 }

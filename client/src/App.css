@@ -185,6 +185,7 @@ button
   background-color:blue;
   color: white;
   font-size: 30px;
+  margin: 10% 0% 0% 10%;
 }
 .scrmbtn
 {
@@ -192,6 +193,14 @@ button
   margin-top: 5%;
   margin-left: 23%;
   height: 10vh;
+  font-size: larger;
+  background-color: Green;
+}
+.scrmpntbtn
+{
+  width: 20vh;
+  /* margin-left:15%; */
+  height: 5vh;
   font-size: larger;
   background-color: Green;
 }
@@ -231,4 +240,12 @@ body{
   { visibility: hidden; }
   .dailyattend 
   { visibility: visible; }
+  button
+  {
+    visibility: hidden;
+  }
+  @page
+  {
+    margin-top:-58%;
+  }
 }
