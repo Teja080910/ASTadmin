@@ -30,10 +30,11 @@ export const Scrum=()=>
 
 export const Dailattend=()=>
 {
+    const date=new Date();
     const [data,sdata]=useState([]);
     useEffect(()=>
     {
-        axios.get("https://attendance-339a.onrender.com/showsavestu")
+        axios.get("https://attendance-339a.onrender.com/students")
         .then((result)=>
         {
             sdata(result.data);
@@ -50,11 +51,13 @@ export const Dailattend=()=>
             {
                 data.map((x,index)=>
                 (
+                    x.Login===date.toDateString()?
                     <tr>
                         <td>{index+1}</td>
                         <td>{x.Gmail}</td>
                         <td>{x.Reg_No}</td>
-                    </tr>
+                        <td>{x.Work}</td>
+                    </tr>:<b></b>
                 ))
             }
         </div>
@@ -66,28 +69,42 @@ export const Dailattend=()=>
 export const DailyWork=()=>
 {
     const [name,sname]=useState([]);
-    const [date,sdate]=useState([]);
     const [work,swork]=useState([]);
+    const WorkSubmit=async()=>
+    {
+        try
+        {
+            const res=await axios.post("https://attendance-339a.onrender.com/worksubmit/"+name+"/"+work)
+        {
+            if(res)
+            {
+                alert("Sucessfully Submited");
+            }
+            else
+            {
+                alert("Try again");
+            }
+        }
+        }
+        catch(e)
+        {
+            console.log(e);
+        }
+    }
     return(
         <>
        <div className="dailywork">
        <tr>
             <td>
-                <label for='smn'>Scrum master name</label>
+                <label for='smn'><b>Student gmail</b></label>
             </td>
             <td>
                 <input type="text" id="smn" placeholder="Enter your name" onChange={(e)=>sname(e.target.value)}></input>
             </td>
         </tr>
         <tr>
-            <td><label>Date</label></td>
             <td>
-                <input type="date" onChange={(e)=>sdate(e.target.value)}></input>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for='work'>Today work</label>
+                <label for='work'><b>Today work</b></label>
             </td>
             <td>
                 <textarea type="text" id="work" placeholder="Enter work with Module names" onChange={(e)=>swork(e.target.value)}></textarea>
@@ -95,7 +112,7 @@ export const DailyWork=()=>
         </tr>
         <tr>
             <td colSpan={2}>
-                <button>Submit</button>
+                <button onClick={WorkSubmit}>Submit</button>
             </td>
         </tr>
        </div>

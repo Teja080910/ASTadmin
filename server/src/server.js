@@ -40,27 +40,21 @@ app.get('/student/:gmail',async(req,res)=>
     const details=await db.collection('Signup').findOne({Gmail:req.params.gmail})
     res.json(details);
 })
-app.post('/savestudent/:gmail/:regi',async(req,res)=>
-{
-    const details=await db.collection('Login').insertOne({Gmail:req.params.gmail,Reg_No:req.params.regi})
-    res.json(details);
-})
 app.post('/loginstudent/:gmail/:num/:date',async(req,res)=>
 {
     const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Num:req.params.num,Login:req.params.date}})
     res.json(details);
-})
-app.get('/showsavestu',async(req,res)=>
-{
-    const details=await db.collection('Login').find().toArray()
-    res.json(details);                                                                          
 })
 app.post('/streak/:email/:num',async(req,res)=>
 {
     const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.email},{$set:{Num:req.params.num}})
     res.json(details);
 })
-
+app.post('/worksubmit/:gmail/:work',async(req,res)=>
+{
+    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Work:req.params.work}})
+    res.json(details);
+})
 app.post('/project/:name/:project',async(req,res)=>
 {
     const details=await db.collection("Projects").insertOne({Name:req.params.name,Project:req.params.project})
