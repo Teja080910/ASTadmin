@@ -48,7 +48,7 @@ export const Dailattend=()=>
         axios.get("https://attendance-339a.onrender.com/students")
         .then((result)=>
         {
-            sdata(result.data.sort(result.data.Year));
+            sdata(result.data.sort((a, b) => a.Year- b.Year));
         })
     },[])
     return(
@@ -69,11 +69,11 @@ export const Dailattend=()=>
                     x.Login!==date.toDateString()?
                    <>
                     <tr>
-                        <td width={"5%"}>{index+1}</td>
-                        <td width={"20%"}>{x.Gmail}</td>
-                        <td width={"10%"}>{x.Reg_No}</td>
-                        <td width={"5%"}>{x.Year}</td>
-                        <td width={"30%"}>{x.Work}</td>
+                        <td>{index+1}</td>
+                        <td>{x.Gmail}</td>
+                        <td>{x.Reg_No}</td>
+                        <td>{x.Year}</td>
+                        <td>{x.Work}</td>
                     </tr>
                     <tr>
                         <td colSpan={5}>
@@ -97,17 +97,28 @@ export const DailyWork=()=>
     {
         try
         {
-            const res=await axios.post("https://attendance-339a.onrender.com/worksubmit/"+name+"/"+work)
-        {
-            if(res)
+           const responce=await axios.get("https://attendance-339a.onrender.com/student/"+name)
+           {
+            if(responce.data)
             {
-                alert("Sucessfully Submited");
+                const res=await axios.post("https://attendance-339a.onrender.com/worksubmit/"+name+"/"+work)
+                {
+                    if(res)
+                    {
+                        alert("Sucessfully Submited");
+                        window.location.reload(2);
+                    }
+                    else
+                    {
+                        alert("Try again");
+                    }
+                }
             }
             else
             {
-                alert("Try again");
+                alert("Gmail Not Found");
             }
-        }
+           }
         }
         catch(e)
         {

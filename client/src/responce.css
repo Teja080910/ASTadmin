@@ -53,4 +53,37 @@
   border-radius: 15px;
   border-top: 5px solid blue;
 }
+.dailywork
+{
+  width: 100%;
+  height: 35vh;
+  margin-left: 0%;
+}
+.studetail
+{
+  width: 100%;
+  font-size: 10px;
+  margin: 0%;
+  background-color: aliceblue;
+}
+.studetail p
+{
+  margin:15px 0px 1px 6%;
+  font-size:10px;
+}
+.dailywork td textarea
+{
+  width: 30vh;
+  height: 12vh;
+}
+.scrmbtn
+{
+  width: 30vh;
+  margin-left: 16%;
+  height: 5vh;
+}
+.dailyattend table tr td
+{
+  width:0%;
+}
 }

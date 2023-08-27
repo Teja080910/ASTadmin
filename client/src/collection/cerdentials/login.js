@@ -53,7 +53,7 @@ const Login=()=>{
         axios.get("https://attendance-339a.onrender.com/students")
         .then((result)=>
         {
-            sdat((result.data));
+            sdat((result.data.sort((a, b) => a.Year- b.Year)));
         })
     },[])
     return(
@@ -99,16 +99,16 @@ const Login=()=>{
                            {
                              x.Year===localStorage.year?
                              <>
-                             <td style={{paddingLeft:"3%",height:'7vh'}}>{index + 1}</td>
-                             <td style={{paddingLeft:"11%"}}>{x.Reg_No}</td>
-                             <td style={{paddingLeft:"12%"}}>{x.Name}</td>
-                             <td style={{paddingLeft:"3%"}}>
+                             <td style={{height:'7vh'}}>{index + 1}</td>
+                             <td>{x.Reg_No}</td>
+                             <td>{x.Name}</td>
+                             <td>
                                 {
                                     x.Login!==date.toDateString()?
                                     <button id={x.Gmail} onClick={Attend} onClickCapture={(e)=>{satnd(x)}} style={{border:'none',backgroundColor:'blue',color:'white',borderRadius:'3px',height:'6vh',width:'15vh',cursor:'pointer'}}><b>Attend</b></button>:<b></b>
                                 }
                              </td>
-                             <td style={{paddingLeft:"4.5%"}}>
+                             <td>
                                  <p style={{position:'absolute',margin:'12px 0px 1px 1.3%',fontSize:'15px'}}><b>{x.Num}</b></p>
                                  <img src={"streak.png"} alt="streak" width={"55px"}></img>
                              </td>
