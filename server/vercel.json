@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/server.cjs",
+      "src": "index.cjs",
       "use": "@now/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "src/server.cjs"
+      "dest": "index.cjs"
     }
   ]
 }
