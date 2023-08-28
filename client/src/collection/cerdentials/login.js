@@ -18,7 +18,7 @@ const Login=()=>{
             {
             if(responce.data)
             {
-                atnd.Num=(parseInt(responce.data.Num)+0);
+                atnd.Num=(parseInt(responce.data.Num)+1);
             const responce1=await axios.post("https://attendance-339a.onrender.com/loginstudent/"+atnd.Gmail+"/"+atnd.Num+"/"+date.toDateString())
             {
                 if(responce1)
