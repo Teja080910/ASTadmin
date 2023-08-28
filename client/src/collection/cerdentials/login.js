@@ -9,6 +9,7 @@ const Login=()=>{
     const [select,sselect]=useState([]);
     const [year,syear]=useState([]);
     const [login,slogin]=useState([]);
+    const [x,sx] =useState(1);
     const date=new Date();
     const Attend=async()=>
     {
@@ -16,9 +17,10 @@ const Login=()=>{
         {
             const responce=await axios.get("https://attendance-339a.onrender.com/student/"+atnd.Gmail)
             {
-            if(responce.data)
+            if(responce.data && x===1)
             {
                 atnd.Num=(parseInt(responce.data.Num)+1);
+                sx(2);
             const responce1=await axios.post("https://attendance-339a.onrender.com/loginstudent/"+atnd.Gmail+"/"+atnd.Num+"/"+date.toDateString())
             {
                 if(responce1)
