@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navbars } from "../nav&foot/nav";
+import Table from 'react-bootstrap/Table';
 export const Scrum=()=>
 {
     const [set,sset]=useState(0);
@@ -55,7 +56,7 @@ export const Dailattend=()=>
         <>
         <div className="dailyattend">
         <button className="scrmpntbtn" onClick={Scrm}>Print</button>
-           <table>
+           <Table responsive>
            <tr>
                 <th>Sno</th>
                 <th>Gmail</th>
@@ -66,7 +67,7 @@ export const Dailattend=()=>
             {
                 data.map((x,index)=>
                 (
-                    x.Login!==date.toDateString()?
+                    x.Login===date.toDateString()?
                    <>
                     <tr>
                         <td>{index+1}</td>
@@ -83,7 +84,7 @@ export const Dailattend=()=>
                    </>:<b></b>
                 ))
             }
-           </table>
+           </Table>
         </div>
         </>
     )
