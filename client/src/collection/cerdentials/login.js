@@ -61,20 +61,12 @@ const Login=()=>{
         <Navbars/>
         <div className="clgname">SRKREC Tech Center</div>
         <br/>
-        <tr>
-            <td>
-                <button style={{marginLeft:'5vh'}} onClick={Year} onClickCapture={(e)=>{syear(1)}}><b>1st Year</b></button>
-            </td>
-            <td>
-                <button style={{marginLeft:'35vh',backgroundColor:'red'}} onClick={Year} onClickCapture={(e)=>{syear(2)}}><b>2nd Year</b></button>
-            </td>
-            <td>
-                <button style={{marginLeft:'35vh',backgroundColor:'blueviolet'}} onClick={Year} onClickCapture={(e)=>{syear(3)}}><b>3rd Year</b></button>
-            </td>
-            <td>
-                <button style={{marginLeft:'35vh',backgroundColor:'green'}} onClick={Year} onClickCapture={(e)=>{syear(4)}}><b>4th Year</b></button>
-            </td>
-        </tr>
+        <div>
+        <button style={{marginLeft:'5vh'}} onClick={Year} onClickCapture={(e)=>{syear(1)}}><b>1st Year</b></button>
+        <button style={{marginLeft:'35vh',backgroundColor:'red'}} onClick={Year} onClickCapture={(e)=>{syear(2)}}><b>2nd Year</b></button>
+        <button style={{marginLeft:'35vh',backgroundColor:'blueviolet'}} onClick={Year} onClickCapture={(e)=>{syear(3)}}><b>3rd Year</b></button>
+        <button style={{marginLeft:'35vh',backgroundColor:'green'}} onClick={Year} onClickCapture={(e)=>{syear(4)}}><b>4th Year</b></button>
+        </div>
         <br/>
         <div>
         <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input>
