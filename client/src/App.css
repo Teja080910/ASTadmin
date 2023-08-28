@@ -131,6 +131,7 @@
   margin:8vh 5% 5% 5%;
   font-size: x-large;
 }
+.studetail
 .studetail p
 {
   position:absolute;
@@ -180,7 +181,7 @@
   display:flex;
   text-decoration: none;
   color:blue;
-  background-color: yellow;
+  background-color: rgb(238, 238, 109);
   border-radius: 15px;
   border-top: 5px solid blue;
 }

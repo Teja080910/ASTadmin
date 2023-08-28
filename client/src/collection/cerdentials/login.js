@@ -97,7 +97,7 @@ const Login=()=>{
                              <td>
                                 {
                                     x.Login!==date.toDateString()?
-                                    <button id={x.Gmail} onClick={Attend} onClickCapture={(e)=>{satnd(x)}} style={{border:'none',backgroundColor:'blue',color:'white',borderRadius:'3px',height:'6vh',width:'15vh',cursor:'pointer'}}><b>Attend</b></button>:<b></b>
+                                    <button onClick={Attend} onClickCapture={(e)=>{satnd(x)}} style={{border:'none',backgroundColor:'blue',color:'white',borderRadius:'3px',height:'6vh',width:'15vh',cursor:'pointer'}}><b>Attend</b></button>:<b></b>
                                 }
                              </td>
                              <td>
