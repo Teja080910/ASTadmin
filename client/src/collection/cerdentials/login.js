@@ -109,7 +109,7 @@ const Login=()=>{
                                 }
                              </td>
                              <td>
-                                 <p style={{position:'absolute',margin:'12px 0px 1px 1.3%',fontSize:'15px'}}><b>{x.Num}</b></p>
+                                 <p><b>{x.Num}</b></p>
                                  <img src={"streak.png"} alt="streak" width={"55px"}></img>
                              </td>
                              </>:<b></b>
