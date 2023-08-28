@@ -1,9 +1,20 @@
-import cors from 'cors';
-import express from 'express';
-import { connectToDB, db } from "./db.js";
+const cors =require('cors');
+const express=require('express');
+// const { connectToDB, db } =require("./db.js");
 const app = express()
 app.use(cors())
 app.use(express.json())
+
+const { MongoClient } =require("mongodb");
+let db; 
+async function connectToDB(cb){
+    const url = "mongodb+srv://aolsrkr2002:aol1234@ast.th0xtim.mongodb.net/?retryWrites=true&w=majority";
+    const client = new MongoClient(url);
+    await client.connect();
+    db = client.db("Mern_Attendance");
+    cb();
+}
+
 app.get('/',(req,res)=>{
     res.json("server is running successfully!");
 })
@@ -70,8 +81,11 @@ catch(e)
 {
     console.log(e);
 }
-connectToDB(()=>{
-    app.listen(8000,()=>{
-      console.log("Server Running At port 8000");
-    })
-})
+module.exports=async(req,res)=>
+{
+    await connectToDB(()=>
+    {
+        console.log("Connected to Database");
+    });
+    app(req,res);
+}
