@@ -61,11 +61,11 @@ const Login=()=>{
         <Navbars/>
         <div className="clgname">SRKREC Tech Center</div>
         <br/>
-        <div>
-        <button style={{marginLeft:'5vh'}} onClick={Year} onClickCapture={(e)=>{syear(1)}}><b>1st Year</b></button>
-        <button style={{marginLeft:'35vh',backgroundColor:'red'}} onClick={Year} onClickCapture={(e)=>{syear(2)}}><b>2nd Year</b></button>
-        <button style={{marginLeft:'35vh',backgroundColor:'blueviolet'}} onClick={Year} onClickCapture={(e)=>{syear(3)}}><b>3rd Year</b></button>
-        <button style={{marginLeft:'35vh',backgroundColor:'green'}} onClick={Year} onClickCapture={(e)=>{syear(4)}}><b>4th Year</b></button>
+        <div className="yearbtns">
+        <Link className="yearbtnsink" onClick={Year} onClickCapture={(e)=>{syear(1)}}><b>1st Year</b></Link>
+        <Link className="yearbtnsink" style={{backgroundColor:'red'}} onClick={Year} onClickCapture={(e)=>{syear(2)}}><b>2nd Year</b></Link>
+        <Link className="yearbtnsink" style={{backgroundColor:'blueviolet'}} onClick={Year} onClickCapture={(e)=>{syear(3)}}><b>3rd Year</b></Link>
+        <Link className="yearbtnsink" style={{backgroundColor:'green'}} onClick={Year} onClickCapture={(e)=>{syear(4)}}><b>4th Year</b></Link>
         </div>
         <br/>
         <div>
@@ -112,7 +112,7 @@ const Login=()=>{
             </table>
             <div>
 
-            <Link onClick={Complete} to='/' style={{border:'none',textDecoration:'none',padding:'1%',backgroundColor:'green',marginLeft:'80%',color:'white',borderRadius:'3px',height:'6vh',width:'15vh'}}><b>Complete Day</b></Link>
+            <Link onClick={Complete} to='/' className="complteday"><b>Complete Day</b></Link>
             </div>
         </div>
         </>

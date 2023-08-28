@@ -69,6 +69,18 @@
   width:30%;
   text-align: center;
 }
+.complteday
+{
+  border:none;
+  text-decoration:none;
+  padding:1%;
+  background-color:green;
+  margin-left:80%;
+  color:white;
+  border-radius:3px;
+  height:6vh;
+  width:15vh;
+}
 .border1{
   margin-top: 10%;
   width:100%;
@@ -181,6 +193,18 @@
   font-family: poppins;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.yearbtns
+{
+  display:flex;
+  justify-content: space-between;
+}
+.yearbtnsink
+{
+  text-decoration: none;
+  padding: 0.5%;
+  background-color: blue;
+  color: white;
 }
 .homename
 {

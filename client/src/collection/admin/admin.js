@@ -10,40 +10,41 @@ export const Admin=()=>{
     const date=new Date();
     const Submit=async()=>{
         try{
-            
-           if(await axios.get("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password))
-           {
             const responce=await axios.get("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password)
-            if (responce.data.Dates !== date.toDateString())
             {
-                stdays(parseInt(responce.data.Days)+1);
-                const res=await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail+"/"+date.toDateString()+"/"+tdays)
+                if(responce.data)
                 {
-                if(res)
-                {
-                    localStorage.name=gmail;
-                    alert("Admin sucessfully logged in Today");
-                    nav("/login")
-                    window.location.reload(1);
+                 if (responce.data.Dates !== date.toDateString())
+                 {
+                     stdays(parseInt(responce.data.Days)+1);
+                     const res=await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail+"/"+date.toDateString()+"/"+tdays)
+                     {
+                     if(res)
+                     {
+                         localStorage.name=gmail;
+                         alert("Admin sucessfully logged in Today");
+                         nav("/login")
+                         window.location.reload(1);
+                     }
+                     else
+                     {
+                         alert("Try again");
+                     }
+                     }
+                 }
+                 else
+                 {
+                     localStorage.name=gmail;
+                     alert("Admin sucessfully logged in again");
+                     nav('/login')
+                     window.location.reload(1);
+                 }
                 }
                 else
                 {
-                    alert("Try again");
-                }
-                }
+                 alert("Please register as admin");
+                }   
             }
-            else
-            {
-                localStorage.name=gmail;
-                alert("Admin sucessfully logged in again");
-                nav('/login')
-                window.location.reload(1);
-            }
-           }
-           else
-           {
-            alert("Please register as admin");
-           }
     }
     catch(e)
     {
