@@ -1,13 +1,12 @@
 const cors =require('cors');
 const express=require('express');
-// const { connectToDB, db } =require("./db.js");
 const app = express()
 app.use(cors())
 app.use(express.json())
-
-const { MongoClient } =require("mongodb");
+const MongoClient = require('mongodb').MongoClient;
 let db; 
-async function connectToDB(cb){
+async function connectToDB(cb)
+{
     const url = "mongodb+srv://aolsrkr2002:aol1234@ast.th0xtim.mongodb.net/?retryWrites=true&w=majority";
     const client = new MongoClient(url);
     await client.connect();
@@ -81,11 +80,9 @@ catch(e)
 {
     console.log(e);
 }
-module.exports=async(req,res)=>
-{
-    await connectToDB(()=>
-    {
-        console.log("Connected to Database");
+module.exports = async (req, res) => {
+    await connectToDB(() => {
+      console.log('Connected to database.');
     });
-    app(req,res);
-}
+    app(req, res);
+  };
