@@ -73,16 +73,16 @@ export const Adminreg=()=>
     const[password,setpassword]=useState([]);
     const Submit=async()=>
     {
-        if(await axios.get("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password))
+        const res=await axios.get("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password)
         {
-            alert("Already Register")
-        }
-        else
-        {
-            if(await axios.post("https://attendance-339a.onrender.com/adminregi/"+gmail+"/"+password))
-            {
-                alert("Sucessfully Registered");
-                nav('/adminlogin')
+            if (res.data) {
+                alert("Already Register")
+            }
+            else {
+                if (await axios.post("https://attendance-339a.onrender.com/adminregi/" + gmail + "/" + password)) {
+                    alert("Sucessfully Registered");
+                    nav('/adminlogin')
+                }
             }
         }
     }
