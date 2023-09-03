@@ -1,13 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import './responce.css';
 import { Admin, Adminreg } from './collection/admin/admin';
 import Login from './collection/cerdentials/login';
 import Signup from './collection/cerdentials/signup';
 import { Home } from './collection/home/homes';
 import { Addproject, Projects } from './collection/project/project';
 import { Scrum } from './collection/scrummaster/scrum';
-import { Email } from './collection/home/email';
+import './responce.css';
 function App() {
   return (
     <>
@@ -15,7 +14,6 @@ function App() {
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path="/adminlogin" element={<Admin/>}/>
-      <Route path='/email' element={<Email/>}/>
       <Route path='adminregister' element={<Adminreg/>}/>
       <Route path="/login" element={localStorage.name===''?<Admin/>:<Login/>}/>
       <Route path="/register" element={localStorage.name===''?<Home/>:<Signup/>}/>

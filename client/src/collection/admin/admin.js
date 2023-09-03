@@ -6,7 +6,6 @@ export const Admin=()=>{
     const nav=useNavigate();
     const[gmail,setgmail]=useState([]);
     const[password,setpassword]=useState([]);
-    const [tdays,stdays]=useState([]);
     const date=new Date();
     const Submit=async()=>{
         try{
@@ -16,7 +15,8 @@ export const Admin=()=>{
                 {
                  if (responce.data.Dates !== date.toDateString())
                  {
-                     stdays(parseInt(responce.data.Days)+1);
+                     let tdays=parseInt(responce.data.Days)+1;
+                     console.log(tdays)
                      const res=await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail+"/"+date.toDateString()+"/"+tdays)
                      {
                      if(res)
