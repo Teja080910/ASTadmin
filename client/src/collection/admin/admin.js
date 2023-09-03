@@ -16,7 +16,6 @@ export const Admin=()=>{
                  if (responce.data.Dates !== date.toDateString())
                  {
                      let tdays=parseInt(responce.data.Days)+1;
-                     console.log(tdays)
                      const res=await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail+"/"+date.toDateString()+"/"+tdays)
                      {
                      if(res)
