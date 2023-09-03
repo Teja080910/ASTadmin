@@ -14,10 +14,11 @@ export const Navbars=()=>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link  href="/">Home</Nav.Link>
             <Nav.Link href="/adminlogin">Admin</Nav.Link>
+            <Nav.Link href="/login">Attendance</Nav.Link>
+            <Nav.Link href="">Daily Sadhana</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/login">Attendance</NavDropdown.Item>
               <NavDropdown.Item href="/addproject">Add Project</NavDropdown.Item>
               <NavDropdown.Item href="/projects">Projects</NavDropdown.Item>
               <NavDropdown.Item href="/scrummaster">Scrum Masters</NavDropdown.Item>

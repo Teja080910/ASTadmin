@@ -318,6 +318,10 @@ body{
   border: none;
   background-color: green;
 }
+.bg-body-tertiary
+{
+  width: 100%;
+}
 
 @media print{
   body

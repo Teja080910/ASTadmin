@@ -26,6 +26,11 @@ app.post('/updateadmin/:gmail/:date/:days',async(req,res)=>
     await db.collection('Totaldays').findOneAndUpdate({Team:"AST"},{$set:{Days:req.params.days,Scum:req.params.gmail}})
     res.json(details);
 })
+app.get('/totaldays',async(req,res)=>
+{
+    await db.collection('Totaldays').findOne({Team:"AST"})
+    res.json(details);
+})
 app.post('/signup/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
 {
     const details=await db.collection('Signup').insertOne({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch,Num:req.params.num});
