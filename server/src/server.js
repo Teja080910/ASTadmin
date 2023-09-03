@@ -23,7 +23,7 @@ app.post('/adminregi/:gmail/:password',async(req,res)=>
 app.post('/updateadmin/:gmail/:date/:days',async(req,res)=>
 {
     const details=await db.collection('admin').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Dates:req.params.date,Days:req.params.days}})&&
-    await db.collection('Totaldays').findOneAndUpdate({Team:"AST"},{$set:{Days:req.params.days,Scum:req.params.gmail}})
+    await db.collection('Totaldays').findOneAndUpdate({Team:"AST"},{$set:{Days:req.params.days,Scum:req.params.gmail,Date:req.params.date}})
     res.json(details);
 })
 app.get('/totaldays',async(req,res)=>

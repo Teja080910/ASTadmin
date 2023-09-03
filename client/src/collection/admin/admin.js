@@ -15,26 +15,33 @@ export const Admin=()=>{
                 {
                  if (responce.data.Dates !== date.toDateString())
                  {
-                    const res1=await axios.get("https://attendance-339a.onrender.com/totaldays/"+"AST")
+                    const res1=await axios.get("https://attendance-339a.onrender.com/totaldays")
                     {
-                        console.log(res1)
                         if(res1.data)
                         {
-                            let tdays = parseInt(res1.data.Days) + 1;
-                            const res = await axios.post("https://attendance-339a.onrender.com/updateadmin/" + gmail + "/" + date.toDateString() + "/" + tdays)
+                            if (res1.data.Date !== date.toDateString())
                             {
-                                if(res)
+                                let tdays = parseInt(res1.data.Days) + 1;
+                                const res = await axios.post("https://attendance-339a.onrender.com/updateadmin/" + gmail + "/" + date.toDateString() + "/" + tdays)
                                 {
-                                    localStorage.name = gmail;
-                                    alert("Admin sucessfully logged in Today");
-                                    nav("/login")
-                                    window.location.reload(1);
+                                    if (res) {
+                                        localStorage.name = gmail;
+                                        alert("Admin sucessfully logged in Today");
+                                        nav("/login")
+                                        window.location.reload(1);
+                                    }
+                                    else {
+                                        alert("Try again");
+                                    }
                                 }
-                                else
-                                {
-                                    alert("Try again");
-                                }
-                        }
+                            }
+                            else
+                            {
+                                localStorage.name=gmail;
+                                alert("Admin sucessfully logged in again");
+                                nav('/login')
+                                window.location.reload(1);
+                            }
                     }
                      }
                  }
