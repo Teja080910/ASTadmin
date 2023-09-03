@@ -7,6 +7,7 @@ export const Admin=()=>{
     const[gmail,setgmail]=useState([]);
     const[password,setpassword]=useState([]);
     const date=new Date();
+    const time=new Date().toLocaleTimeString();
     const Submit=async()=>{
         try{
             const responce=await axios.get("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password)
@@ -28,8 +29,14 @@ export const Admin=()=>{
                                     {
                                         localStorage.name = gmail;
                                         alert("Admin sucessfully logged in Today");
-                                        nav("/login")
-                                        window.location.reload(1);
+                                        if (time <= "7:20:00 pm" && time >="5:00:00 pm") {
+                                            nav("/login")
+                                            window.location.reload(1);
+                                        }
+                                        else {
+                                            alert("Time out");
+                                            nav("/");
+                                        }
                                     }
                                     else {
                                         alert("Try again");
@@ -40,8 +47,14 @@ export const Admin=()=>{
                             {
                                 localStorage.name=gmail;
                                 alert("Admin 2 sucessfully logged in Today");
-                                nav('/login')
-                                window.location.reload(1);
+                                if (time <= "7:20:00 pm" && time >="5:00:00 pm") {
+                                    nav("/login")
+                                    window.location.reload(1);
+                                }
+                                else {
+                                    alert("Time out");
+                                    nav("/");
+                                }
                             }
                     }
                      }
@@ -50,8 +63,14 @@ export const Admin=()=>{
                  {
                      localStorage.name=gmail;
                      alert("Admin sucessfully logged in again");
-                     nav('/login')
-                     window.location.reload(1);
+                     if (time <= "7:20:00 pm" && time >="5:00:00 pm") {
+                         nav("/login")
+                         window.location.reload(1);
+                     }
+                     else {
+                         alert("Time out");
+                         nav("/");
+                     }
                  }
                 }
                 else
