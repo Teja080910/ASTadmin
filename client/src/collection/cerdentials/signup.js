@@ -18,13 +18,25 @@ const Signup=()=>{
         {
             if(localStorage.yoga==="AST@9899")
             {
-                const res = await axios.get("https://attendance-339a.onrender.com/sadhanastudent/" + email)
+                const res = await axios.get("https://attendance-339a.onrender.com/student/" + email)
                 {
                     if (res.data) {
                         SetCheck("E-mail or Register Number is already exists");
                     }
-                    else {
-                        await axios.post("https://attendance-339a.onrender.com/sadhanasignup/" + email + "/" + name + "/" + regd + "/" + year + "/" + branch + "/" + num) ? alert("Register Successfully") && nav('/login') : alert("Try again");
+                    else
+                    {
+                        const res=await axios.post("https://attendance-339a.onrender.com/signup/" + email + "/" + name + "/" + regd + "/" + year + "/" + branch + "/" + num)
+                        {
+                            if(res)
+                            {
+                                alert("Register Successfully")
+                                window.location='/login'
+                            }
+                            else
+                            {
+                                alert("Try again")
+                            }
+                        }
                     }
                 }
             }
@@ -35,8 +47,20 @@ const Signup=()=>{
                     if (res.data) {
                         SetCheck("E-mail or Register Number is already exists");
                     }
-                    else {
-                        await axios.post("https://attendance-339a.onrender.com/sadhanasignup/" + email + "/" + name + "/" + regd + "/" + year + "/" + branch + "/" + num) ? alert("Register Successfully") && nav('/login') : alert("Try again");
+                    else
+                    {
+                        const res=await axios.post("https://attendance-339a.onrender.com/sadhanasignup/" + email + "/" + name + "/" + regd + "/" + year + "/" + branch + "/" + num)
+                        {
+                            if(res)
+                            {
+                                alert("Register Successfully")
+                                window.location='/yoga';
+                            }
+                            else
+                            {
+                                alert("Try again")
+                            }
+                        }
                     }
                 }
             }
@@ -50,6 +74,17 @@ const Signup=()=>{
     {
         console.log(err);
     }
+    }
+    const Login=()=>
+    {
+        if(localStorage.yoga==="Yoga@9899")
+        {
+            window.location='/yoga';
+        }
+        else
+        {
+            window.location='/login';
+        }
     }
     return(
         <>
@@ -98,7 +133,7 @@ const Signup=()=>{
         <th><label for='email'>Email</label></th>
         <td colspan="4"><input className="inputwidth" type="email"  id="email" placeholder="G-mail"  name="email" onChange={(e)=>SetEmail(e.target.value)}/></td></tr><br/>    
         <tr>
-            <td><Link to='/login' style={{textDecoration:'none',padding:'1.5% 10%',backgroundColor:'greenyellow',marginLeft:'70%',borderRadius:'5px'}}>Login</Link></td>
+            <td><Link  onClick={Login} style={{textDecoration:'none',padding:'1.5% 10%',backgroundColor:'greenyellow',marginLeft:'70%',borderRadius:'5px'}}>Login</Link></td>
         <td colspan="5" align="center"><button className="buttonwidth" type="button" onClick={Handleclick}><b>Register</b></button></td></tr>
         <br/>
         </table>

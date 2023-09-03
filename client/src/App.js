@@ -17,7 +17,7 @@ function App() {
       <Route path="/adminlogin" element={<Admin/>}/>
       <Route path='adminregister' element={<Adminreg/>}/>
       <Route path="/login" element={localStorage.name===''?<Admin/>:<Login/>}/>
-      <Route path="/register" element={localStorage.name===''?<Home/>:<Signup/>}/>
+      <Route path="/register" element={<Signup/>}/>
       <Route path='/yoga' element={localStorage.yoga==="Yoga@9899"?<Yoga/>:<Home/>}/>
       <Route path='/addproject' element={<Addproject/>}/>
       <Route path='/projects' element={<Projects/>}/>

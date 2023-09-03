@@ -16,8 +16,6 @@ export const Yoga=()=>
     {
         try
         {
-           if(parseInt(otp)===code)
-           {
                const responce = await axios.get("https://attendance-339a.onrender.com/sadhanastudent/" + atnd.Gmail)
                {
                    if (responce.data) {
@@ -37,11 +35,6 @@ export const Yoga=()=>
                        alert("Student not found")
                    }
                }
-           }
-           else
-           {
-            alert("Invalid code");
-           }
         }
         catch(e)
         {
