@@ -15,20 +15,23 @@ export const Admin=()=>{
                 {
                  if (responce.data.Dates !== date.toDateString())
                  {
-                    const res1=await axios.get("https://attendance-339a.onrender.com/totaldays")
+                    const res1=await axios.get("https://attendance-339a.onrender.com/totaldays/"+"AST")
                     {
+                        console.log(res1)
                         if(res1.data)
                         {
                             let tdays = parseInt(res1.data.Days) + 1;
                             const res = await axios.post("https://attendance-339a.onrender.com/updateadmin/" + gmail + "/" + date.toDateString() + "/" + tdays)
                             {
-                                if (res) {
+                                if(res)
+                                {
                                     localStorage.name = gmail;
                                     alert("Admin sucessfully logged in Today");
                                     nav("/login")
                                     window.location.reload(1);
                                 }
-                                else {
+                                else
+                                {
                                     alert("Try again");
                                 }
                         }

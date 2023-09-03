@@ -28,7 +28,7 @@ app.post('/updateadmin/:gmail/:date/:days',async(req,res)=>
 })
 app.get('/totaldays',async(req,res)=>
 {
-    await db.collection('Totaldays').findOne({Team:"AST"})
+    const details=await db.collection('Totaldays').findOne({Team:"AST"})
     res.json(details);
 })
 app.post('/signup/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
