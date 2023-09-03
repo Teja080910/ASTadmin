@@ -16,17 +16,30 @@ const Signup=()=>{
         try{
        if(emailRegex.test(email))
         {
-            const res=await axios.get("https://attendance-339a.onrender.com/student/"+email)
+            if(localStorage.yoga==="AST@9899")
             {
-                if(res.data)
+                const res = await axios.get("https://attendance-339a.onrender.com/sadhanastudent/" + email)
                 {
-                    SetCheck("E-mail or Register Number is already exists");
+                    if (res.data) {
+                        SetCheck("E-mail or Register Number is already exists");
+                    }
+                    else {
+                        await axios.post("https://attendance-339a.onrender.com/sadhanasignup/" + email + "/" + name + "/" + regd + "/" + year + "/" + branch + "/" + num) ? alert("Register Successfully") && nav('/login') : alert("Try again");
+                    }
                 }
-                else
+            }
+            else
+            {
+                const res = await axios.get("https://attendance-339a.onrender.com/sadhanastudent/" + email)
                 {
-                    await axios.post("https://attendance-339a.onrender.com/signup/"+email+"/"+name+"/"+regd+"/"+year+"/"+branch+"/"+num)? alert("Register Successfully") && nav('/login'):alert("Try again");
+                    if (res.data) {
+                        SetCheck("E-mail or Register Number is already exists");
+                    }
+                    else {
+                        await axios.post("https://attendance-339a.onrender.com/sadhanasignup/" + email + "/" + name + "/" + regd + "/" + year + "/" + branch + "/" + num) ? alert("Register Successfully") && nav('/login') : alert("Try again");
+                    }
                 }
-                }
+            }
         }
         else
         {

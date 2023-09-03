@@ -1,16 +1,15 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navbars } from "../nav&foot/nav";
-const Login=()=>{
+export const Yoga=()=>
+{
     const [dat,sdat]=useState([]);
     const [atnd,satnd]=useState([]);
     const [select,sselect]=useState([]);
     const [year,syear]=useState([]);
     const [otp,sotp]=useState([]);
     const [x,sx] =useState(1);
-    const min=Math.pow(10,3);
-    const max=Math.pow(10,4)-1;
     const [code,scode]=useState(0);
     const date=new Date();
     const Attend=async()=>
@@ -19,14 +18,14 @@ const Login=()=>{
         {
            if(parseInt(otp)===code)
            {
-               const responce = await axios.get("https://attendance-339a.onrender.com/student/" + atnd.Gmail)
+               const responce = await axios.get("https://attendance-339a.onrender.com/sadhanastudent/" + atnd.Gmail)
                {
                    if (responce.data) {
                        if (x === 1) {
                            atnd.Num = (parseInt(responce.data.Num) + 1);
                            sx(2);
                        }
-                       const responce1 = await axios.post("https://attendance-339a.onrender.com/loginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
+                       const responce1 = await axios.post("https://attendance-339a.onrender.com/sadhanaloginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
                        {
                            if (responce1) {
                                alert(atnd.Reg_No + " Attend");
@@ -49,31 +48,6 @@ const Login=()=>{
             console.log(e);
         }
     }
-    const Send=async()=>
-    {
-        document.getElementById('otps').style.display='block'
-        let OTP=Math.floor(Math.random()*(max-min+1))+min;
-        scode(OTP);
-        let ebody=`
-        <p>This <b>code</b> came from ${"AST"}</p>
-        <p>
-        <b>Name::<b>${atnd.Name}
-        <br/>
-        <b>Gmail::<b>${atnd.Gmail}
-        <br>
-        <b>Code::<b>${OTP}
-        <p>
-        `
-        window.Email.send({
-            SecureToken : "67d18f85-7e11-4af3-b78a-ae6af55623e4",
-            To : atnd.Gmail,
-            From : "AST Team",
-            Subject : "Daily Attendace Code",
-            Body : ebody
-        }).then(
-          message =>alert(message)
-        )
-    }
     const Complete=()=>
     {
         localStorage.name='';
@@ -83,13 +57,9 @@ const Login=()=>{
         localStorage.year=year;
         window.location.reload(1);
     }
-    const Register=()=>
-    {
-        localStorage.yoga='';
-    }
     useEffect(()=>
     {
-        axios.get("https://attendance-339a.onrender.com/students")
+        axios.get("https://attendance-339a.onrender.com/sadhanastudents")
         .then((result)=>
         {
             sdat((result.data.sort((a, b) => a.Year- b.Year)));
@@ -115,7 +85,7 @@ const Login=()=>{
         <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input>
             <table className="studetail">
             <tr>
-                <td style={{height:'6vh'}} colSpan={5}><Link to='/register' onClick={Register} className="signup">Register</Link></td>
+                <td style={{height:'6vh'}} colSpan={5}><Link to='/register' className="signup">Register</Link></td>
             </tr>
                     <tr>
                         <th>SNO</th>
@@ -140,7 +110,7 @@ const Login=()=>{
                              <td>
                                 {
                                     x.Login!==date.toDateString()?
-                                    <button onClick={Send} onClickCapture={(e)=>{satnd(x)}}><b>Attend</b></button>:<b></b>
+                                    <button onClick={Attend} onClickCapture={(e)=>{satnd(x)}}><b>Attend</b></button>:<b></b>
                                 }
                              </td>
                              <td>
@@ -160,6 +130,4 @@ const Login=()=>{
         </div>
         </>
     )
-
 }
-export default Login;

@@ -6,6 +6,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 export const Navbars=()=>
 {
+  const Pin=()=>
+  {
+    localStorage.yoga=prompt("Enter pin");
+  }
     return(
         <>
          <Navbar expand="lg" className="bg-body-tertiary">
@@ -17,7 +21,7 @@ export const Navbars=()=>
             <Nav.Link  href="/">Home</Nav.Link>
             <Nav.Link href="/adminlogin">Admin</Nav.Link>
             <Nav.Link href="/login">Attendance</Nav.Link>
-            <Nav.Link href="">Daily Sadhana</Nav.Link>
+            <Nav.Link href="/yoga" onClick={Pin}>Daily Sadhana</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="/addproject">Add Project</NavDropdown.Item>
               <NavDropdown.Item href="/projects">Projects</NavDropdown.Item>

@@ -7,6 +7,7 @@ import { Home } from './collection/home/homes';
 import { Addproject, Projects } from './collection/project/project';
 import { Scrum } from './collection/scrummaster/scrum';
 import './responce.css';
+import { Yoga } from './collection/dailysadhana/dailysadhana';
 function App() {
   return (
     <>
@@ -17,6 +18,7 @@ function App() {
       <Route path='adminregister' element={<Adminreg/>}/>
       <Route path="/login" element={localStorage.name===''?<Admin/>:<Login/>}/>
       <Route path="/register" element={localStorage.name===''?<Home/>:<Signup/>}/>
+      <Route path='/yoga' element={localStorage.yoga==="Yoga@9899"?<Yoga/>:<Home/>}/>
       <Route path='/addproject' element={<Addproject/>}/>
       <Route path='/projects' element={<Projects/>}/>
       <Route path='/scrummaster' element={<Scrum/>}/>
