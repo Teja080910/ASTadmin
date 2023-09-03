@@ -22,9 +22,10 @@ export const Admin=()=>{
                             if (res1.data.Date !== date.toDateString())
                             {
                                 let tdays = parseInt(res1.data.Days) + 1;
-                                const res = await axios.post("https://attendance-339a.onrender.com/updateadmin/" + gmail + "/" + date.toDateString() + "/" + tdays)
+                                const res = await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail + "/" + date.toDateString() + "/" + tdays)
                                 {
-                                    if (res) {
+                                    if (res)
+                                    {
                                         localStorage.name = gmail;
                                         alert("Admin sucessfully logged in Today");
                                         nav("/login")
@@ -38,7 +39,7 @@ export const Admin=()=>{
                             else
                             {
                                 localStorage.name=gmail;
-                                alert("Admin sucessfully logged in again");
+                                alert("Admin 2 sucessfully logged in Today");
                                 nav('/login')
                                 window.location.reload(1);
                             }

@@ -56,9 +56,9 @@ app.post('/streak/:email/:num',async(req,res)=>
     const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.email},{$set:{Num:req.params.num}})
     res.json(details);
 })
-app.post('/worksubmit/:gmail/:work',async(req,res)=>
+app.post('/worksubmit/:gmail/:date/:work',async(req,res)=>
 {
-    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Work:req.params.work}})
+    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Work:req.params.work,Date:req.params.date}})
     res.json(details);
 })
 app.post('/project/:name/:project',async(req,res)=>

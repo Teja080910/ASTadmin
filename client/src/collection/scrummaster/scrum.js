@@ -74,7 +74,7 @@ export const Dailattend=()=>
                         <td>{x.Gmail}</td>
                         <td>{x.Reg_No}</td>
                         <td>{x.Year}</td>
-                        <td>{x.Work}</td>
+                        <td><b>{x.Date}</b><br/>{x.Work}</td>
                     </tr>
                     <tr>
                         <td colSpan={5}>
@@ -94,6 +94,7 @@ export const DailyWork=()=>
 {
     const [name,sname]=useState([]);
     const [work,swork]=useState([]);
+    const date=new Date();
     const WorkSubmit=async()=>
     {
         try
@@ -102,7 +103,7 @@ export const DailyWork=()=>
            {
             if(responce.data)
             {
-                const res=await axios.post("https://attendance-339a.onrender.com/worksubmit/"+name+"/"+work)
+                const res=await axios.post("https://attendance-339a.onrender.com/worksubmit/"+name+"/"+date.toLocaleString()+"/"+work)
                 {
                     if(res)
                     {
@@ -134,7 +135,15 @@ export const DailyWork=()=>
                 <label for='smn'><b>Student gmail</b></label>
             </td>
             <td>
-                <input type="text" id="smn" placeholder="Enter your name" onChange={(e)=>sname(e.target.value)}></input>
+                <input type="text" id="smn" placeholder="Enter your gmail" onChange={(e)=>sname(e.target.value)}></input>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label><b>Date</b></label>
+            </td>
+            <td >
+                {date.toLocaleString()}
             </td>
         </tr>
         <tr>
