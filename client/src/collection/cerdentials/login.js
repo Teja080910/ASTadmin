@@ -5,44 +5,74 @@ import { Navbars } from "../nav&foot/nav";
 const Login=()=>{
     const [dat,sdat]=useState([]);
     const [atnd,satnd]=useState([]);
-    const [savestu,ssavestu]=useState([]);
     const [select,sselect]=useState([]);
     const [year,syear]=useState([]);
-    const [login,slogin]=useState([]);
+    const [otp,sotp]=useState([]);
     const [x,sx] =useState(1);
+    const min=Math.pow(10,3);
+    const max=Math.pow(10,4)-1;
+    const [code,scode]=useState(0);
     const date=new Date();
     const Attend=async()=>
     {
         try
         {
-            const responce=await axios.get("https://attendance-339a.onrender.com/student/"+atnd.Gmail)
-            {
-            if(responce.data)
-            {
-                if(x===1)
-                {
-                atnd.Num=(parseInt(responce.data.Num)+1);
-                sx(2);
-                }
-            const responce1=await axios.post("https://attendance-339a.onrender.com/loginstudent/"+atnd.Gmail+"/"+atnd.Num+"/"+date.toDateString())
-            {
-                if(responce1)
-                {
-                    alert(atnd.Reg_No+" Attend");
-                    window.location.reload(1);
-                }
-            }
-        }
-        else
-        {
-            alert("Student not found")
-        }
-    }
+           if(parseInt(otp)===code)
+           {
+               const responce = await axios.get("https://attendance-339a.onrender.com/student/" + atnd.Gmail)
+               {
+                   if (responce.data) {
+                       if (x === 1) {
+                           atnd.Num = (parseInt(responce.data.Num) + 1);
+                           sx(2);
+                       }
+                       const responce1 = await axios.post("https://attendance-339a.onrender.com/loginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
+                       {
+                           if (responce1) {
+                               alert(atnd.Reg_No + " Attend");
+                               window.location.reload(1);
+                           }
+                       }
+                   }
+                   else {
+                       alert("Student not found")
+                   }
+               }
+           }
+           else
+           {
+            alert("Invalid code");
+           }
         }
         catch(e)
         {
             console.log(e);
         }
+    }
+    const Send=async()=>
+    {
+        document.getElementById('otps').style.display='block'
+        let OTP=Math.floor(Math.random()*(max-min+1))+min;
+        scode(OTP);
+        let ebody=`
+        <p>This <b>code</b> came from ${"AST"}</p>
+        <p>
+        <b>Name::<b>${atnd.Name}
+        <br/>
+        <b>Gmail::<b>${atnd.Gmail}
+        <br>
+        <b>Code::<b>${OTP}
+        <p>
+        `
+        window.Email.send({
+            SecureToken : "67d18f85-7e11-4af3-b78a-ae6af55623e4",
+            To : atnd.Gmail,
+            From : "AST Team",
+            Subject : "Daily Attendace Code",
+            Body : ebody
+        }).then(
+          message =>alert(message)
+        )
     }
     const Complete=()=>
     {
@@ -64,6 +94,10 @@ const Login=()=>{
     return(
         <>
         <Navbars/>
+        <div className="otp" id='otps'>
+            <input type="number" placeholder="Enter OTP" onChange={(e)=>{sotp(e.target.value)}}></input>
+            <button onClick={Attend}><b>Submit</b></button>
+        </div>
         <div className="clgname">SRKREC Tech Center</div>
         <br/>
         <div className="yearbtns">
@@ -102,7 +136,7 @@ const Login=()=>{
                              <td>
                                 {
                                     x.Login!==date.toDateString()?
-                                    <button onClick={Attend} onClickCapture={(e)=>{satnd(x)}}><b>Attend</b></button>:<b></b>
+                                    <button onClick={Send} onClickCapture={(e)=>{satnd(x)}}><b>Attend</b></button>:<b></b>
                                 }
                              </td>
                              <td>

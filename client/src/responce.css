@@ -108,4 +108,21 @@ Table
 {
   font-size: 10px;
 }
+.otp
+{
+  width: 100%;
+  height: 10vh;
+  margin: 80% 0%;
+}
+.otp input
+{
+  height: 5vh;
+  font-size:large;
+  border-radius: 15px;
+}
+.otp button
+{
+  height: 4vh;
+  margin-top: 0;
+}
 }

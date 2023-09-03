@@ -295,6 +295,29 @@ button
 body{
   background-color: red;
 }
+.otp
+{
+  position:fixed;
+  width: 30%;
+  height: 15vh;
+  background-color: #6644ff;
+  margin: 15% 35%;
+  display: none;
+}
+.otp input
+{
+  margin: 0% 10%;
+  width: 80%;
+  height: 8vh;
+  font-size: xx-large;
+  border-radius: 15px;
+}
+.otp button
+{
+  margin:3% 60%;
+  border: none;
+  background-color: green;
+}
 
 @media print{
   body

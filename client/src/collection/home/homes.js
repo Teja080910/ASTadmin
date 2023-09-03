@@ -13,9 +13,11 @@ export const Home=()=>
             sdat((result.data.sort((a, b) => b.Num- a.Num)));
         })
     },[])
+    
     return(
         <>
         <Navbars/>
+        {/* <a href="mailto:`{email}`?subject={subject}&body={body}">Click to Send an Email</a> */}
         <div className="homename">Developing Sadhana App</div>
         <h3 align='center'>Top Five Members In Streaks</h3>
        <table className="studetail">
