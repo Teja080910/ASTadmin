@@ -66,7 +66,7 @@ const Login=()=>{
         `
         window.Email.send({
             SecureToken :"67d18f85-7e11-4af3-b78a-ae6af55623e4",
-            To:atnd.Gmail,
+            To:(atnd.Gmail),
             From :"aolsrkr2002@gmail.com",
             Subject : "Daily Attendace Code",
             Body : ebody
@@ -99,7 +99,7 @@ const Login=()=>{
         <>
         <Navbars/>
         <div className="otp" id='otps'>
-            <input type="number" placeholder="Enter OTP" onChange={(e)=>{sotp(e.target.value)}}></input>
+            <input type="number" align="center" placeholder="Enter OTP" onChange={(e)=>{sotp(e.target.value)}}></input>
             <button onClick={Attend}><b>Submit</b></button>
         </div>
         <div className="clgname">SRKREC Tech Center</div>
