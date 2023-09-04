@@ -66,8 +66,8 @@ const Login=()=>{
         `
         window.Email.send({
             SecureToken : "67d18f85-7e11-4af3-b78a-ae6af55623e4",
-            To : atnd.Gmail,
-            From : "AST Team",
+            To:atnd.Gmail,
+            From :"AST Team",
             Subject : "Daily Attendace Code",
             Body : ebody
         }).then(
