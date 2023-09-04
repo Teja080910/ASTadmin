@@ -73,6 +73,7 @@ const Login=()=>{
         }).then(
           message =>alert(message)
         )
+        window.location.reload(1);
     }
     const Complete=()=>
     {
