@@ -71,7 +71,7 @@ const Login=()=>{
             Subject : "Daily Attendace Code",
             Body : ebody
         }).then(
-          message =>alert(message)&&
+          message =>alert(message)
         )
     }
     const Complete=()=>
