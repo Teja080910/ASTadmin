@@ -66,7 +66,7 @@ export const Yoga=()=>
             <button onClick={Attend}><b>Submit</b></button>
         </div>
         <div className="clgname">SRKREC Daily Yoga</div>
-        <b
+        <br/>
         <div className="yearbtns">
         <Link className="yearbtnsink" onClick={Year} onClickCapture={(e)=>{syear(1)}}><b>1st Year</b></Link>
         <Link className="yearbtnsink" style={{backgroundColor:'red'}} onClick={Year} onClickCapture={(e)=>{syear(2)}}><b>2nd Year</b></Link>

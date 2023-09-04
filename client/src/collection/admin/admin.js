@@ -62,8 +62,10 @@ export const Admin=()=>{
                  else
                  {
                      localStorage.name=gmail;
+                     localStorage.yoga='';
                      alert("Admin sucessfully logged in again");
-                     if (time <= "7:20:00 pm" && time >="5:00:00 pm") {
+                     if (time <= "7:20:00 pm" && time >="5:00:00 pm")
+                     {
                          nav("/login")
                          window.location.reload(1);
                      }
@@ -88,7 +90,7 @@ export const Admin=()=>{
     <>
     <Navbars/>
         <div className="log1">
-        <h1 className="h">MERN</h1><br/>
+        <h1 className="h">PGSQL with React.js</h1><br/>
         <input className="inwidth" type="text" name="admin" id="admin" placeholder="Admin Gmail" onChange={(e)=>setgmail(e.target.value)}/><br/><br/>
         <input className="inwidth" type="password" name="password" id="password" placeholder="Password" onChange={(e)=>setpassword(e.target.value)}/><br/><br/>
         <button className="bwidth" onClick={Submit}>Submit</button>
