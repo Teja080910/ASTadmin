@@ -75,24 +75,14 @@ app.get('/projects',async(req,res)=>
 })
 
 // ******************************************* sadhana *****************************************//
-app.post('/sadhanasignup/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
+app.post('/sadhanasignup/:email',async(req,res)=>
 {
-    const details=await db.collection('SadhanaAttendance').insertOne({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch,Num:req.params.num});
-    res.json(details);
-})
-app.get('/sadhanastudents',async(req,res)=>
-{
-    const details=await db.collection('SadhanaAttendance').find().toArray()
-    res.json(details);
-})
-app.get('/sadhanastudent/:gmail',async(req,res)=>
-{
-    const details=await db.collection('SadhanaAttendance').findOne({Gmail:req.params.gmail})
+    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.email},{$set:{SadhanaReg:true,MrngStreak:0}});
     res.json(details);
 })
 app.post('/sadhanaloginstudent/:gmail/:num/:date',async(req,res)=>
 {
-    const details=await db.collection('SadhanaAttendance').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Num:req.params.num,Login:req.params.date}})
+    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{MrngStreak:req.params.num,MrngLogin:req.params.date}})
     res.json(details);
 })
 }
