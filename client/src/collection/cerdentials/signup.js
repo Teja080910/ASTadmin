@@ -16,8 +16,8 @@ const Signup=()=>{
         try{
        if(emailRegex.test(email))
         {
-            if(localStorage.yoga==="AST@9899")
-            {
+            // if(localStorage.yoga==="AST@9899")
+            // {
                 const res = await axios.get("https://attendance-339a.onrender.com/student/" + email)
                 {
                     if (res.data) {
@@ -39,31 +39,31 @@ const Signup=()=>{
                         }
                     }
                 }
-            }
-            else
-            {
-                const res = await axios.get("https://attendance-339a.onrender.com/sadhanastudent/" + email)
-                {
-                    if (res.data) {
-                        SetCheck("E-mail or Register Number is already exists");
-                    }
-                    else
-                    {
-                        const res=await axios.post("https://attendance-339a.onrender.com/sadhanasignup/" + email + "/" + name + "/" + regd + "/" + year + "/" + branch + "/" + num)
-                        {
-                            if(res)
-                            {
-                                alert("Register Successfully")
-                                window.location='/yoga';
-                            }
-                            else
-                            {
-                                alert("Try again")
-                            }
-                        }
-                    }
-                }
-            }
+            // }
+            // else
+            // {
+            //     const res = await axios.get("https://attendance-339a.onrender.com/sadhanastudent/" + email)
+            //     {
+            //         if (res.data) {
+            //             SetCheck("E-mail or Register Number is already exists");
+            //         }
+            //         else
+            //         {
+            //             const res=await axios.post("https://attendance-339a.onrender.com/sadhanasignup/" + email + "/" + name + "/" + regd + "/" + year + "/" + branch + "/" + num)
+            //             {
+            //                 if(res)
+            //                 {
+            //                     alert("Register Successfully")
+            //                     window.location='/yoga';
+            //                 }
+            //                 else
+            //                 {
+            //                     alert("Try again")
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
         }
         else
         {

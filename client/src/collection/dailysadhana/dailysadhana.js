@@ -41,6 +41,25 @@ export const Yoga=()=>
             console.log(e);
         }
     }
+    const Register=async()=>
+    {
+        const res=await axios.post("https://attendance-339a.onrender.com/signup/"+otp)
+        {
+            if(res)
+            {
+                alert("Register Successfully")
+                window.location='/yoga';
+            }
+            else
+            {
+                alert("Mail Not Found");
+            }
+        }
+    }
+    const Display=async()=>
+    {
+       document.getElementById("display").style.display="block";
+    }
     const Complete=()=>
     {
         localStorage.name='';
@@ -52,7 +71,7 @@ export const Yoga=()=>
     }
     useEffect(()=>
     {
-        axios.get("https://attendance-339a.onrender.com/sadhanastudents")
+        axios.get("https://attendance-339a.onrender.com/students")
         .then((result)=>
         {
             sdat((result.data.sort((a, b) => a.Year- b.Year)));
@@ -61,9 +80,9 @@ export const Yoga=()=>
     return(
         <>
         <Navbars/>
-        <div className="otp" id='otps'>
-            <input type="number" placeholder="Enter OTP" onChange={(e)=>{sotp(e.target.value)}}></input>
-            <button onClick={Attend}><b>Submit</b></button>
+        <div className="otp" id='display'>
+            <input type="gmail" placeholder="Enter Gmail" onChange={(e)=>{sotp(e.target.value)}}></input>
+            <button onClick={Register}><b>Submit</b></button>
         </div>
         <div className="clgname">SRKREC Daily Yoga</div>
         <br/>
@@ -78,7 +97,7 @@ export const Yoga=()=>
         <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input>
             <table className="studetail">
             <tr>
-                <td style={{height:'6vh'}} colSpan={5}><Link to='/register' className="signup">Register</Link></td>
+                <td style={{height:'6vh'}} colSpan={5}><Link onClick={Display} className="signup">Register</Link></td>
             </tr>
                     <tr>
                         <th>SNO</th>
@@ -95,19 +114,19 @@ export const Yoga=()=>
                            <>
                             <tr>
                            {
-                             x.Year===localStorage.year?
+                             x.Year===localStorage.year && x.SadhanaReg===true?
                              <>
                              <td style={{height:'7vh'}}>{index + 1}</td>
                              <td>{x.Reg_No}</td>
                              <td>{x.Name}</td>
                              <td>
                                 {
-                                    x.Login!==date.toDateString()?
+                                    x.MrngLogin!==date.toDateString()?
                                     <button onClick={Attend} onClickCapture={(e)=>{satnd(x)}}><b>Attend</b></button>:<b></b>
                                 }
                              </td>
                              <td>
-                                 <p><b>{x.Num}</b></p>
+                                 <p><b>{x.MrngStreak}</b></p>
                                  <img src={"streak.png"} alt="streak" width={"55px"}></img>
                              </td>
                              </>:<b></b>
