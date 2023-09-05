@@ -16,11 +16,11 @@ export const Yoga=()=>
     {
         try
         {
-               const responce = await axios.get("https://attendance-339a.onrender.com/sadhanastudent/" + atnd.Gmail)
+               const responce = await axios.get("https://attendance-339a.onrender.com/student/" + atnd.Gmail)
                {
                    if (responce.data) {
                        if (x === 1) {
-                           atnd.Num = (parseInt(responce.data.Num) + 1);
+                           atnd.Num = (parseInt(responce.data.MrngStreak) + 1);
                            sx(2);
                        }
                        const responce1 = await axios.post("https://attendance-339a.onrender.com/sadhanaloginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
