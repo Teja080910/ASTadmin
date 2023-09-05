@@ -77,7 +77,7 @@ app.get('/projects',async(req,res)=>
 // ******************************************* sadhana *****************************************//
 app.post('/sadhanasignup/:email',async(req,res)=>
 {
-    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.email},{$set:{SadhanaReg:true,MrngStreak:0}});
+    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.email},{$set:{SadhanaReg:true,MrngStreak:}});
     res.json(details);
 })
 app.post('/sadhanaloginstudent/:gmail/:num/:date',async(req,res)=>
