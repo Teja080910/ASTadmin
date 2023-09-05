@@ -122,7 +122,7 @@ export const Yoga=()=>
                              <td>
                                 {
                                     x.MrngLogin!==date.toDateString()?
-                                    <button onClick={Attend} onClickCapture={(e)=>{satnd(x)}}><b>Attend</b></button>:<b></b>
+                                    // <button onClick={Attend} onClickCapture={(e)=>{satnd(x)}}><b>Attend</b></button>:<b></b>
                                 }
                              </td>
                              <td>
