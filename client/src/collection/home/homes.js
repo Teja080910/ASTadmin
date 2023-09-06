@@ -30,7 +30,7 @@ export const Home=()=>
                              <td>{x.Branch}</td>
                              <td>{x.Year}</td>
                              <td>
-                                 <p><b>{x.Num}</b></p>
+                                 <p><b>{(parseInt(x.MrngStreak)+parseInt(x.Num))/2}</b></p>
                                  <img src={"streak.png"} alt="streak" width={"55px"}></img>
                              </td>
                 </tr>

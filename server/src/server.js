@@ -58,7 +58,7 @@ app.post('/loginstudent/:gmail/:num/:date',async(req,res)=>
 })
 app.post('/worksubmit/:gmail/:date/:work',async(req,res)=>
 {
-    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Work:req.params.work,Date:req.params.date}})
+    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Date:req.params.date,Work:req.params.work}})
     res.json(details);
 })
 

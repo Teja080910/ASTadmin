@@ -8,6 +8,7 @@ const Login=()=>{
     const [select,sselect]=useState([]);
     const [year,syear]=useState([]);
     const [otp,sotp]=useState([]);
+    const [tat,stat]=useState([]);
     const [x,sx] =useState(1);
     const min=Math.pow(10,3);
     const max=Math.pow(10,4)-1;
@@ -94,6 +95,11 @@ const Login=()=>{
         {
             sdat((result.data.sort((a, b) => a.Year- b.Year)));
         })
+        axios.get("https://attendance-339a.onrender.com/totaldays")
+        .then((result)=>
+        {
+            stat(result.data)
+        })
     },[])
     return(
         <>
@@ -116,6 +122,9 @@ const Login=()=>{
             <table className="studetail">
             <tr>
                 <td style={{height:'6vh'}} colSpan={5}><Link to='/register' onClick={Register} className="signup">Register</Link></td>
+            </tr>
+            <tr>
+                <td colSpan={5} className="signup"><b>Total days::</b>{tat.Days}</td>
             </tr>
                     <tr>
                         <th>SNO</th>
@@ -144,7 +153,7 @@ const Login=()=>{
                                 }
                              </td>
                              <td>
-                                 <p><b>{x.Num}</b></p>
+                                 <p><b>{(parseInt(x.MrngStreak)+parseInt(x.Num))/2}</b></p>
                                  <img src={"streak.png"} alt="streak" width={"55px"}></img>
                              </td>
                              </>:<b></b>

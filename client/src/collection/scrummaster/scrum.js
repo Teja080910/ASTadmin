@@ -32,6 +32,7 @@ export const Dailattend=()=>
 {
     const date=new Date();
     const [data,sdata]=useState([]);
+    const [tat,stat]=useState([]);
     const Scrm=async()=>
     {
         let scrm=prompt("Enter your pin");
@@ -51,12 +52,21 @@ export const Dailattend=()=>
         {
             sdata(result.data.sort((a, b) => a.Year- b.Year));
         })
+        axios.get("https://attendance-339a.onrender.com/totaldays")
+        .then((result)=>
+        {
+            stat(result.data)
+        })
     },[])
     return(
         <>
         <div className="dailyattend">
         <button className="scrmpntbtn" onClick={Scrm}>Print</button>
            <Table responsive>
+            <tr>
+                {
+                    tat.Date===date.toDateString()?<td colSpan={5}><b>Attendace Taken by Scrm master:: {tat.Scum}</b></td>:<b></b>}
+            </tr>
            <tr>
                 <th>Sno</th>
                 <th>Gmail</th>
@@ -67,7 +77,7 @@ export const Dailattend=()=>
             {
                 data.map((x,index)=>
                 (
-                    x.Login===date.toDateString()?
+                    x.Login!==date.toDateString()?
                    <>
                     <tr>
                         <td>{index+1}</td>
@@ -103,7 +113,7 @@ export const DailyWork=()=>
            {
             if(responce.data)
             {
-                const res=await axios.post("https://attendance-339a.onrender.com/worksubmit/"+name+"/"+date.toLocaleString()+"/"+work)
+                const res=await axios.post("https://attendance-339a.onrender.com/worksubmit/"+name+"/"+date.toDateString()+"/"+work)
                 {
                     if(res)
                     {
@@ -143,7 +153,7 @@ export const DailyWork=()=>
                 <label><b>Date</b></label>
             </td>
             <td >
-                {date.toLocaleString()}
+                {date.toDateString()}
             </td>
         </tr>
         <tr>

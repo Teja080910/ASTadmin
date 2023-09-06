@@ -126,7 +126,7 @@ export const Yoga=()=>
                                 }
                              </td>
                              <td>
-                                 <p><b>{x.MrngStreak}</b></p>
+                                 <p><b>{(parseInt(x.MrngStreak)+parseInt(x.Num))/2}</b></p>
                                  <img src={"streak.png"} alt="streak" width={"55px"}></img>
                              </td>
                              </>:<b></b>
