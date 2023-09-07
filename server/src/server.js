@@ -63,9 +63,15 @@ app.post('/worksubmit/:gmail/:date/:work',async(req,res)=>
 })
 
 //  ************************************************* projects ************************************************//
-app.post('/project/:name/:project',async(req,res)=>
+app.post('/project',async(req,res)=>
 {
-    const details=await db.collection("Projects").insertOne({Name:req.params.name,Project:req.params.project})
+    const details=await db.collection("Projects").insertOne({Name:req.body.name,Project:req.body.project})
+    res.json(details);
+})
+app.post('/pro',async(req,res)=>
+{
+    const {name,link}=req.body;
+    const details=await db.collection("Project").insertOne({Name:req.body.name,Link:req.body.link})
     res.json(details);
 })
 app.get('/projects',async(req,res)=>

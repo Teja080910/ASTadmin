@@ -11,7 +11,7 @@ export const Addproject=()=>
     {
         try
         {
-            await axios.post("https://attendance-339a.onrender.com/project/"+name+"/"+project)?alert("Sucessfully Submitted")&&nav('/projects'):alert("Try again");
+            await axios.post("http://localhost:8000/project",{name,project})?alert("Sucessfully Submitted")&&nav('/projects'):alert("Try again");
         }
         catch(e)
         {
@@ -57,7 +57,7 @@ export const Projects=()=>
         data.map((dat)=>
         (
             <div>
-                <Link className="projectlink" to={"https://"+dat.Project}>{dat.Name}</Link>
+                <Link className="projectlink" to={dat.Project}>{dat.Name}</Link>
             </div>
         ))
        }

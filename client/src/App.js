@@ -8,6 +8,7 @@ import { Addproject, Projects } from './collection/project/project';
 import { Scrum } from './collection/scrummaster/scrum';
 import './responce.css';
 import { Yoga } from './collection/dailysadhana/dailysadhana';
+import { Pro } from './collection/project/sampleproject';
 function App() {
   return (
     <>
@@ -22,6 +23,7 @@ function App() {
       <Route path='/addproject' element={<Addproject/>}/>
       <Route path='/projects' element={<Projects/>}/>
       <Route path='/scrummaster' element={<Scrum/>}/>
+      <Route path='/pro' element={<Pro/>}/>
     </Routes>
     </BrowserRouter>
     
