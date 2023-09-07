@@ -11,7 +11,7 @@ export const Addproject=()=>
     {
         try
         {
-            await axios.post("http://localhost:8000/project",{name,project})?alert("Sucessfully Submitted")&&nav('/projects'):alert("Try again");
+            await axios.post("https://attendance-339a.onrender.com/project",{name,project})?alert("Sucessfully Submitted")&&nav('/projects'):alert("Try again");
         }
         catch(e)
         {
@@ -47,7 +47,7 @@ export const Addproject=()=>
             <input  className="form-control" type="text" placeholder="Your project link" value={project} onChange={(e)=>sproject(e.target.value)} />
           </div>
           <div className="button">
-            <button type="submit" className="btn btn-success" onClick={Project} >Upload project</button>
+            <button type="submit" className="btn btn-success" onClick={Project}>Upload project</button>
           </div>
       </div>
         </>
