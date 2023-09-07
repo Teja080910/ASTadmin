@@ -139,7 +139,7 @@ export const DailyWork=()=>
     }
     return(
         <>
-       <div className="dailywork">
+       {/* <div className="dailywork">
        <tr>
             <td>
                 <label for='smn'><b>Student gmail</b></label>
@@ -169,7 +169,24 @@ export const DailyWork=()=>
                 <button onClick={WorkSubmit}>Submit</button>
             </td>
         </tr>
-       </div>
+       </div> */}
+        <div className="container-1 container">
+        <h2>Daily Work Submission</h2>
+          <div className="form-group">
+            <label>Student Email:</label>
+            <input  className="form-control" type="text" id="smn" placeholder="Enter your gmail" onChange={(e)=>sname(e.target.value)}/>
+          </div>
+          <div className="form-group">
+            <label>Date:</label>   {date.toDateString()}
+          </div>
+          <div className="form-group">
+            <label>Today Work:</label>
+            <textarea  className="form-control" type="text" id="work" placeholder="Enter work with Module names" onChange={(e)=>swork(e.target.value)} />
+          </div>
+          <div className="button">
+            <button  className="btn btn-success"  onClick={WorkSubmit}>Submit Work</button>
+          </div>
+      </div>
         </>
     )
 }

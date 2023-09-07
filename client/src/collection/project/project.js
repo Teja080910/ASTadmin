@@ -21,7 +21,7 @@ export const Addproject=()=>
     return(
         <>
         <Navbars/>
-        <div className="addproject">
+        {/* <div className="addproject">
         <tr>
             <td style={{width:'30%'}}>
             <label>Name::<input type="text" placeholder="Name" onChange={(e)=>sname(e.target.value)}></input></label>
@@ -35,7 +35,21 @@ export const Addproject=()=>
         </tr>
         <br/><br/>
         <button onClick={Project}>Submit</button>
-        </div>
+        </div> */}
+        <div className="container-1 container">
+        <h2>Project upload</h2>
+          <div className="form-group">
+            <label>Student Name:</label>
+            <input  className="form-control"  type="text" placeholder="Name of the student" onChange={(e)=>sname(e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>Project Link</label>
+            <input  className="form-control" type="text" placeholder="Your project link" value={project} onChange={(e)=>sproject(e.target.value)} />
+          </div>
+          <div className="button">
+            <button type="submit" className="btn btn-success" onClick={Project} >Upload project</button>
+          </div>
+      </div>
         </>
     )
 }
