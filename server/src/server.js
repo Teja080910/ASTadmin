@@ -70,8 +70,12 @@ app.post('/project',async(req,res)=>
 })
 app.post('/pro',async(req,res)=>
 {
-    const {name,link}=req.body;
-    const details=await db.collection("Project").insertOne({Name:req.body.name,Link:req.body.link})
+    const details=await db.collection("Project").insertOne({Link:req.body.link})
+    res.json(details);
+})
+app.get('/pro',async(req,res)=>
+{
+    const details=await db.collection("Project").find().toArray();
     res.json(details);
 })
 app.get('/projects',async(req,res)=>
