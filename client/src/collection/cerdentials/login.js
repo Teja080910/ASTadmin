@@ -13,6 +13,7 @@ const Login=()=>{
     const min=Math.pow(10,3);
     const max=Math.pow(10,4)-1;
     const [code,scode]=useState(0);
+    const [isLoading, setIsLoading] = useState(true);
     const date=new Date();
     const Attend=async()=>
     {
@@ -100,6 +101,9 @@ const Login=()=>{
         {
             stat(result.data)
         })
+        setTimeout(() => {
+            setIsLoading(false);
+          }, 2000);
     },[])
     return(
         <>
@@ -119,49 +123,59 @@ const Login=()=>{
         <br/>
         <div>
         <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input>
-            <table className="studetail">
-            <tr>
-                <td style={{height:'6vh'}} colSpan={5}><Link to='/register' onClick={Register} className="signup">Register</Link></td>
-            </tr>
-            <tr>
-                <td colSpan={5} className="signup"><b>Total days::</b>{tat.Days}</td>
-            </tr>
-                    <tr>
-                        <th>SNO</th>
-                        <th>REGISTER NUMBER</th>
-                        <th>NAME</th>
-                        <th>CLICK</th>
-                        <th>STREAK</th>
-                    </tr>
-                    <tr>
-                        <td colSpan={5} style={{ background: 'red' }}></td>
-                    </tr>
-            {
-            dat.filter(user=>(user.Reg_No).toLowerCase().includes(select)||(user.Reg_No).toUpperCase().includes(select)||(user.Name).toUpperCase().includes(select)||(user.Name).toLowerCase().includes(select)).map((x,index) => (
-                           <>
+                <table className="studetail">
+                    {
+                        isLoading ?
                             <tr>
-                           {
-                             x.Year===localStorage.year?
-                             <>
-                             <td style={{height:'7vh'}}>{index + 1}</td>
-                             <td>{x.Reg_No}</td>
-                             <td>{x.Name}</td>
-                             <td>
+                                <td style={{ backgroundColor: 'white', textAlign: 'center' }} colSpan={5}>
+                                    <h5>Loading....</h5>
+                                </td>
+                            </tr> :
+                            <>
+                                <tr>
+                                    <td style={{ height: '6vh' }} colSpan={5}><Link to='/register' onClick={Register} className="signup">Register</Link></td>
+                                </tr>
+                                <tr>
+                                    <td colSpan={5} className="signup"><b>Total days::</b>{tat.Days}</td>
+                                </tr>
+                                <tr>
+                                    <th>SNO</th>
+                                    <th>REGISTER NUMBER</th>
+                                    <th>NAME</th>
+                                    <th>CLICK</th>
+                                    <th>STREAK</th>
+                                </tr>
+                                <tr>
+                                    <td colSpan={5} style={{ background: 'red' }}></td>
+                                </tr>
                                 {
-                                    x.Login!==date.toDateString()?
-                                    <button onClick={Send} onClickCapture={(e)=>{satnd(x)}}><b>Attend</b></button>:<b></b>
-                                }
-                             </td>
-                             <td>
-                                 <p><b>{(parseInt(x.MrngStreak)+parseInt(x.Num))/2}</b></p>
-                                 <img src={"streak.png"} alt="streak" width={"55px"}></img>
-                             </td>
-                             </>:<b></b>
-                           }
-                            </tr>
-                           </>
-                     ))}
-            </table>
+                                    dat.filter(user => (user.Reg_No).toLowerCase().includes(select) || (user.Reg_No).toUpperCase().includes(select) || (user.Name).toUpperCase().includes(select) || (user.Name).toLowerCase().includes(select)).map((x, index) => (
+                                        <>
+                                            <tr>
+                                                {
+                                                    x.Year === localStorage.year ?
+                                                        <>
+                                                            <td style={{ height: '7vh' }}>{index + 1}</td>
+                                                            <td>{x.Reg_No}</td>
+                                                            <td>{x.Name}</td>
+                                                            <td>
+                                                                {
+                                                                    x.Login !== date.toDateString() ?
+                                                                        <button onClick={Send} onClickCapture={(e) => { satnd(x) }}><b>Attend</b></button> : <b></b>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                <p><b>{(parseInt(x.MrngStreak) + parseInt(x.Num)) / 2}</b></p>
+                                                                <img src={"streak.png"} alt="streak" width={"55px"}></img>
+                                                            </td>
+                                                        </> : <b></b>
+                                                }
+                                            </tr>
+                                        </>
+                        ))}
+                            </>
+}
+                </table>
             <div>
 
             <Link onClick={Complete} to='/' className="complteday"><b>Complete Day</b></Link>

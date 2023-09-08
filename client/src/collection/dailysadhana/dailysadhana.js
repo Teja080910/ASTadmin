@@ -11,6 +11,7 @@ export const Yoga=()=>
     const [otp,sotp]=useState([]);
     const [x,sx] =useState(1);
     const [code,scode]=useState(0);
+    const [isLoading, setIsLoading] = useState(true);
     const date=new Date();
     const Attend=async()=>
     {
@@ -76,6 +77,9 @@ export const Yoga=()=>
         {
             sdat((result.data.sort((a, b) => a.Year- b.Year)));
         })
+        setTimeout(() => {
+            setIsLoading(false);
+          }, 2000);
     },[])
     return(
         <>
@@ -96,7 +100,15 @@ export const Yoga=()=>
         <div>
         <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input>
             <table className="studetail">
-            <tr>
+            {
+                isLoading?
+                <tr>
+                    <td style={{backgroundColor:'white',textAlign:'center'}} colSpan={5}>
+                        <h5>Loading....</h5>
+                    </td>
+                </tr>:
+                <>
+                <tr>
                 <td style={{height:'6vh'}} colSpan={5}><Link onClick={Display} className="signup">Register</Link></td>
             </tr>
                     <tr>
@@ -134,6 +146,8 @@ export const Yoga=()=>
                             </tr>
                            </>
                      ))}
+                </>
+            }
             </table>
             <div>
 
