@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {Ppt} from 'react-ppt';
 export const Pro=()=>
 {
     const [name,sname]=useState([]);
@@ -54,8 +53,7 @@ export const Pro=()=>
                 id.map((val,index)=>
                 (
                     <>
-                         <Ppt src={"https://jade-potential-cheetah-339.mypinata.cloud/ipfs/"+val.Link} width="100%" height="100px"
-                       />
+                         {/* <Ppt src={"https://jade-potential-cheetah-339.mypinata.cloud/ipfs/"+val.Link} width="100%" height="100px"/> */}
             </>
                 ))
             }
