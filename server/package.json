@@ -18,6 +18,8 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "mongodb": "^5.3.0",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "textflow.js": "^0.1.4",
+    "twilio": "^4.17.0"
   }
 }

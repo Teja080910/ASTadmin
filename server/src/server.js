@@ -1,5 +1,6 @@
 import cors from 'cors';
 import express from 'express';
+import twilio from 'twilio';
 import { connectToDB, db } from "./db.js";
 const app = express()
 app.use(cors())
@@ -7,9 +8,15 @@ app.use(express.json())
 app.get('/',(req,res)=>{
     res.json("server is running successfully!");
 })
-
 try
 {
+    const accountSid = 'ACeb9a46be3f1c68923b99d86b8e2cec6b';
+const authToken = 'ccddf8423c50abfed1d91e0ae9ab030e';
+const verifySid = "VA3a6272ea5584c4f99a16b3562569687b";
+const client=new twilio(accountSid,authToken);
+const details=client.verify.v2.services(verifySid).verifications.create({ to: "+917816087488", channel: "sms" })
+    .then((verification) => console.log(verification))
+   
     // ************************************** Admin *****************************************//
 app.get('/admincheck/:name/:password',async(req,res)=>
 {
@@ -94,6 +101,16 @@ app.post('/sadhanaloginstudent/:gmail/:num/:date',async(req,res)=>
 {
     const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{MrngStreak:req.params.num,MrngLogin:req.params.date}})
     res.json(details);
+})
+app.get('/sendotp/:number',async(req,res)=>
+{
+    const details=client.verify.v2.services(verifySid).verifications.create({ to: "+91"+req.params.number, channel: "sms" })
+    .then((verification) => console.log(verification))
+})
+app.get('/reciveotp/:code',async(req,res)=>
+{
+    client.verify.v2.services(verifySid).verificationChecks.create({ to: "+917816087488", code:req.params.code })
+        .then((verification_check) => console.log(verification_check.status))
 })
 }
 catch(e)

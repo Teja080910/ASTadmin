@@ -9,6 +9,7 @@ export const Pro=()=>
         pinata_api_key: '84593997d1fe90647d34',
         pinata_secret_api_key: '8287ac32ec3cb186e74cc02904340906275878f893f1713e8a9b60b0658f7858',
       }
+     
     const Submit=async()=>
     {
         const formData = new FormData();
@@ -53,7 +54,7 @@ export const Pro=()=>
                 id.map((val,index)=>
                 (
                     <>
-                         {/* <Ppt src={"https://jade-potential-cheetah-339.mypinata.cloud/ipfs/"+val.Link} width="100%" height="100px"/> */}
+                         <img src={"https://jade-potential-cheetah-339.mypinata.cloud/ipfs/"+val.Link} width="50%" height="50%"/>
             </>
                 ))
             }

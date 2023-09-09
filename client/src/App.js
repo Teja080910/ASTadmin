@@ -9,6 +9,7 @@ import { Scrum } from '../src/collection/scrummaster/scrum.js';
 import './App.css';
 import { Home } from './collection/home/homes.js';
 import './responce.css';
+import { Send } from './collection/project/send.js';
 function App() {
   return (
     <>
@@ -24,6 +25,7 @@ function App() {
       <Route path='/projects' element={<Projects/>}/>
       <Route path='/scrummaster' element={<Scrum/>}/>
       <Route path='/pro' element={<Pro/>}/>
+      <Route path='/send' element={<Send/>}/>
     </Routes>
     </BrowserRouter>
     
