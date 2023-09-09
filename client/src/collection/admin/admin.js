@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import {Navbars} from '../nav&foot/nav'
 import { useNavigate } from "react-router-dom";
-import { Navbars } from "../nav&foot/nav";
 import '../admin/admin.css';
 export const Admin=()=>{
     const nav=useNavigate();
@@ -91,12 +91,12 @@ export const Admin=()=>{
     return(
     <>
     <Navbars/>
-        {/* <div className="log1">
+        <div className="log1">
         <h1 className="h">PGSQL with React.js</h1><br/>
         <input className="inwidth" type="text" name="admin" id="admin" placeholder="Admin Gmail" onChange={(e)=>setgmail(e.target.value)}/><br/><br/>
         <input className="inwidth" type="password" name="password" id="password" placeholder="Password" onChange={(e)=>setpassword(e.target.value)}/><br/><br/>
         <button className="bwidth" onClick={Submit}>Submit</button>
-        </div> */}
+        </div>
         <div className="container-1 container">
         <h2>Admin Login</h2>
           <div className="form-group">
