@@ -10,12 +10,10 @@ app.get('/',(req,res)=>{
 })
 try
 {
-    const accountSid = 'ACeb9a46be3f1c68923b99d86b8e2cec6b';
-const authToken = 'ccddf8423c50abfed1d91e0ae9ab030e';
-const verifySid = "VA3a6272ea5584c4f99a16b3562569687b";
-const client=new twilio(accountSid,authToken);
-const details=client.verify.v2.services(verifySid).verifications.create({ to: "+917816087488", channel: "sms" })
-    .then((verification) => console.log(verification))
+    const accountSid = "ACeb9a46be3f1c68923b99d86b8e2cec6b";
+    const authToken = "ccddf8423c50abfed1d91e0ae9ab030e";
+    const verifySid = "VA1d7be8603abac6f0b4567a82a74a7143";
+    const client=new twilio(accountSid,authToken);
    
     // ************************************** Admin *****************************************//
 app.get('/admincheck/:name/:password',async(req,res)=>
@@ -104,13 +102,15 @@ app.post('/sadhanaloginstudent/:gmail/:num/:date',async(req,res)=>
 })
 app.get('/sendotp/:number',async(req,res)=>
 {
-    const details=client.verify.v2.services(verifySid).verifications.create({ to: "+91"+req.params.number, channel: "sms" })
-    .then((verification) => console.log(verification))
+    client.verify.v2.services(verifySid).verifications.create({ to:req.params.number, channel: "sms" })
+    .then((verification) => res.json(verification.status))
+    .catch((e)=>res.json(e.status));
 })
-app.get('/reciveotp/:code',async(req,res)=>
+app.get('/reciveotp/:number/:code',async(req,res)=>
 {
-    client.verify.v2.services(verifySid).verificationChecks.create({ to: "+917816087488", code:req.params.code })
-        .then((verification_check) => console.log(verification_check.status))
+    client.verify.v2.services(verifySid).verificationChecks.create({ to:req.params.number, code:req.params.code })
+    .then((verification_check) => res.json(verification_check.status))
+    .catch((e)=>res.json(e.status));
 })
 }
 catch(e)
