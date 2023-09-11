@@ -20,7 +20,7 @@ export const Send=()=>
       {
         try
         {
-          const res=await axios.get('http://localhost:8000/sendotp/'+"6300291529")
+          const res=await axios.post('http://localhost:8000/teja/'+"teja"+"/"+16)
         {
             if(res.data)
             {

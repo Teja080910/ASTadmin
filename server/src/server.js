@@ -112,6 +112,13 @@ app.get('/reciveotp/:number/:code',async(req,res)=>
     .then((verification_check) => res.json(verification_check.status))
     .catch((e)=>res.json(e.status));
 })
+app.post('/teja/:name/:num',async(req,res)=>
+{
+    const index=req.params.num;
+    const data=db.collection("Teja");
+    const details=await data.updateOne({'comments.1':"Teja"}, {$set:{[`comments.${index}`]:[5]}})
+    res.json(details);
+})
 }
 catch(e)
 {
