@@ -58,7 +58,7 @@ export const Projects=()=>
     const [data,sdata]=useState([]);
     useEffect(()=>
     {
-        axios.get("https://attendance-339a.onrender.com/projects")
+        axios.post("https://attendance-339a.onrender.com/projects")
         .then((result)=>
         {
             sdata(result.data);

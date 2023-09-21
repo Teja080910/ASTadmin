@@ -18,7 +18,7 @@ const Signup=()=>{
         {
             // if(localStorage.yoga==="AST@9899")
             // {
-                const res = await axios.get("https://attendance-339a.onrender.com/student/" + email)
+                const res = await axios.post("https://attendance-339a.onrender.com/student/" + email)
                 {
                     if (res.data) {
                         SetCheck("E-mail or Register Number is already exists");
@@ -42,7 +42,7 @@ const Signup=()=>{
             // }
             // else
             // {
-            //     const res = await axios.get("https://attendance-339a.onrender.com/sadhanastudent/" + email)
+            //     const res = await axios.post("https://attendance-339a.onrender.com/sadhanastudent/" + email)
             //     {
             //         if (res.data) {
             //             SetCheck("E-mail or Register Number is already exists");

@@ -7,7 +7,7 @@ export const Home=()=>
     localStorage.name='';
     useEffect(()=>
     {
-        axios.get("https://attendance-339a.onrender.com/students")
+        axios.post("https://attendance-339a.onrender.com/students")
         .then((result)=>
         {
             sdat((result.data.sort((a, b) => b.Num- a.Num)));

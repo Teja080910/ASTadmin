@@ -5,7 +5,7 @@ import { connectToDB, db } from "./db.js";
 const app = express()
 app.use(cors())
 app.use(express.json())
-app.get('/',(req,res)=>{
+app.post('/',(req,res)=>{
     res.json("server is running successfully!");
 })
 try
@@ -16,7 +16,7 @@ try
     const client=new twilio(accountSid,authToken);
    
     // ************************************** Admin *****************************************//
-app.get('/admincheck/:name/:password',async(req,res)=>
+app.post('/admincheck/:name/:password',async(req,res)=>
 {
     const details=await db.collection('admin').findOne({Gmail:req.params.name,Password:req.params.password})
     res.json(details);
@@ -35,7 +35,7 @@ app.post('/updateadmin/:gmail/:date/:days',async(req,res)=>
 
 
 // ****************************************** Total days ********************************//
-app.get('/totaldays',async(req,res)=>
+app.post('/totaldays',async(req,res)=>
 {
     const details=await db.collection('Totaldays').findOne({Team:"AST"})
     res.json(details);
@@ -46,12 +46,12 @@ app.post('/signup/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
     const details=await db.collection('Signup').insertOne({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch,Num:req.params.num});
     res.json(details);
 })
-app.get('/students',async(req,res)=>
+app.post('/students',async(req,res)=>
 {
     const details=await db.collection('Signup').find().toArray()
     res.json(details);
 })
-app.get('/student/:gmail',async(req,res)=>
+app.post('/student/:gmail',async(req,res)=>
 {
     const details=await db.collection('Signup').findOne({Gmail:req.params.gmail})
     res.json(details);
@@ -78,12 +78,12 @@ app.post('/pro',async(req,res)=>
     const details=await db.collection("Project").insertOne({Link:req.body.link})
     res.json(details);
 })
-app.get('/pro',async(req,res)=>
+app.post('/pro',async(req,res)=>
 {
     const details=await db.collection("Project").find().toArray();
     res.json(details);
 })
-app.get('/projects',async(req,res)=>
+app.post('/projects',async(req,res)=>
 {
     const details=await db.collection("Projects").find().toArray()
     res.json(details);
@@ -100,13 +100,13 @@ app.post('/sadhanaloginstudent/:gmail/:num/:date',async(req,res)=>
     const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{MrngStreak:req.params.num,MrngLogin:req.params.date}})
     res.json(details);
 })
-app.get('/sendotp/:number',async(req,res)=>
+app.post('/sendotp/:number',async(req,res)=>
 {
     client.verify.v2.services(verifySid).verifications.create({ to:req.params.number, channel: "sms" })
     .then((verification) => res.json(verification.status))
     .catch((e)=>res.json(e.status));
 })
-app.get('/reciveotp/:number/:code',async(req,res)=>
+app.post('/reciveotp/:number/:code',async(req,res)=>
 {
     client.verify.v2.services(verifySid).verificationChecks.create({ to:req.params.number, code:req.params.code })
     .then((verification_check) => res.json(verification_check.status))

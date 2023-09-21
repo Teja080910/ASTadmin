@@ -1,9 +1,9 @@
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from "react";
-import {Navbars} from '../nav&foot/nav'
 import { useNavigate } from "react-router-dom";
 import '../admin/admin.css';
+import { Navbars } from '../nav&foot/nav';
 export const Admin=()=>{
     const nav=useNavigate();
     const[gmail,setgmail]=useState([]);
@@ -12,13 +12,13 @@ export const Admin=()=>{
     const time=new Date().toLocaleTimeString();
     const Submit=async()=>{
         try{
-            const responce=await axios.get("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password)
+            const responce=await axios.post("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password)
             {
                 if(responce.data)
                 {
                  if (responce.data.Dates !== date.toDateString())
                  {
-                    const res1=await axios.get("https://attendance-339a.onrender.com/totaldays")
+                    const res1=await axios.post("https://attendance-339a.onrender.com/totaldays")
                     {
                         if(res1.data)
                         {
@@ -126,7 +126,7 @@ export const Adminreg=()=>
     const[password,setpassword]=useState([]);
     const Submit=async()=>
     {
-        const res=await axios.get("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password)
+        const res=await axios.post("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password)
         {
             if (res.data) {
                 alert("Already Register")

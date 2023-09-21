@@ -21,7 +21,7 @@ const Login=()=>{
         {
            if(parseInt(otp)===code)
            {
-               const responce = await axios.get("https://attendance-339a.onrender.com/student/" + atnd.Gmail)
+               const responce = await axios.post("https://attendance-339a.onrender.com/student/" + atnd.Gmail)
                {
                    if (responce.data) {
                        if (x === 1) {
@@ -53,7 +53,7 @@ const Login=()=>{
     }
     const Send=async()=>
     {
-        document.getElementById('otps').style.display='block'
+        document.postElementById('otps').style.display='block'
         let OTP=Math.floor(Math.random()*(max-min+1))+min;
         scode(OTP);
         let ebody=`
@@ -91,12 +91,12 @@ const Login=()=>{
     }
     useEffect(()=>
     {
-        axios.get("https://attendance-339a.onrender.com/students")
+        axios.post("https://attendance-339a.onrender.com/students")
         .then((result)=>
         {
             sdat((result.data.sort((a, b) => a.Year- b.Year)));
         })
-        axios.get("https://attendance-339a.onrender.com/totaldays")
+        axios.post("https://attendance-339a.onrender.com/totaldays")
         .then((result)=>
         {
             stat(result.data)

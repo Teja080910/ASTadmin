@@ -37,7 +37,7 @@ export const Pro=()=>
     }
     useEffect(()=>
     {
-        axios.get("http://localhost:8000/pro")
+        axios.post("http://localhost:8000/pro")
         .then((result)=>
         {
             sid(result.data);

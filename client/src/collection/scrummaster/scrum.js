@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Navbars } from "../nav&foot/nav";
 import Table from 'react-bootstrap/Table';
+import { Navbars } from "../nav&foot/nav";
 export const Scrum=()=>
 {
     const [set,sset]=useState(0);
@@ -47,12 +47,12 @@ export const Dailattend=()=>
     }
     useEffect(()=>
     {
-        axios.get("https://attendance-339a.onrender.com/students")
+        axios.post("https://attendance-339a.onrender.com/students")
         .then((result)=>
         {
             sdata(result.data.sort((a, b) => a.Year- b.Year));
         })
-        axios.get("https://attendance-339a.onrender.com/totaldays")
+        axios.post("https://attendance-339a.onrender.com/totaldays")
         .then((result)=>
         {
             stat(result.data)
@@ -109,7 +109,7 @@ export const DailyWork=()=>
     {
         try
         {
-           const responce=await axios.get("https://attendance-339a.onrender.com/student/"+name)
+           const responce=await axios.post("https://attendance-339a.onrender.com/student/"+name)
            {
             if(responce.data)
             {

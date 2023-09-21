@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState,useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Navbars } from "../nav&foot/nav";
 export const Yoga=()=>
@@ -17,7 +17,7 @@ export const Yoga=()=>
     {
         try
         {
-               const responce = await axios.get("https://attendance-339a.onrender.com/student/" + atnd.Gmail)
+               const responce = await axios.post("https://attendance-339a.onrender.com/student/" + atnd.Gmail)
                {
                    if (responce.data) {
                        if (x === 1) {
@@ -59,7 +59,7 @@ export const Yoga=()=>
     }
     const Display=async()=>
     {
-       document.getElementById("display").style.display="block";
+       document.postElementById("display").style.display="block";
     }
     const Complete=()=>
     {
@@ -72,7 +72,7 @@ export const Yoga=()=>
     }
     useEffect(()=>
     {
-        axios.get("https://attendance-339a.onrender.com/students")
+        axios.post("https://attendance-339a.onrender.com/students")
         .then((result)=>
         {
             sdat((result.data.sort((a, b) => a.Year- b.Year)));

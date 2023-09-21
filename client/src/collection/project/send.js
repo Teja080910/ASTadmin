@@ -20,7 +20,7 @@ export const Send=()=>
       {
         try
         {
-          const res=await axios.post('http://localhost:8000/teja/'+"teja"+"/"+16)
+          const res=await axios.post(process.env.teja+'/teja/'+"teja"+"/"+16)
         {
             if(res.data)
             {
@@ -37,7 +37,7 @@ export const Send=()=>
       {
         try
         {
-          const res=await axios.get('http://localhost:8000/reciveotp/'+"272338")
+          const res=await axios.post('http://localhost:8000/reciveotp/'+"272338")
         {
             if(res.data)
             {
