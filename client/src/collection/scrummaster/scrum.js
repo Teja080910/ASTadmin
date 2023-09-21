@@ -77,7 +77,7 @@ export const Dailattend=()=>
             {
                 data.map((x,index)=>
                 (
-                    x.Login!==date.toDateString()?
+                    x.Login===date.toDateString()?
                    <>
                     <tr>
                         <td>{index+1}</td>
