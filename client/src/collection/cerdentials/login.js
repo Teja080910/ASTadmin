@@ -53,7 +53,7 @@ const Login=()=>{
     }
     const Send=async()=>
     {
-        document.postElementById('otps').style.display='block'
+        document.getElementById('otps').style.display='block';
         let OTP=Math.floor(Math.random()*(max-min+1))+min;
         scode(OTP);
         let ebody=`
