@@ -59,7 +59,7 @@ export const Yoga=()=>
     }
     const Display=async()=>
     {
-       document.postElementById("display").style.display="block";
+       document.getElementById("display").style.display="block";
     }
     const Complete=()=>
     {
