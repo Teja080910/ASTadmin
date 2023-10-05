@@ -16,7 +16,7 @@ const Signup=()=>{
         try{
        if(emailRegex.test(email))
         {
-            // if(localStorage.yoga==="AST@9899")
+            // if(sessionStorage.yoga==="AST@9899")
             // {
                 const res = await axios.post("https://attendance-339a.onrender.com/student/" + email)
                 {
@@ -77,7 +77,7 @@ const Signup=()=>{
     }
     const Login=()=>
     {
-        if(localStorage.yoga==="Yoga@9899")
+        if(sessionStorage.yoga==="Yoga@9899")
         {
             window.location='/yoga';
         }

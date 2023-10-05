@@ -6,8 +6,8 @@ import { Yoga } from '../src/collection/dailysadhana/dailysadhana.js';
 import { Addproject, Projects } from '../src/collection/project/project.js';
 import { Pro } from '../src/collection/project/sampleproject.js';
 import { Scrum } from '../src/collection/scrummaster/scrum.js';
-import { Face } from './collection/face/face.js';
 import './App.css';
+import { Face } from './collection/face/face.js';
 import { Home } from './collection/home/homes.js';
 import { Send } from './collection/project/send.js';
 import './responce.css';
@@ -19,9 +19,9 @@ function App() {
       <Route path='/' element={<Home/>}/>
       <Route path="/adminlogin" element={<Admin/>}/>
       <Route path='adminregister' element={<Adminreg/>}/>
-      <Route path="/login" element={localStorage.name===''?<Admin/>:<Login/>}/>
+      <Route path="/login" element={sessionStorage.name===''?<Admin/>:<Login/>}/>
       <Route path="/register" element={<Signup/>}/>
-      <Route path='/yoga' element={localStorage.yoga==="Yoga@9899"?<Yoga/>:<Home/>}/>
+      <Route path='/yoga' element={sessionStorage.yoga==="Yoga@9899"?<Yoga/>:<Home/>}/>
       <Route path='/addproject' element={<Addproject/>}/>
       <Route path='/projects' element={<Projects/>}/>
       <Route path='/scrummaster' element={<Scrum/>}/>

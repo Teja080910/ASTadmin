@@ -59,22 +59,27 @@
   height: 35vh;
   margin-left: 0%;
 }
-.studetail
+table thead
 {
-  width: 100%;
+  width: 50vh;
+}
+table tbody
+{
+  width: 50vh;
   font-size: 10px;
   margin: 0%;
   background-color: aliceblue;
 }
-.studetail p
+table tbody p
 {
   margin:15px 0px 1px 6%;
   font-size:10px;
 }
-.studetail button
+table tbody button
 {
   height:4vh;
   width:10vh;
+  font-size: small;
 }
 .signup
 {

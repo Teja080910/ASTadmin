@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Table from 'react-bootstrap/Table';
 import { Link } from "react-router-dom";
 import { Navbars } from "../nav&foot/nav";
+import Button from "react-bootstrap/esm/Button";
 const Login=()=>{
     const [dat,sdat]=useState([]);
     const [atnd,satnd]=useState([]);
@@ -78,16 +80,16 @@ const Login=()=>{
     }
     const Complete=()=>
     {
-        localStorage.name='';
+        sessionStorage.removeItem('name');
     }
     const Year=()=>
     {
-        localStorage.year=year;
+        sessionStorage.year=year;
         window.location.reload(1);
     }
     const Register=()=>
     {
-        localStorage.yoga='';
+        sessionStorage.removeItem('yoga');
     }
     useEffect(()=>
     {
@@ -113,72 +115,75 @@ const Login=()=>{
             <button onClick={Attend}><b>Submit</b></button>
         </div>
         <div className="clgname">SRKREC Tech Center</div>
-        <br/>
         <div className="yearbtns">
-        <Link className="yearbtnsink" onClick={Year} onClickCapture={(e)=>{syear(1)}}><b>1st Year</b></Link>
-        <Link className="yearbtnsink" style={{backgroundColor:'red'}} onClick={Year} onClickCapture={(e)=>{syear(2)}}><b>2nd Year</b></Link>
-        <Link className="yearbtnsink" style={{backgroundColor:'blueviolet'}} onClick={Year} onClickCapture={(e)=>{syear(3)}}><b>3rd Year</b></Link>
-        <Link className="yearbtnsink" style={{backgroundColor:'green'}} onClick={Year} onClickCapture={(e)=>{syear(4)}}><b>4th Year</b></Link>
+        <Button className="yearbtnsink" onClick={Year} onClickCapture={(e)=>{syear(1)}}><b>1st Year</b></Button>
+        <Button className="yearbtnsink" style={{backgroundColor:'red'}} onClick={Year} onClickCapture={(e)=>{syear(2)}}><b>2nd Year</b></Button>
+        <Button className="yearbtnsink" style={{backgroundColor:'blueviolet'}} onClick={Year} onClickCapture={(e)=>{syear(3)}}><b>3rd Year</b></Button>
+        <Button className="yearbtnsink" style={{backgroundColor:'green'}} onClick={Year} onClickCapture={(e)=>{syear(4)}}><b>4th Year</b></Button>
         </div>
         <br/>
         <div>
         <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input>
-                <table className="studetail">
-                    {
-                        isLoading ?
-                            <tr>
-                                <td style={{ backgroundColor: 'white', textAlign: 'center' }} colSpan={5}>
-                                    <h5>Loading....</h5>
-                                </td>
-                            </tr> :
-                            <>
+                    <Table striped bordered hover>
+                        {
+                            isLoading ?
                                 <tr>
-                                    <td style={{ height: '6vh' }} colSpan={5}><Link to='/register' onClick={Register} className="signup">Register</Link></td>
-                                </tr>
-                                <tr>
-                                    <td colSpan={5} className="signup"><b>Total days::</b>{tat.Days}</td>
-                                </tr>
-                                <tr>
-                                    <th>SNO</th>
-                                    <th>REGISTER NUMBER</th>
-                                    <th>NAME</th>
-                                    <th>CLICK</th>
-                                    <th>STREAK</th>
-                                </tr>
-                                <tr>
-                                    <td colSpan={5} style={{ background: 'red' }}></td>
-                                </tr>
-                                {
-                                    dat.filter(user => (user.Reg_No).toLowerCase().includes(select) || (user.Reg_No).toUpperCase().includes(select) || (user.Name).toUpperCase().includes(select) || (user.Name).toLowerCase().includes(select)).map((x, index) => (
-                                        <>
-                                            <tr>
-                                                {
-                                                    x.Year === localStorage.year ?
-                                                        <>
-                                                            <td style={{ height: '7vh' }}>{index + 1}</td>
-                                                            <td>{x.Reg_No}</td>
-                                                            <td>{x.Name}</td>
-                                                            <td>
-                                                                {
-                                                                    x.Login !== date.toDateString() ?
-                                                                        <button onClick={Send} onClickCapture={(e) => { satnd(x) }}><b>Attend</b></button> : <b></b>
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                <p><b>{(parseInt(x.MrngStreak) + parseInt(x.Num)) / 2}</b></p>
-                                                                <img src={"streak.png"} alt="streak" width={"55px"}></img>
-                                                            </td>
-                                                        </> : <b></b>
-                                                }
-                                            </tr>
-                                        </>
-                        ))}
-                            </>
-}
-                </table>
+                                    <td style={{ backgroundColor: 'white', textAlign: 'center' }} colSpan={5}>
+                                        <h5>Loading....</h5>
+                                    </td>
+                                </tr> :
+                                <>
+                                    <thead>
+                                        <tr>
+                                            <td style={{ height: '6vh' }} colSpan={5}><Link to='/register' onClick={Register} className="signup">Register</Link></td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan={5} className="signup"><b>Total days::</b>{tat.Days}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>SNO</th>
+                                            <th>REGISTER NUMBER</th>
+                                            <th>NAME</th>
+                                            <th>CLICK</th>
+                                            <th>STREAK</th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td colSpan={5} style={{ background: 'red' }}></td>
+                                    </tr>
+                                    {
+                                        dat.filter(user => (user.Reg_No).toLowerCase().includes(select) || (user.Reg_No).toUpperCase().includes(select) || (user.Name).toUpperCase().includes(select) || (user.Name).toLowerCase().includes(select)).map((x, index) => (
+                                            <>
+                                                <tbody>
+                                                    <tr>
+                                                        {
+                                                            x.Year === sessionStorage.year ?
+                                                                <>
+                                                                    <td style={{ height: '7vh' }}>{index + 1}</td>
+                                                                    <td>{x.Reg_No}</td>
+                                                                    <td>{x.Name}</td>
+                                                                    <td>
+                                                                        {
+                                                                            x.Login !== date.toDateString() ?
+                                                                                <button onClick={Send} onClickCapture={(e) => { satnd(x) }}><b>Attend</b></button> : <b></b>
+                                                                        }
+                                                                    </td>
+                                                                    <td>
+                                                                        <p><b>{(parseInt(x.MrngStreak) + parseInt(x.Num)) / 2}</b></p>
+                                                                        <img src={"streak.png"} alt="streak" width={"70px"}></img>
+                                                                    </td>
+                                                                </> : <></>
+                                                        }
+                                                    </tr>
+                                                </tbody>
+                                            </>
+                                        ))}
+                                </>
+                        }
+                    </Table>
             <div>
 
-            <Link onClick={Complete} to='/' className="complteday"><b>Complete Day</b></Link>
+            <Button onClick={Complete} to='/' className="complteday"><b>Complete Day</b></Button>
             </div>
         </div>
         </>

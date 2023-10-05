@@ -29,7 +29,7 @@ export const Admin=()=>{
                                 {
                                     if (res)
                                     {
-                                        localStorage.name = gmail;
+                                        sessionStorage.name = gmail;
                                         alert("Admin sucessfully logged in Today");
                                         if (time <= "7:20:00 pm" && time >="5:00:00 pm") {
                                             nav("/login")
@@ -47,7 +47,7 @@ export const Admin=()=>{
                             }
                             else
                             {
-                                localStorage.name=gmail;
+                                sessionStorage.name=gmail;
                                 alert("Admin 2 sucessfully logged in Today");
                                 if (time <= "7:20:00 pm" && time >="5:00:00 pm") {
                                     nav("/login")
@@ -63,8 +63,8 @@ export const Admin=()=>{
                  }
                  else
                  {
-                     localStorage.name=gmail;
-                     localStorage.yoga='';
+                     sessionStorage.name=gmail;
+                     sessionStorage.removeItem('yoga');
                      alert("Admin sucessfully logged in again");
                      if (time <= "7:20:00 pm" && time >="5:00:00 pm")
                      {

@@ -1,14 +1,14 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Navbar from 'react-bootstrap/Navbar';
-import 'bootstrap/dist/css/bootstrap.min.css';
 export const Navbars=()=>
 {
   const Pin=()=>
   {
-    localStorage.yoga=prompt("Enter pin");
+    sessionStorage.yoga=prompt("Enter pin");
   }
     return(
         <>

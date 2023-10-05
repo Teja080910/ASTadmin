@@ -63,11 +63,11 @@ export const Yoga=()=>
     }
     const Complete=()=>
     {
-        localStorage.name='';
+        sessionStorage.name='';
     }
     const Year=()=>
     {
-        localStorage.year=year;
+        sessionStorage.year=year;
         window.location.reload(1);
     }
     useEffect(()=>
@@ -126,7 +126,7 @@ export const Yoga=()=>
                            <>
                             <tr>
                            {
-                             x.Year===localStorage.year && x.SadhanaReg===true?
+                             x.Year===sessionStorage.year && x.SadhanaReg===true?
                              <>
                              <td style={{height:'7vh'}}>{index + 1}</td>
                              <td>{x.Reg_No}</td>

@@ -66,15 +66,10 @@
 }
 .complteday
 {
-  border:none;
-  text-decoration:none;
-  padding:1%;
   background-color:green;
   margin-left:80%;
-  color:white;
-  border-radius:3px;
-  height:6vh;
-  width:15vh;
+  margin-top: 2%;
+  margin-bottom: 5%;
 }
 .border1{
   margin-top: 10%;
@@ -126,7 +121,7 @@
   margin:8vh 5% 5% 5%;
   font-size: x-large;
 }
-.studetail button
+table tbody button
 {
   border:none;
   background-color:blue;
@@ -136,7 +131,7 @@
   width:15vh;
   cursor:pointer;
 }
-.studetail p
+table tbody p
 {
   position:absolute;
   margin:12px 0px 1px 1.3%;

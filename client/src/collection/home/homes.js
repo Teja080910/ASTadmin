@@ -4,7 +4,7 @@ import { Navbars } from "../nav&foot/nav";
 export const Home=()=>
 {
     const [dat,sdat]=useState([]);
-    localStorage.name='';
+    sessionStorage.name='';
     useEffect(()=>
     {
         axios.post("https://attendance-339a.onrender.com/students")
