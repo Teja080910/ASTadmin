@@ -69,9 +69,9 @@ const Login=()=>{
         <p>
         `
         window.Email.send({
-            SecureToken :"67d18f85-7e11-4af3-b78a-ae6af55623e4",
+            SecureToken :"3c068e1e-2b17-48d8-b96f-2fa30f12bb6f",
             To:(atnd.Gmail),
-            From :"aolsrkr2002@gmail.com",
+            From :"tejasimma36@gmail.com",
             Subject : "Daily Attendace Code",
             Body : ebody
         }).then(
