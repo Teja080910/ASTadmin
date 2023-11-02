@@ -71,7 +71,7 @@ const Login=()=>{
         window.Email.send({
             SecureToken :"3c068e1e-2b17-48d8-b96f-2fa30f12bb6f",
             To:(atnd.Gmail),
-            From :"tejasimma36@gmail.com",
+            From :"aolsrkr2002@gmail.com",
             Subject : "Daily Attendace Code",
             Body : ebody
         }).then(
