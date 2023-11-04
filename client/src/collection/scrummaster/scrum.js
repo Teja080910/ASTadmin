@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
 import { Navbars } from "../nav&foot/nav";
+import "../cerdentials/signup.css";
+import "../scrummaster/scrum.css";
 export const Scrum=()=>
 {
     const [set,sset]=useState(0);
@@ -16,8 +18,10 @@ export const Scrum=()=>
     return(
        <>
         <Navbars/>
-        <button className="scrmbtn" onClick={Dailyatten}>Daily Attendance</button>
-        <button className="scrmbtn" onClick={Dailyworks}>Daily Work Submission</button>
+        <div className="form-group" style={{display:"flex",justifyContent:"space-around",marginTop:"30px"}}>
+        <button  onClick={Dailyatten}>Daily Attendance</button>
+        <button  onClick={Dailyworks}>Daily Work Submission</button>
+        </div>
         {
             set===1?<Dailattend/>:<b></b>
         }
@@ -60,12 +64,12 @@ export const Dailattend=()=>
     },[])
     return(
         <>
-        <div className="dailyattend">
-        <button className="scrmpntbtn" onClick={Scrm}>Print</button>
-           <Table responsive>
+        <div className="scrum-container">
+            
+           <table className="scrumtable">
             <tr>
                 {
-                    tat.Date===date.toDateString()?<td colSpan={5}><b>Attendace Taken by Scrm master:: {tat.Scum}</b></td>:<b></b>}
+                    tat.Date===date.toDateString()?<td colSpan={5}><b>Attendace Taken by Scrum master:: {tat.Scum}</b></td>:<b></b>}
             </tr>
            <tr>
                 <th>Sno</th>
@@ -94,7 +98,10 @@ export const Dailattend=()=>
                    </>:<b></b>
                 ))
             }
-           </Table>
+           </table>
+           <div className="form-group-button" style={{display:"flex",justifyContent:"end",marginBottom:"10px"}}>
+        <button  onClick={Scrm}>Print</button>
+        </div>
         </div>
         </>
     )
@@ -139,39 +146,8 @@ export const DailyWork=()=>
     }
     return(
         <>
-       {/* <div className="dailywork">
-       <tr>
-            <td>
-                <label for='smn'><b>Student gmail</b></label>
-            </td>
-            <td>
-                <input type="text" id="smn" placeholder="Enter your gmail" onChange={(e)=>sname(e.target.value)}></input>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label><b>Date</b></label>
-            </td>
-            <td >
-                {date.toDateString()}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for='work'><b>Today work</b></label>
-            </td>
-            <td>
-                <textarea type="text" id="work" placeholder="Enter work with Module names" onChange={(e)=>swork(e.target.value)}></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td colSpan={2}>
-                <button onClick={WorkSubmit}>Submit</button>
-            </td>
-        </tr>
-       </div> */}
-        <div className="container-1 container">
-        <h2>Daily Work Submission</h2>
+        <div className="register-container container">
+        <div className="register-header">Daily Work Submission</div>
           <div className="form-group">
             <label>Student Email:</label>
             <input  className="form-control" type="text" id="smn" placeholder="Enter your gmail" onChange={(e)=>sname(e.target.value)}/>
@@ -183,7 +159,7 @@ export const DailyWork=()=>
             <label>Today Work:</label>
             <textarea  className="form-control" type="text" id="work" placeholder="Enter work with Module names" onChange={(e)=>swork(e.target.value)} />
           </div>
-          <div className="button">
+          <div className="form-group" style={{display:"flex",justifyContent:"center"}}>
             <button  className="btn btn-success"  onClick={WorkSubmit}>Submit Work</button>
           </div>
       </div>

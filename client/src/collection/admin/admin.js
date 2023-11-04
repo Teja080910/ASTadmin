@@ -91,7 +91,7 @@ export const Admin=()=>{
     <>
     <Navbars/>
         <div className="login-container">
-      <h1 className="heading">PGSQL with React.js</h1>
+      <h1 className="heading">Attendance Login</h1>
       <div className="form">
         <div className="form-group">
           <label htmlFor="admin">Admin Gmail:</label>
@@ -117,9 +117,11 @@ export const Admin=()=>{
             onChange={(e) => setpassword(e.target.value)}
           />
         </div>
-        <button className="btn btn-primary button" onClick={Submit}>
+        <div style={{display:"flex",justifyContent:"center"}}>
+        <button className="btn btn-primary admin-button" onClick={Submit}>
           Submit
         </button>
+        </div>
       </div>
     </div>
     
@@ -180,9 +182,11 @@ export const Adminreg=()=>
             onChange={(e) => setpassword(e.target.value)}
           />
         </div>
-        <button className="btn btn-success button" onClick={Submit}>
+        <div style={{display:"flex",justifyContent:"center"}}>
+        <button className=" admin-button"   onClick={Submit}>
           Add Admin
         </button>
+        </div>
         </div>
         </div>
         </>

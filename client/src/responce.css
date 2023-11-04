@@ -1,26 +1,7 @@
 @media only screen and (max-width:500px)
 {
-.log1
- {
-   text-align: center;
-   width: 100%;
-   height:100%;
-   background-color:lightgray;
- }
- .h{
-  margin-top: 50%;
- }
- .inwidth
- {
-  width:70%;
-  height:40px;
-  margin-left: 10%;
-}
-.homename
-{
-  margin-top: 40%;
-  font-size: 80px;
-}
+
+
 .clgname
 {
   font-size: 80px;

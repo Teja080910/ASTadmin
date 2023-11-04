@@ -36,7 +36,11 @@
   }
   
   .heading {
-    color: #333;
+    background-color: #3498db;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 10px;
     text-align: center;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-style: italic ;
@@ -66,15 +70,20 @@
     margin:1px auto;
   }
   
-  .button {
-    width: 80%;
+  .admin-button {
+    background-color: #3498db;
     color: #fff;
     border: none;
     border-radius: 5px;
+    padding: 10px 20px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    
   }
   
-  .button:hover {
+  .admin-button:hover {
     background-color: #0056b3;
   }
   

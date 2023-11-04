@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navbars } from "../nav&foot/nav";
+import "../home/home.css";
 export const Home=()=>
 {
     const [dat,sdat]=useState([]);
@@ -18,25 +19,30 @@ export const Home=()=>
         <>
         <Navbars/>
         {/* <a href="mailto:`{email}`?subject={subject}&body={body}">Click to Send an Email</a> */}
+        <div className="home-container">
         <div className="homename">Developing Sadhana App</div>
-        <h3 align='center'>Top Five Members In Streaks</h3>
+        <div className="top-5" >Top Five Members In Streaks</div>
        <table className="studetail">
        {
             dat.slice(0,5).map((x,index)=>(
                 <tr>
-                     <td style={{height:'7vh'}}>{index + 1}</td>
-                             <td>{x.Reg_No}</td>
+                     <td >{index + 1}</td>
+                           <td>{x.Reg_No}</td>
                              <td><b>{x.Name}</b></td>
                              <td>{x.Branch}</td>
                              <td>{x.Year}</td>
                              <td>
-                                 <p><b>{(parseInt(x.MrngStreak)+parseInt(x.Num))/2}</b></p>
-                                 <img src={"streak.png"} alt="streak" width={"55px"}></img>
+                                <div style={{position: "relative"}}>
+                                 <p></p>
+                                 <img src={"streak.png"} alt="streak"></img>
+                                 <div class="streak-text"><b >{(parseInt(x.MrngStreak)+parseInt(x.Num))/2}</b></div>
+                                 </div>
                              </td>
                 </tr>
             ))
         }
        </table>
+       </div>
         </>
     )
 }

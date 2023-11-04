@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Navbars } from "../nav&foot/nav";
+import "../cerdentials/signup.css";
 const Signup=()=>{
     const nav=useNavigate();
     const[check,SetCheck]=useState("");
@@ -39,31 +40,7 @@ const Signup=()=>{
                         }
                     }
                 }
-            // }
-            // else
-            // {
-            //     const res = await axios.post("https://attendance-339a.onrender.com/sadhanastudent/" + email)
-            //     {
-            //         if (res.data) {
-            //             SetCheck("E-mail or Register Number is already exists");
-            //         }
-            //         else
-            //         {
-            //             const res=await axios.post("https://attendance-339a.onrender.com/sadhanasignup/" + email + "/" + name + "/" + regd + "/" + year + "/" + branch + "/" + num)
-            //             {
-            //                 if(res)
-            //                 {
-            //                     alert("Register Successfully")
-            //                     window.location='/yoga';
-            //                 }
-            //                 else
-            //                 {
-            //                     alert("Try again")
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
+            
         }
         else
         {
@@ -89,33 +66,89 @@ const Signup=()=>{
     return(
         <>
         <Navbars/>
-        <div className="body">
-        <br/ >
-        <table className="border" align="center">
-        <tr>
-            <th colspan="10" className="center" style={{paddingLeft:'40%'}}>SIGNUP FORM</th>
-        </tr>
-        <br/>
-        <tr><td className="marq" colspan="4"><marquee>{check}</marquee></td></tr>
-        <br/>
-        <tr >
-        <th><label for='name'>Name</label></th>
-        <td colspan="4">
-        <input id='name' className="inputwidth" type="text" placeholder="Full Name" name="name" onChange={(e)=>SetName(e.target.value.toLocaleUpperCase())}/></td></tr><br/>
-        <tr>
-        <th><label for='regd'>Register Number</label></th>
-        <td colspan="4">
-        <input  className="inputwidth" type="text" id="regd" placeholder="Regd.no" name="regd" onChange={(e)=>SetRegd(e.target.value.toLocaleUpperCase())}/></td></tr><br/>
-        <tr >
-        <th><label for='3rd'>Year Of Studying</label></th>
-        <td><input type="radio" id="1st"  name="year" onChange={(e)=>SetYear('1')}/><label for="1st">1st</label></td>
-        <td><input type="radio" id="2nd"  name="year" onChange={(e)=>SetYear('2')}/><label for="2nd">2nd</label></td>
-       <td><input type="radio" id="3rd"  name="year" onChange={(e)=>SetYear('3')}/><label for="3rd">3rd</label></td>
-        <td><input type="radio" id="4th"  name="year" onChange={(e)=>SetYear('4')}/><label for="4th">4th</label></td>
-        </tr><br/>
-        <tr>
-        <th><label for='branch'>Branch</label></th>
-        <td colspan="4"><select name="branch" id="branch" className="inputwidth" onChange={(e)=>Setbranch(e.target.value)}>
+        <div className="register-body">
+        <div className="register-container">
+      <div className="register-header">
+        <h2>SIGNUP FORM</h2>
+      </div>
+      <div className="form-group">
+        <h6><b><marquee>{check}</marquee></b></h6>
+      </div>
+      <div className="register-form">
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            placeholder="Full Name"
+            name="name"
+            value={name}
+            onChange={(e) => SetName(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="regd">Register Number</label>
+          <input
+            type="text"
+            id="regd"
+            placeholder="Regd.no"
+            name="regd"
+            value={regd}
+            onChange={(e) => SetRegd(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="year">Year Of Studying</label>
+          <div style={{display:"flex",justifyContent:"space-evenly"}} >
+            <input
+              type="radio"
+              id="1st"
+              name="year"
+              value="1"
+              checked={year === '1'}
+              onChange={() => SetYear('1')}
+            />
+            <label htmlFor="1st">1st</label>
+            <input
+              type="radio"
+              id="2nd"
+              name="year"
+              value="2"
+              checked={year === '2'}
+              onChange={() => SetYear('2')}
+            />
+            <label htmlFor="2nd">2nd</label>
+            <input
+              type="radio"
+              id="3rd"
+              name="year"
+              value="3"
+              checked={year === '3'}
+              onChange={() => SetYear('3')}
+            />
+            <label htmlFor="3rd">3rd</label>
+            <input
+              type="radio"
+              id="4th"
+              name="year"
+              value="4"
+              checked={year === '4'}
+              onChange={() => SetYear('4')}
+            />
+            <label htmlFor="4th">4th</label>
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="branch">Branch</label>
+          <select
+            name="branch"
+            id="branch"
+            value={branch}
+            onChange={(e) => Setbranch(e.target.value)}
+          >
             <option>Choose one</option>
             <option value="AIDS">Artificial Intelligence And Data Science</option>
             <option value="AIML">Artificial Intelligence And Machine Learning</option>
@@ -127,17 +160,33 @@ const Signup=()=>{
             <option value="ECE">Electrical And Communication</option>
             <option value="EEE">Electrical And Electronics</option>
             <option value="MECH">Mechanical</option>
-            </select></td>
-        </tr><br/>
-        <tr >
-        <th><label for='email'>Email</label></th>
-        <td colspan="4"><input className="inputwidth" type="email"  id="email" placeholder="G-mail"  name="email" onChange={(e)=>SetEmail(e.target.value)}/></td></tr><br/>    
-        <tr>
-            <td><Link  onClick={Login} style={{textDecoration:'none',padding:'1.5% 10%',backgroundColor:'greenyellow',marginLeft:'70%',borderRadius:'5px'}}>Login</Link></td>
-        <td colspan="5" align="center"><button className="buttonwidth" type="button" onClick={Handleclick}><b>Register</b></button></td></tr>
-        <br/>
-        </table>
+          </select>
         </div>
+
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="G-mail"
+            name="email"
+            value={email}
+            onChange={(e) => SetEmail(e.target.value)}
+          />
+        </div>
+        <div className="form-group"  style={{display:"flex",justifyContent:"space-evenly"}}>
+        <button type="button" onClick={Handleclick}>
+          <b>Register</b>
+        </button>
+        <Link className="login-link" onClick={Login}>
+        <b>Login</b>
+      </Link>
+      </div>
+      </div>
+
+
+    </div>
+    </div>
         </>
     );
 }
