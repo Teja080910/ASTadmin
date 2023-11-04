@@ -23,17 +23,21 @@
 
 .studetail {
     border-collapse: collapse;
-    max-width: 1200px;
+    max-width: 1210px;
     margin: 0 auto;
     background-color: #fff;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    
    
 }
 
 .studetail td {
     padding: 10px;
     text-align: center;
+    
 }
+
 
 .studetail tr:nth-child(odd) {
     background-color: #f2f2f2;

@@ -33,7 +33,6 @@ export const Home=()=>
                              <td>{x.Year}</td>
                              <td>
                                 <div style={{position: "relative"}}>
-                                 <p></p>
                                  <img src={"streak.png"} alt="streak"></img>
                                  <div class="streak-text"><b >{(parseInt(x.MrngStreak)+parseInt(x.Num))/2}</b></div>
                                  </div>

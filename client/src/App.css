@@ -7,18 +7,23 @@
   padding: 0.5%;
   background-color: rgb(191, 80, 0);
   margin-left: 90%;
-  border-radius: 5%;
+  border-radius: 8px;
   color: aliceblue;
   font-size: 20px;
   width:30%;
   text-align: center;
+  
 }
 .complteday
 {
   background-color:green;
-  margin-left:80%;
-  margin-top: 2%;
+  margin-left:81.2%;
+  margin-top: 20px;
   margin-bottom: 5%;
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 8px;
 }
 .border1{
   margin-top: 10%;
@@ -70,7 +75,7 @@
   margin:8vh 5% 5% 5%;
   font-size: x-large;
 }
-table tbody button
+/* table tbody button
 {
   border:none;
   background-color:blue;
@@ -79,7 +84,7 @@ table tbody button
   height:6vh;
   width:15vh;
   cursor:pointer;
-}
+} */
 table tbody p
 {
   position:absolute;
@@ -96,8 +101,8 @@ table tbody p
 }
 .studentcheck
 {
-  margin: 0% 0% 0% 10%;
-  width: 80%;
+  margin: 0% 0% 0% 10.5%;
+  width: 79%;
   height: 5vh;
   font-size: x-large;
 }
@@ -108,14 +113,14 @@ table tbody p
   height: 30vh;
   margin: 20% 0% 0% 35%;
 }
-.addproject button
+/* .addproject button
 {
   background-color: slateblue;
   color: white;
   border: none;
   padding: 2%;
   margin-left:35%;
-}
+} */
 .addproject label
 {
   margin-left: 10%;
@@ -147,6 +152,7 @@ table tbody p
 {
   display:flex;
   justify-content: space-around;
+  
 }
 .yearbtnsink
 {
@@ -154,26 +160,12 @@ table tbody p
   padding: 0.5%;
   background-color: blue;
   color: white;
+  width:fit-content;
+  border-radius: 3px;
 }
 /*  */
 
-.scrmbtn
-{
-  width: 30vh;
-  margin-top: 5%;
-  margin-left: 23%;
-  height: 10vh;
-  font-size: larger;
-  background-color: Green;
-}
-.scrmpntbtn
-{
-  width: 20vh;
-  /* margin-left:15%; */
-  height: 5vh;
-  font-size: larger;
-  background-color: Green;
-}
+/*  */
 .dailywork
 {
   width: 50%;
@@ -214,28 +206,37 @@ table tbody p
 {
   text-align: center;
 }
-.otp
-{
-  position:fixed;
-  width: 30%;
-  height: 15vh;
-  background-color: #6644ff;
-  margin: 15% 35%;
+
+.otp {
+  position: fixed;
+  width: 80%; 
+  max-width: 400px; 
+  min-height: 100px;
+  background-color: #3498db;
+  margin:-3.5%  40% auto; 
   display: none;
+  border-radius: 15px; 
+  z-index: 1;
 }
-.otp input
-{
-  margin: 0% 10%;
-  width: 80%;
-  height: 8vh;
+
+.otp input {
+  margin: 10px 0px 10px 20px; 
+  width: 90%; 
   font-size: xx-large;
+  border: none; 
+  padding: 10px; 
   border-radius: 15px;
+
 }
-.otp button
-{
-  margin:3% 60%;
+
+.otp button {
+  margin: 10px 0px 10px 80px; 
+  width: 60%; 
+  font-size:large;
   border: none;
   background-color: green;
+  color: white;
+  border-radius: 15px;
 }
 .bg-body-tertiary
 {

@@ -124,7 +124,7 @@ const Login=()=>{
         <br/>
         <div>
         <input id='search' value={select}   type="text" autoComplete="none" className="studentcheck"  placeholder="Enter User mail or name" onChange={(e)=>sselect(e.target.value)}></input>
-                    <Table striped bordered hover>
+                    <table className="studetail">
                         {
                             isLoading ?
                                 <tr>
@@ -138,7 +138,7 @@ const Login=()=>{
                                             <td style={{ height: '6vh' }} colSpan={5}><Link to='/register' onClick={Register} className="signup">Register</Link></td>
                                         </tr>
                                         <tr>
-                                            <td colSpan={5} className="signup"><b>Total days::</b>{tat.Days}</td>
+                                            <td colSpan={5} ><b>Total days::</b>{tat.Days}</td>
                                         </tr>
                                         <tr>
                                             <th>SNO</th>
@@ -148,13 +148,13 @@ const Login=()=>{
                                             <th>STREAK</th>
                                         </tr>
                                     </thead>
-                                    <tr>
+                                    {/* <tr>
                                         <td colSpan={5} style={{ background: 'red' }}></td>
-                                    </tr>
+                                    </tr> */}
                                     {
                                         dat.filter(user => (user.Reg_No).toLowerCase().includes(select) || (user.Reg_No).toUpperCase().includes(select) || (user.Name).toUpperCase().includes(select) || (user.Name).toLowerCase().includes(select)).map((x, index) => (
                                             <>
-                                                <tbody>
+                                                <>
                                                     <tr>
                                                         {
                                                             x.Year === sessionStorage.year ?
@@ -165,22 +165,26 @@ const Login=()=>{
                                                                     <td>
                                                                         {
                                                                             x.Login !== date.toDateString() ?
-                                                                                <button onClick={Send} onClickCapture={(e) => { satnd(x) }}><b>Attend</b></button> : <b></b>
+                                                                                <button style={{backgroundColor:"#3498db",borderRadius:"8px",border:"none",color:"white",padding:"5px"}} onClick={Send} onClickCapture={(e) => { satnd(x) }}><b>Attend</b></button> : <b></b>
                                                                         }
                                                                     </td>
                                                                     <td>
-                                                                        <p><b>{(parseInt(x.MrngStreak) + parseInt(x.Num)) / 2}</b></p>
-                                                                        <img src={"streak.png"} alt="streak" width={"70px"}></img>
+                                                                        
+                                                                        <div style={{position: "relative"}}>
+                                                                             <img src={"streak.png"} alt="streak"></img>
+                                                                            <div class="streak-text"><b >{(parseInt(x.MrngStreak)+parseInt(x.Num))/2}</b></div>
+                                                                            </div>
                                                                     </td>
+                                                                    
                                                                 </> : <></>
                                                         }
                                                     </tr>
-                                                </tbody>
+                                                </>
                                             </>
                                         ))}
                                 </>
                         }
-                    </Table>
+                    </table>
             <div>
 
             <Button onClick={Complete} to='/' className="complteday"><b>Complete Day</b></Button>
