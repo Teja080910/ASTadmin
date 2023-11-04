@@ -49,7 +49,7 @@ export const Admin=()=>{
                             {
                                 sessionStorage.name=gmail;
                                 alert("Admin 2 sucessfully logged in Today");
-                                if (time <= "19:20:00 pm" || time >="18:00:00 pm") {
+                                if (time <= "19:20:00 pm" && time >="18:00:00 pm") {
                                     nav("/login")
                                     window.location.reload(1);
                                 }
