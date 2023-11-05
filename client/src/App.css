@@ -75,16 +75,7 @@
   margin:8vh 5% 5% 5%;
   font-size: x-large;
 }
-/* table tbody button
-{
-  border:none;
-  background-color:blue;
-  color:white;
-  border-radius:3px;
-  height:6vh;
-  width:15vh;
-  cursor:pointer;
-} */
+
 table tbody p
 {
   position:absolute;
@@ -106,37 +97,26 @@ table tbody p
   height: 5vh;
   font-size: x-large;
 }
-.addproject
-{
-  background-color: rgb(186, 184, 184);
-  width: 50vh;
-  height: 30vh;
-  margin: 20% 0% 0% 35%;
-}
-/* .addproject button
-{
-  background-color: slateblue;
-  color: white;
-  border: none;
-  padding: 2%;
-  margin-left:35%;
-} */
-.addproject label
-{
-  margin-left: 10%;
-}
+
 .projectlink
 {
-  padding: 3% 50%;
-  margin: 1%;
+  padding: 2% 0%;
   font-size: 30px;
-  width: 100%;
-  display:flex;
+  width: 98%;
   text-decoration: none;
-  color:blue;
-  background-color: rgb(238, 238, 109);
+  background-color: #3498db;
+  color: #fff;
   border-radius: 15px;
-  border-top: 5px solid blue;
+  border-top: 8px solid #4fadfb;
+  margin-top: 10px;
+  text-align: center;
+  display:grid;
+  
+}
+.projectlink-container {
+      display: flex;
+      justify-content:space-around;
+      flex-direction: row;
 }
 .clgname
 {
@@ -166,46 +146,7 @@ table tbody p
 /*  */
 
 /*  */
-.dailywork
-{
-  width: 50%;
-  height: 50vh;
-  background-color:rgb(215, 172, 255);
-  margin:5% 0 0 25%;
-}
-.dailywork td
-{
-  width: 50%;
-  height: 8vh;
-}
-.dailywork td textarea
-{
-  width: 60vh;
-  height: 20vh;
-}
-.dailywork button
-{
-  margin-left: 50%;
-}
-.dailyattend
-{
-  width: 100%;
-  min-height: 10vh;
-  background-color:rgb(178, 252, 254);
-}
-.dailyattend table
-{
-  width: 100%;
-  background-color: rgb(178, 252, 254);
-}
-.dailyattend table tr th
-{
-  text-align: center;
-}
-.dailyattend table tr td
-{
-  text-align: center;
-}
+
 
 .otp {
   position: fixed;
@@ -226,6 +167,7 @@ table tbody p
   border: none; 
   padding: 10px; 
   border-radius: 15px;
+  min-height: 35px;
 
 }
 
@@ -237,6 +179,7 @@ table tbody p
   background-color: green;
   color: white;
   border-radius: 15px;
+  min-height: 35px;
 }
 .bg-body-tertiary
 {

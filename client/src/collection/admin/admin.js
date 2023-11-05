@@ -66,7 +66,7 @@ export const Admin=()=>{
                      sessionStorage.name=gmail;
                      sessionStorage.removeItem('yoga');
                      alert("Admin sucessfully logged in again");
-                     if (time <= "19:20:00 pm" && time >="18:00:00 pm")
+                     if (time <= "19:20:00 pm" || time >="18:00:00 pm")
                      {
                          window.location="login";
                      }

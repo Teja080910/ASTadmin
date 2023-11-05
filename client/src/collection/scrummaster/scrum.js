@@ -68,13 +68,14 @@ export const Dailattend=()=>
             
            <table className="scrumtable">
             <tr>
+                
                 {
-                    tat.Date===date.toDateString()?<td colSpan={5}><b>Attendace Taken by Scrum master:: {tat.Scum}</b></td>:<b></b>}
+                    tat.Date===date.toDateString()?<th colSpan={5}><>Attendace Taken by Scrum master:: {tat.Scum}</></th>:<b></b>}
             </tr>
            <tr>
-                <th>Sno</th>
+                <th>S.No</th>
                 <th>Gmail</th>
-                <th>Regi_number</th>
+                <th>Regd_number</th>
                 <th>Year</th>
                 <th>Work</th>
             </tr>
@@ -90,17 +91,15 @@ export const Dailattend=()=>
                         <td>{x.Year}</td>
                         <td><b>{x.Date}</b><br/>{x.Work}</td>
                     </tr>
-                    <tr>
-                        <td colSpan={5}>
-                        <hr color="blue"/>
-                        </td>
-                    </tr>
+                    
+                    
                    </>:<b></b>
                 ))
             }
            </table>
            <div className="form-group-button" style={{display:"flex",justifyContent:"end",marginBottom:"10px"}}>
         <button  onClick={Scrm}>Print</button>
+
         </div>
         </div>
         </>

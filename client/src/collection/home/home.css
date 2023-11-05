@@ -44,17 +44,18 @@
 }
 .streak-text {
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
     color:black;
     text-align: center;
+    font-size: 15px;
 }
 
 img {
     align-items: center;
     max-width: 100%;
-    height: 80px;
+    height: 70px;
 }
 
 @media (max-width: 768px) {
@@ -67,6 +68,13 @@ img {
         }
         .top-5{
             font-size: 24px;
+        }
+        img {
+            height: 50px;
+            width:120px
+        }
+        .streak-text {
+            font-size: 11px;
         }
         
 

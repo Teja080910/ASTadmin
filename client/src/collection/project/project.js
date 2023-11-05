@@ -60,7 +60,7 @@ export const Projects=()=>
        {
         data.map((dat)=>
         (
-            <div>
+            <div className="projectlink-container">
                 <Link className="projectlink" to={dat.Project}>{dat.Name}</Link>
             </div>
         ))

@@ -1,6 +1,6 @@
 .scrum-container {
     font-family: Arial, sans-serif;
-    padding: 20px;
+    padding: 10px;
     margin-bottom: 20px;
    
 }
@@ -10,11 +10,16 @@
     margin: 0 auto;
     background-color: #fff;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+    
    
 }
 
 .scrumtable td {
-    padding: 10px;
+    
+    text-align: center;
+    border-bottom:0.5px solid  black;
+}
+.scrumtable th {
     text-align: center;
 }
 
