@@ -151,7 +151,7 @@ export const Projects=()=>
             <>
             <p style={{display:'flex',justifyContent:'center',color:'green',marginTop:'3%'}}><h1>{dat.Name}</h1>{sessionStorage.student===dat.Gmail?<Button className='stulogout' onClick={()=>sessionStorage.removeItem("student")}>Logout</Button>:<b/>}</p>
             <p style={{display:'flex',justifyContent:'center'}}><h6>{dat.Gmail}</h6></p>
-            <SimpleGrid spacing={4} className='simplegrid' templateColumns='repeat(auto-fill, minmax(250px, 1fr))'>
+            <SimpleGrid spacing={4} className='simplegrid' templateColumns='repeat(auto-fill, minmax(400px, 1fr))'>
             {
                 dat.Projects.map((val,index)=>
                 (
@@ -181,7 +181,7 @@ export const Projects=()=>
                                     )):<Button onClick={Like} style={{color:'tomato'}} onClickCapture={()=>sdel({dat,mail,index})}><img src="like.png"/></Button>
                                 }
                                 </p>
-                                <h3 style={{position:'absolute',marginTop:'7%',color:'orangered'}}>
+                                <h3 style={{position:'absolute',marginTop:'5%',color:'orangered'}}>
                                 {val.Likes?Object.keys(val.Likes).length:<b/>}
                                 </h3>
                                 </div>
