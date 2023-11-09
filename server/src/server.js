@@ -115,6 +115,29 @@ app.post('/delete',async(req,res)=>
     })
     .catch((e)=>console.log(e))
 })
+app.post('/like',async(req,res)=>
+{
+    await db.collection("Projects").findOne({Gmail:req.body.del.dat.Gmail,[`Projects.${req.body.del.index}.Likes`]:req.body.del.mail})
+    .then((details)=>
+    {
+        if(!details)
+        {
+            db.collection("Projects").findOneAndUpdate({ Gmail: req.body.del.dat.Gmail }, { $push: { [`Projects.${req.body.del.index}.Likes`]: req.body.del.mail } })
+                .then((details) => {
+                    res.json(details)
+                })
+                .catch((e) => console.log(e))
+        }
+    })
+})
+app.post('/unlike',async(req,res)=>
+{
+    await db.collection("Projects").findOneAndUpdate({ Gmail: req.body.del.dat.Gmail }, { $pull: { [`Projects.${req.body.del.index}.Likes`]: req.body.del.mail } })
+    .then((details) => {
+        res.json(details)
+    })
+    .catch((e) => console.log(e))
+})
 
 app.post('/pro',async(req,res)=>
 {

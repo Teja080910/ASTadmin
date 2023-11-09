@@ -86,6 +86,7 @@ export const Projects=()=>
     const [name,sname]=useState();
     const [gmail,sgmail]=useState();
     const[like,slike]=useState();
+    const mail=sessionStorage.student;
     const Login=async()=>
     {
         axios.post("https://attendance-339a.onrender.com/student/"+gmail)
@@ -105,7 +106,19 @@ export const Projects=()=>
     }
     const Like=async()=>
     {
-        
+        await axios.post("http://localhost:8000/like",{del})
+        .then((res)=>
+        {
+        })
+        .catch((e)=>console.log(e))
+    }
+    const Unlike=async()=>
+    {
+        await axios.post("http://localhost:8000/unlike",{del})
+        .then((res)=>
+        {
+        })
+        .catch((e)=>console.log(e))
     }
     const Delete=async()=>
     {
@@ -126,7 +139,7 @@ export const Projects=()=>
             sdata(result.data);
         })
         .catch((e)=>console.log(e))
-    },[])
+    })
     return(
         <>
         <Navbars/>
@@ -140,7 +153,7 @@ export const Projects=()=>
             <p style={{display:'flex',justifyContent:'center'}}><h6>{dat.Gmail}</h6></p>
             <SimpleGrid spacing={4} className='simplegrid' templateColumns='repeat(auto-fill, minmax(250px, 1fr))'>
             {
-                dat.Projects.map((val)=>
+                dat.Projects.map((val,index)=>
                 (
                         <Card className='card'>
                             <Center>
@@ -157,7 +170,21 @@ export const Projects=()=>
                             </Center>
                             <Center>
                             <CardFooter>
-                            {/* <Button onClick={Like} style={{color:'tomato'}} onClickCapture={()=>sdel({dat,val})}>Like</Button> */}
+                                <div style={{display:'flex',justifyContent:'center'}}>
+                                <p>
+                                {
+                                    val.Likes && Object.keys(val.Likes).length!==0 ?val.Likes.map((val1)=>
+                                    (
+                                        val1===sessionStorage.student?
+                                        <Button onClick={Unlike} style={{color:'tomato'}} onClickCapture={()=>sdel({dat,mail,index})}><img src="like.png" className='rotate'/></Button>:
+                                        <Button onClick={Like} style={{color:'tomato'}} onClickCapture={()=>sdel({dat,mail,index})}><img src="like.png"/></Button>
+                                    )):<Button onClick={Like} style={{color:'tomato'}} onClickCapture={()=>sdel({dat,mail,index})}><img src="like.png"/></Button>
+                                }
+                                </p>
+                                <h3 style={{position:'absolute',marginTop:'7%',color:'orangered'}}>
+                                {val.Likes?Object.keys(val.Likes).length:<b/>}
+                                </h3>
+                                </div>
                             </CardFooter>
                             </Center>
                             <Center>
