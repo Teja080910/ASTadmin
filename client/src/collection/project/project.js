@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Navbars } from "../nav&foot/nav";
+import "../cerdentials/signup.css";
 export const Addproject=()=>
 {
     const [name,sname]=useState([]);
@@ -21,23 +22,11 @@ export const Addproject=()=>
     return(
         <>
         <Navbars/>
-        {/* <div className="addproject">
-        <tr>
-            <td style={{width:'30%'}}>
-            <label>Name::<input type="text" placeholder="Name" onChange={(e)=>sname(e.target.value)}></input></label>
-            </td>
-        </tr>
-        <br/><br/>
-        <tr>
-            <td style={{width:'30%'}}>
-            <label>Project::<input type="text" placeholder="project link" value={project} onChange={(e)=>sproject(e.target.value)}/></label>
-            </td>
-        </tr>
-        <br/><br/>
-        <button onClick={Project}>Submit</button>
-        </div> */}
-        <div className="container-1 container">
-        <h2>Project upload</h2>
+        
+        <div className=" register-container container">
+            <div className="register-header">
+        <b>Project upload</b>
+        </div>
           <div className="form-group">
             <label>Student Name:</label>
             <input  className="form-control"  type="text" placeholder="Name of the student" onChange={(e)=>sname(e.target.value)} />
@@ -46,10 +35,11 @@ export const Addproject=()=>
             <label>Project Link</label>
             <input  className="form-control" type="text" placeholder="Your project link" value={project} onChange={(e)=>sproject(e.target.value)} />
           </div>
-          <div className="button">
-            <button type="submit" className="btn btn-success" onClick={Project}>Upload project</button>
+          <div className="form-group" style={{display:"flex",justifyContent:"center"}}>
+            <button type="submit"  onClick={Project}><b>Upload project</b></button>
           </div>
       </div>
+     
         </>
     )
 }
@@ -70,7 +60,7 @@ export const Projects=()=>
        {
         data.map((dat)=>
         (
-            <div>
+            <div className="projectlink-container">
                 <Link className="projectlink" to={dat.Project}>{dat.Name}</Link>
             </div>
         ))

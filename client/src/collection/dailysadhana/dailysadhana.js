@@ -109,7 +109,9 @@ export const Yoga=()=>
                 </tr>:
                 <>
                 <tr>
-                <td style={{height:'6vh'}} colSpan={5}><Link onClick={Display} className="signup">Register</Link></td>
+                    
+                <td  colSpan={5}><Link onClick={Display} className="signup">Register</Link></td>
+                
             </tr>
                     <tr>
                         <th>SNO</th>
@@ -118,9 +120,9 @@ export const Yoga=()=>
                         <th>CLICK</th>
                         <th>STREAK</th>
                     </tr>
-                    <tr>
+                    {/* <tr>
                         <td colSpan={5} style={{ background: 'red' }}></td>
-                    </tr>
+                    </tr> */}
             {
             dat.filter(user=>(user.Reg_No).toLowerCase().includes(select)||(user.Reg_No).toUpperCase().includes(select)||(user.Name).toUpperCase().includes(select)||(user.Name).toLowerCase().includes(select)).map((x,index) => (
                            <>
@@ -130,16 +132,19 @@ export const Yoga=()=>
                              <>
                              <td style={{height:'7vh'}}>{index + 1}</td>
                              <td>{x.Reg_No}</td>
-                             <td>{x.Name}</td>
+                             <td><b>{x.Name}</b></td>
                              <td>
                                 {
                                     x.MrngLogin!==date.toDateString()?
-                                    <button onClick={Attend} onClickCapture={(e)=>{satnd(x)}}><b>Attend</b></button>:<b></b>
+                                    <div>
+                                    <button style={{backgroundColor:"#3498db",borderRadius:"8px",border:"none",color:"white",padding:"5px"}} onClick={Attend} onClickCapture={(e)=>{satnd(x)}}><b>Attend</b></button></div>:<b></b>
                                 }
                              </td>
                              <td>
-                                 <p><b>{(parseInt(x.MrngStreak)+parseInt(x.Num))/2}</b></p>
-                                 <img src={"streak.png"} alt="streak" width={"55px"}></img>
+                                 <div style={{position: "relative"}}>
+                                 <img src={"streak.png"} alt="streak"></img>
+                                 <div class="streak-text"><b >{(parseInt(x.MrngStreak)+parseInt(x.Num))/2}</b></div>
+                                 </div>
                              </td>
                              </>:<b></b>
                            }
@@ -149,7 +154,7 @@ export const Yoga=()=>
                 </>
             }
             </table>
-            <div>
+            <div className="form-group" style={{marginTop:"20px",marginBottom:"20px"}}>
 
             <Link onClick={Complete} to='/' className="complteday"><b>Complete Day</b></Link>
             </div>

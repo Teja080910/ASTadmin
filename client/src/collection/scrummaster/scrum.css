@@ -1,0 +1,49 @@
+.scrum-container {
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    margin-bottom: 20px;
+   
+}
+.scrumtable {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+    
+   
+}
+
+.scrumtable td {
+    
+    text-align: center;
+    border-bottom:0.5px solid  black;
+}
+.scrumtable th {
+    text-align: center;
+}
+
+.scrumtable tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+.form-group-button button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    height: 40px;
+    margin-top: 10px;
+    width:150px;
+}
+@media (max-width: 768px) {
+    .form-group-button button {
+        height: 40px;
+        width:80px;
+    }
+    .form-group button {
+        padding: 10px;
+    }
+    
+}

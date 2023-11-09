@@ -1,4 +1,4 @@
-.container-1{
+/* .container-1{
     background-image: linear-gradient(#B9D7EA,#769FCD,#D6E6F2);
     border-style: ridge;
     border-color: #769FCD;
@@ -21,5 +21,70 @@
   .pass-check {
     float: right; 
    
+  } */
+
+
+
+  .login-container {
+    max-width: 400px;
+    margin: 10% auto;
+    padding: 18px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    text-align:start;
   }
+  
+  .heading {
+    background-color: #3498db;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: italic ;
+  }
+  
+  .form {
+    margin-top: 15px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    font-size: small;
+    font-weight: bold;
+    font-style: italic;
+    color: #555;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin:1px auto;
+  }
+  
+  .admin-button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    
+  }
+  
+  .admin-button:hover {
+    background-color: #0056b3;
+  }
+  
 

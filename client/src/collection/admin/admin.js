@@ -31,7 +31,7 @@ export const Admin=()=>{
                                     {
                                         sessionStorage.name = gmail;
                                         alert("Admin sucessfully logged in Today");
-                                        if (time <= "7:20:00 pm" && time >="5:00:00 pm") {
+                                        if (time <= "19:20:00 pm" && time >="18:00:00 pm") {
                                             nav("/login")
                                             window.location.reload(1);
                                         }
@@ -49,7 +49,7 @@ export const Admin=()=>{
                             {
                                 sessionStorage.name=gmail;
                                 alert("Admin 2 sucessfully logged in Today");
-                                if (time <= "7:20:00 pm" && time >="5:00:00 pm") {
+                                if (time <= "19:20:00 pm" && time >="18:00:00 pm") {
                                     nav("/login")
                                     window.location.reload(1);
                                 }
@@ -66,10 +66,9 @@ export const Admin=()=>{
                      sessionStorage.name=gmail;
                      sessionStorage.removeItem('yoga');
                      alert("Admin sucessfully logged in again");
-                     if (time <= "7:20:00 pm" && time >="5:00:00 pm")
+                     if (time <= "19:20:00 pm" && time >="18:00:00 pm")
                      {
-                         nav("/login")
-                         window.location.reload(1);
+                         window.location="login";
                      }
                      else {
                          alert("Time out");
@@ -91,26 +90,40 @@ export const Admin=()=>{
     return(
     <>
     <Navbars/>
-        <div className="log1">
-        <h1 className="h">PGSQL with React.js</h1><br/>
-        <input className="inwidth" type="text" name="admin" id="admin" placeholder="Admin Gmail" onChange={(e)=>setgmail(e.target.value)}/><br/><br/>
-        <input className="inwidth" type="password" name="password" id="password" placeholder="Password" onChange={(e)=>setpassword(e.target.value)}/><br/><br/>
-        <button className="bwidth" onClick={Submit}>Submit</button>
+        <div className="login-container">
+      <h1 className="heading">Attendance </h1>
+      <div className="form">
+        <div className="form-group">
+          <label htmlFor="admin">Admin Gmail:</label>
+          <input
+            className="form-control"
+            type="text"
+            name="admin"
+            id="admin"
+            placeholder="Enter Admin Gmail"
+            value={gmail}
+            onChange={(e) => setgmail(e.target.value)}
+          />
         </div>
-        <div className="container-1 container">
-        <h2>Admin Login</h2>
-          <div className="form-group">
-            <label>Email address:</label>
-            <input  className="form-control" type="email" name="admin" id="admin" placeholder="Admin Gmail" onChange={(e)=>setgmail(e.target.value)} />
-          </div>
-          <div className="form-group">
-            <label>Password:</label>
-            <input  className="form-control" type="password" name="password" id="password" placeholder="Password" onChange={(e)=>setpassword(e.target.value)} />
-          </div>
-          <div className="button">
-            <button type="submit" className="btn btn-success"  onClick={Submit}>Login</button>
-          </div>
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input
+            className="form-control"
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setpassword(e.target.value)}
+          />
+        </div>
+        <div style={{display:"flex",justifyContent:"center"}}>
+        <button className="btn btn-primary admin-button" onClick={Submit}>
+          Submit
+        </button>
+        </div>
       </div>
+    </div>
     
         
     </>
@@ -141,11 +154,40 @@ export const Adminreg=()=>
     }
     return(
         <>
-        <div className="log1">
-            <h1 className="h"></h1>
-        <input className="inwidth" type="text" name="admin" id="admin" placeholder="Admin Gmail" onChange={(e)=>setgmail(e.target.value)}/><br/><br/>
-        <input className="inwidth" type="password" name="password" id="password" placeholder="Password" onChange={(e)=>setpassword(e.target.value)}/><br/><br/>
-        <button className="bwidth" onClick={Submit}>Submit</button>
+        
+    <div className="login-container">
+      <h1 className="heading">Admin Register</h1>
+      <div className="form">
+        <div className="form-group">
+          <label htmlFor="admin">Admin Gmail:</label>
+          <input
+            className="form-control"
+            type="text"
+            name="admin"
+            id="admin"
+            placeholder="Enter Admin Gmail"
+            value={gmail}
+            onChange={(e) => setgmail(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input
+            className="form-control"
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setpassword(e.target.value)}
+          />
+        </div>
+        <div style={{display:"flex",justifyContent:"center"}}>
+        <button className=" admin-button"   onClick={Submit}>
+          Add Admin
+        </button>
+        </div>
+        </div>
         </div>
         </>
     )
