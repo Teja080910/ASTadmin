@@ -103,7 +103,7 @@ export const Projects=()=>
         })
         .catch((e)=>console.log(e))
     }
-    const Logout=()=>
+    const Like=async()=>
     {
         
     }
@@ -126,7 +126,7 @@ export const Projects=()=>
             sdata(result.data);
         })
         .catch((e)=>console.log(e))
-    })
+    },[])
     return(
         <>
         <Navbars/>
