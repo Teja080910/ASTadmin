@@ -71,13 +71,39 @@ app.post('/worksubmit/:gmail/:date/:work',async(req,res)=>
 //  ************************************************* projects ************************************************//
 app.post('/project',async(req,res)=>
 {
-    await db.collection("Projects").insertOne({Name:req.body.name,Project:req.body.project})
+    await db.collection("Signup").findOne({Gmail:req.body.gmail})
     .then((details)=>
     {
-        res.json(details);
+        if(details)
+        {
+            db.collection("Projects").findOne({Gmail:req.body.gmail})
+            .then((details)=>
+            {
+                if(details)
+                {
+                    db.collection("Projects").findOneAndUpdate({Gmail:req.body.gmail},{$push:{Projects:{Projectname:req.body.proname,Projectlink:req.body.project}}})
+                    .then((details)=>
+                    {
+                        res.json(details)
+                    })
+                    .catch((e)=>console.log(e))
+                }
+                else
+                {
+                    db.collection("Projects").insertOne({Gmail:req.body.gmail,Name:req.body.name,Projects:[{Projectname:req.body.proname,Projectlink:req.body.project}]})
+                        .then((details) => {
+                            res.json(details);
+                        })
+                        .catch((e) => console.log(e)) 
+                }
+            })
+            .catch((e)=>console.log(e))
+        }
     })
-    .catch((e)=>console.log(e))    
+    .catch((e)=>console.log(e))   
 })
+
+
 app.post('/pro',async(req,res)=>
 {
     const details=await db.collection("Project").insertOne({Link:req.body.link})

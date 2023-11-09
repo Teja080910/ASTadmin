@@ -6,23 +6,29 @@ import { Navbars } from "../nav&foot/nav";
 export const Addproject=()=>
 {
     const [name,sname]=useState();
+    const [proname,sproname]=useState();
+    const [gmail,sgmail]=useState();
     const [project,sproject]=useState();
     const Project=async()=>
     {
-        await axios.post("https://attendance-339a.onrender.com/project",{name,project})
-        .then((res)=>
+        if(name && proname && gmail && project)
         {
-            if(res.data)
-            {
-                alert("Sucessfully Submitted");
-                window.location='/projects';
-            }
-            else
-            {
-                alert("Try again");
-            }
-        })
-        .catch((e)=>console.log(e))
+            await axios.post("https://attendance-339a.onrender.com/project", { name, gmail, proname, project })
+                .then((res) => {
+                    if (res.data) {
+                        alert("Sucessfully Submitted");
+                        window.location = '/projects';
+                    }
+                    else {
+                        alert("Gmail not found");
+                    }
+                })
+                .catch((e) => console.log(e))
+        }
+        else
+        {
+            alert("Fill all details");
+        }
     }
     return(
         <>
@@ -37,8 +43,16 @@ export const Addproject=()=>
             <input  className="form-control"  type="text" placeholder="Name of the student" onChange={(e)=>sname(e.target.value)} />
           </div>
           <div className="form-group">
+            <label>Gmail:</label>
+            <input  className="form-control"  type="email" placeholder="Email of the student" onChange={(e)=>sgmail(e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>Projectname Name:</label>
+            <input  className="form-control"  type="text" placeholder="Project Name" onChange={(e)=>sproname(e.target.value)} />
+          </div>
+          <div className="form-group">
             <label>Project Link</label>
-            <input  className="form-control" type="text" placeholder="Your project link" onChange={(e)=>sproject(e.target.value)} />
+            <input  className="form-control" type="link" placeholder="Your project link" onChange={(e)=>sproject(e.target.value)} />
           </div>
           <div className="form-group" style={{display:"flex",justifyContent:"center"}}>
             <button type="submit"  onClick={Project}><b>Upload project</b></button>
