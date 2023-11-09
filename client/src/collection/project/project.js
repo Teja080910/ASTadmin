@@ -1,23 +1,28 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Navbars } from "../nav&foot/nav";
+import { Link } from "react-router-dom";
 import "../cerdentials/signup.css";
+import { Navbars } from "../nav&foot/nav";
 export const Addproject=()=>
 {
-    const [name,sname]=useState([]);
-    const [project,sproject]=useState([]);
-    const nav=useNavigate();
+    const [name,sname]=useState();
+    const [project,sproject]=useState();
     const Project=async()=>
     {
-        try
+        await axios.post("https://attendance-339a.onrender.com/project",{name,project})
+        .then((res)=>
         {
-            await axios.post("https://attendance-339a.onrender.com/project",{name,project})?alert("Sucessfully Submitted")&&nav('/projects'):alert("Try again");
-        }
-        catch(e)
-        {
-            console.log(e)
-        }
+            if(res.data)
+            {
+                alert("Sucessfully Submitted");
+                window.location='/projects';
+            }
+            else
+            {
+                alert("Try again");
+            }
+        })
+        .catch((e)=>console.log(e))
     }
     return(
         <>
@@ -33,7 +38,7 @@ export const Addproject=()=>
           </div>
           <div className="form-group">
             <label>Project Link</label>
-            <input  className="form-control" type="text" placeholder="Your project link" value={project} onChange={(e)=>sproject(e.target.value)} />
+            <input  className="form-control" type="text" placeholder="Your project link" onChange={(e)=>sproject(e.target.value)} />
           </div>
           <div className="form-group" style={{display:"flex",justifyContent:"center"}}>
             <button type="submit"  onClick={Project}><b>Upload project</b></button>
@@ -43,6 +48,11 @@ export const Addproject=()=>
         </>
     )
 }
+
+
+
+
+
 export const Projects=()=>
 {
     const [data,sdata]=useState([]);

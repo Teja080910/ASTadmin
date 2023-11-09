@@ -55,7 +55,6 @@ const Login=()=>{
     }
     const Send=async()=>
     {
-        document.getElementById('otps').style.display='block';
         let OTP=Math.floor(Math.random()*(max-min+1))+min;
         scode(OTP);
         let ebody=`
@@ -75,7 +74,7 @@ const Login=()=>{
             Subject : "Daily Attendace Code",
             Body : ebody
         }).then(
-          message =>alert(message)
+          message =>message==="OK"?document.getElementById('otps').style.display='block':alert(message)
         )
     }
     const Complete=()=>

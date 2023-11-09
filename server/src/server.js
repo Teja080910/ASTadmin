@@ -71,8 +71,12 @@ app.post('/worksubmit/:gmail/:date/:work',async(req,res)=>
 //  ************************************************* projects ************************************************//
 app.post('/project',async(req,res)=>
 {
-    const details=await db.collection("Projects").insertOne({Name:req.body.name,Project:req.body.project})
-    res.json(details);
+    await db.collection("Projects").insertOne({Name:req.body.name,Project:req.body.project})
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))    
 })
 app.post('/pro',async(req,res)=>
 {
