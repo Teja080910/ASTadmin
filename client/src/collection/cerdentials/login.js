@@ -97,6 +97,7 @@ const Login=()=>{
         .then((result)=>
         {
             sdat((result.data.sort((a, b) => a.Year- b.Year)));
+            console.log(dat)
         })
         axios.post("https://attendance-339a.onrender.com/totaldays")
         .then((result)=>
