@@ -200,5 +200,51 @@ table tbody p
     margin-top:-58%;
   }
 }
-
-
+.card
+{
+  background-color: #84c8ff;
+}
+.projectbg
+{
+  background-color: #EDF2F7;
+  width: 100%;
+  height: 92vh;
+}
+.card button
+{
+  background: none;
+  color: red;
+  border: none;
+}
+.link
+{
+  text-decoration: none;
+  color: rgb(70, 64, 0);
+}
+.link:hover
+{
+  color:#b10f0f;
+}
+.projectname
+{
+  color: black;
+  font-weight: bold;
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  text-decoration: underline;
+}
+.simplegrid
+{
+  margin-left: 10%;
+  width: 80%;
+}
+.stulogout
+{
+  background: none;
+  border: none;
+  color: red;
+  font-size: 15px;
+  margin: 0;
+  padding: 0.1;
+}

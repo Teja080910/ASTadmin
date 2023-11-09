@@ -99,10 +99,22 @@ app.post('/project',async(req,res)=>
             })
             .catch((e)=>console.log(e))
         }
+        else
+        {
+            res.json({message:"Not found"})
+        }
     })
     .catch((e)=>console.log(e))   
 })
-
+app.post('/delete',async(req,res)=>
+{
+    await db.collection("Projects").findOneAndUpdate({Gmail:req.body.del.dat.Gmail},{$pull:{Projects:{Projectlink:req.body.del.val.Projectlink}}})
+    .then((details)=>
+    {
+        res.json(details)
+    })
+    .catch((e)=>console.log(e))
+})
 
 app.post('/pro',async(req,res)=>
 {

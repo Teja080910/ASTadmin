@@ -1,6 +1,9 @@
+import { Card, CardBody, CardFooter, CardHeader, Center, Heading, Link, SimpleGrid, Text } from '@chakra-ui/react';
+import Button from 'react-bootstrap/esm/Button';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 import "../cerdentials/signup.css";
 import { Navbars } from "../nav&foot/nav";
 export const Addproject=()=>
@@ -13,14 +16,20 @@ export const Addproject=()=>
     {
         if(name && proname && gmail && project)
         {
+            document.getElementById("projectsubmit").innerHTML="Please wait....."
             await axios.post("https://attendance-339a.onrender.com/project", { name, gmail, proname, project })
-                .then((res) => {
-                    if (res.data) {
-                        alert("Sucessfully Submitted");
+                .then((res) =>
+                {
+                    console.log(res)
+                    if (res.data)
+                    {
+                        document.getElementById("projectsubmit").innerHTML="Submitted.."
                         window.location = '/projects';
                     }
-                    else {
+                    else if(res.data.message==="Not found")
+                    {
                         alert("Gmail not found");
+                        document.getElementById("projectsubmit").innerHTML="Try again.."
                     }
                 })
                 .catch((e) => console.log(e))
@@ -55,7 +64,7 @@ export const Addproject=()=>
             <input  className="form-control" type="link" placeholder="Your project link" onChange={(e)=>sproject(e.target.value)} />
           </div>
           <div className="form-group" style={{display:"flex",justifyContent:"center"}}>
-            <button type="submit"  onClick={Project}><b>Upload project</b></button>
+            <button id="projectsubmit" type="submit"  onClick={Project}><b>Upload project</b></button>
           </div>
       </div>
      
@@ -69,7 +78,46 @@ export const Addproject=()=>
 
 export const Projects=()=>
 {
-    const [data,sdata]=useState([]);
+    const [data, sdata] = useState([]);
+    const [show, setShow] = useState(true);
+    const handleClose = () => setShow(false);
+    const[del,sdel]=useState();
+    const[msg,smsg]=useState();
+    const [name,sname]=useState();
+    const [gmail,sgmail]=useState();
+    const[like,slike]=useState();
+    const Login=async()=>
+    {
+        axios.post("https://attendance-339a.onrender.com/student/"+gmail)
+        .then((res)=>
+        {
+            if(res.data.Reg_No===name)
+            {
+                sessionStorage.student=gmail;
+                setShow(false)
+            }
+            else
+            {
+                smsg("Password incorrect")
+            }
+        })
+        .catch((e)=>console.log(e))
+    }
+    const Logout=()=>
+    {
+        
+    }
+    const Delete=async()=>
+    {
+        if(prompt("Enter Project Name")===del.val.Projectname)
+        {
+        await axios.post("https://attendance-339a.onrender.com/delete",{del})
+        .then((res)=>
+        {
+        })
+        .catch((e)=>console.log(e))
+        }
+    }
     useEffect(()=>
     {
         axios.post("https://attendance-339a.onrender.com/projects")
@@ -77,18 +125,98 @@ export const Projects=()=>
         {
             sdata(result.data);
         })
+        .catch((e)=>console.log(e))
     })
     return(
         <>
         <Navbars/>
-       {
+        <div className='projectbg'>
+        <div className='projectname'>Projects</div>
+        {
         data.map((dat)=>
         (
-            <div className="projectlink-container">
-                <Link className="projectlink" to={dat.Project}>{dat.Name}</Link>
-            </div>
+            <>
+            <p style={{display:'flex',justifyContent:'center',color:'green',marginTop:'3%'}}><h1>{dat.Name}</h1>{sessionStorage.student?<Button className='stulogout' onClick={()=>sessionStorage.removeItem("student")}>Logout</Button>:<b/>}</p>
+            <p style={{display:'flex',justifyContent:'center'}}><h6>{dat.Gmail}</h6></p>
+            <SimpleGrid spacing={4} className='simplegrid' templateColumns='repeat(auto-fill, minmax(250px, 1fr))'>
+            {
+                dat.Projects.map((val)=>
+                (
+                        <Card className='card'>
+                            <Center>
+                            <CardHeader>
+                                <Heading style={{color:'blue'}}>{val.Projectname}</Heading>
+                            </CardHeader>
+                            </Center>
+                            <Center>
+                            <CardBody>
+                                <Text>
+                                    <Link className='link' target='_blank' href={val.Projectlink}><h4>View Here</h4></Link>
+                                </Text>
+                            </CardBody>
+                            </Center>
+                            <Center>
+                            <CardFooter>
+                            {/* <Button onClick={Like} style={{color:'tomato'}} onClickCapture={()=>sdel({dat,val})}>Like</Button> */}
+                            </CardFooter>
+                            </Center>
+                            <Center>
+                            {
+                                sessionStorage.student===dat.Gmail?
+                                <CardFooter>
+                                <Button onClick={Delete} onClickCapture={()=>sdel({dat,val})}>Delete</Button>
+                                </CardFooter>:<b/>
+                            }
+                            </Center>
+                        </Card>
+                ))
+            }
+            </SimpleGrid>
+            </>
         ))
        }
+        </div>
+            <div>
+                {
+                    !sessionStorage.student?
+                    <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Login Form</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Email address</Form.Label>
+                                <Form.Control
+                                    type="email"
+                                    placeholder="Enter Gmail"
+                                    autoFocus
+                                    autoComplete='true'
+                                    onChange={(e)=>sgmail(e.target.value)}
+                                />
+                            </Form.Group>
+                            <Form.Group
+                                className="mb-3"
+                                controlId="exampleForm.ControlTextarea1"
+                            >
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control 
+                                type="password"
+                                placeholder="Enter password"
+                                onChange={(e)=>sname(e.target.value.toUpperCase())}
+                                 />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <h6>{msg}</h6>
+                        <Button variant="primary" onClick={Login}>
+                            Login
+                        </Button>
+                    </Modal.Footer>
+                </Modal>:<b/>
+                }
+        </div>
         </>
     )
 }
