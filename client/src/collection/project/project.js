@@ -150,7 +150,6 @@ export const Projects=()=>
         (
             <>
             <p style={{display:'flex',justifyContent:'center',color:'green',marginTop:'3%'}}><h1>{dat.Name}</h1>{sessionStorage.student===dat.Gmail?<Button className='stulogout' onClick={()=>sessionStorage.removeItem("student")}>Logout</Button>:<b/>}</p>
-            <p style={{display:'flex',justifyContent:'center'}}><h6>{dat.Gmail}</h6></p>
             <SimpleGrid spacing={4} className='simplegrid' templateColumns='repeat(auto-fill, minmax(400px, 1fr))'>
             {
                 dat.Projects.map((val,index)=>
