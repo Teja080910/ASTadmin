@@ -106,7 +106,7 @@ export const Projects=()=>
     }
     const Like=async()=>
     {
-        await axios.post("http://localhost:8000/like",{del})
+        await axios.post("https://attendance-339a.onrender.com/like",{del})
         .then((res)=>
         {
         })
@@ -114,7 +114,7 @@ export const Projects=()=>
     }
     const Unlike=async()=>
     {
-        await axios.post("http://localhost:8000/unlike",{del})
+        await axios.post("https://attendance-339a.onrender.com/unlike",{del})
         .then((res)=>
         {
         })
