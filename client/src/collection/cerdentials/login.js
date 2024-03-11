@@ -88,8 +88,33 @@ const Login=()=>{
     }
     const DeleteStudent=()=>
     {
-        <Send/>
+        document.getElementById('password').style.display="block";
     }
+    const Delete=()=>
+        {
+        axios.post("https://attendance-339a.onrender.com/admincheck/"+sessionStorage.name+"/"+otp)
+        .then((res)=>
+        {
+            if(res.data)
+            {
+                axios.post("http://localhost:8000/deletestudent/"+atnd)
+                .then((res)=>
+                {
+                    if(res)
+                    {
+                        window.location.reload(3);
+                    }
+                })
+                .catch((e)=>console.log(e))
+            }
+            else
+            {
+                alert("Enter correct password");
+                document.getElementById('password').style.display="none";
+            }
+        })
+        .catch((e)=>console.log(e))
+        }
     const Register=()=>
     {
         sessionStorage.removeItem('yoga');
@@ -117,6 +142,10 @@ const Login=()=>{
         <div className="otp" id='otps'>
             <input type="number" align="center" placeholder="Enter OTP" onChange={(e)=>{sotp(e.target.value)}}></input>
             <button onClick={Attend}><b>Submit</b></button>
+        </div>
+        <div className="otp" id='password'>
+            <input type="password" align="center" placeholder="Enter Password" onChange={(e)=>{sotp(e.target.value)}}></input>
+            <button onClick={Delete}><b>Submit</b></button>
         </div>
         <div className="clgname">SRKREC Tech Center</div>
         <div className="yearbtns">

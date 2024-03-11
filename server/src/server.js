@@ -93,6 +93,15 @@ app.post('/updatestudent/:gmail/:year',async(req,res)=>
     })
     .catch((e)=>console.log(e))
 })
+app.post('/deletestudent/:mail',async(req,res)=>
+{
+    await db.collection('Signup').deleteOne({Gmail:req.params.mail})
+    .then((details)=>
+    {
+        res.json(details)
+    })
+    .catch((e)=>console.log(e))
+})
 app.post('/loginstudent/:gmail/:num/:date',async(req,res)=>
 {
     await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Num:req.params.num,Login:req.params.date}})
