@@ -183,19 +183,20 @@ export const Dailattend=()=>
                 (
                     x.Login===date.toDateString()&&
                    <>
-                    <tr>
-                        <td>{index+1}</td>
-                        <td>{x?.Reg_No}</td>
-                        <td>{x?.Year}</td>
-                        <td >
-                        {x.Works[date1]?.map((val)=>
-                        (
-                            <p>{val}</p>
-                        ))}
-                        </td>
-                    </tr>
-                    
-                    
+                        <tr>
+                            <td>{index + 1}</td>
+                            <td>{x?.Reg_No}</td>
+                            <td>{x?.Year}</td>
+                            {
+                                x.Works &&
+                                <td >
+                                    {x.Works[date1]?.map((val) =>
+                                    (
+                                        <p>{val}</p>
+                                    ))}
+                                </td>
+                            }
+                        </tr>
                    </>
                 ))
             }
