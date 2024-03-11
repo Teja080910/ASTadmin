@@ -18,7 +18,6 @@ export const Home=()=>
     return(
         <>
         <Navbars/>
-        {/* <a href="mailto:`{email}`?subject={subject}&body={body}">Click to Send an Email</a> */}
         <div className="home-container">
         <div className="homename">Developing Sadhana App</div>
         <div className="top-5" >Top Five Members In Streaks</div>

@@ -176,6 +176,7 @@ export const Projects=()=>
                                     (
                                         val1===sessionStorage.student?
                                         <Button onClick={Unlike} style={{color:'tomato'}} onClickCapture={()=>sdel({dat,mail,index})}><img src="like.png" className='rotate'/></Button>:
+                                
                                         <Button onClick={Like} style={{color:'tomato'}} onClickCapture={()=>sdel({dat,mail,index})}><img src="like.png"/></Button>
                                     )):<Button onClick={Like} style={{color:'tomato'}} onClickCapture={()=>sdel({dat,mail,index})}><img src="like.png"/></Button>
                                 }
@@ -197,7 +198,7 @@ export const Projects=()=>
                         </Card>
                 ))
             }
-            </SimpleGrid>
+                </SimpleGrid>
             </>
         ))
        }

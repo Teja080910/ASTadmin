@@ -63,7 +63,7 @@ export const Yoga=()=>
     }
     const Complete=()=>
     {
-        sessionStorage.name='';
+        sessionStorage.removeItem('name');
     }
     const Year=()=>
     {

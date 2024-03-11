@@ -13,6 +13,20 @@
     
    
 }
+@media print{
+    .scrum-container,body
+    { visibility: hidden; }
+    .scrumtable 
+    { visibility: visible;
+        position: absolute;
+        left: 0;
+        top: 0;
+     }
+    button
+    {
+      visibility: hidden;
+    }
+  }
 
 .scrumtable td {
     

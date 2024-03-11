@@ -185,21 +185,6 @@ table tbody p
 {
   width: 100%;
 }
-
-@media print{
-  body
-  { visibility: hidden; }
-  .dailyattend 
-  { visibility: visible; }
-  button
-  {
-    visibility: hidden;
-  }
-  @page
-  {
-    margin-top:-58%;
-  }
-}
 .card
 {
   background-color: #84c8ff;

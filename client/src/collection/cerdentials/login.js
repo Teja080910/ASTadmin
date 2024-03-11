@@ -86,6 +86,10 @@ const Login=()=>{
         sessionStorage.year=year;
         window.location.reload(1);
     }
+    const DeleteStudent=()=>
+    {
+        <Send/>
+    }
     const Register=()=>
     {
         sessionStorage.removeItem('yoga');
@@ -135,7 +139,7 @@ const Login=()=>{
                                 <>
                                     <thead>
                                         <tr>
-                                            <td style={{ height: '6vh' }} colSpan={5}><Link to='/register' onClick={Register} className="signup">Register</Link></td>
+                                            <td style={{ height: '6vh' }} colSpan={6}><Link to='/register' onClick={Register} className="signup">Register</Link></td>
                                         </tr>
                                         <tr>
                                             <td colSpan={5} ><b>Total days::</b>{tat.Days}</td>
@@ -146,11 +150,9 @@ const Login=()=>{
                                             <th>NAME</th>
                                             <th>CLICK</th>
                                             <th>STREAK</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
-                                    {/* <tr>
-                                        <td colSpan={5} style={{ background: 'red' }}></td>
-                                    </tr> */}
                                     {
                                         dat.filter(user => (user.Reg_No).toLowerCase().includes(select) || (user.Reg_No).toUpperCase().includes(select) || (user.Name).toUpperCase().includes(select) || (user.Name).toLowerCase().includes(select)).map((x, index) => (
                                             <>
@@ -172,8 +174,11 @@ const Login=()=>{
                                                                         
                                                                         <div style={{position: "relative"}}>
                                                                              <img src={"streak.png"} alt="streak"></img>
-                                                                            <div class="streak-text"><b >{(parseInt(x.MrngStreak)+parseInt(x.Num))/2}</b></div>
+                                                                            <div class="streak-text"><b >{(parseInt(x.Num))}</b></div>
                                                                             </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button onClick={DeleteStudent} onClickCapture={(e) => { satnd(x.Gmail) }} style={{backgroundColor:"red",color:'white',border:'none',borderRadius:"5px"}}>X</button>
                                                                     </td>
                                                                     
                                                                 </> : <></>

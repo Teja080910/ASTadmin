@@ -18,19 +18,32 @@ try
     // ************************************** Admin *****************************************//
 app.post('/admincheck/:name/:password',async(req,res)=>
 {
-    const details=await db.collection('admin').findOne({Gmail:req.params.name,Password:req.params.password})
-    res.json(details);
+    await db.collection('admin').findOne({Gmail:req.params.name,Password:req.params.password})
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))
+    
 })
 app.post('/adminregi/:gmail/:password',async(req,res)=>
 {
-    const details=await db.collection('admin').insertOne({Gmail:req.params.gmail,Password:req.params.password})
-    res.json(details);
+    await db.collection('admin').insertOne({Gmail:req.params.gmail,Password:req.params.password})
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))
 })
 app.post('/updateadmin/:gmail/:date/:days',async(req,res)=>
 {
-    const details=await db.collection('admin').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Dates:req.params.date,Days:req.params.days}})&&
+    await db.collection('admin').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Dates:req.params.date,Days:req.params.days}})&&
     await db.collection('Totaldays').findOneAndUpdate({Team:"AST"},{$set:{Days:req.params.days,Scum:req.params.gmail,Date:req.params.date}})
-    res.json(details);
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))
 })
 
 
@@ -38,34 +51,65 @@ app.post('/updateadmin/:gmail/:date/:days',async(req,res)=>
 // ****************************************** Total days ********************************//
 app.post('/totaldays',async(req,res)=>
 {
-    const details=await db.collection('Totaldays').findOne({Team:"AST"})
-    res.json(details);
+    await db.collection('Totaldays').findOne({Team:"AST"})
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))
 })
 //  **************************************** Students *************************************************//
 app.post('/signup/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
 {
-    const details=await db.collection('Signup').insertOne({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch,Num:req.params.num});
-    res.json(details);
-})
+    await db.collection('Signup').insertOne({Gmail:req.params.email,Name:req.params.name,Reg_No:req.params.regd,Year:req.params.year,Branch:req.params.branch,Num:req.params.num})
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))})
 app.post('/students',async(req,res)=>
 {
-    const details=await db.collection('Signup').find().toArray()
-    res.json(details);
-})
+    await db.collection('Signup').find().toArray()
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))})
 app.post('/student/:gmail',async(req,res)=>
 {
-    const details=await db.collection('Signup').findOne({Gmail:req.params.gmail})
-    res.json(details);
+    await db.collection('Signup').findOne({Gmail:req.params.gmail})
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))
+})
+app.post('/updatestudent/:gmail/:year',async(req,res)=>
+{
+    await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Year:req.params.year}})
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))
 })
 app.post('/loginstudent/:gmail/:num/:date',async(req,res)=>
 {
-    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Num:req.params.num,Login:req.params.date}})
-    res.json(details);
+    await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Num:req.params.num,Login:req.params.date}})
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))
 })
-app.post('/worksubmit/:gmail/:date/:work',async(req,res)=>
+app.post('/worksubmit/',async(req,res)=>
 {
-    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Date:req.params.date,Work:req.params.work}})
-    res.json(details);
+    await db.collection('Signup').findOneAndUpdate({Gmail:req.body.name},{$push:{[`Works.${req.body.date}`]:req.body.work}})
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))
 })
 
 //  ************************************************* projects ************************************************//
@@ -129,6 +173,7 @@ app.post('/like',async(req,res)=>
                 .catch((e) => console.log(e))
         }
     })
+    .catch((e) => console.log(e))
 })
 app.post('/unlike',async(req,res)=>
 {
@@ -141,30 +186,50 @@ app.post('/unlike',async(req,res)=>
 
 app.post('/pro',async(req,res)=>
 {
-    const details=await db.collection("Project").insertOne({Link:req.body.link})
-    res.json(details);
+    await db.collection("Project").insertOne({Link:req.body.link})
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))
 })
 app.post('/pro',async(req,res)=>
 {
-    const details=await db.collection("Project").find().toArray();
-    res.json(details);
+    await db.collection("Project").find().toArray()
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))
 })
 app.post('/projects',async(req,res)=>
 {
-    const details=await db.collection("Projects").find().toArray()
-    res.json(details);
+    await db.collection("Projects").find().toArray()
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))
 })
 
 // ******************************************* sadhana *****************************************//
 app.post('/sadhanasignup/:email',async(req,res)=>
 {
-    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.email},{$set:{SadhanaReg:true,MrngStreak:0}});
-    res.json(details);
+    await db.collection('Signup').findOneAndUpdate({Gmail:req.params.email},{$set:{SadhanaReg:true,MrngStreak:0}})
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))
 })
 app.post('/sadhanaloginstudent/:gmail/:num/:date',async(req,res)=>
 {
-    const details=await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{MrngStreak:req.params.num,MrngLogin:req.params.date}})
-    res.json(details);
+    await db.collection('Signup').findOneAndUpdate({Gmail:req.params.gmail},{$set:{MrngStreak:req.params.num,MrngLogin:req.params.date}})
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))
 })
 app.post('/sendotp/:number',async(req,res)=>
 {
@@ -182,8 +247,12 @@ app.post('/teja/:name/:num',async(req,res)=>
 {
     const index=req.params.num;
     const data=db.collection("Teja");
-    const details=await data.updateOne({'comments.1':"Teja"}, {$set:{[`comments.${index}`]:[5]}})
-    res.json(details);
+    await data.updateOne({'comments.1':"Teja"}, {$set:{[`comments.${index}`]:[5]}})
+    .then((details)=>
+    {
+        res.json(details);
+    })
+    .catch((e)=>console.log(e))
 })
 }
 catch(e)
