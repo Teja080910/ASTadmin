@@ -225,7 +225,7 @@ export const DailyWork=()=>
            {
             if(responce.data)
             {
-                const res=await axios.post("http://localhost:8000/worksubmit/",{name,date:date.toDateString(),work})
+                const res=await axios.post("https://attendance-339a.onrender.com/worksubmit/",{name,date:date.toDateString(),work})
                 {
                     if(res)
                     {
