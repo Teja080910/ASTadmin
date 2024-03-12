@@ -1,8 +1,7 @@
 {
   "routes": [
-    {
-      "src": "/[^.]+",
-      "dest": "/"
-    }
+    { "handle": "filesystem" },
+    { "src": "//(.*)", "dest": "server.js" },
+    { "src": "/(.*)", "dest": "server.js" }
   ]
 }
