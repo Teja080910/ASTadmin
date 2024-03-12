@@ -10,7 +10,6 @@ export const Yoga=()=>
     const [year,syear]=useState([]);
     const [otp,sotp]=useState([]);
     const [x,sx] =useState(1);
-    const [code,scode]=useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const date=new Date();
     const Attend=async()=>
