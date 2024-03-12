@@ -81,7 +81,7 @@ app.get('/students',async(req,res)=>
         res.json(details);
     })
     .catch((e)=>console.log(e))})
-app.post('/student/:gmail',async(req,res)=>
+app.get('/student/:gmail',async(req,res)=>
 {
     await db.collection('Signup').findOne({Gmail:req.params.gmail})
     .then((details)=>
