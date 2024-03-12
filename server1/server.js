@@ -2,7 +2,13 @@ const cors =require('cors');
 const express=require('express');
 // const {connectToDB,db}=require('db1.js')
 const app = express()
-app.use(cors())
+app.use(cors(
+    {
+        origin: "https://attendance-loy7.vercel.app/",
+        methods: ["POST", "GET"],
+        credentials: true
+      }
+))
 app.use(express.json())
 const MongoClient = require('mongodb').MongoClient;
 let db; 
