@@ -12,20 +12,20 @@ export const Admin=()=>{
     const time=new Date().toLocaleTimeString();
     const Submit=async()=>{
         try{
-            const responce=await axios.post("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password)
+            const responce=await axios.post("https://attendance-server.vercel.app/admincheck/"+gmail+"/"+password)
             {
                 if(responce.data)
                 {
                  if (responce.data.Dates !== date.toDateString())
                  {
-                    const res1=await axios.post("https://attendance-339a.onrender.com/totaldays")
+                    const res1=await axios.post("https://attendance-server.vercel.app/totaldays")
                     {
                         if(res1.data)
                         {
                             if (res1.data.Date !== date.toDateString())
                             {
                                 let tdays = parseInt(res1.data.Days) + 1;
-                                const res = await axios.post("https://attendance-339a.onrender.com/updateadmin/"+gmail + "/" + date.toDateString() + "/" + tdays)
+                                const res = await axios.post("https://attendance-server.vercel.app/updateadmin/"+gmail + "/" + date.toDateString() + "/" + tdays)
                                 {
                                     if (res)
                                     {
@@ -139,13 +139,13 @@ export const Adminreg=()=>
     const[password,setpassword]=useState([]);
     const Submit=async()=>
     {
-        const res=await axios.post("https://attendance-339a.onrender.com/admincheck/"+gmail+"/"+password)
+        const res=await axios.post("https://attendance-server.vercel.app/admincheck/"+gmail+"/"+password)
         {
             if (res.data) {
                 alert("Already Register")
             }
             else {
-                if (await axios.post("https://attendance-339a.onrender.com/adminregi/" + gmail + "/" + password)) {
+                if (await axios.post("https://attendance-server.vercel.app/adminregi/" + gmail + "/" + password)) {
                     alert("Sucessfully Registered");
                     nav('/adminlogin')
                 }

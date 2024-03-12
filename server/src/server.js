@@ -5,7 +5,7 @@ import { connectToDB, db } from "./db.js";
 const app = express()
 app.use(cors())
 app.use(express.json())
-app.post('/',(req,res)=>{
+app.get('/',(req,res)=>{
     res.json("server is running successfully!");
 })
 try

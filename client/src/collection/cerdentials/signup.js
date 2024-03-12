@@ -19,14 +19,14 @@ const Signup=()=>{
         {
             // if(sessionStorage.yoga==="AST@9899")
             // {
-                const res = await axios.post("https://attendance-339a.onrender.com/student/" + email)
+                const res = await axios.post("https://attendance-server.vercel.app/student/" + email)
                 {
                     if (res.data) {
                         SetCheck("E-mail or Register Number is already exists");
                     }
                     else
                     {
-                        const res=await axios.post("https://attendance-339a.onrender.com/signup/" + email + "/" + name + "/" + regd + "/" + year + "/" + branch + "/" + num)
+                        const res=await axios.post("https://attendance-server.vercel.app/signup/" + email + "/" + name + "/" + regd + "/" + year + "/" + branch + "/" + num)
                         {
                             if(res)
                             {

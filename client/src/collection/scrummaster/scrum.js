@@ -49,7 +49,7 @@ export const UpdateData=()=>
     const Update=async()=>
     {
         sload(true)
-        axios.post("https://attendance-339a.onrender.com/updatestudent/" + name+"/"+year)
+        axios.post("https://attendance-server.vercel.app/updatestudent/" + name+"/"+year)
         .then((res)=>
         {
             if(res.data)
@@ -67,7 +67,7 @@ export const UpdateData=()=>
     useEffect(()=>
     {
         name&&
-        axios.post("https://attendance-339a.onrender.com/student/" + name)
+        axios.post("https://attendance-server.vercel.app/student/" + name)
         .then((res)=>
         {
             sdata(res.data)
@@ -151,12 +151,12 @@ export const Dailattend=()=>
     }
     useEffect(()=>
     {
-        axios.post("https://attendance-339a.onrender.com/students")
+        axios.post("https://attendance-server.vercel.app/students")
         .then((result)=>
         {
             sdata(result.data.sort((a, b) => a.Year- b.Year));
         })
-        axios.post("https://attendance-339a.onrender.com/totaldays")
+        axios.post("https://attendance-server.vercel.app/totaldays")
         .then((result)=>
         {
             stat(result.data)
@@ -221,11 +221,11 @@ export const DailyWork=()=>
         sload(true)
         try
         {
-           const responce=await axios.post("https://attendance-339a.onrender.com/student/"+name)
+           const responce=await axios.post("https://attendance-server.vercel.app/student/"+name)
            {
             if(responce.data)
             {
-                const res=await axios.post("https://attendance-339a.onrender.com/worksubmit/",{name,date:date.toDateString(),work})
+                const res=await axios.post("https://attendance-server.vercel.app/worksubmit/",{name,date:date.toDateString(),work})
                 {
                     if(res)
                     {
