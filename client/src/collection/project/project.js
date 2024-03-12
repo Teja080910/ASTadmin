@@ -17,7 +17,7 @@ export const Addproject=()=>
         if(name && proname && gmail && project)
         {
             document.getElementById("projectsubmit").innerHTML="Please wait....."
-            await axios.post("https://attendance-server.vercel.app/project", { name, gmail, proname, project })
+            await axios.post(process.env.REACT_APP_database+"/project", { name, gmail, proname, project })
                 .then((res) =>
                 {
                     console.log(res)
@@ -89,7 +89,7 @@ export const Projects=()=>
     const mail=sessionStorage.student;
     const Login=async()=>
     {
-        axios.post("https://attendance-server.vercel.app/student/"+gmail)
+        axios.post(process.env.REACT_APP_database+"/student/"+gmail)
         .then((res)=>
         {
             if(res.data.Reg_No===name)
@@ -106,7 +106,7 @@ export const Projects=()=>
     }
     const Like=async()=>
     {
-        await axios.post("https://attendance-server.vercel.app/like",{del})
+        await axios.post(process.env.REACT_APP_database+"/like",{del})
         .then((res)=>
         {
         })
@@ -114,7 +114,7 @@ export const Projects=()=>
     }
     const Unlike=async()=>
     {
-        await axios.post("https://attendance-server.vercel.app/unlike",{del})
+        await axios.post(process.env.REACT_APP_database+"/unlike",{del})
         .then((res)=>
         {
         })
@@ -124,7 +124,7 @@ export const Projects=()=>
     {
         if(prompt("Enter Project Name")===del.val.Projectname)
         {
-        await axios.post("https://attendance-server.vercel.app/delete",{del})
+        await axios.post(process.env.REACT_APP_database+"/delete",{del})
         .then((res)=>
         {
         })
@@ -133,7 +133,7 @@ export const Projects=()=>
     }
     useEffect(()=>
     {
-        axios.post("https://attendance-server.vercel.app/projects")
+        axios.post(process.env.REACT_APP_database+"/projects")
         .then((result)=>
         {
             sdata(result.data);

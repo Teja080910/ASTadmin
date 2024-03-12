@@ -49,7 +49,7 @@ export const UpdateData=()=>
     const Update=async()=>
     {
         sload(true)
-        axios.post("https://attendance-server.vercel.app/updatestudent/" + name+"/"+year)
+        axios.post(process.env.REACT_APP_database+"/updatestudent/" + name+"/"+year)
         .then((res)=>
         {
             if(res.data)
@@ -67,7 +67,7 @@ export const UpdateData=()=>
     useEffect(()=>
     {
         name&&
-        axios.post("https://attendance-server.vercel.app/student/" + name)
+        axios.post(process.env.REACT_APP_database+"/student/" + name)
         .then((res)=>
         {
             sdata(res.data)
@@ -151,12 +151,12 @@ export const Dailattend=()=>
     }
     useEffect(()=>
     {
-        axios.post("https://attendance-server.vercel.app/students")
+        axios.post(process.env.REACT_APP_database+"/students")
         .then((result)=>
         {
             sdata(result.data.sort((a, b) => a.Year- b.Year));
         })
-        axios.post("https://attendance-server.vercel.app/totaldays")
+        axios.post(process.env.REACT_APP_database+"/totaldays")
         .then((result)=>
         {
             stat(result.data)
@@ -221,11 +221,11 @@ export const DailyWork=()=>
         sload(true)
         try
         {
-           const responce=await axios.post("https://attendance-server.vercel.app/student/"+name)
+           const responce=await axios.post(process.env.REACT_APP_database+"/student/"+name)
            {
             if(responce.data)
             {
-                const res=await axios.post("https://attendance-server.vercel.app/worksubmit/",{name,date:date.toDateString(),work})
+                const res=await axios.post(process.env.REACT_APP_database+"/worksubmit/",{name,date:date.toDateString(),work})
                 {
                     if(res)
                     {

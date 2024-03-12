@@ -22,14 +22,14 @@ const Login=()=>{
         {
            if(parseInt(otp)===code)
            {
-               const responce = await axios.post("https://attendance-server.vercel.app/student/" + atnd.Gmail)
+               const responce = await axios.post(process.env.REACT_APP_database+"/student/" + atnd.Gmail)
                {
                    if (responce.data) {
                        if (x === 1) {
                            atnd.Num = (parseInt(responce.data.Num) + 1);
                            sx(2);
                        }
-                       const responce1 = await axios.post("https://attendance-server.vercel.app/loginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
+                       const responce1 = await axios.post(process.env.REACT_APP_database+"/loginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
                        {
                            if (responce1) {
                                alert(atnd.Reg_No + " Attend");
@@ -91,7 +91,7 @@ const Login=()=>{
     }
     const Delete=()=>
         {
-        axios.post("https://attendance-server.vercel.app/admincheck/"+sessionStorage.name+"/"+otp)
+        axios.post(process.env.REACT_APP_database+"/admincheck/"+sessionStorage.name+"/"+otp)
         .then((res)=>
         {
             if(res.data)
@@ -120,13 +120,13 @@ const Login=()=>{
     }
     useEffect(()=>
     {
-        axios.post("https://attendance-server.vercel.app/students")
+        axios.post(process.env.REACT_APP_database+"/students")
         .then((result)=>
         {
             sdat((result.data.sort((a, b) => a.Year- b.Year)));
             console.log(dat)
         })
-        axios.post("https://attendance-server.vercel.app/totaldays")
+        axios.post(process.env.REACT_APP_database+"/totaldays")
         .then((result)=>
         {
             stat(result.data)
