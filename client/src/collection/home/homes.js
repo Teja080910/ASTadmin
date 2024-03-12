@@ -8,7 +8,7 @@ export const Home=()=>
     sessionStorage.name='';
     useEffect(()=>
     {
-        axios.post("https://attendance-server1.vercel.app/students")
+        axios.post("https://attendance-339a.onrender.com/students")
         .then((result)=>
         {
             sdat((result.data.sort((a, b) => b.Num- a.Num)));

@@ -16,14 +16,14 @@ export const Yoga=()=>
     {
         try
         {
-               const responce = await axios.post("https://attendance-server1.vercel.app/student/" + atnd.Gmail)
+               const responce = await axios.post("https://attendance-339a.onrender.com/student/" + atnd.Gmail)
                {
                    if (responce.data) {
                        if (x === 1) {
                            atnd.Num = (parseInt(responce.data.MrngStreak) + 1);
                            sx(2);
                        }
-                       const responce1 = await axios.post("https://attendance-server1.vercel.app/sadhanaloginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
+                       const responce1 = await axios.post("https://attendance-339a.onrender.com/sadhanaloginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
                        {
                            if (responce1) {
                                alert(atnd.Reg_No + " Attend");
@@ -43,7 +43,7 @@ export const Yoga=()=>
     }
     const Register=async()=>
     {
-        const res=await axios.post("https://attendance-server1.vercel.app/sadhanasignup/"+otp)
+        const res=await axios.post("https://attendance-339a.onrender.com/sadhanasignup/"+otp)
         {
             if(res)
             {
@@ -71,7 +71,7 @@ export const Yoga=()=>
     }
     useEffect(()=>
     {
-        axios.post("https://attendance-server1.vercel.app/students")
+        axios.post("https://attendance-339a.onrender.com/students")
         .then((result)=>
         {
             sdat((result.data.sort((a, b) => a.Year- b.Year)));

@@ -17,7 +17,7 @@ export const Addproject=()=>
         if(name && proname && gmail && project)
         {
             document.getElementById("projectsubmit").innerHTML="Please wait....."
-            await axios.post("https://attendance-server1.vercel.app/project", { name, gmail, proname, project })
+            await axios.post("https://attendance-339a.onrender.com/project", { name, gmail, proname, project })
                 .then((res) =>
                 {
                     console.log(res)
@@ -89,7 +89,7 @@ export const Projects=()=>
     const mail=sessionStorage.student;
     const Login=async()=>
     {
-        axios.post("https://attendance-server1.vercel.app/student/"+gmail)
+        axios.post("https://attendance-339a.onrender.com/student/"+gmail)
         .then((res)=>
         {
             if(res.data.Reg_No===name)
@@ -106,7 +106,7 @@ export const Projects=()=>
     }
     const Like=async()=>
     {
-        await axios.post("https://attendance-server1.vercel.app/like",{del})
+        await axios.post("https://attendance-339a.onrender.com/like",{del})
         .then((res)=>
         {
         })
@@ -114,7 +114,7 @@ export const Projects=()=>
     }
     const Unlike=async()=>
     {
-        await axios.post("https://attendance-server1.vercel.app/unlike",{del})
+        await axios.post("https://attendance-339a.onrender.com/unlike",{del})
         .then((res)=>
         {
         })
@@ -124,7 +124,7 @@ export const Projects=()=>
     {
         if(prompt("Enter Project Name")===del.val.Projectname)
         {
-        await axios.post("https://attendance-server1.vercel.app/delete",{del})
+        await axios.post("https://attendance-339a.onrender.com/delete",{del})
         .then((res)=>
         {
         })
@@ -133,7 +133,7 @@ export const Projects=()=>
     }
     useEffect(()=>
     {
-        axios.post("https://attendance-server1.vercel.app/projects")
+        axios.post("https://attendance-339a.onrender.com/projects")
         .then((result)=>
         {
             sdata(result.data);

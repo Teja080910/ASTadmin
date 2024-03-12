@@ -73,7 +73,7 @@ app.post('/signup/:email/:name/:regd/:year/:branch/:num',async(req,res)=>
         res.json(details);
     })
     .catch((e)=>console.log(e))})
-app.post('/students',async(req,res)=>
+app.get('/students',async(req,res)=>
 {
     await db.collection('Signup').find().toArray()
     .then((details)=>
