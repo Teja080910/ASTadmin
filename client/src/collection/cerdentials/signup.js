@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Navbars } from "../nav&foot/nav";
 import "../cerdentials/signup.css";
+import { Navbars } from "../nav&foot/nav";
 const Signup=()=>{
     const nav=useNavigate();
     const[check,SetCheck]=useState("");
@@ -19,14 +19,14 @@ const Signup=()=>{
         {
             // if(sessionStorage.yoga==="AST@9899")
             // {
-                const res = await axios.post("https://attendance-339a.onrender.com/student/" + email)
+                const res = await axios.post("https://attendance-server1.vercel.app/student/" + email)
                 {
                     if (res.data) {
                         SetCheck("E-mail or Register Number is already exists");
                     }
                     else
                     {
-                        const res=await axios.post("https://attendance-339a.onrender.com/signup/" + email + "/" + name + "/" + regd + "/" + year + "/" + branch + "/" + num)
+                        const res=await axios.post("https://attendance-server1.vercel.app/signup/" + email + "/" + name + "/" + regd + "/" + year + "/" + branch + "/" + num)
                         {
                             if(res)
                             {

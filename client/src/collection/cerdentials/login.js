@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Table from 'react-bootstrap/Table';
+import Button from "react-bootstrap/esm/Button";
 import { Link } from "react-router-dom";
 import { Navbars } from "../nav&foot/nav";
-import Button from "react-bootstrap/esm/Button";
 const Login=()=>{
     const [dat,sdat]=useState([]);
     const [atnd,satnd]=useState([]);
@@ -23,14 +22,14 @@ const Login=()=>{
         {
            if(parseInt(otp)===code)
            {
-               const responce = await axios.post("https://attendance-339a.onrender.com/student/" + atnd.Gmail)
+               const responce = await axios.post("https://attendance-server1.vercel.app/student/" + atnd.Gmail)
                {
                    if (responce.data) {
                        if (x === 1) {
                            atnd.Num = (parseInt(responce.data.Num) + 1);
                            sx(2);
                        }
-                       const responce1 = await axios.post("https://attendance-339a.onrender.com/loginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
+                       const responce1 = await axios.post("https://attendance-server1.vercel.app/loginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
                        {
                            if (responce1) {
                                alert(atnd.Reg_No + " Attend");
@@ -92,7 +91,7 @@ const Login=()=>{
     }
     const Delete=()=>
         {
-        axios.post("https://attendance-339a.onrender.com/admincheck/"+sessionStorage.name+"/"+otp)
+        axios.post("https://attendance-server1.vercel.app/admincheck/"+sessionStorage.name+"/"+otp)
         .then((res)=>
         {
             if(res.data)
@@ -121,13 +120,13 @@ const Login=()=>{
     }
     useEffect(()=>
     {
-        axios.post("https://attendance-339a.onrender.com/students")
+        axios.post("https://attendance-server1.vercel.app/students")
         .then((result)=>
         {
             sdat((result.data.sort((a, b) => a.Year- b.Year)));
             console.log(dat)
         })
-        axios.post("https://attendance-339a.onrender.com/totaldays")
+        axios.post("https://attendance-server1.vercel.app/totaldays")
         .then((result)=>
         {
             stat(result.data)

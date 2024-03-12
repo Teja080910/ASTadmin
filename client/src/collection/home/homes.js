@@ -1,18 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Navbars } from "../nav&foot/nav";
 import "../home/home.css";
+import { Navbars } from "../nav&foot/nav";
 export const Home=()=>
 {
     const [dat,sdat]=useState([]);
     sessionStorage.name='';
     useEffect(()=>
     {
-        axios.post("https://attendance-339a.onrender.com/students")
+        axios.post("https://attendance-server1.vercel.app/students")
         .then((result)=>
         {
             sdat((result.data.sort((a, b) => b.Num- a.Num)));
         })
+        .catch((e)=>console.log(e))
     },[])
     
     return(
