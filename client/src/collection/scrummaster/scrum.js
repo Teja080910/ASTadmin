@@ -83,10 +83,10 @@ export const UpdateData=()=>
             <input  className="form-control" type="text" id="smn" placeholder="Enter your gmail" onChange={(e)=>sname(e.target.value)}/>
           </div>
           <div className="form-group">
-            <label>Name: {data?.Name}</label>
+            <label>Name: {data?.Name.toUpperCase()}</label>
           </div>
           <div className="form-group">
-            <label>Register Number: {data?.Reg_No}</label>
+            <label>Register Number: {data?.Reg_No.toUpperCase()}</label>
           </div>
           <div className="form-group">
             <label>Year: {data?.Year}</label>
@@ -185,7 +185,7 @@ export const Dailattend=()=>
                    <>
                         <tr>
                             <td>{index + 1}</td>
-                            <td>{x?.Reg_No}</td>
+                            <td>{x?.Reg_No.toUpperCase()}</td>
                             <td>{x?.Year}</td>
                             {
                                 x.Works &&

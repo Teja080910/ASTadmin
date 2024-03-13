@@ -56,24 +56,33 @@ const Login=()=>{
     {
         let OTP=Math.floor(Math.random()*(max-min+1))+min;
         scode(OTP);
-        let ebody=`
-        <p>This <b>code</b> came from ${"AST"}</p>
-        <p>
-        <b>Name::<b>${atnd.Name}
-        <br/>
-        <b>Gmail::<b>${atnd.Gmail}
-        <br>
-        <b>Code::<b>${OTP}
-        <p>
-        `
+        let ebody = `
+    <p ><h2 style="text-align: center;">This <b>OTP</b> came from AST</h2></p>
+    <p style="text-align: center;">
+        <b>Name::</b> ${atnd.Name}<br/>
+        <b>Gmail::</b> ${atnd.Gmail}<br/>
+    </p>
+    <p >
+    <h1 style="text-align: center;">Code:: ${OTP}</h1>
+    </p>
+    <br/>
+    <p >
+        <h2 style="color:green;">Welcome to ${parseInt(atnd.Num) + 1}th day</h2>
+    </p>
+    <p style="color:blue;">
+    Check Your attendance and submission of your work<br/>
+    <h3>https://asteam-attendance.vercel.app/scrummaster</h3>
+    </p>
+`
+
         window.Email.send({
-            SecureToken :"3c068e1e-2b17-48d8-b96f-2fa30f12bb6f",
-            To:(atnd.Gmail),
-            From :"aolsrkr2002@gmail.com",
-            Subject : "Daily Attendace Code",
-            Body : ebody
+            SecureToken:`${process.env.REACT_APP_host}`,
+            To: (atnd.Gmail),
+            From: "aolsrkr2002@gmail.com",
+            Subject: "Daily Attendace Code",
+            Body: ebody
         }).then(
-          message =>message==="OK"?document.getElementById('otps').style.display='block':alert(message)
+            message => message === "OK" ? document.getElementById('otps').style.display = 'block' : alert(message + " Ok raa")
         )
     }
     const Complete=()=>
@@ -96,7 +105,7 @@ const Login=()=>{
         {
             if(res.data)
             {
-                axios.post("http://localhost:8000/deletestudent/"+atnd)
+                axios.post(process.env.REACT_APP_database+"/deletestudent/"+atnd)
                 .then((res)=>
                 {
                     if(res)
@@ -140,11 +149,17 @@ const Login=()=>{
         <Navbars/>
         <div className="otp" id='otps'>
             <input type="number" align="center" placeholder="Enter OTP" onChange={(e)=>{sotp(e.target.value)}}></input>
+            <div style={{display:'flex',justifyContent:'space-between'}}>
             <button onClick={Attend}><b>Submit</b></button>
+            <Button style={{backgroundColor:'red'}} onClick={()=>document.getElementById("otps").style.display="none"}><b>X</b></Button>
+            </div>
         </div>
         <div className="otp" id='password'>
             <input type="password" align="center" placeholder="Enter Password" onChange={(e)=>{sotp(e.target.value)}}></input>
+            <div style={{display:'flex',justifyContent:'space-between'}}>
             <button onClick={Delete}><b>Submit</b></button>
+            <Button style={{backgroundColor:'red'}} onClick={()=>document.getElementById("password").style.display="none"}><b>X</b></Button>
+            </div>
         </div>
         <div className="clgname">SRKREC Tech Center</div>
         <div className="yearbtns">
@@ -190,8 +205,8 @@ const Login=()=>{
                                                             x.Year === sessionStorage.year ?
                                                                 <>
                                                                     <td style={{ height: '7vh' }}>{index + 1}</td>
-                                                                    <td>{x.Reg_No}</td>
-                                                                    <td>{x.Name}</td>
+                                                                    <td>{x.Reg_No.toUpperCase()}</td>
+                                                                    <td>{x.Name.toUpperCase()}</td>
                                                                     <td>
                                                                         {
                                                                             x.Login !== date.toDateString() ?

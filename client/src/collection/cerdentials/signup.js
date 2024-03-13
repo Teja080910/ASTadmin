@@ -83,7 +83,7 @@ const Signup=()=>{
             placeholder="Full Name"
             name="name"
             value={name}
-            onChange={(e) => SetName(e.target.value)}
+            onChange={(e) => SetName(e.target.value.toUpperCase())}
           />
         </div>
 
@@ -95,7 +95,7 @@ const Signup=()=>{
             placeholder="Regd.no"
             name="regd"
             value={regd}
-            onChange={(e) => SetRegd(e.target.value)}
+            onChange={(e) => SetRegd(e.target.value.toUpperCase())}
           />
         </div>
 
