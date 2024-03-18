@@ -174,7 +174,7 @@ export const Dailattend=()=>
             </tr>
            <tr>
                 <th>S.No</th>
-                <th>Regd_number</th>
+                <th>Name(Reg_No)</th>
                 <th>Year</th>
                 <th >Work</th>
             </tr>
@@ -185,7 +185,7 @@ export const Dailattend=()=>
                    <>
                         <tr>
                             <td>{index + 1}</td>
-                            <td>{x?.Reg_No.toUpperCase()}</td>
+                            <td>{x?.Name.toUpperCase()+" "+x?.Reg_No.toUpperCase()}</td>
                             <td>{x?.Year}</td>
                             {
                                 x.Works &&
