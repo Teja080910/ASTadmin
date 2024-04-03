@@ -1,7 +1,10 @@
+import { Client } from '@octoai/client';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import express from 'express';
 import twilio from 'twilio';
 import { connectToDB, db } from "./db.js";
+dotenv.config()
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -14,6 +17,36 @@ try
     const authToken = "ccddf8423c50abfed1d91e0ae9ab030e";
     const verifySid = "VA1d7be8603abac6f0b4567a82a74a7143";
     const client=new twilio(accountSid,authToken);
+
+
+    const client1 = new Client(process.env.OCTOAI_TOKEN);
+   
+app.post('/pdfprint',async(req,res)=>{
+    const completion = await client1.chat.completions.create( {
+        "messages": [
+        {
+            "role": "system",
+            "content": req.body.text1
+        },
+        {
+            "role": "user",
+            "content":req.body.text? `PDF content:\n${req.body.text}`:req.body.text1
+        }
+        ],
+        "model": "llama-2-13b-chat-fp16",
+        "max_tokens": 3000,
+        "presence_penalty": 0,
+        "temperature": 0.1,
+        "top_p": 0.9
+    });
+    if(completion.choices[0].message.content){
+       res.json(completion.choices[0].message.content)
+    }
+    // console.log(completion.choices[0].message.content)
+})
+    
+
+
    
     // ************************************** Admin *****************************************//
 app.post('/admincheck/:name/:password',async(req,res)=>

@@ -26,7 +26,7 @@ function App() {
       <Route path='/projects' element={<Projects/>}/>
       <Route path='/scrummaster' element={<Scrum/>}/>
       <Route path='/pro' element={<Pro/>}/>
-      <Route path='/send' element={<Send/>}/>
+      <Route path='/chatwithme' element={<Send/>}/>
       <Route path='/face' element={<Face/>}/>
     </Routes>
     </BrowserRouter>
