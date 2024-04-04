@@ -6,7 +6,7 @@ import twilio from 'twilio';
 import { connectToDB, db } from "./db.js";
 dotenv.config()
 const app = express()
-app.use(cors())
+// app.use(cors())
 app.use(express.json())
 app.get('/',(req,res)=>{
     res.json("server is running successfully!");

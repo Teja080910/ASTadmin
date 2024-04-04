@@ -42,7 +42,7 @@ export const Send = () => {
     setLoad(true)
     pdfToText(file)
       .then(async (text) => {
-        await axios.post("http://localhost:8000/pdfprint", { text, text1 })
+        await axios.post(process.env.REACT_APP_database+"/pdfprint", { text, text1 })
           .then((res) => {
             if (res.data) {
               setMissionAndVision(res.data)
