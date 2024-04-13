@@ -57,8 +57,8 @@ app.post('/admincheck/:name/:password',async(req,res)=>
         res.json(details);
     })
     .catch((e)=>console.log(e))
-    
 })
+
 app.post('/adminregi/:gmail/:password',async(req,res)=>
 {
     await db.collection('admin').insertOne({Gmail:req.params.gmail,Password:req.params.password})

@@ -1,0 +1,31 @@
+.menu {
+    width: 100%;
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* transform: scale(-100%,-100%); */
+    margin-top: 5%;
+}
+
+.menucard {
+    height: 200px;
+}
+
+.menulist {
+    width: 40%;
+    /* margin: 0%; */
+    height: 100%;
+    /* background-color: black; */
+}
+
+.menucard button {
+    border: none;
+    color: blue;
+}
+
+@media (max-width: 768px) {
+    .menulist {
+        width: 100%;
+    }
+}
