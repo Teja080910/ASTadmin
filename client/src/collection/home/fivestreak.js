@@ -1,17 +1,7 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { TableContainer, Tr, Th, Td, Tfoot, Table, TableCaption, Thead, Tbody } from "@chakra-ui/react";
-export const FiveStreak = () => {
-    const [dat, sdat] = useState([]);
-    useEffect(() => {
-        axios.post(process.env.REACT_APP_database + "/students")
-            .then((result) => {
-                sdat((result.data.sort((a, b) => b.Num - a.Num)));
-            })
-            .catch((e) => console.log(e))
-    }, [])
+import { Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+export const FiveStreak = ({ data }) => {
     return (
-        <div style={{display:"flex",justifyContent:"space-around"}}>
+        <div style={{ display: "flex", justifyContent: "space-around" }} className="fivestreak">
             <div>
                 <TableContainer>
                     <Table variant='simple'>
@@ -20,9 +10,8 @@ export const FiveStreak = () => {
                         </Thead>
                         <Tbody>
                             {
-                                dat.slice(0, 5).map((x, index) => (
+                                data.slice(0, 5).map((x, index) => (
                                     <Tr>
-                                        <Td >{index + 1}</Td>
                                         <Td>{x.Reg_No}</Td>
                                         <Td><b>{x.Name}</b></Td>
                                         <Td>{x.Branch}</Td>
@@ -55,9 +44,8 @@ export const FiveStreak = () => {
                         </Thead>
                         <Tbody>
                             {
-                                dat.slice(0, 5).map((x, index) => (
+                                data.slice(0, 5).map((x, index) => (
                                     <Tr>
-                                        <Td >{index + 1}</Td>
                                         <Td>{x.Reg_No}</Td>
                                         <Td><b>{x.Name}</b></Td>
                                         <Td>{x.Branch}</Td>

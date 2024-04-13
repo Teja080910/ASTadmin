@@ -222,18 +222,18 @@ const data = [
     }
 ]
 
-console.log(data)
+// console.log(data)
 
 const Left = () => {
     if(!localStorage.i)
     {
         localStorage.i=0
     }
-    console.log(localStorage.i)
+    // console.log(localStorage.i)
     return (
         <>
             <div className='left'>
-                {console.log(data[localStorage.i].question)}
+                {/* {console.log(data[localStorage.i].question)} */}
                 <h2>{data[localStorage.i].id}</h2>
                 <h2>DESCRIPTION:</h2>
                 <h3>{data[localStorage.i].question}</h3>

@@ -39,6 +39,10 @@
     
 }
 
+.fivestreak
+{
+    margin-top:5%;
+}
 
 .studetail tr:nth-child(odd) {
     background-color: #f2f2f2;
