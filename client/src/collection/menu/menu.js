@@ -33,14 +33,6 @@ export const Menu = () => {
                             </Center>
                             
                         </Card>
-                        {/* <Card className='menucard'>
-                            <Center>
-                            <CardBody>
-                            <Button style={{width:"200px",height:"200px",backgroundImage: `url(${exam})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}/>
-                            </CardBody>
-                            </Center>
-                            
-                        </Card> */}
                 </SimpleGrid>
             </div>
         </div>

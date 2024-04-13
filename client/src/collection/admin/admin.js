@@ -31,7 +31,9 @@ export const Admin=()=>{
                                     {
                                         sessionStorage.name = gmail;
                                         alert("Admin sucessfully logged in Today");
-                                        if ((time <= "19:20:00 pm" && time >="17:00:00 pm") || (time <= "7:20:00 pm" && time >="5:00:00 pm")) {
+                                        // if ((time <= "19:20:00 pm" && time >="17:00:00 pm") || (time <= "7:20:00 pm" && time >="5:00:00 pm"))
+                                        if(time)
+                                         {
                                             nav("/login")
                                             window.location.reload(1);
                                         }
@@ -49,7 +51,9 @@ export const Admin=()=>{
                             {
                                 sessionStorage.name=gmail;
                                 alert("Admin 2 sucessfully logged in Today");
-                                if ((time <= "19:20:00 pm" && time >="17:00:00 pm") || (time <= "7:20:00 pm" && time >="5:00:00 pm")) {
+                                // if ((time <= "19:20:00 pm" && time >="17:00:00 pm") || (time <= "7:20:00 pm" && time >="5:00:00 pm")) 
+                                if(time)
+                                {
                                     nav("/login")
                                     window.location.reload(1);
                                 }
@@ -66,7 +70,8 @@ export const Admin=()=>{
                      sessionStorage.name=gmail;
                      sessionStorage.removeItem('yoga');
                      alert("Admin sucessfully logged in again");
-                     if ((time <= "19:20:00 pm" && time >="17:00:00 pm") || (time <= "7:20:00 pm" && time >="5:00:00 pm"))
+                    //  if ((time <= "19:20:00 pm" && time >="17:00:00 pm") || (time <= "7:20:00 pm" && time >="5:00:00 pm"))
+                    if(time)
                      {
                          window.location="login";
                      }
