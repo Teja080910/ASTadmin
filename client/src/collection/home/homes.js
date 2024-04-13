@@ -5,25 +5,30 @@ import { Menu } from "../menu/menu.js";
 import { Navbars } from "../nav&foot/nav";
 import { FiveStreak } from "./fivestreak";
 import { StreakGraph } from "./streakgraph.js";
-export const Home=()=>
-{
+export const Home = () => {
     const [dat, sdat] = useState([]);
+    const [tat, stat] = useState([]);
     useEffect(() => {
         axios.post(process.env.REACT_APP_database + "/students")
+        .then((result) => {
+            sdat((result.data.sort((a, b) => b.Num - a.Num)));
+        })
+        .catch((e) => console.log(e))
+        axios.post(process.env.REACT_APP_database + "/totaldays")
             .then((result) => {
-                sdat((result.data.sort((a, b) => b.Num - a.Num)));
+                stat(result.data)
             })
-            .catch((e) => console.log(e))
+            .catch((e)=>console.log(e))
     }, [])
-    return(
+    return (
         <>
-        <Navbars/>
-        <div className="home-container">
-        <div className="homename">AS-TEAM App's</div>
-        <Menu/>
-        <FiveStreak data={dat}/>
-        <StreakGraph totaldata={dat}/>
-       </div>
+            <Navbars />
+            <div className="home-container">
+                <div className="homename">AS-TEAM App's</div>
+                <Menu />
+                <FiveStreak data={dat}/>
+                <StreakGraph studentdata={dat} totaldata={tat} />
+            </div>
         </>
     )
 }

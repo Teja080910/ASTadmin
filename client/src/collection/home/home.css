@@ -2,19 +2,19 @@
     font-family: Arial, sans-serif;
     padding: 20px;
     margin-bottom: 20px;
-   
-}
-.homename
-{
-  text-align: center;
-  background:linear-gradient(180deg,#100445,#ff01a2);
-  font-size: 80px;
-  font-family: poppins;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+
 }
 
-.top-5{
+.homename {
+    text-align: center;
+    background: linear-gradient(180deg, #100445, #ff01a2);
+    font-size: 80px;
+    font-family: poppins;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.top-5 {
     font-size: 30px;
     /* margin-top: 5%; */
     color: #007acc;
@@ -29,30 +29,69 @@
     background-color: #fff;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    
-   
+
+
 }
 
 .studetail td {
     padding: 10px;
     text-align: center;
-    
+
 }
 
-.fivestreak
+.fivestreak {
+    margin-top: 5%;
+    /* width: 100%; */
+}
+
+.streakgrid {
+    width: 100%;
+    margin-left: 10%;
+}
+
+.streakdiv {
+    margin-top: 5%;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.graphinput {
+    display: grid;
+    align-items: center;
+}
+
+.graphdiv {
+    width: 100%;
+    padding-left: 10%;
+    margin-left: 10%;
+}
+
+.graphinput input {
+    width: 50%;
+    height: 5vh;
+}
+
+.labelinput tr td
 {
-    margin-top:5%;
+    width: 1%;
+}
+
+.labelinput tr td input
+{
+    width: 20px;
 }
 
 .studetail tr:nth-child(odd) {
     background-color: #f2f2f2;
 }
+
 .streak-text {
     position: absolute;
     top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color:black;
+    color: black;
     text-align: center;
     font-size: 15px;
 }
@@ -66,25 +105,45 @@ img {
 @media (max-width: 768px) {
     .studetail {
         font-size: 12px;
-        width:100%;
+        width: 100%;
     }
-        .homename {
-            font-size: 50px;
-        }
-        .top-5{
-            font-size: 24px;
-        }
-        img {
-            height: 50px;
-            width:120px
-        }
-        .streak-text {
-            font-size: 11px;
-        }
-        
+
+    .graphdiv {
+        padding-left: 0%;
+        margin-left: 0%;
+    }
+    .graphinput input {
+        width: 100%;
+    }
+
+    .homename {
+        font-size: 50px;
+    }
+
+    .top-5 {
+        font-size: 24px;
+    }
+
+    img {
+        height: 50px;
+        width: 120px
+    }
+
+    .streak-text {
+        font-size: 11px;
+    }
+
+    .streakgrid {
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .streakgrid table tbody {
+        background-color: white;
+    }
+
 
     .studetail td {
         padding: 2px;
     }
 }
-

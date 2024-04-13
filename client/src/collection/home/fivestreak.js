@@ -1,8 +1,9 @@
 import { Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 export const FiveStreak = ({ data }) => {
     return (
         <div style={{ display: "flex", justifyContent: "space-around" }} className="fivestreak">
-            <div>
+            <SimpleGrid className="streakgrid" spacing={50} templateColumns='repeat(auto-fill, minmax(400px, 1fr))'>
                 <TableContainer>
                     <Table variant='simple'>
                         <Thead>
@@ -10,7 +11,7 @@ export const FiveStreak = ({ data }) => {
                         </Thead>
                         <Tbody>
                             {
-                                data.slice(0, 5).map((x, index) => (
+                                data.sort((a, b) => b.Num - a.Num).slice(0, 5).map((x, index) => (
                                     <Tr>
                                         <Td>{x.Reg_No}</Td>
                                         <Td><b>{x.Name}</b></Td>
@@ -34,9 +35,6 @@ export const FiveStreak = ({ data }) => {
                         </TableCaption>
                     </Table>
                 </TableContainer>
-            </div>
-
-            <div>
                 <TableContainer>
                     <Table variant='simple'>
                         <Thead>
@@ -44,7 +42,7 @@ export const FiveStreak = ({ data }) => {
                         </Thead>
                         <Tbody>
                             {
-                                data.slice(0, 5).map((x, index) => (
+                                data.sort((a, b) => b.MrngStreak - a.MrngStreak).slice(0, 5).map((x, index) => (
                                     <Tr>
                                         <Td>{x.Reg_No}</Td>
                                         <Td><b>{x.Name}</b></Td>
@@ -68,7 +66,7 @@ export const FiveStreak = ({ data }) => {
                         </TableCaption>
                     </Table>
                 </TableContainer>
-            </div>
+            </SimpleGrid>
         </div>
     )
 }
