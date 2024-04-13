@@ -11,6 +11,7 @@ import { Face } from './collection/face/face.js';
 import { Home } from './collection/home/homes.js';
 import { Send } from './collection/project/send.js';
 import './responce.css';
+import Sample from './collection/sample/sample.js';
 function App() {
   return (
     <>
@@ -19,7 +20,7 @@ function App() {
       <Route path='/' element={<Home/>}/>
       <Route path="/adminlogin" element={<Admin/>}/>
       <Route path='adminregister' element={<Adminreg/>}/>
-      <Route path="/login" element={sessionStorage.name?<Admin/>:<Login/>}/>
+      <Route path="/login" element={!sessionStorage.name?<Admin/>:<Login/>}/>
       <Route path="/register" element={<Signup/>}/>
       <Route path='/yoga' element={sessionStorage.yoga==="Yoga@9899"?<Yoga/>:<Home/>}/>
       <Route path='/addproject' element={<Addproject/>}/>
@@ -28,6 +29,7 @@ function App() {
       <Route path='/pro' element={<Pro/>}/>
       <Route path='/chatwithme' element={<Send/>}/>
       <Route path='/face' element={<Face/>}/>
+      <Route path='sample' element={<Sample/>}/>
     </Routes>
     </BrowserRouter>
     
