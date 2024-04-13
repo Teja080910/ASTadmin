@@ -11,7 +11,6 @@ export const StreakGraph = ({ studentdata, totaldata }) => {
     let total = 0;
     useEffect(() => {
         studentdata.forEach(value => {
-            console.log(select, student)
             if (value.Reg_No === student) {
                 setStutot((parseInt(value.Num) + parseInt(value.MrngStreak)) / 2)
             }
