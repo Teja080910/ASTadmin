@@ -30,7 +30,8 @@ const Login = () => {
                         {
                             if (responce1) {
                                 alert(atnd.Reg_No + " Attend");
-                                window.location.reload(1);
+                                document.getElementById("otps").style.display="none";
+                                // window.location.reload(1);
                             }
                         }
                     }
@@ -115,7 +116,6 @@ const Login = () => {
         axios.post(process.env.REACT_APP_database + "/students")
             .then((result) => {
                 sdat((result.data.sort((a, b) => a.Year - b.Year)));
-                console.log(dat)
             })
         axios.post(process.env.REACT_APP_database + "/totaldays")
             .then((result) => {
@@ -124,7 +124,7 @@ const Login = () => {
         setTimeout(() => {
             setIsLoading(false);
         }, 2000);
-    }, [])
+    }, [dat])
     return (
         <>
             <Navbars />
@@ -165,7 +165,7 @@ const Login = () => {
                                     <tr>
                                         <td style={{ height: '6vh' }} colSpan={6}><Link to='/register' onClick={Register} className="signup">Register</Link></td>
                                     </tr>
-                                    <tr style={{color:'blueviolet'}}>
+                                    <tr style={{ color: 'blueviolet' }}>
                                         <td colSpan={2}><b>Total days::</b>{tat.Days}</td>
                                         <td colSpan={4}><b>scrummaster::</b>{tat.Scum}</td>
                                     </tr>
