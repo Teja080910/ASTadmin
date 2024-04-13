@@ -11,7 +11,7 @@ export const Menu = () => {
                 <Card className='menucard'>
                             <Center>
                             <CardBody>
-                                <Button onClick={()=>window.location.href="https://asteam-exam.vercel.app/192.5264.27"} style={{width:"200px",height:"200px",backgroundImage: `url(${exam})`, backgroundSize: '200px 200px', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}/>
+                                <Button onClick={()=>window.open("https://asteam-exam.vercel.app/192.5264.27","_blank")} style={{width:"200px",height:"200px",backgroundImage: `url(${exam})`, backgroundSize: '200px 200px', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}/>
                             </CardBody>
                             </Center>
                             
@@ -20,7 +20,7 @@ export const Menu = () => {
                         <Card className='menucard'>
                             <Center>
                             <CardBody>
-                            <Button onClick={()=>window.location.href="https://asteam-exam.vercel.app/studentscore"} style={{width:"200px",height:"200px",backgroundImage: `url(${team})`, backgroundSize: '200px 240px', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>Team</Button>
+                            <Button onClick={()=>window.open("https://asteam-exam.vercel.app/studentscore","_blank")} style={{width:"200px",height:"200px",backgroundImage: `url(${team})`, backgroundSize: '200px 240px', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>Team</Button>
                             </CardBody>
                             </Center>
                             

@@ -1,6 +1,6 @@
 import React from "react";
 import "../home/home.css";
-import { Menu } from "../menu/menu";
+import { Menu } from "../menu/menu.js";
 import { Navbars } from "../nav&foot/nav";
 import { FiveStreak } from "./fivestreak";
 export const Home=()=>
@@ -10,7 +10,7 @@ export const Home=()=>
         <>
         <Navbars/>
         <div className="home-container">
-        <div className="homename">AST Club App's</div>
+        <div className="homename">AS-TEAM App's</div>
         <Menu/>
         <FiveStreak/>
        </div>
