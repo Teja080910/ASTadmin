@@ -1,5 +1,4 @@
-import { Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
-import { SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 export const FiveStreak = ({ data }) => {
     return (
         <div style={{ display: "flex", justifyContent: "space-around" }} className="fivestreak">
