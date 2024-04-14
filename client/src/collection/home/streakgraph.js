@@ -7,20 +7,27 @@ export const StreakGraph = ({ studentdata, totaldata }) => {
     const [stustot, setStustot] = useState(0)
     const [stutot, setStutot] = useState()
     const [student, Setstudent] = useState(0)
+    const [name,setName]=useState();
     const [select, setSelect] = useState()
     let total = 0;
     useEffect(() => {
         studentdata.forEach(value => {
-            if (value.Reg_No === student) {
+           try
+           {
+            if (value.Reg_No === student?.toUpperCase()||value.Reg_No ===student?.toLowerCase()) {
                 setStutot((parseInt(value.Num) + parseInt(value.MrngStreak)) / 2)
+                setName(value.Name)
             }
-            if (value.Reg_No === student && select === "MrngStreak") {
+            if ((value.Reg_No === student?.toUpperCase()||value.Reg_No ===student?.toLowerCase()) && select === "MrngStreak") {
                 setStutot(value.MrngStreak)
+                setName(value.Name)
             }
-            if (value.Reg_No === student && select === "Num") {
+            if ((value.Reg_No === student?.toUpperCase()||value.Reg_No ===student?.toLowerCase()) && select === "Num") {
                 setStutot(value.Num)
+                setName(value.Name)
             }
-            else {
+           }
+            catch {
                 total = parseInt(total) + parseInt(value.Num)
                 setStustot(total);
             }
@@ -89,9 +96,9 @@ export const StreakGraph = ({ studentdata, totaldata }) => {
 
                     </div>
                     <div>
-                        <h6>Individual Attendance</h6>
+                        <h6>Individual Attendance::{name?.toUpperCase()}</h6>
                         <div>
-                            <Input type="text" placeholder="Enter your Register Number" onChange={(e) => Setstudent(e.target.value.toUpperCase())} />
+                            <Input type="text" placeholder="Enter your Register Number" onChange={(e) => Setstudent(e.target.value)} />
                         </div>
                     </div>
                 </div>

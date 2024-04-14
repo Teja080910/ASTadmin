@@ -236,6 +236,21 @@ try {
             })
             .catch((e) => console.log(e))
     })
+
+
+    app.post('/zeors', async (req, res) => {
+        // await db.collection('Signup').updateMany({ MrngStreak:0 },{ $set: { MrngStreak: 0 } })
+        await db.collection('Totaldays').updateMany({ Team:"AST" },{ $set: { Days: 0 } })
+        // await db.collection('Signup').updateMany({ Num: { $in: ["9", "0"] } },{ $set: { Num: 0 } })
+        .then((e)=>console.log(e)).catch((e)=>console.log(e))
+    })
+
+
+
+
+
+
+
     app.post('/sadhanaloginstudent/:gmail/:num/:date', async (req, res) => {
         await db.collection('Signup').findOneAndUpdate({ Gmail: req.params.gmail }, { $set: { MrngStreak: req.params.num, MrngLogin: req.params.date } })
             .then((details) => {
