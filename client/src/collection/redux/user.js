@@ -1,22 +1,16 @@
+import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
-    tasks: []
-  };
-  
-  const taskReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case 'ADD_TASK':
-        return {
-          ...state,
-          tasks: [...state.tasks, action.payload]
-        };
-      case 'DELETE_TASK':
-        return {
-          ...state,
-          tasks: state.tasks.filter(task => task.id !== action.payload)
-        };
-      default:
-        return state;
+  admin: ""
+}
+export const counterSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    user: (state, action) => {
+      state.admin = action.payload
     }
-  };
-  
-  export default taskReducer;
+  },
+})
+export const { user } = counterSlice.actions
+
+export default counterSlice.reducer

@@ -1,17 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { Provider } from 'react-redux';
 import App from './App';
+import { store } from './collection/redux/store';
+import { SessionProvider } from './collection/session/SessionProvider';
+import { ChakraProvider } from '@chakra-ui/react';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
-import store from './collection/redux/store';
-import {Provider} from 'react-redux'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-    <App />
-    </Provider>
+    <SessionProvider>
+      <Provider store={store}>
+        <ChakraProvider toastOptions={{ defaultOptions: { position: 'bottom' } }}>
+          <App />
+        </ChakraProvider>
+      </Provider>
+    </SessionProvider>
   </React.StrictMode>
 );
 reportWebVitals();

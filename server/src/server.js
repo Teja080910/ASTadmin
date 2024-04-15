@@ -56,6 +56,16 @@ try {
             .catch((e) => console.log(e))
     })
 
+
+    app.post('/admincheck/:name', async (req, res) => {
+        await db.collection('admin').findOne({ Gmail: req.params.name })
+            .then((details) => {
+                res.json(details);
+            })
+            .catch((e) => console.log(e))
+    })
+    
+
     app.post('/adminregi/:gmail/:password', async (req, res) => {
         await db.collection('admin').insertOne({ Gmail: req.params.gmail, Password: req.params.password })
             .then((details) => {
@@ -240,9 +250,9 @@ try {
 
     app.post('/zeors', async (req, res) => {
         // await db.collection('Signup').updateMany({ MrngStreak:0 },{ $set: { MrngStreak: 0 } })
-        await db.collection('Totaldays').updateMany({ Team:"AST" },{ $set: { Days: 0 } })
-        // await db.collection('Signup').updateMany({ Num: { $in: ["9", "0"] } },{ $set: { Num: 0 } })
-        .then((e)=>console.log(e)).catch((e)=>console.log(e))
+        await db.collection('Totaldays').updateMany({ Team: "AST" }, { $set: { Days: 0 } })
+            // await db.collection('Signup').updateMany({ Num: { $in: ["9", "0"] } },{ $set: { Num: 0 } })
+            .then((e) => console.log(e)).catch((e) => console.log(e))
     })
 
 

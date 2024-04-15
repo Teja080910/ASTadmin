@@ -1,12 +1,20 @@
-import { createStore, applyMiddleware } from "redux";
-import {thunk} from "redux-thunk";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { configureStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-import taskReducer from './user'
+import counterReducer from './user';
 
-const store = createStore(
-  taskReducer,
-  composeWithDevTools(applyMiddleware(thunk))
-);
+const persistConfig = {
+  key: 'root',
+  storage,
+};
 
-export default store;
+const persistedReducer = persistReducer(persistConfig, counterReducer);
+
+export const store = configureStore({
+  reducer: {
+    counter: persistedReducer,
+  },
+});
+
+export const persistor = persistStore(store);
