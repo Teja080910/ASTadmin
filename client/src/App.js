@@ -38,9 +38,9 @@ function App() {
           <Route path="/adminlogin" element={<Admin />} />
           <Route path='adminregister' element={<Adminreg />} />
           <Route path="/attendance" element={set ? <Attendance/> : <Admin />} />
-          <Route path='/tech' element={set?<Login/>:<Attendance/>}/>
+          <Route path='/tech' element={set?<Login/>:<Admin/>}/>
           <Route path="/register" element={<Signup />} />
-          <Route path='/yoga' element={set?<Yoga /> : <Attendance/>} />
+          <Route path='/yoga' element={set?<Yoga /> : <Admin/>} />
           <Route path='/addproject' element={<Addproject />} />
           <Route path='/projects' element={<Projects />} />
           <Route path='/scrummaster' element={<Scrum />} />
