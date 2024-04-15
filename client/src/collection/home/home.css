@@ -41,7 +41,7 @@
 
 .fivestreak {
     margin-top: 5%;
-    /* width: 100%; */
+    width: 100%;
 }
 
 .streakgrid {
@@ -102,7 +102,7 @@ img {
     height: 70px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 700px) {
     .studetail {
         font-size: 12px;
         width: 100%;

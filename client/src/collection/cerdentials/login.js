@@ -16,7 +16,6 @@ const Login = () => {
     const [code, scode] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const date = new Date();
-    console.log(date.getDay()===1)
     const Attend = async () => {
         try {
             if (parseInt(otp) === code) {
