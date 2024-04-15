@@ -1,22 +1,21 @@
+import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import CryptoAES from 'crypto-js/aes';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../admin/admin.css';
 import { Navbars } from '../nav&foot/nav';
-import CryptoAES from 'crypto-js/aes';
 export const Admin = () => {
-  const nav = useNavigate();
   const [gmail, setgmail] = useState([]);
   const [password, setpassword] = useState([]);
-  const [data, setData] = useState()
   const date = new Date();
-  const time = new Date().toLocaleTimeString();
+  const toast=useToast()
   const Submit = async () => {
     try {
-      const responce = await axios.post(process.env.REACT_APP_database + "/admincheck/" + gmail + "/" + password)
+      const responce = await axios.post(process.env.REACT_APP_database + "/admincheck/" + gmail )
       {
-        if (responce.data) {
+        if (responce.data?.Password===password) {
           if (responce.data.Dates !== date.toDateString()) {
             const res1 = await axios.post(process.env.REACT_APP_database + "/totaldays")
             {
@@ -28,36 +27,19 @@ export const Admin = () => {
                     if (res) {
                       sessionStorage.gmail = gmail;
                       sessionStorage.password = CryptoAES.encrypt(password, gmail).toString();
-                      setData(res1.data.Date)
-                      alert("Admin sucessfully logged in Today");
-                      // if ((time <= "19:20:00 pm" && time >="17:00:00 pm") || (time <= "7:20:00 pm" && time >="5:00:00 pm"))
-                      if (time) {
-                        nav("/login")
-                        window.location.reload(1);
-                      }
-                      else {
-                        alert("Time out");
-                        nav("/");
-                      }
+                      toast({title:"Login Success",description:"Admin sucessfully logged in Today",status:"success",position:"top", isClosable:true})
+                      setTimeout(()=>window.location.href="/attendance",1000)
                     }
                     else {
-                      alert("Try again");
+                      toast({title:"Try again",description:"Please login again",status:"error",position:"bottom-left", isClosable:true})
                     }
                   }
                 }
                 else {
                   sessionStorage.gmail = gmail;
                   sessionStorage.password = CryptoAES.encrypt(password, gmail).toString();
-                  alert("Admin 2 sucessfully logged in Today");
-                  // if ((time <= "19:20:00 pm" && time >="17:00:00 pm") || (time <= "7:20:00 pm" && time >="5:00:00 pm")) 
-                  if (time) {
-                    nav("/login")
-                    window.location.reload(1);
-                  }
-                  else {
-                    alert("Time out");
-                    nav("/");
-                  }
+                  toast({title:"Login Success",description:"Admin 2 sucessfully logged in Today",status:"success",position:"top", isClosable:true})
+                  setTimeout(()=>window.location.href="/attendance",1000)
                 }
               }
             }
@@ -66,24 +48,17 @@ export const Admin = () => {
             sessionStorage.gmail = gmail;
             sessionStorage.password = CryptoAES.encrypt(password, gmail).toString();
             sessionStorage.removeItem('yoga');
-            alert("Admin sucessfully logged in again");
-            //  if ((time <= "19:20:00 pm" && time >="17:00:00 pm") || (time <= "7:20:00 pm" && time >="5:00:00 pm"))
-            if (time) {
-              window.location = "login";
-            }
-            else {
-              alert("Time out");
-              nav("/");
-            }
+            toast({title:"Login Success",description:"Admin sucessfully logged in again",status:"success",position:"top", isClosable:true})
+            setTimeout(()=>window.location.href="/attendance",1000)
           }
         }
         else {
-          alert("Please register as admin");
+          toast({title:"Please register as admin",description:"Credentials unmatched",status:"error",position:"bottom-left", isClosable:true})
         }
       }
     }
     catch (e) {
-      console.log(e)
+      toast({title:"Network Error",description:e?.name,status:"warning",position:"bottom-left", isClosable:true})
     }
   }
   return (
