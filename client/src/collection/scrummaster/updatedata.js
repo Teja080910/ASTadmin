@@ -8,7 +8,7 @@ export const UpdateData = () => {
     const [load, sload] = useState(false);
     const Update = async () => {
         sload(true)
-        axios.post("http://localhost:8000" + "/updatestudent/" +gmail+"/"+ name + "/" + year)
+        axios.post(process.env.REACT_APP_database + "/updatestudent/" +gmail+"/"+ name + "/" + year)
             .then((res) => {
                 if (res.data) {
                     sload(false)
