@@ -124,7 +124,7 @@ const Login = () => {
         setTimeout(() => {
             setIsLoading(false);
         }, 2000);
-    }, [])
+    }, [dat])
     return (
         <>
             <Navbars />
