@@ -1,5 +1,5 @@
 import { Button, SimpleGrid, useToast } from "@chakra-ui/react"
-import React from "react"
+import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Navbars } from "../nav&foot/nav"
 import './attendance.css'
@@ -9,12 +9,22 @@ export const Attendance = () => {
     const nav = useNavigate();
     const date = new Date();
     const time = new Date().toLocaleTimeString();
+    console.log(time)
     const toast=useToast();
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          console.log(position.coords.latitude.toFixed(4));
+          console.log(position.coords.longitude);
+        });
+      } else {
+        console.log("Geolocation is not supported by this browser.");
+      }
+   
     const Tech = () => {
-        if ((time <= "19:20:00 pm" && time >= "17:00:00 pm") || (time <= "07:20:00 pm" && time >= "05:00:00 pm")) {
+        if ((time <= "19:20:00 pm" && time >= "17:00:00 pm") || ("0"+time <= "07:20:00 pm" && "0"+time >= "05:00:00 pm")) {
             nav("/tech")
         }
-        else if (date.getDay()===1 && ((time <= "19:20:00 pm" && time >= "17:00:00 pm") || (time <= "07:20:00 pm" && time >= "05:00:00 pm"))) {
+        else if (date.getDay()===6 && ((time >= "13:20:00 pm" && time <= "17:00:00 pm") || ("0"+time >= "02:20:00 pm" && "0"+time <= "05:00:00 pm"))) {
             nav("/tech")
         }
         else {

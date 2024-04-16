@@ -17,6 +17,8 @@
     /* margin: 0%; */
     height: 100%;
     /* background-color: black; */
+    display: flex;
+    justify-content: center;
 }
 
 .menucard button {
@@ -27,5 +29,7 @@
 @media (max-width: 768px) {
     .menulist {
         width: 100%;
+        display: grid;
+        justify-content: center;
     }
 }
