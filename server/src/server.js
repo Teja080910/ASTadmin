@@ -114,8 +114,8 @@ try {
             })
             .catch((e) => console.log(e))
     })
-    app.post('/updatestudent/:gmail/:year', async (req, res) => {
-        await db.collection('Signup').findOneAndUpdate({ Gmail: req.params.gmail }, { $set: { Year: req.params.year } })
+    app.post('/updatestudent/:gmail/:name/:year', async (req, res) => {
+        await db.collection('Signup').findOneAndUpdate({ Gmail: req.params.gmail }, { $set: {Name:req.params.name, Year: req.params.year } })
             .then((details) => {
                 res.json(details);
             })

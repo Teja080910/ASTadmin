@@ -91,8 +91,9 @@ const Login = () => {
         document.getElementById('password').style.display = "block";
     }
     const Delete = () => {
-        axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.name + "/" + otp)
+        axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail + "/" + otp)
             .then((res) => {
+                console.log(res)
                 if (res.data) {
                     axios.post(process.env.REACT_APP_database + "/deletestudent/" + atnd)
                         .then((res) => {
@@ -104,7 +105,6 @@ const Login = () => {
                 }
                 else {
                     alert("Enter correct password");
-                    document.getElementById('password').style.display = "none";
                 }
             })
             .catch((e) => console.log(e))

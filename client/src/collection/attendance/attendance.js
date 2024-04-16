@@ -1,5 +1,5 @@
-import { Button, SimpleGrid, useToast } from "@chakra-ui/react"
-import React, { useEffect } from "react"
+import { Button, SimpleGrid, position, useToast } from "@chakra-ui/react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Navbars } from "../nav&foot/nav"
 import './attendance.css'
@@ -9,23 +9,39 @@ export const Attendance = () => {
     const nav = useNavigate();
     const date = new Date();
     const time = new Date().toLocaleTimeString();
-    console.log(time)
+    const [latitude,setLatitude]=useState()
+    const [longitude,setLongitude]=useState()
+    // console.log(time)
     const toast=useToast();
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-          console.log(position.coords.latitude.toFixed(4));
-          console.log(position.coords.longitude);
+          setLatitude(position.coords.latitude.toFixed(2));
+          setLongitude(position.coords.longitude.toFixed(2));
         });
       } else {
         console.log("Geolocation is not supported by this browser.");
       }
-   
+    //   console.log(latitude,longitude)
     const Tech = () => {
-        if ((time <= "19:20:00 pm" && time >= "17:00:00 pm") || ("0"+time <= "07:20:00 pm" && "0"+time >= "05:00:00 pm")) {
-            nav("/tech")
+        if (((time <= "19:20:00 pm" && time >= "17:00:00 pm") || ("0"+time <= "07:20:00 pm" && "0"+time >= "05:00:00 pm"))) {
+            if((latitude==="16.54" && longitude==="81.50")||(latitude==="16.55" && longitude==="81.51")||(latitude==="16.53" && longitude==="81.49"))
+            {
+                nav("/tech")
+            }
+            else
+            {
+                toast({title:"Location error",description:"Goto correct location",status:"error",position:"bottom-left", isClosable:true})
+            }
         }
         else if (date.getDay()===6 && ((time >= "13:20:00 pm" && time <= "17:00:00 pm") || ("0"+time >= "02:20:00 pm" && "0"+time <= "05:00:00 pm"))) {
-            nav("/tech")
+            if((latitude==="16.54" && longitude==="81.50")||(latitude==="16.55" && longitude==="81.51")||(latitude==="16.53" && longitude==="81.49"))
+            {
+                nav("/tech")
+            }
+            else
+            {
+                toast({title:"Location error",description:"Goto correct location",status:"error",position:"bottom-left", isClosable:true})
+            }
         }
         else {
             toast({title:"Time out",description:"Please open in correct timings",status:"error",position:"bottom-left", isClosable:true})
