@@ -17,25 +17,29 @@ export const StreakGraph = ({ studentdata, totaldata }) => {
             if (value.Reg_No === student?.toUpperCase()||value.Reg_No ===student?.toLowerCase()) {
                 setStutot((parseInt(value.Num) + parseInt(value.MrngStreak)) / 2)
                 setName(value.Name)
+                setStustot('')
             }
             if ((value.Reg_No === student?.toUpperCase()||value.Reg_No ===student?.toLowerCase()) && select === "MrngStreak") {
                 setStutot(value.MrngStreak)
                 setName(value.Name)
+                setStustot('')
             }
             if ((value.Reg_No === student?.toUpperCase()||value.Reg_No ===student?.toLowerCase()) && select === "Num") {
                 setStutot(value.Num)
                 setName(value.Name)
+                setStustot('')
             }
            }
             catch {
                 total = parseInt(total) + parseInt(value.Num)
                 setStustot(total);
+                setStutot('')
             }
         });
     },)
     const data = {
         labels: [
-            'No of days attend',
+            stutot&&!stustot?`${name} attend days`:'Total students attend days',
             'No of days conducted',
         ],
         datasets: [{

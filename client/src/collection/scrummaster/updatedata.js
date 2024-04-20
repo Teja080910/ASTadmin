@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useToast } from "@chakra-ui/react";
 import { useEffect, useState } from 'react';
 export const UpdateData = () => {
     const [data, sdata] = useState([]);
@@ -6,16 +7,21 @@ export const UpdateData = () => {
     const [name, sname] = useState();
     const [year, syear] = useState()
     const [load, sload] = useState(false);
+    const toast=useToast()
     const Update = async () => {
         sload(true)
         axios.post(process.env.REACT_APP_database + "/updatestudent/" +gmail+"/"+ name + "/" + year)
             .then((res) => {
                 if (res.data) {
                     sload(false)
-                    window.location.reload(2)
+                    toast({title:"Update sucessfully",status:"success",position:"bottom-right", isClosable:true})
+                    setTimeout(() => {
+                        window.location.reload(2)
+                    }, 1000);
                 }
                 else {
                     sload(false)
+                    toast({title:"Try again",status:"error",position:"bottom-left", isClosable:true})
                 }
             })
             .catch((e) => console.log(e))

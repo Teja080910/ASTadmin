@@ -33,7 +33,7 @@ export const Attendance = () => {
                 toast({title:"Location error",description:"Goto correct location",status:"error",position:"bottom-left", isClosable:true})
             }
         }
-        else if (date.getDay()===6 && ((time >= "13:20:00 pm" && time <= "17:00:00 pm") || ("0"+time >= "02:20:00 pm" && "0"+time <= "05:00:00 pm"))) {
+        else if (date.getDay()===6 && ((time >= "13:20:00 pm" && time <= "17:00:00 pm") || ("0"+time >= "02:00:00 pm" && "0"+time <= "05:00:00 pm"))) {
             if((latitude==="16.54" && longitude==="81.50")||(latitude==="16.55" && longitude==="81.51")||(latitude==="16.53" && longitude==="81.49"))
             {
                 nav("/tech")
@@ -49,10 +49,10 @@ export const Attendance = () => {
         }
     }
     const Yoga = () => {
-        if ((time <= "19:20:00 pm" && time >= "17:00:00 pm") || (time <= "07:20:00 pm" && time >= "05:00:00 pm")) {
+        if (time <= "08:20:00 pm" && time >= "05:00:00 pm") {
             nav("/yoga")
         }
-        else if (date.getDay()===1 && ((time <= "19:20:00 pm" && time >= "17:00:00 pm") || (time <= "07:20:00 pm" && time >= "05:00:00 pm"))) {
+        else if (date.getDay()===0 && (time <= "09:20:00 pm" && time >= "05:00:00 pm")) {
             nav("/yoga")
         }
         else {

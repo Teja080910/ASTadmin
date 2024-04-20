@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import { Link } from "react-router-dom";
 import { Navbars } from "../nav&foot/nav";
+import { useToast } from "@chakra-ui/react";
 const Login = () => {
     const [dat, sdat] = useState([]);
     const [atnd, satnd] = useState([]);
@@ -16,6 +17,7 @@ const Login = () => {
     const [code, scode] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const date = new Date();
+    const toast=useToast()
     const Attend = async () => {
         try {
             if (parseInt(otp) === code) {
@@ -29,19 +31,18 @@ const Login = () => {
                         const responce1 = await axios.post(process.env.REACT_APP_database + "/loginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
                         {
                             if (responce1) {
-                                alert(atnd.Reg_No + " Attend");
-                                document.getElementById("otps").style.display="none";
-                                // window.location.reload(1);
+                                toast({title:atnd.Reg_No + " Attend",status:"success",position:"top", isClosable:true})
+                                setTimeout(()=>window.location.reload(1),1000)
                             }
                         }
                     }
                     else {
-                        alert("Student not found")
+                        toast({title:"Student not found",status:"error",position:"bottom-left", isClosable:true})
                     }
                 }
             }
             else {
-                alert("Invalid code");
+                toast({title:"Invalid code",status:"error",position:"bottom-left", isClosable:true})
             }
         }
         catch (e) {
@@ -77,7 +78,7 @@ const Login = () => {
             Subject: "Daily Attendace Code",
             Body: ebody
         }).then(
-            message => message === "OK" ? document.getElementById('otps').style.display = 'block' : alert(message + " Ok raa")
+            message => message === "OK" ? document.getElementById('otps').style.display = 'block' : toast({title:message,status:"error",position:"bottom-left", isClosable:true})
         )
     }
     const Complete = () => {
@@ -104,7 +105,7 @@ const Login = () => {
                         .catch((e) => console.log(e))
                 }
                 else {
-                    alert("Enter correct password");
+                    toast({title:"Enter correct password",status:"error",position:"bottom-left", isClosable:true})
                 }
             })
             .catch((e) => console.log(e))

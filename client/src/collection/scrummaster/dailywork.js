@@ -1,3 +1,4 @@
+import { useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { useState } from 'react';
 export const DailyWork = () => {
@@ -5,6 +6,7 @@ export const DailyWork = () => {
     const [work, swork] = useState([]);
     const [load, sload] = useState(false)
     const date = new Date();
+    const toast=useToast();
     const WorkSubmit = async () => {
         sload(true)
         try {
@@ -14,18 +16,20 @@ export const DailyWork = () => {
                     const res = await axios.post(process.env.REACT_APP_database + "/worksubmit/", { name, date: date.toDateString(), work })
                     {
                         if (res) {
-                            alert("Sucessfully Submited");
+                            toast({ title: "Successfully Submited", status: 'success', position: "bottom-right", isClosable: true })
                             sload(false)
-                            window.location.reload(2);
+                            setTimeout(() => {
+                                window.location = '/login'
+                            }, 1000);
                         }
                         else {
-                            alert("Try again");
+                            toast({title:"Try again",status:"error",position:"bottom-left", isClosable:true})
                             sload(false)
                         }
                     }
                 }
                 else {
-                    alert("Gmail Not Found");
+                    toast({title:"Gmail not found",status:"error",position:"bottom-left", isClosable:true})
                     sload(false)
                 }
             }

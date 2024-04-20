@@ -39,15 +39,19 @@
 
 }
 
+
 .fivestreak {
     margin-top: 5%;
     width: 100%;
 }
 
 .streakgrid {
+    margin-top: 5%;
+    display: flex;
     width: 100%;
-    margin-left: 10%;
+    justify-content: center;
 }
+
 
 .streakdiv {
     margin-top: 5%;
@@ -89,7 +93,7 @@
 .streak-text {
     position: absolute;
     top: 70%;
-    left: 50%;
+    left: 40%;
     transform: translate(-50%, -50%);
     color: black;
     text-align: center;

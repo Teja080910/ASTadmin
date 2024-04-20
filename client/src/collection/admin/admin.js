@@ -110,19 +110,20 @@ export const Adminreg = () => {
   const nav = useNavigate();
   const [gmail, setgmail] = useState([]);
   const [password, setpassword] = useState([]);
+  const toast=useToast();
   const Submit = async () => {
-    const res = await axios.post(process.env.REACT_APP_database + "/admincheck/" + gmail + "/" + password)
-    {
+    await axios.post(process.env.REACT_APP_database + "/admincheck/" + gmail + "/" + password)
+    .then(async(res)=>{
       if (res.data) {
-        alert("Already Register")
+        toast({title:"Already Register",status:"error",position:"bottom-left", isClosable:true})
       }
       else {
         if (await axios.post(process.env.REACT_APP_database + "/adminregi/" + gmail + "/" + password)) {
-          alert("Sucessfully Registered");
+          toast({title:"Sucessfully Registered",status:"success",position:"bottom-right", isClosable:true})
           nav('/adminlogin')
         }
       }
-    }
+    }).catch((e)=>toast({title:e.message,description:e.name,status:"error",position:"bottom-left", isClosable:true}))
   }
   return (
     <>

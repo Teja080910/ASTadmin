@@ -2,8 +2,8 @@ import { SimpleGrid, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, 
 import streakImg from './streak.png'
 export const FiveStreak = ({ data }) => {
     return (
-        <div style={{ display: "flex", justifyContent: "center" }} className="fivestreak">
-            <SimpleGrid className="streakgrid" spacing={50} templateColumns='repeat(auto-fill, minmax(400px, 2fr))'>
+        <div className="fivestreak">
+            <SimpleGrid className="streakgrid" spacing={50} templateColumns='repeat(auto-fill, minmax(500px, 1fr))'>
                 <TableContainer >
                     <Table variant='simple' style={{fontSize:"10px"}}>
                         <Thead>
@@ -51,7 +51,7 @@ export const FiveStreak = ({ data }) => {
                                         <Td>
                                             <div style={{ position: "relative" }}>
                                                 <img src={"streak.png"} alt="streak"></img>
-                                                <div class="streak-text"><b >{parseInt(x.MrngStreak)}</b></div>
+                                                <div className="streak-text"><b >{parseInt(x.MrngStreak)}</b></div>
                                             </div>
                                         </Td>
                                     </Tr>

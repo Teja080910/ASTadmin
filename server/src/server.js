@@ -12,12 +12,6 @@ app.get('/', (req, res) => {
     res.json("server is running successfully!");
 })
 try {
-    const accountSid = "ACeb9a46be3f1c68923b99d86b8e2cec6b";
-    const authToken = "ccddf8423c50abfed1d91e0ae9ab030e";
-    const verifySid = "VA1d7be8603abac6f0b4567a82a74a7143";
-    const client = new twilio(accountSid, authToken);
-
-
     const client1 = new Client(process.env.OCTOAI_TOKEN);
 
     app.post('/pdfprint', async (req, res) => {

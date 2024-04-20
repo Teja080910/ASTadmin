@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Navbars } from "../nav&foot/nav";
+import { useToast } from "@chakra-ui/react";
 export const Yoga=()=>
 {
     const [dat,sdat]=useState([]);
@@ -11,6 +12,7 @@ export const Yoga=()=>
     const [otp,sotp]=useState([]);
     const [x,sx] =useState(1);
     const [isLoading, setIsLoading] = useState(true);
+    const toast=useToast();
     const date=new Date();
     const Attend=async()=>
     {
@@ -26,13 +28,15 @@ export const Yoga=()=>
                        const responce1 = await axios.post(process.env.REACT_APP_database+"/sadhanaloginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
                        {
                            if (responce1) {
-                               alert(atnd.Reg_No + " Attend");
-                               window.location.reload(1);
+                            toast({title:atnd.Reg_No + " Attend",status:"success",position:"top", isClosable:true})
+                               setTimeout(() => {
+                                window.location.reload(1);
+                               }, 1000);
                            }
                        }
                    }
                    else {
-                       alert("Student not found")
+                    toast({title:"Student not found",status:"error",position:"bottom-left", isClosable:true})
                    }
                }
         }
@@ -47,12 +51,14 @@ export const Yoga=()=>
         {
             if(res)
             {
-                alert("Register Successfully")
-                window.location='/yoga';
+                toast({title:"Register Successfully",status:'success',position:"bottom-right", isClosable:true})
+                setTimeout(() => {
+                  window.location = '/yoga'
+                }, 1000);
             }
             else
             {
-                alert("Mail Not Found");
+                toast({title:"Mail not found",status:"error",position:"bottom-left", isClosable:true})
             }
         }
     }
