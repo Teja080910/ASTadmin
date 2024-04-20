@@ -3,7 +3,7 @@ import streakImg from './streak.png'
 export const FiveStreak = ({ data }) => {
     return (
         <div className="fivestreak">
-            <SimpleGrid className="streakgrid" spacing={50} templateColumns='repeat(auto-fill, minmax(500px, 1fr))'>
+            <SimpleGrid className="streakgrid" spacing={{ base: 4, md: 100 }} templateColumns={{ base: '1fr', md: 'repeat(auto-fill, minmax(500px, 1fr))' }}>
                 <TableContainer >
                     <Table variant='simple' style={{fontSize:"10px"}}>
                         <Thead>
