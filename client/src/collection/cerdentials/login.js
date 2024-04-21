@@ -24,15 +24,20 @@ const Login = () => {
                 const responce = await axios.post(process.env.REACT_APP_database + "/student/" + atnd.Gmail)
                 {
                     if (responce.data) {
+                        console.log(responce.data)
                         if (x === 1) {
                             atnd.Num = (parseInt(responce.data.Num) + 1);
                             sx(2);
-                        }
-                        const responce1 = await axios.post(process.env.REACT_APP_database + "/loginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
-                        {
-                            if (responce1) {
-                                toast({title:atnd.Reg_No + " Attend",status:"success",position:"top", isClosable:true})
-                                setTimeout(()=>window.location.reload(1),1000)
+                            const responce1 = await axios.post(process.env.REACT_APP_database + "/loginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
+                            {
+                                if (responce1) {
+                                    toast({title:atnd.Reg_No + " Attend",status:"success",position:"top", isClosable:true})
+                                    setTimeout(()=>window.location.reload(1),1000)
+                                }
+                                else
+                                {
+                                    toast({title:"Try again",status:"error",position:"bottom-left", isClosable:true})   
+                                }
                             }
                         }
                     }

@@ -18,8 +18,10 @@ import { Send } from './collection/project/send.js';
 import Appstore from './collection/redux/index.js';
 import Sample from './collection/sample/sample.js';
 import './responce.css';
+import { Timings } from './collection/attendance/timings.js';
 function App() {
   const [set, setSet] = useState()
+  const [time,setTime]=useState()
   const salt = CryptoENC
   useEffect(() => {
     axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
@@ -30,6 +32,7 @@ function App() {
         }
       }).catch((e) => console.log(e))
   }, [sessionStorage.gmail])
+  Timings().then((res)=>setTime(res))
   return (
     <>
       <BrowserRouter>
@@ -38,9 +41,9 @@ function App() {
           <Route path="/adminlogin" element={<Admin />} />
           <Route path='adminregister' element={<Adminreg />} />
           <Route path="/attendance" element={set ? <Attendance/> : <Admin />} />
-          <Route path='/tech' element={set?<Login/>:<Admin/>}/>
+          <Route path='/tech' element={time?.tech?<Login/>:<Attendance/>}/>
           <Route path="/register" element={<Signup />} />
-          <Route path='/yoga' element={set?<Yoga /> : <Admin/>} />
+          <Route path='/yoga' element={time?.yoga?<Yoga /> : <Attendance/>} />
           <Route path='/addproject' element={<Addproject />} />
           <Route path='/projects' element={<Projects />} />
           <Route path='/scrummaster' element={<Scrum />} />
