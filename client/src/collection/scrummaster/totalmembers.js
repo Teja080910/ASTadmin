@@ -30,7 +30,7 @@ export const TotalMembers = (data,tat) => {
                 </thead>
                 <tbody>
                     {data?.data?.map((x, index) => (
-                        x.Login !== date.toDateString() && (
+                       (
                             <tr key={index}>
                                 <td>{index + 1}</td>
                                 <td>{x?.Name.toUpperCase()} {x?.Reg_No.toUpperCase()}</td>
