@@ -20,6 +20,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "mongodb": "^5.9.1",
+    "mongoose": "^8.3.2",
     "nodemailer": "^6.9.12",
     "nodemon": "^2.0.22",
     "textflow.js": "^0.1.4",

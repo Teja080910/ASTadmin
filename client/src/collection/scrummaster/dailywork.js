@@ -19,7 +19,7 @@ export const DailyWork = () => {
                             toast({ title: "Successfully Submited", status: 'success', position: "bottom-right", isClosable: true })
                             sload(false)
                             setTimeout(() => {
-                                window.location = '/login'
+                                window.location.reload(1)
                             }, 1000);
                         }
                         else {
@@ -35,7 +35,8 @@ export const DailyWork = () => {
             }
         }
         catch (e) {
-            console.log(e);
+            toast({title:e.name,status:"error",position:"bottom-left", isClosable:true})
+            sload(false)
         }
     }
     return (

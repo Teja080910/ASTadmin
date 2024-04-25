@@ -2,7 +2,6 @@ import { Client } from '@octoai/client';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import twilio from 'twilio';
 import { connectToDB, db } from "./db.js";
 dotenv.config()
 const app = express()
@@ -58,7 +57,7 @@ try {
             })
             .catch((e) => console.log(e))
     })
-    
+
 
     app.post('/adminregi/:gmail/:password', async (req, res) => {
         await db.collection('admin').insertOne({ Gmail: req.params.gmail, Password: req.params.password })
@@ -101,6 +100,13 @@ try {
             })
             .catch((e) => console.log(e))
     })
+    app.post('/attendance', async (req, res) => {
+        await db.collection('Attendance').find().toArray()
+            .then((details) => {
+                res.json(details);
+            })
+            .catch((e) => console.log(e))
+    })
     app.post('/student/:gmail', async (req, res) => {
         await db.collection('Signup').findOne({ Gmail: req.params.gmail })
             .then((details) => {
@@ -109,7 +115,7 @@ try {
             .catch((e) => console.log(e))
     })
     app.post('/updatestudent/:gmail/:name/:year', async (req, res) => {
-        await db.collection('Signup').findOneAndUpdate({ Gmail: req.params.gmail }, { $set: {Name:req.params.name, Year: req.params.year } })
+        await db.collection('Signup').findOneAndUpdate({ Gmail: req.params.gmail }, { $set: { Name: req.params.name, Year: req.params.year } })
             .then((details) => {
                 res.json(details);
             })
