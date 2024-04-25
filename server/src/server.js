@@ -132,20 +132,25 @@ try {
         await db.collection('Signup').findOneAndUpdate({ Gmail: req.params.gmail }, { $set: { Num: req.params.num, Login: req.params.date } })
             .then(async (details) => {
                 if (details) {
-                    await db.collection('Attendance').findOneAndUpdate({ Date: req.params.date }, { $push: { Data: { Gmail: req.params.gmail } } })
-                        .then(async (details) => {
-                            if (details.value) {
-                                res.json(details)
-                            }
-                            else {
-                                await db.collection('Attendance').insertOne({ Date: req.params.date, Data: [{ Gmail: req.params.gmail }] })
-                                    .then((details) => {
-                                        res.json(details)
+                    await db.collection('Attendance').findOne({ Date: req.params.date, Data: { Gmail: req.params.gmail } })
+                        .then(async(details) => {
+                            if (!details) {
+                                await db.collection('Attendance').findOneAndUpdate({ Date: req.params.date }, { $push: { Data: { Gmail: req.params.gmail } } })
+                                    .then(async (details) => {
+                                        if (details.value) {
+                                            res.json(details)
+                                        }
+                                        else {
+                                            await db.collection('Attendance').insertOne({ Date: req.params.date, Data: [{ Gmail: req.params.gmail }] })
+                                                .then((details) => {
+                                                    res.json(details)
+                                                })
+                                                .catch((e) => console.log(e))
+                                        }
                                     })
                                     .catch((e) => console.log(e))
                             }
                         })
-                        .catch((e) => console.log(e))
                 }
             })
             .catch((e) => console.log(e))
