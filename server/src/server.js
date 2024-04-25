@@ -129,31 +129,37 @@ try {
             .catch((e) => console.log(e))
     })
     app.post('/loginstudent/:gmail/:num/:date', async (req, res) => {
-        await db.collection('Signup').findOneAndUpdate({ Gmail: req.params.gmail }, { $set: { Num: req.params.num, Login: req.params.date } })
+        await db.collection('Attendance').findOne({ Date: req.params.date, Data: { Gmail: req.params.gmail } })
             .then(async (details) => {
-                if (details) {
-                    await db.collection('Attendance').findOne({ Date: req.params.date, Data: { Gmail: req.params.gmail } })
-                        .then(async(details) => {
-                            if (!details) {
-                                await db.collection('Attendance').findOneAndUpdate({ Date: req.params.date }, { $push: { Data: { Gmail: req.params.gmail } } })
-                                    .then(async (details) => {
-                                        if (details.value) {
+                if (!details) {
+                    await db.collection('Attendance').findOneAndUpdate({ Date: req.params.date }, { $push: { Data: { Gmail: req.params.gmail } } })
+                        .then(async (details) => {
+                            if (details.value) {
+                                await db.collection('Signup').findOneAndUpdate({ Gmail: req.params.gmail }, { $set: { Num: req.params.num, Login: req.params.date } })
+                                    .then((details) => {
+                                        if (details) {
                                             res.json(details)
-                                        }
-                                        else {
-                                            await db.collection('Attendance').insertOne({ Date: req.params.date, Data: [{ Gmail: req.params.gmail }] })
-                                                .then((details) => {
-                                                    res.json(details)
-                                                })
-                                                .catch((e) => console.log(e))
                                         }
                                     })
                                     .catch((e) => console.log(e))
                             }
+                            else {
+                                await db.collection('Attendance').insertOne({ Date: req.params.date, Data: [{ Gmail: req.params.gmail }] })
+                                    .then(async (details) => {
+                                        await db.collection('Signup').findOneAndUpdate({ Gmail: req.params.gmail }, { $set: { Num: req.params.num, Login: req.params.date } })
+                                            .then(async (details) => {
+                                                if (details) {
+                                                    res.json(details)
+                                                }
+                                            })
+                                            .catch((e) => console.log(e))
+                                    })
+                                    .catch((e) => console.log(e))
+                            }
                         })
+                        .catch((e) => console.log(e))
                 }
-            })
-            .catch((e) => console.log(e))
+            }).catch((e) => console.log(e))
     })
     app.post('/worksubmit/', async (req, res) => {
         await db.collection('Signup').findOneAndUpdate({ Gmail: req.body.name }, { $push: { [`Works.${req.body.date}`]: req.body.work } })
