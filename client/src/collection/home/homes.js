@@ -5,6 +5,7 @@ import { Menu } from "../menu/menu.js";
 import { Navbars } from "../nav&foot/nav";
 import { FiveStreak } from "./fivestreak";
 import { StreakGraph } from "./streakgraph.js";
+import { Applications } from "../otheraplications/applications.js";
 export const Home = () => {
     const [dat, sdat] = useState([]);
     const [tat, stat] = useState([]);
@@ -28,6 +29,9 @@ export const Home = () => {
                 <Menu />
                 <FiveStreak data={dat}/>
                 <StreakGraph studentdata={dat} totaldata={tat} />
+            </div>
+            <div className="applications">
+            <Applications/>
             </div>
         </>
     )

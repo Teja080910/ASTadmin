@@ -77,7 +77,7 @@ const Login = () => {
 `
 
         window.Email.send({
-            SecureToken: `${process.env.REACT_APP_host}`,
+            SecureToken: "f9ae35e5-c8b8-4822-8c5c-1fb1bdd4d0e4",
             To: (atnd.Gmail),
             From: "aolsrkr2002@gmail.com",
             Subject: "Daily Attendace Code",
@@ -204,8 +204,7 @@ const Login = () => {
                                                                 <td>
 
                                                                     <div style={{ position: "relative" }}>
-                                                                        <img src={"streak.png"} alt="streak"></img>
-                                                                        <div class="streak-text"><b >{(parseInt(x.Num))}</b></div>
+                                                                        <div class="main-streak-text"><b >{(parseInt(x.Num))}</b></div>
                                                                     </div>
                                                                 </td>
                                                                 <td>

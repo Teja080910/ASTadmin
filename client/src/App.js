@@ -40,7 +40,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path="/adminlogin" element={<Admin />} />
           <Route path='adminregister' element={<Adminreg />} />
-          <Route path="/attendance" element={set ? <Attendance/> : <Admin />} />
+          <Route path="/attendance" element={!set ? <Attendance/> : <Admin />} />
           <Route path='/tech' element={time?.tech?<Login/>:<Attendance/>}/>
           <Route path="/register" element={<Signup />} />
           <Route path='/yoga' element={time?.yoga?<Yoga /> : <Attendance/>} />

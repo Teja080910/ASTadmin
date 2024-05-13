@@ -147,8 +147,7 @@ export const Yoga=()=>
                              </td>
                              <td>
                                  <div style={{position: "relative"}}>
-                                 <img src={"streak.png"} alt="streak"></img>
-                                 <div class="streak-text"><b >{(parseInt(x.MrngStreak)+parseInt(x.Num))/2}</b></div>
+                                 <div class="main-streak-text"><b >{parseInt(x.MrngStreak)}</b></div>
                                  </div>
                              </td>
                              </>:<b></b>

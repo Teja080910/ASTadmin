@@ -1,4 +1,6 @@
+import dotenv from 'dotenv';
 import { MongoClient } from "mongodb";
+dotenv.config()
 let db; 
 async function connectToDB(cb){
     const url = "mongodb+srv://aolsrkr2002:aol1234@ast.th0xtim.mongodb.net/?retryWrites=true&w=majority";

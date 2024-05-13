@@ -19,8 +19,8 @@ export const FiveStreak = ({ data }) => {
                                         <Td>{x.Year}</Td>
                                         <Td>
                                             <div style={{ position: "relative" }}>
-                                                <img src={streakImg} alt="streak"></img>
-                                                <div class="streak-text"><b >{parseInt(x.Num)}</b></div>
+                                                {/* <img src={streakImg} alt="streak"></img> */}
+                                                <div class="main-streak-text"><b >{parseInt(x.Num)}</b></div>
                                             </div>
                                         </Td>
                                     </Tr>
@@ -50,8 +50,8 @@ export const FiveStreak = ({ data }) => {
                                         <Td>{x.Year}</Td>
                                         <Td>
                                             <div style={{ position: "relative" }}>
-                                                <img src={"streak.png"} alt="streak"></img>
-                                                <div className="streak-text"><b >{parseInt(x.MrngStreak)}</b></div>
+                                                {/* <img src={"streak.png"} alt="streak"></img> */}
+                                                <div className="main-streak-text"><b >{parseInt(x.MrngStreak)}</b></div>
                                             </div>
                                         </Td>
                                     </Tr>
