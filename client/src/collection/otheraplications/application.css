@@ -1,39 +1,40 @@
 .appcontainer {
-    width: 75%;
+    width:66%;
     margin-top: 10%;
     margin-bottom: 10%;
+    margin-left: 10%;
 }
 
 .appcontainer button:first-child {
-    height: 25vh;
-    width: 70%;
-    background-image: url("./certificate.png");
+    height: 20vh;
+    width: 50%;
+    background-image: url("./graduation.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-color: white;
 }
 
 .appcontainer button:nth-child(2) {
-    height: 25vh;
-    width: 70%;
+    height: 20vh;
+    width: 50%;
     background-color: white;
-    background-image: url("./chat-bot.png");
+    background-image: url("./chat-app.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
 .appcontainer button:nth-child(3) {
-    height: 25vh;
-    width: 70%;
+    height: 20vh;
+    width: 50%;
     background-color: white;
-    background-image: url("./notes.png");
+    background-image: url("./note.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
 .appcontainer button:nth-child(4) {
-    height: 25vh;
-    width: 70%;
+    height: 20vh;
+    width: 50%;
     background-color: white;
     background-image: url("./chat.png");
     background-repeat: no-repeat;
@@ -42,28 +43,32 @@
 
 @media (max-width:500px) {
     .appcontainer {
-        width:80%;
+        width:100%;
         margin-top: 5%;
         margin-bottom: 10%;
+        margin-left: 0%;
+        display: grid;
+        justify-content: center;
     }
 
     .appcontainer button:first-child {
-        height:30vh;
-        width: 100%;
+        height:20vh;
+        width: 80%;
     }
 
     .appcontainer button:nth-child(2) {
-        height:30vh;
-        width: 100%;
+        height:20vh;
+        width: 80%;
     }
 
     .appcontainer button:nth-child(3) {
-        height:30vh;
-        width: 100%;
+        height:20vh;
+        width: 80%;
+        margin-left: 5%;
     }
 
     .appcontainer button:nth-child(4) {
-        height:30vh;
-        width: 100%;
+        height:20vh;
+        width: 80%;
     }
 }

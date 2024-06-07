@@ -11,28 +11,28 @@ import { Addproject, Projects } from '../src/collection/project/project.js';
 import { Pro } from '../src/collection/project/sampleproject.js';
 import { Scrum } from '../src/collection/scrummaster/scrum.js';
 import './App.css';
+import { BootcampSidebar } from './bootcamp/bootcampsidebar/bootcampsidebar.js';
 import { Attendance } from './collection/attendance/attendance.js';
+import { Timings } from './collection/attendance/timings.js';
 import { Face } from './collection/face/face.js';
 import { Home } from './collection/home/homes.js';
 import { Send } from './collection/project/send.js';
-import Appstore from './collection/redux/index.js';
+import { Appstore } from './collection/redux/login.js';
 import Sample from './collection/sample/sample.js';
 import './responce.css';
-import { Timings } from './collection/attendance/timings.js';
 function App() {
   const [set, setSet] = useState()
-  const [time,setTime]=useState()
+  const [time, setTime] = useState()
   const salt = CryptoENC
   useEffect(() => {
     axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
       .then((res) => {
-        if(res.data.Password=== CryptoAES.decrypt(sessionStorage.password ? sessionStorage.password : "1234", sessionStorage.gmail ? sessionStorage.gmail : "1234").toString(salt))
-        {
+        if (res.data.Password === CryptoAES.decrypt(sessionStorage.password ? sessionStorage.password : "1234", sessionStorage.gmail ? sessionStorage.gmail : "1234").toString(salt)) {
           setSet(res.data)
         }
       }).catch((e) => console.log(e))
   }, [sessionStorage.gmail])
-  Timings().then((res)=>setTime(res))
+  Timings().then((res) => setTime(res))
   return (
     <>
       <BrowserRouter>
@@ -40,10 +40,10 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path="/adminlogin" element={<Admin />} />
           <Route path='adminregister' element={<Adminreg />} />
-          <Route path="/attendance" element={!set ? <Attendance/> : <Admin />} />
-          <Route path='/tech' element={time?.tech?<Login/>:<Attendance/>}/>
+          <Route path="/attendance" element={!set ? <Attendance /> : <Admin />} />
+          <Route path='/tech' element={time?.tech ? <Login /> : <Attendance />} />
           <Route path="/register" element={<Signup />} />
-          <Route path='/yoga' element={time?.yoga?<Yoga /> : <Attendance/>} />
+          <Route path='/yoga' element={time?.yoga ? <Yoga /> : <Attendance />} />
           <Route path='/addproject' element={<Addproject />} />
           <Route path='/projects' element={<Projects />} />
           <Route path='/scrummaster' element={<Scrum />} />
@@ -51,7 +51,8 @@ function App() {
           <Route path='/chatwithme' element={<Send />} />
           <Route path='/face' element={<Face />} />
           <Route path='sample' element={<Sample />} />
-          <Route path='/redux' element={<Appstore/>}/>
+          <Route path='/redux' element={<Appstore />} />
+          <Route path='/bootcamp' element={<BootcampSidebar />} />
         </Routes>
       </BrowserRouter>
 
