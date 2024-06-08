@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
-import { MongoClient } from "mongodb";
+import { GridFSBucket, MongoClient } from "mongodb";
 dotenv.config()
-let db,db1; 
+let db,db1,bucket; 
 async function connectToDB(cb){
     const url =process.env.database
     const client = new MongoClient(url);
@@ -11,8 +11,11 @@ async function connectToDB(cb){
     const url1 =process.env.database1
     const client1 = new MongoClient(url1);
     await client1.connect();
-    db1 = client1.db("Mern_Attendance");
+    db1 = client1.db("Hackathon");
+
+    bucket = new GridFSBucket(db1, { bucketName: 'uploads' });
     cb();
 }
 
-export { connectToDB, db,db1};
+export { bucket, connectToDB, db, db1 };
+

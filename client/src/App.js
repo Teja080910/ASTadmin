@@ -27,8 +27,8 @@ function App() {
   useEffect(() => {
     axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
       .then((res) => {
-        if (res.data.Password === CryptoAES.decrypt(sessionStorage.password ? sessionStorage.password : "1234", sessionStorage.gmail ? sessionStorage.gmail : "1234").toString(salt)) {
-          setSet(res.data)
+        if (res?.data?.Password === CryptoAES.decrypt(sessionStorage.password ? sessionStorage.password : "1234", sessionStorage.gmail ? sessionStorage.gmail : "1234").toString(salt)) {
+          setSet(res?.data)
         }
       }).catch((e) => console.log(e))
   }, [sessionStorage.gmail])

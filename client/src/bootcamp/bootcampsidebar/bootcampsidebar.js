@@ -41,7 +41,6 @@ export const BootcampSidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [select, setSelect] = useState(sessionStorage?.select)
     sessionStorage.select=select
-    console.log(sessionStorage.select)
     const toggleSidebar = () => {
         setCollapsed(!collapsed);
     };
