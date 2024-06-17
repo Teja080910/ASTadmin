@@ -102,7 +102,7 @@ const Login = () => {
                 console.log(res)
                 if (res.data) {
                     axios.post(process.env.REACT_APP_database + "/deletestudent/" + atnd)
-                        .then((res) => {
+                        .then((res) => {        
                             if (res) {
                                 window.location.reload(3);
                             }

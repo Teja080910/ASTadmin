@@ -53,6 +53,7 @@ function App() {
           <Route path='sample' element={<Sample />} />
           <Route path='/redux' element={<Appstore />} />
           <Route path='/bootcamp' element={<BootcampSidebar />} />
+
         </Routes>
       </BrowserRouter>
 
