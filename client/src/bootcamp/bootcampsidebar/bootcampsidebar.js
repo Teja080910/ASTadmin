@@ -46,7 +46,7 @@ export const BootcampSidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [select, setSelect] = useState(sessionStorage?.select)
     const queryParams = new URLSearchParams(window.location.search);
-    let set = queryParams?.get("page");
+    let set = queryParams?.get("page")||"home";
     const toggleSidebar = () => {
         setCollapsed(!collapsed);
     };
@@ -56,7 +56,7 @@ export const BootcampSidebar = () => {
             <SidebarContent collapsed={collapsed} toggleSidebar={toggleSidebar} select={(val) => setSelect(val || 1)} />
             <main className='main-content' onClick={() => collapsed || toggleSidebar()}>
                 {
-                    set === "1" && <BootcampHome /> ||
+                    set === "home" && <BootcampHome /> ||
                     set === "team" && <BootcampTeam /> ||
                     set === "attendance" && <BootAttendance /> ||
                     set === "material" && <BootcampMaterial /> ||

@@ -8,6 +8,8 @@ import { InsertTask } from '../bootcamp/taskmanger/insertask.js';
 import { HideTasks, ShowTasks } from '../bootcamp/taskmanger/showtask.js';
 import { Tasks } from '../bootcamp/taskmanger/tasks.js';
 import { initiateMulter } from '../multer/multer.js';
+import { Students } from '../bootcamp/studentdata/students.js';
+import { AbsentStudent, AttendStudent } from '../bootcamp/attendance/attendance.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -55,24 +57,16 @@ app.post('/tasks', async (req, res) => {
     await Tasks(res)
 })
 
-let tasks = []
-app.post('/tasks1', (req, res) => {
-    try {
-        const { day, task, description } = req.body;
-        if (!day || !task || !description) {
-            return res.status(400).json({ message: 'Day, task, and description are required' });
-        }
-        const newTask = { day, task, description };
-        tasks.push(newTask);
-        res.status(201).json(newTask);
-    } catch (error) {
-        console.error('Error adding new task:', error);
-        res.status(500).json({ message: 'Internal server error', error: error.toString() });
-    }
-});
+app.post('/bootcampstudents',async(req,res)=>{
+    await Students(res)
+})
 
-app.get('/tasks1', (req, res) => {
-    res.json(tasks);
-});
+app.post('/attendstudent/:regd',async(req,res)=>{
+    await AttendStudent(req.params.regd,res)
+})
+
+app.post('/absentstudent/:regd',async(req,res)=>{
+    await AbsentStudent(req.params.regd,res)
+})
 
 export default app;
