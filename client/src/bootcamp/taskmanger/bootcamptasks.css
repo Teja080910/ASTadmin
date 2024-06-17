@@ -80,6 +80,9 @@
         display: flex;
         justify-content: center;
     }
+    .task-box {
+        width: 100%;
+    }
     .task-title,.task-description{
         text-align: center;
     }
@@ -90,5 +93,8 @@
     .task-select2{
         width: 100%;
         justify-content: space-evenly;
+    }
+    .task-manager{
+        width: 100%;
     }
 }

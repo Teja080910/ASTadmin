@@ -1,4 +1,5 @@
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import CodeIcon from '@mui/icons-material/Code';
 import AttendanceIcon from '@mui/icons-material/EventAvailable';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
@@ -8,14 +9,18 @@ import ScoreIcon from '@mui/icons-material/Score';
 import React, { useState } from 'react';
 import { Menu, MenuItem, Sidebar } from 'react-pro-sidebar';
 import { BootAttendance } from '../attendance/attendance';
-import './bootcampsidebar.css';
 import { BootcampHome } from '../bootcamphome/bootcamphome';
-import { BootcampMaterial } from '../materials/uploadmaterials';
 import { BootcampTeam } from '../bootcampteams/bootcampteams';
+import { BootcampMaterial } from '../materials/uploadmaterials';
 import { BootcampScore } from '../scoremanager/bootcampscore';
 import BootcampTasks from '../taskmanger/bootcamptaskmager';
-import CodeIcon from '@mui/icons-material/Code';
-const SidebarContent = ({ collapsed, toggleSidebar, select }) => (
+import './bootcampsidebar.css';
+import { useNavigate } from 'react-router-dom';
+
+const SidebarContent = ({ collapsed, toggleSidebar }) => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const nav = useNavigate()
+    return(
     <Sidebar collapsed={collapsed} id='sidebar'>
         <Menu>
             <MenuItem
@@ -25,48 +30,51 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => (
             >
                 <h2>Bootcamp</h2>
             </MenuItem>
-            <MenuItem icon={<HomeOutlinedIcon />} onClick={() => window.location.href='/'}>Home</MenuItem>
-            <MenuItem icon={<PeopleOutlinedIcon />} onClick={() => select(2)}>Team</MenuItem>
-            <MenuItem icon={<AttendanceIcon />} onClick={() => select(3)}>Attendance</MenuItem>
-            <MenuItem icon={<LibraryBooksIcon />} onClick={() => select(4)}>Materials</MenuItem>
-            <MenuItem icon={<ScoreIcon />} onClick={() => select(5)}>Score</MenuItem>
-            <MenuItem icon={<AssignmentIcon />} onClick={() => select(6)}>Tasks</MenuItem>
-            <MenuItem icon={<CodeIcon />} onClick={() =>window.location.href='/hackathon'}>Hackathon</MenuItem>
+            <MenuItem icon={<HomeOutlinedIcon />} onClick={() => window.location.href = '/'}>Home</MenuItem>
+            <MenuItem icon={<PeopleOutlinedIcon />} onClick={() => {queryParams.set("page","team");nav({ search: queryParams.toString() })}}>Team</MenuItem>
+            <MenuItem icon={<AttendanceIcon />} onClick={() => {queryParams.set("page","attendance");nav({ search: queryParams.toString() })}}>Attendance</MenuItem>
+            <MenuItem icon={<LibraryBooksIcon />} onClick={() => {queryParams.set("page","materials");nav({ search: queryParams.toString() })}}>Materials</MenuItem>
+            <MenuItem icon={<ScoreIcon />} onClick={() => {queryParams.set("page","score");nav({ search: queryParams.toString() })}}>Score</MenuItem>
+            <MenuItem icon={<AssignmentIcon />} onClick={() => {queryParams.set("page","task");nav({ search: queryParams.toString() })}}>Tasks</MenuItem>
+            <MenuItem icon={<CodeIcon />} onClick={() => window.location.href = '/hackathon'}>Hackathon</MenuItem>
         </Menu>
     </Sidebar>
-);
+);}
 
 export const BootcampSidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const [select, setSelect] = useState(sessionStorage?.select)
-    sessionStorage.select=select
+    const queryParams = new URLSearchParams(window.location.search);
+    const currentPage = queryParams.get("page") || "home";
+
     const toggleSidebar = () => {
         setCollapsed(!collapsed);
     };
 
+    const renderPage = () => {
+        switch (currentPage) {
+            case "home":
+                return <BootcampHome />;
+            case "team":
+                return <BootcampTeam />;
+            case "attendance":
+                return <BootAttendance />;
+            case "materials":
+                return <BootcampMaterial />;
+            case "score":
+                return <BootcampScore />;
+            case "task":
+                return <BootcampTasks />;
+            default:
+                return <BootcampHome />;
+        }
+    };
+
     return (
-        <>
-        
         <div id="app" style={{ height: '100vh', display: 'flex' }}>
-            <SidebarContent collapsed={collapsed} toggleSidebar={toggleSidebar} select={(val) => setSelect(val || 1)} />
+            <SidebarContent collapsed={collapsed} toggleSidebar={toggleSidebar} />
             <main className='main-content' onClick={() => collapsed || toggleSidebar()}>
-                {
-                    sessionStorage?.select === "1" && <BootcampHome /> ||
-                    sessionStorage?.select === "2" && <BootcampTeam /> ||
-                    sessionStorage?.select === "3" && <BootAttendance /> ||
-                    sessionStorage?.select === "4" && <BootcampMaterial /> ||
-                    sessionStorage?.select === "5" && <BootcampScore /> ||
-                    sessionStorage?.select === "6" && <BootcampTasks />
-                }
+                {renderPage()}
             </main>
-            {/* <div className='h1-home'>
-            <h1>Tasks</h1>
-            <h1 >Highest score</h1>
-            <h1>Highest Attendance</h1>
-            </div> */}
         </div>
-        
-        </>
-        
     );
 };

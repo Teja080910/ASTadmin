@@ -126,7 +126,7 @@ export const TaskInput = ({tasks,reload}) => {
             </Stack>
 
             <Box mt={8}>
-                <div className=''>
+                <div className='task-box'>
                     <h1 className='h1-tasks'>Tasks in Bootcamp</h1>
                     {tasks?.map((task, index) => (
                         <Box key={index} className='task-item' p={4} borderWidth={1} borderRadius="lg" mb={4}>

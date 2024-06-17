@@ -20,7 +20,7 @@ const BootcampTasks = () => {
         fetchTasks();
     };
     return (
-        <div>
+        <div className='task-manager'>
             <TaskInput tasks={tasks} reload={reloadTasks} />
         </div>
     );

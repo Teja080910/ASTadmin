@@ -1,5 +1,5 @@
 import { Button } from "flowbite-react";
-import './boot&hack.css'
+import './boot&hack.css';
 export const BootHack=()=>{
     return(
         <div className="hackboot">
