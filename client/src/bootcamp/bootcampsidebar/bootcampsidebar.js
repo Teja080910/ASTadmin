@@ -11,11 +11,10 @@ import { BootAttendance } from '../attendance/attendance';
 import './bootcampsidebar.css';
 import { BootcampHome } from '../bootcamphome/bootcamphome';
 import { BootcampMaterial } from '../materials/uploadmaterials';
-import { BootcampTeam } from '../bootcampteam/bootcampteam';
+import { BootcampTeam } from '../bootcampteams/bootcampteams';
 import { BootcampScore } from '../scoremanager/bootcampscore';
-import { BootcampTasks } from '../taskmanger/bootcamptaskmager';
+import BootcampTasks from '../taskmanger/bootcamptaskmager';
 import CodeIcon from '@mui/icons-material/Code';
-
 const SidebarContent = ({ collapsed, toggleSidebar, select }) => (
     <Sidebar collapsed={collapsed} id='sidebar'>
         <Menu>
@@ -26,7 +25,7 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => (
             >
                 <h2>Bootcamp</h2>
             </MenuItem>
-            <MenuItem icon={<HomeOutlinedIcon />} onClick={() => select(1)}>Home</MenuItem>
+            <MenuItem icon={<HomeOutlinedIcon />} onClick={() => window.location.href='/'}>Home</MenuItem>
             <MenuItem icon={<PeopleOutlinedIcon />} onClick={() => select(2)}>Team</MenuItem>
             <MenuItem icon={<AttendanceIcon />} onClick={() => select(3)}>Attendance</MenuItem>
             <MenuItem icon={<LibraryBooksIcon />} onClick={() => select(4)}>Materials</MenuItem>
@@ -46,6 +45,8 @@ export const BootcampSidebar = () => {
     };
 
     return (
+        <>
+        
         <div id="app" style={{ height: '100vh', display: 'flex' }}>
             <SidebarContent collapsed={collapsed} toggleSidebar={toggleSidebar} select={(val) => setSelect(val || 1)} />
             <main className='main-content' onClick={() => collapsed || toggleSidebar()}>
@@ -58,6 +59,14 @@ export const BootcampSidebar = () => {
                     sessionStorage?.select === "6" && <BootcampTasks />
                 }
             </main>
+            {/* <div className='h1-home'>
+            <h1>Tasks</h1>
+            <h1 >Highest score</h1>
+            <h1>Highest Attendance</h1>
+            </div> */}
         </div>
+        
+        </>
+        
     );
 };
