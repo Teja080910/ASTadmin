@@ -1,43 +1,104 @@
-import { Button, Input, Stack, Box, Text } from '@chakra-ui/react';
+import { Box, Button, Input, Stack, Text, useToast } from '@chakra-ui/react';
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './bootcamptasks.css';
 
-export const TaskInput = () => {
+export const TaskInput = ({tasks,reload}) => {
     const [day, setDay] = useState('');
     const [task, setTask] = useState('');
     const [description, setDescription] = useState('');
-    const [tasks, setTasks] = useState([]);
-
-    const handleDayChange = (e) => setDay(e.target.value);
-    const handleTaskChange = (e) => setTask(e.target.value);
-    const handleDescriptionChange = (e) => setDescription(e.target.value);
-
-    const fetchTasks = async () => {
-        try {
-            const response = await axios.get(process.env.REACT_APP_database + '/tasks');
-            setTasks(response.data);
-        } catch (error) {
-            console.error('Error fetching tasks:', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchTasks();
-    }, []);
+    const [indexs,setIndexes]=useState();
+    const [update,setUpdate]=useState(false)
+    const [load, setLoad] = useState(false)
+    const toast = useToast()
 
     const handleSubmit = async () => {
+        setLoad(true)
         try {
-            const newTask = { day, task, description };
-            const response = await axios.post(process.env.REACT_APP_database + '/tasks', newTask);
-            setDay('');
-            setTask('');
-            setDescription('');
-            fetchTasks();
+            const response = await axios.post(process.env.REACT_APP_database + '/inserttask', { day, task, description });
+            if (response.data) {
+                setLoad(false)
+                toast({ title: "insert sucessfully", status: "success", position: "top-right", isClosable: true })
+                setDay('');
+                setTask('');
+                setDescription('');
+            }
         } catch (error) {
+            setLoad(false)
+            toast({ title: error, status: "error", position: "bottom-left", isClosable: true })
             console.error('Error adding new task:', error);
         }
     };
+
+    const Delete = async (selectday, selecttask) => {
+        try {
+            const remove = await axios.post(process.env.REACT_APP_database + '/deletetask', { selectday, selecttask });
+            if (remove.data) {
+                reload()
+                toast({ title: "delete sucessfully", status: "success", position: "top-right", isClosable: true })
+            }
+        } catch (error) {
+            console.log(error)
+            toast({ title: error, status: "error", position: "bottom-left", isClosable: true })
+        }
+    }
+
+    const Edit = async (selectday, selecttask,selectdesc,index) => {
+        try {
+            const edit = await axios.post(process.env.REACT_APP_database + '/edittask', { selectday, selecttask,selectdesc,index });
+            if (edit.data) {
+                reload()
+                toast({ title: "edit sucessfully", status: "success", position: "top-right", isClosable: true })
+            }
+            else{
+                toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true })
+            }
+        } catch (error) {
+            console.log(error)
+            toast({ title: error, status: "error", position: "bottom-left", isClosable: true })
+        }
+    }
+
+    const EditTask = async (selectday, selecttask,selectdesc, index) => {
+        try {
+            setDay(selectday)
+            setTask(selecttask)
+            setDescription(selectdesc)
+            setUpdate(true)
+            setIndexes(index)
+        } catch (error) {
+            console.log(error)
+            toast({ title: error, status: "error", position: "bottom-left", isClosable: true })
+        }
+    }
+
+    const Show = async (selectday, index) => {
+        try {
+            const show = await axios.post(process.env.REACT_APP_database + '/showtask', { selectday, index });
+            if (show.data) {
+                reload()
+                toast({ title: "access:show", status: "success", position: "top-right", isClosable: true })
+            }
+        } catch (error) {
+            console.log(error)
+            toast({ title: error, status: "error", position: "bottom-left", isClosable: true })
+        }
+    }
+
+    const Hide = async (selectday, index) => {
+        try {
+            const hide = await axios.post(process.env.REACT_APP_database + '/hidetask', { selectday, index });
+            if (hide.data) {
+                reload()
+                toast({ title: "access:hide", status: "success", position: "top-right", isClosable: true })
+            }
+        } catch (error) {
+            console.log(error)
+            toast({ title: error, status: "error", position: "bottom-left", isClosable: true })
+        }
+    }
+
+
 
     return (
         <div className="task-form">
@@ -45,40 +106,49 @@ export const TaskInput = () => {
                 <Input
                     placeholder="Enter day"
                     value={day}
-                    onChange={handleDayChange}
+                    onChange={(e) => setDay(e.target.value)}
                     size="lg"
                 />
                 <Input
                     placeholder="Enter task"
                     value={task}
-                    onChange={handleTaskChange}
+                    onChange={(e) => setTask(e.target.value)}
                     size="lg"
                 />
                 <Input
                     placeholder="Enter description"
                     value={description}
-                    onChange={handleDescriptionChange}
+                    onChange={(e) => setDescription(e.target.value)}
                     size="lg"
                 />
-                <Button colorScheme="cyan" onClick={handleSubmit}>Add Task</Button>
+                {update?<Button colorScheme="cyan" onClick={()=>Edit(day,task,description,indexs)}>{load ? "Updating..." : "Update Task"}</Button>:
+                <Button colorScheme="cyan" onClick={handleSubmit}>{load ? "Adding..." : "Add Task"}</Button>}
             </Stack>
+
             <Box mt={8}>
-            <div className=''>
-            <h1 className='h1-tasks'>Tasks in Bootcamp</h1>
-                {tasks.map((task, index) => (
-                    <Box key={index} className='task-item'p={4} borderWidth={1} borderRadius="lg" mb={4}>
-                        <Text fontWeight="bold">Day: {task.day}</Text>
-                        <Text className='task-title'>Task: {task.task}</Text>
-                        <Text className='task-description'>Description: {task.description}</Text>
-                        <div className='task-select'>
-                            <Button>Delete</Button>
-                            <Button>Edit</Button>
-                            <Button>Show</Button>
-
-
-                        </div>
-                    </Box>
-                ))}
+                <div className=''>
+                    <h1 className='h1-tasks'>Tasks in Bootcamp</h1>
+                    {tasks?.map((task, index) => (
+                        <Box key={index} className='task-item' p={4} borderWidth={1} borderRadius="lg" mb={4}>
+                            <Text fontWeight="bold" textAlign="center">Day: {task?.Day}</Text>
+                            {
+                                task?.Tasks?.map((val, index) => (
+                                    <>
+                                        <Text className='task-title'>Task: {val?.Task}</Text>
+                                        <Text className='task-description'>Description: {val?.Desc}</Text>
+                                        <div className='task-select' >
+                                           <div className='task-select2'>
+                                           {<Button bg="#CE5A67" color="white" onClick={() => Delete(task?.Day, val?.Task, index)}>Delete</Button>}
+                                            <Button bg="#F4BF96" color="white" onClick={() => EditTask(task?.Day, val?.Task,val?.Desc, index)}>Edit</Button>
+                                            {!val?.Show?<Button bg="#1F1717" color="white" onClick={() => Show(task?.Day, index)}>Show</Button>:
+                                            <Button bg="#1F1717" color="white" onClick={() => Hide(task?.Day, index)}>Hide</Button>}
+                                           </div>
+                                        </div>
+                                    </>
+                                ))
+                            }
+                        </Box>
+                    ))}
                 </div>
             </Box>
         </div>
