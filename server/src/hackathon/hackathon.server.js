@@ -5,8 +5,9 @@ import { FileByName, RetriveFiles, UploadFiles } from '../bootcamp/materials/upl
 import { DeleteTasks } from '../bootcamp/taskmanger/deletetask.js';
 import { EditTasks } from '../bootcamp/taskmanger/edittask.js';
 import { InsertTask } from '../bootcamp/taskmanger/insertask.js';
+import { Scores } from '../bootcamp/scores/scores.js';
 import { HideTasks, ShowTasks } from '../bootcamp/taskmanger/showtask.js';
-import { Tasks } from '../bootcamp/taskmanger/tasks.js';
+import { Tasks } from '../bootcamp/taskmanger/tasks.js'
 import { initiateMulter } from '../multer/multer.js';
 dotenv.config()
 const app = express()
@@ -53,6 +54,9 @@ app.post('/hidetask',async(req,res)=>{
 
 app.post('/tasks',async(req,res)=>{
     await Tasks(res)
+})
+app.post('/scores',async(req,res)=>{
+    await Scores(res)
 })
 
 let tasks=[]

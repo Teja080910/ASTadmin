@@ -44,7 +44,9 @@ export const StreakGraph = ({ studentdata, totaldata }) => {
         ],
         datasets: [{
             label: 'Attendance',
-            data: [stutot ? stutot : stustot / totaldata.Days, totaldata.Days],
+            // data: [stutot ? stutot : stustot / totaldata.Days, totaldata.Days],
+            data: [stutot ? stutot : stustot ],
+
             backgroundColor: [
                 'rgb(255, 99, 132)',
                 'rgb(54, 162, 235)'
