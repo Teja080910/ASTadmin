@@ -14,34 +14,36 @@
     background-color: white;
 }
 
-.mati{
+.mati {
     width: 100%;
     height: 70vh;
     display: flex;
     justify-content: center;
 }
 
-.bootmati{
+.bootmati {
     height: 100vh;
 }
 
-.allmetirials{
+.allmetirials {
     width: 100%;
     /* height: 80vh; */
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
 }
 
-.allmeti{
+.allmeti {
     width: 70%;
 }
 
-.file-inputs input,Select{
+.file-inputs input,
+Select {
     border: black 3px solid;
 }
-.matform{
+
+.matform {
     width: 50%;
     height: 20vh;
 }
@@ -51,6 +53,7 @@
     #sidebar {
         position: fixed;
     }
+
     .main-content {
         flex: 1;
         padding: 5rem;

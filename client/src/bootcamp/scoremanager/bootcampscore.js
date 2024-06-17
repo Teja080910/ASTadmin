@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
-    Box,
-    Flex,
-    Text,
-    Heading,
-    Spinner,
     Badge,
-    Input,
+    Box,
     Button,
+    Flex,
+    Heading,
+    Input,
     Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
     ModalBody,
-    ModalCloseButton
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    Spinner,
+    Text
 } from "@chakra-ui/react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import './scoremanager.css';
 
 export const BootcampScore = () => {
@@ -113,8 +113,8 @@ export const BootcampScore = () => {
                                 <Flex justifyContent="space-between" alignItems="center" mt={2}>
                                     <Badge style={{ marginLeft: '80%' }} colorScheme="blue">{x.Year} Btech</Badge>
                                 </Flex>
-                                <Text mt={2}>Task 1 score: {x.Task1 }</Text>
-                                <Text mt={2}>Task 2 score: {x.Task2 }</Text>
+                                <Text mt={2}>Task 1 score: {x.Task1}</Text>
+                                <Text mt={2}>Task 2 score: {x.Task2}</Text>
                                 <Button mt={8} onClick={() => openModal(x)}>Give score</Button>
                             </Box>
                         ))}

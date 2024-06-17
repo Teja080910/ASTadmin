@@ -3,12 +3,12 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import './bootcamptasks.css';
 
-export const TaskInput = ({tasks,reload}) => {
+export const TaskInput = ({ tasks, reload }) => {
     const [day, setDay] = useState('');
     const [task, setTask] = useState('');
     const [description, setDescription] = useState('');
-    const [indexs,setIndexes]=useState();
-    const [update,setUpdate]=useState(false)
+    const [indexs, setIndexes] = useState();
+    const [update, setUpdate] = useState(false)
     const [load, setLoad] = useState(false)
     const toast = useToast()
 
@@ -43,14 +43,14 @@ export const TaskInput = ({tasks,reload}) => {
         }
     }
 
-    const Edit = async (selectday, selecttask,selectdesc,index) => {
+    const Edit = async (selectday, selecttask, selectdesc, index) => {
         try {
-            const edit = await axios.post(process.env.REACT_APP_database + '/edittask', { selectday, selecttask,selectdesc,index });
+            const edit = await axios.post(process.env.REACT_APP_database + '/edittask', { selectday, selecttask, selectdesc, index });
             if (edit.data) {
                 reload()
                 toast({ title: "edit sucessfully", status: "success", position: "top-right", isClosable: true })
             }
-            else{
+            else {
                 toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true })
             }
         } catch (error) {
@@ -59,7 +59,7 @@ export const TaskInput = ({tasks,reload}) => {
         }
     }
 
-    const EditTask = async (selectday, selecttask,selectdesc, index) => {
+    const EditTask = async (selectday, selecttask, selectdesc, index) => {
         try {
             setDay(selectday)
             setTask(selecttask)
@@ -121,8 +121,8 @@ export const TaskInput = ({tasks,reload}) => {
                     onChange={(e) => setDescription(e.target.value)}
                     size="lg"
                 />
-                {update?<Button colorScheme="cyan" onClick={()=>Edit(day,task,description,indexs)}>{load ? "Updating..." : "Update Task"}</Button>:
-                <Button colorScheme="cyan" onClick={handleSubmit}>{load ? "Adding..." : "Add Task"}</Button>}
+                {update ? <Button colorScheme="cyan" onClick={() => Edit(day, task, description, indexs)}>{load ? "Updating..." : "Update Task"}</Button> :
+                    <Button colorScheme="cyan" onClick={handleSubmit}>{load ? "Adding..." : "Add Task"}</Button>}
             </Stack>
 
             <Box mt={8}>
@@ -137,12 +137,12 @@ export const TaskInput = ({tasks,reload}) => {
                                         <Text className='task-title'>Task: {val?.Task}</Text>
                                         <Text className='task-description'>Description: {val?.Desc}</Text>
                                         <div className='task-select' >
-                                           <div className='task-select2'>
-                                           {<Button bg="#CE5A67" color="white" onClick={() => Delete(task?.Day, val?.Task, index)}>Delete</Button>}
-                                            <Button bg="#F4BF96" color="white" onClick={() => EditTask(task?.Day, val?.Task,val?.Desc, index)}>Edit</Button>
-                                            {!val?.Show?<Button bg="#1F1717" color="white" onClick={() => Show(task?.Day, index)}>Show</Button>:
-                                            <Button bg="#1F1717" color="white" onClick={() => Hide(task?.Day, index)}>Hide</Button>}
-                                           </div>
+                                            <div className='task-select2'>
+                                                {<Button bg="#CE5A67" color="white" onClick={() => Delete(task?.Day, val?.Task, index)}>Delete</Button>}
+                                                <Button bg="#F4BF96" color="white" onClick={() => EditTask(task?.Day, val?.Task, val?.Desc, index)}>Edit</Button>
+                                                {!val?.Show ? <Button bg="#1F1717" color="white" onClick={() => Show(task?.Day, index)}>Show</Button> :
+                                                    <Button bg="#1F1717" color="white" onClick={() => Hide(task?.Day, index)}>Hide</Button>}
+                                            </div>
                                         </div>
                                     </>
                                 ))

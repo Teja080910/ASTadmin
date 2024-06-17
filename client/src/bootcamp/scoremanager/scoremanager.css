@@ -16,7 +16,7 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.scores{
+.scores {
   height: 95vh;
   overflow-y: scroll;
 }
@@ -30,7 +30,8 @@
     margin-top: 20%;
     font-size: 1.5em;
   }
-  .scores{
+
+  .scores {
     height: 100vh;
     overflow-y: scroll;
   }

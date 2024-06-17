@@ -31,31 +31,31 @@ app.get('/file/:filename', async (req, res) => {
     await FileByName(filename, res)
 });
 
-app.post('/inserttask',async(req,res)=>{
-    await InsertTask(req.body.day,req.body.task,req.body.description,res)
+app.post('/inserttask', async (req, res) => {
+    await InsertTask(req.body.day, req.body.task, req.body.description, res)
 })
 
-app.post('/deletetask',async(req,res)=>{
-    await DeleteTasks(req.body.selectday,req.body.selecttask,res)
+app.post('/deletetask', async (req, res) => {
+    await DeleteTasks(req.body.selectday, req.body.selecttask, res)
 })
 
-app.post('/edittask',async(req,res)=>{
-    await EditTasks(req.body.selectday,req.body.selecttask,req.body.selectdesc,req.body.index,res)
+app.post('/edittask', async (req, res) => {
+    await EditTasks(req.body.selectday, req.body.selecttask, req.body.selectdesc, req.body.index, res)
 })
 
-app.post('/showtask',async(req,res)=>{
-    await ShowTasks(req.body.selectday,req.body.index,res)
+app.post('/showtask', async (req, res) => {
+    await ShowTasks(req.body.selectday, req.body.index, res)
 })
 
-app.post('/hidetask',async(req,res)=>{
-    await HideTasks(req.body.selectday,req.body.index,res)
+app.post('/hidetask', async (req, res) => {
+    await HideTasks(req.body.selectday, req.body.index, res)
 })
 
-app.post('/tasks',async(req,res)=>{
+app.post('/tasks', async (req, res) => {
     await Tasks(res)
 })
 
-let tasks=[]
+let tasks = []
 app.post('/tasks1', (req, res) => {
     try {
         const { day, task, description } = req.body;
