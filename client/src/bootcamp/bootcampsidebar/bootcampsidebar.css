@@ -1,6 +1,7 @@
 #app {
     height: 100vh;
     display: flex;
+    width: 100%;
 }
 
 #sidebar {
@@ -55,39 +56,7 @@ Select {
     }
 
     .main-content {
-        flex: 1;
-        padding: 5rem;
-        /* width: 100%; */
+        padding-left: 5rem;
+        width: 100%;
     }
 }
-
-
-
-/* .h1-home{
-    margin: 0% 50% 85% 30%;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-family: Arial, sans-serif;
-    align-items: center;
-    
-}
-
-.h1-home h1 {
-    cursor: pointer;
-    font-size: 2.5em;
-    color: #3498db;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    margin: 20px 0;
-    animation: blink 1s step-start infinite;
-}
-.h1-home h1:hover {
-    color: #18132c;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-    transform: scale(1.1);
-}
-
-@keyframes blink {
-    50% {
-        opacity: 0;
-    }
-} */

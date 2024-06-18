@@ -152,61 +152,53 @@ import { HStack, PinInput, PinInputField, useToast, Card,Text,Box, Heading, Inpu
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
+import { BootcampNav } from "../bootcampnav/bootcampnav";
+import './attendance.css';
 import './attendance.css'
 export const BootAttendance = () => {
     const [dat, sdat] = useState([]);
-    const [atnd, satnd] = useState([]);
     const [select, sselect] = useState([]);
-    const [year, syear] = useState([]);
-    const [otp, sotp] = useState([]);
-    const [x, sx] = useState(1);
+    const [year, syear] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const date = new Date();
     const toast = useToast()
-    const Attend = async () => {
+    const Attend = async (registerno) => {
         try {
-            if (parseInt(otp)) {
-                const responce = await axios.post(process.env.REACT_APP_database + "/student/" + atnd.Gmail)
-                {
-                    if (responce.data) {
-                        console.log(responce.data)
-                        if (x === 1) {
-                            atnd.Num = (parseInt(responce.data.Num) + 1);
-                            sx(2);
-                            const responce1 = await axios.post(process.env.REACT_APP_database + "/loginstudent/" + atnd.Gmail + "/" + atnd.Num + "/" + date.toDateString())
-                            {
-                                if (responce1) {
-                                    toast({ title: atnd.Reg_No + " Attend", status: "success", position: "top", isClosable: true })
-                                    sotp(' ')
-                                    document.getElementById('otps').style.display='none'
-                                }
-                                else {
-                                    toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true })
-                                }
-                            }
-                        }
-                    }
-                    else {
-                        toast({ title: "Student not found", status: "error", position: "bottom-left", isClosable: true })
-                    }
+            const responce = await axios.post(process.env.REACT_APP_database + "/attendstudent/" + registerno)
+            {
+                if (responce?.data?.message) {
+                    toast({ title: registerno + " Attend", status: "success", position: "top", isClosable: true })
                 }
-            }
-            else {
-                toast({ title: "Invalid code", status: "error", position: "bottom-left", isClosable: true })
+                else {
+                    toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true })
+                }
             }
         }
         catch (e) {
             console.log(e);
         }
     }
-    const Send = async () => {
-        document.getElementById('otps').style.display='block'
+    const Absent = async (registerno) => {
+        try {
+            const responce1 = await axios.post(process.env.REACT_APP_database + "/absentstudent/" + registerno)
+            {
+                if (responce1) {
+                    toast({ title: registerno + " Absent", status: "success", position: "top", isClosable: true })
+                }
+                else {
+                    toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true })
+                }
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
     const Year = () => {
         sessionStorage.year = year;
     }
     useEffect(() => {
-        axios.post(process.env.REACT_APP_database + "/students")
+        axios.post(process.env.REACT_APP_database + "/bootcampstudents")
             .then((result) => {
                 sdat((result.data.sort((a, b) => a.Year - b.Year)));
             })
@@ -214,24 +206,9 @@ export const BootAttendance = () => {
             setIsLoading(false);
         }, 2000);
     }, [dat])
-    console.log(otp)
     return (
         <>
-            <div className="otp" id='otps'>
-                <HStack>
-                    <PinInput type='alphanumeric' >
-                        <PinInputField value={otp} onChange={(e) => { sotp(e.target.value) }}/>
-                        <PinInputField value={otp} onChange={(e) => { sotp(otp+e.target.value) }}/>
-                        <PinInputField value={otp} onChange={(e) => { sotp(otp+e.target.value) }}/>
-                        <PinInputField value={otp} onChange={(e) => { sotp(otp+e.target.value) }}/>
-                    </PinInput>
-                </HStack>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <button onClick={Attend}><b>Submit</b></button>
-                    <Button style={{ backgroundColor: 'red' }} onClick={() => document.getElementById("otps").style.display = "none"}><b>X</b></Button>
-                </div>
-            </div>
-            <div className="clgname">VEDIC VISION BOOTCAMP</div>
+            <BootcampNav />
             <div className="yearbtns">
                 <Button className="yearbtnsink" style={{backgroundColor: '#17D7A0',borderRadius:'10px',borderColor:'white'}}onClick={Year} onClickCapture={(e) => { syear(1) }}><b>I Btech</b></Button>
                 <Button className="yearbtnsink" style={{ backgroundColor: '#CCA8E9',borderRadius:'10px' ,borderColor:'white'}} onClick={Year} onClickCapture={(e) => { syear(2) }}><b>II Btech</b></Button>
