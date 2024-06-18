@@ -25,6 +25,7 @@
     "nodemailer": "^6.9.12",
     "nodemon": "^2.0.22",
     "textflow.js": "^0.1.4",
-    "twilio": "^4.19.0"
+    "twilio": "^4.19.0",
+    "xlsx": "^0.18.5"
   }
 }

@@ -5,6 +5,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import ScoreIcon from '@mui/icons-material/Score';
 import React, { useState } from 'react';
 import { Menu, MenuItem, Sidebar } from 'react-pro-sidebar';
@@ -16,6 +17,7 @@ import { BootcampScore } from '../scoremanager/bootcampscore';
 import BootcampTasks from '../taskmanger/bootcamptaskmager';
 import './bootcampsidebar.css';
 import { useNavigate } from 'react-router-dom';
+import { StudentsData } from '../studentdata/studentdata';
 
 const queryParams = new URLSearchParams(window.location.search);
 const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
@@ -36,6 +38,7 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
                 <MenuItem icon={<LibraryBooksIcon />} onClick={() => { select(4); queryParams.set("page", "material"); nav({ search: queryParams.toString() }) }}>Materials</MenuItem>
                 <MenuItem icon={<ScoreIcon />} onClick={() => { select(5); queryParams.set("page", "score"); nav({ search: queryParams.toString() }) }}>Score</MenuItem>
                 <MenuItem icon={<AssignmentIcon />} onClick={() => { select(6); queryParams.set("page", "tasks"); nav({ search: queryParams.toString() }) }}>Tasks</MenuItem>
+                <MenuItem icon={<SchoolOutlinedIcon />} onClick={() => { select(7); queryParams.set("page", "students"); nav({ search: queryParams.toString() }) }}>Students Data</MenuItem>
                 <MenuItem icon={<CodeIcon />} onClick={() => window.location.href = '/hackathon'}>Hackathon</MenuItem>
             </Menu>
         </Sidebar>
@@ -61,7 +64,8 @@ export const BootcampSidebar = () => {
                     set === "attendance" && <BootAttendance /> ||
                     set === "material" && <BootcampMaterial /> ||
                     set === "score" && <BootcampScore /> ||
-                    set === "tasks" && <BootcampTasks />
+                    set === "tasks" && <BootcampTasks />||
+                    set === "students"&&<StudentsData/>
                 }
             </main>
         </div>

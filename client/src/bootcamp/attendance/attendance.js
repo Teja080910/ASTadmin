@@ -57,11 +57,12 @@ export const BootAttendance = () => {
         axios.post(process.env.REACT_APP_database + "/bootcampstudents")
             .then((result) => {
                 sdat((result.data.sort((a, b) => a.Year - b.Year)));
+                console.log(dat.map((val)=>val.Reg_No))
             })
         setTimeout(() => {
             setIsLoading(false);
         }, 2000);
-    }, [dat])
+    }, [year])
     return (
         <>
             <BootcampNav />
@@ -84,12 +85,12 @@ export const BootAttendance = () => {
                             </Box> :
                             <Accordion allowToggle>
                                 {dat.filter(user =>
-                                (user?.Reg_No.toLowerCase().includes(select) ||
-                                    user?.Reg_No.toUpperCase().includes(select) ||
-                                    user?.Name.toUpperCase().includes(select) ||
-                                    user?.Name.toLowerCase().includes(select))
+                                (user?.Reg_No?.toLowerCase().includes(select) ||
+                                    user?.Reg_No?.toUpperCase().includes(select) ||
+                                    user?.Name?.toUpperCase().includes(select) ||
+                                    user?.Name?.toLowerCase().includes(select))
                                 ).map((x, index) => (
-                                    x.Year === sessionStorage.year &&
+                                    x.Year == sessionStorage.year &&
                                     <AccordionItem key={index} style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                                         <Box style={{ fontFamily: 'bold' }} flex="1" textAlign="left">
                                             {index + 1}. {x?.Name.toUpperCase()} ({x?.Reg_No.toUpperCase()})
