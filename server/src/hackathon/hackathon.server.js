@@ -11,6 +11,7 @@ import { InsertTask } from '../bootcamp/taskmanger/insertask.js';
 import { HideTasks, ShowTasks } from '../bootcamp/taskmanger/showtask.js';
 import { Tasks } from '../bootcamp/taskmanger/tasks.js';
 import { initiateMulter } from '../multer/multer.js';
+import { DeleteStudent, UpdateStudent } from '../bootcamp/studentdata/updatestudent.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -64,6 +65,14 @@ app.post('/bootcampstudents',async(req,res)=>{
 
 app.post('/attendstudent/:regd',async(req,res)=>{
     await AttendStudent(req.params.regd,res)
+})
+
+app.post('/updatestudent',async(req,res)=>{
+    await UpdateStudent(req.body.student,res)
+})
+
+app.post('/deletestudent',async(req,res)=>{
+    await DeleteStudent(req.body.student,res)
 })
 
 app.post('/absentstudent/:regd',async(req,res)=>{
