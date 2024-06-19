@@ -85,6 +85,7 @@ const Login = () => {
         }).then(
             message => message === "OK" ? document.getElementById('otps').style.display = 'block' : toast({title:message,status:"error",position:"bottom-left", isClosable:true})
         )
+        .catch((e)=>console.log(e))
     }
     const Complete = () => {
         sessionStorage.removeItem('name');

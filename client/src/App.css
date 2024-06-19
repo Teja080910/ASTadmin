@@ -244,9 +244,17 @@ table tbody p {
   transform: rotate(180deg);
 }
 
+.studentdata{
+  height: 70vh;
+  overflow-y: scroll;
+}
+
 @media (max-width:700px) {
   .simplegrid {
     margin-left: 0%;
     width: 100%;
+  }
+  .studentdata{
+    height: 100vh;
   }
 }

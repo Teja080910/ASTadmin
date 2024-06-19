@@ -13,7 +13,6 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import '../attendance/attendance.css';
-import { BootcampNav } from "../bootcampnav/bootcampnav";
 import { StudentUpdateModel } from "./studentupdatemodel";
 import { UploadModel } from "./uploadmodel";
 export const StudentsData = () => {
@@ -56,13 +55,13 @@ export const StudentsData = () => {
     }, [])
     return (
         <>
-            <BootcampNav />
+            {/* <BootcampNav /> */}
             <UploadModel isOpen={open} onClose={() => setOpen(false)} />
             <StudentUpdateModel show={show} close={() => setShow(false)} data={data} />;
             <div style={{ width: "100%", display: "flex", justifyContent: "right", padding: "5%" }}>
                 <Button style={{ backgroundColor: "black", color: 'white' }} onClick={() => setOpen(true)}>Upload File</Button>
             </div>
-            <div>
+            <div className="studentdata">
                 <Box display="flex" justifyContent="center" mb={6}>
                     <Input id="search" value={select} placeholder="Enter User mail or name" onChange={(e) => sselect(e.target.value)} width="50%" />
                 </Box>

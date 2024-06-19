@@ -12,6 +12,10 @@ import { HideTasks, ShowTasks } from '../bootcamp/taskmanger/showtask.js';
 import { Tasks } from '../bootcamp/taskmanger/tasks.js';
 import { initiateMulter } from '../multer/multer.js';
 import { DeleteStudent, UpdateStudent } from '../bootcamp/studentdata/updatestudent.js';
+import { InsertPS } from './problemstatements/insertps.js';
+import { PSS } from './problemstatements/pss.js';
+import { EditPS } from './problemstatements/editps.js';
+import { DeletePS } from './problemstatements/deleteps.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -20,6 +24,8 @@ app.get('/hackathon', (req, res) => {
     res.json("hackathon server is running.....");
 })
 
+
+// ***********************************BootCamp***************************************************** //
 app.post('/uploadfile', initiateMulter(), async (req, res) => {
     if (req.files) {
         await UploadFiles(req?.files[0], res)
@@ -36,7 +42,7 @@ app.get('/file/:filename', async (req, res) => {
 });
 
 app.post('/inserttask', async (req, res) => {
-    await InsertTask(req.body.day, req.body.task, req.body.description,req.body.mark, res)
+    await InsertTask(req.body.day, req.body.task, req.body.description,req.body.marks, res)
 })
 
 app.post('/deletetask', async (req, res) => {
@@ -81,6 +87,25 @@ app.post('/absentstudent/:regd',async(req,res)=>{
 
 app.post('/studentxlsx',initiateMulter(),async(req,res)=>{
     await UploadStudents(req?.files[0],res)
+})
+
+
+// *************************************************Hackathon****************************************** //
+
+app.post('/insertstatement',async(req,res)=>{
+    await InsertPS(req.body.number,req.body.statement,req.body.description,res)
+})
+
+app.post('/editstatement',async(req,res)=>{
+    await EditPS(req.body.selectnumber,req.body.selectstatement,req.body.selectdesc,res)
+})
+
+app.post('/deletestatement',async(req,res)=>{
+    await DeletePS(req.body.selectstatement,res)
+})
+
+app.post('/statements',async(req,res)=>{
+    await PSS(res)
 })
 
 export default app;
