@@ -2,7 +2,7 @@ import xlsx from 'xlsx';
 import { db1 } from "../../db.js";
 export const UploadStudents = async(files,res) => {
     try {
-        let xlfile = xlsx.read(files[0].buffer, { type: 'buffer' });
+        let xlfile = xlsx.read(files.buffer, { type: 'buffer' });
         let sheet = xlfile.Sheets[xlfile.SheetNames[0]];
         let jsonfile = xlsx.utils.sheet_to_json(sheet);
         const filters = jsonfile.map(student => ({
@@ -23,6 +23,7 @@ export const UploadStudents = async(files,res) => {
                         res.json({ message: "inserted", details })
                     })
                     .catch((e) => {
+                        console.log(e)
                         res.json({ error: "File columns not match" })
                     });
             }
@@ -32,6 +33,7 @@ export const UploadStudents = async(files,res) => {
         }
     }
     catch (e) {
+        console.log(e)
         if (e.code === 11000) {
             res.json({ error: "File data exist" })
         }

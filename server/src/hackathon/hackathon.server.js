@@ -1,15 +1,16 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
+import { AbsentStudent, AttendStudent } from '../bootcamp/attendance/attendance.js';
 import { FileByName, RetriveFiles, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
+import { Students } from '../bootcamp/studentdata/students.js';
+import { UploadStudents } from '../bootcamp/studentdata/uploadstudentdata.js';
 import { DeleteTasks } from '../bootcamp/taskmanger/deletetask.js';
 import { EditTasks } from '../bootcamp/taskmanger/edittask.js';
 import { InsertTask } from '../bootcamp/taskmanger/insertask.js';
 import { HideTasks, ShowTasks } from '../bootcamp/taskmanger/showtask.js';
 import { Tasks } from '../bootcamp/taskmanger/tasks.js';
 import { initiateMulter } from '../multer/multer.js';
-import { Students } from '../bootcamp/studentdata/students.js';
-import { AbsentStudent, AttendStudent } from '../bootcamp/attendance/attendance.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -67,6 +68,10 @@ app.post('/attendstudent/:regd',async(req,res)=>{
 
 app.post('/absentstudent/:regd',async(req,res)=>{
     await AbsentStudent(req.params.regd,res)
+})
+
+app.post('/studentxlsx',initiateMulter(),async(req,res)=>{
+    await UploadStudents(req?.files[0],res)
 })
 
 export default app;
