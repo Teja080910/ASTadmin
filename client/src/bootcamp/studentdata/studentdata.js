@@ -4,6 +4,7 @@ import {
     AccordionItem,
     AccordionPanel,
     Box,
+    Button,
     Input,
     Spinner,
     Text,
@@ -11,33 +12,33 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button } from "@chakra-ui/react";
 import '../attendance/attendance.css';
 import { BootcampNav } from "../bootcampnav/bootcampnav";
-import { UploadModel } from "./uploadmodel";
 import { StudentUpdateModel } from "./studentupdatemodel";
+import { UploadModel } from "./uploadmodel";
 export const StudentsData = () => {
     const [open, setOpen] = useState(false)
     const [show, setShow] = useState(false)
     const [dat, sdat] = useState([]);
-    const [data,setData]=useState();
+    const [data, setData] = useState();
     const [select, sselect] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const date = new Date();
     const toast = useToast()
-    
-    const Attend = async (data) => {
-        try {
 
-            // const responce1 = await axios.post(process.env.REACT_APP_database + "/loginstudent/")
-            // {
-            //     if (responce1) {
-            //         toast({ title: + " Attend", status: "success", position: "top", isClosable: true })
-            //     }
-            //     else {
-            //         toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true })
-            //     }
-            // }
+    const Remove = async (student) => {
+        try {
+            const responce = await axios.post(process.env.REACT_APP_database + "/deletestudent",{student})
+            {
+                if (responce.data) {
+                    toast({ title:"Delete Sucessfully", status: "success", position: "top", isClosable: true })
+                    setTimeout(() => {
+                        window.location.reload(3)
+                    }, 1000);
+                }
+                else {
+                    toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true })
+                }
+            }
         }
         catch (e) {
             console.log(e);
@@ -52,7 +53,7 @@ export const StudentsData = () => {
         setTimeout(() => {
             setIsLoading(false);
         }, 2000);
-    }, [dat])
+    }, [])
     return (
         <>
             <BootcampNav />
@@ -81,15 +82,15 @@ export const StudentsData = () => {
                                     <AccordionItem key={index}>
                                         <AccordionButton>
                                             <Box style={{ fontFamily: 'bold' }} flex="1" textAlign="left">
-                                                {index + 1}. {x.Name.toUpperCase()} ({x.Reg_No.toUpperCase()})
+                                                {index + 1}. {x?.Name?.toUpperCase()} ({x?.Reg_No?.toUpperCase()})
                                             </Box>
                                         </AccordionButton>
                                         <AccordionPanel pb={4}>
-                                            <Text style={{ fontFamily: 'serif' }}>Register Number: {x.Reg_No.toUpperCase()}</Text>
-                                            <Text style={{ fontFamily: 'serif' }}>Name: {x.Name.toUpperCase()}</Text>
+                                            <Text style={{ fontFamily: 'serif' }}>Register Number: {x?.Reg_No?.toUpperCase()}</Text>
+                                            <Text style={{ fontFamily: 'serif' }}>Name: {x?.Name?.toUpperCase()}</Text>
                                             <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                                                <Button colorScheme="blue" onClick={() =>{setData(x);setShow(true)}}>Update</Button>
-                                                <Button colorScheme="red" onClick={()=>(x)}>Remove</Button>
+                                                <Button colorScheme="blue" onClick={() => { setData(x); setShow(true) }}>Update</Button>
+                                                <Button colorScheme="red" onClick={() => (Remove(x?.Reg_No))}>Remove</Button>
                                             </div>
                                         </AccordionPanel>
                                     </AccordionItem>

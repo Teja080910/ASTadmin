@@ -39,8 +39,10 @@ export const UploadModel = ({ isOpen, onClose }) => {
                                 <div>
                                     <Label htmlFor="multiple-file-upload" value="Upload xlsx file" />
                                 </div>
-                                <FileInput id="multiple-file-upload" accept=".xlsx,.xls" helperText="Only XLSX Accepted" onChange={(e) => setFile(e.target.files[0])} />
+                                <FileInput id="multiple-file-upload" accept=".xlsx,.xls" helperText="Only XLSX,XLS Accepted" onChange={(e) => setFile(e.target.files[0])} />
                             </div>
+                            <Label htmlFor="multiple-file-upload" value="Follow These Column names in your XLS file" />
+                            <p>Gmail, Name, Number, Reg_No, Year, Branch, Section</p>
                         </FormControl>
                     </ModalBody>
                     <ModalFooter>
