@@ -69,7 +69,7 @@ export const StudentsData = () => {
                     {
                         isLoading ?
                             <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
-                                <Spinner size="xl" />
+                                <Spinner size="xl" />Loading
                             </Box> :
                             <Accordion allowToggle>
                                 {dat.filter(user =>

@@ -1,19 +1,12 @@
 import {
     Badge,
     Box,
-    Button,
     Flex,
     Heading,
     Input,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    ModalOverlay,
     Spinner,
-    Text
+    Text,
+    Button
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -23,10 +16,8 @@ export const BootcampScore = () => {
     const [dat, setDat] = useState([]);
     const [select, setSelect] = useState("");
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedStudent, setSelectedStudent] = useState(null);
-    const [task1ScoreInput, setTask1ScoreInput] = useState("");
-    const [task2ScoreInput, setTask2ScoreInput] = useState("");
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [task1Score, setTask1Score] = useState({});
+    const [task2Score, setTask2Score] = useState({});
 
     const fetchStudentData = async () => {
         try {
@@ -42,33 +33,6 @@ export const BootcampScore = () => {
     useEffect(() => {
         fetchStudentData();
     }, []);
-
-    const openModal = (student) => {
-        setSelectedStudent(student);
-        setTask1ScoreInput(student.Task1 || "");
-        setTask2ScoreInput(student.Task2 || "");
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-
-    const saveScores = () => {
-        const updatedStudents = dat.map(student => {
-            if (student.Reg_No === selectedStudent.Reg_No) {
-                return {
-                    ...student,
-                    Task1: task1ScoreInput,
-                    Task2: task2ScoreInput
-                };
-            }
-            return student;
-        });
-        setDat(updatedStudents);
-        setIsModalOpen(false);
-    };
-
     return (
         <div className="scores">
             <div className="clgname">VEDIC VISION BOOTCAMP</div>
@@ -87,7 +51,7 @@ export const BootcampScore = () => {
                     <Spinner size="xl" />
                 </Box>
             ) : (
-                <Flex flexWrap="wrap" justifyContent="center">
+                <Flex flexDirection="column" alignItems="center">
                     {dat
                         .filter(user =>
                             user.Reg_No.toLowerCase().includes(select) ||
@@ -99,54 +63,40 @@ export const BootcampScore = () => {
                             <Box
                                 style={{ fontFamily: 'serif' }}
                                 key={index}
-                                maxW="sm"
                                 borderWidth="1px"
                                 borderRadius="lg"
                                 overflow="hidden"
-                                shadow="md"
+                                shadow="lg"
                                 m={4}
                                 p={4}
                                 textAlign="center"
-                                width="300px"
+                                width="100%"
+                                maxW="xx-l"
                             >
                                 <Heading style={{ fontFamily: 'serif' }} as="h2" size="md">{x.Name.toUpperCase()}</Heading>
                                 <Flex justifyContent="space-between" alignItems="center" mt={2}>
                                     <Badge style={{ marginLeft: '80%' }} colorScheme="blue">{x.Year} Btech</Badge>
                                 </Flex>
-                                <Text mt={2}>Task 1 score: {x.Task1}</Text>
-                                <Text mt={2}>Task 2 score: {x.Task2}</Text>
-                                <Button mt={8} onClick={() => openModal(x)}>Give score</Button>
+                                <Text mt={2}>
+                                    Task 1 score: {x.Task1}
+                                    
+                                </Text>
+                                <Text mt={2}>
+                                    Task 2 score: {x.Task2}
+                                    
+                                </Text>
+                                <input
+                                        className="blank-input"
+                                        placeholder='Enter task1 score'
+                                    /><br/>
+                                    <input
+                                        className="blank-input"
+                                        placeholder='Enter task2 score'
+                                    /><br/>
+                                <Button mt={2}>Save</Button>
                             </Box>
                         ))}
                 </Flex>
-            )}
-            {selectedStudent && (
-                <Modal isOpen={isModalOpen} onClose={closeModal}>
-                    <ModalOverlay />
-                    <ModalContent>
-                        <ModalHeader style={{ fontFamily: 'serif' }}>{selectedStudent?.Name.toUpperCase()} Details</ModalHeader>
-                        <ModalCloseButton />
-                        <ModalBody style={{ fontFamily: 'inherit', fontWeight: 'bold' }}>
-                            <Text fontSize="sm">Register Number: {selectedStudent?.Reg_No.toUpperCase()}</Text>
-                            <Text fontSize="sm">Tasks Assigned: {selectedStudent?.Tasks}</Text>
-
-                            <Flex flexDirection="column" mt={4}>
-                                <Input mb={4} value={task1ScoreInput} onChange={(e) => setTask1ScoreInput(e.target.value)} placeholder="Enter Task 1 score" />
-                                <Input mb={4} value={task2ScoreInput} onChange={(e) => setTask2ScoreInput(e.target.value)} placeholder="Enter Task 2 score" />
-                            </Flex>
-
-                            <Flex justifyContent="space-between" alignItems="center" mt={2}>
-                                <Badge colorScheme="blue">{selectedStudent?.Year} Btech</Badge>
-                            </Flex>
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button colorScheme="blue" mr={3} onClick={closeModal}>
-                                Close
-                            </Button>
-                            <Button colorScheme="blue" mr={3} onClick={saveScores}>Save</Button>
-                        </ModalFooter>
-                    </ModalContent>
-                </Modal>
             )}
         </div>
     );
