@@ -29,7 +29,7 @@ export const StreakGraph = ({ studentdata, totaldata }) => {
                 setName(value.Name)
                 setStustot('')
             }
-           }
+        }
             catch {
                 total = parseInt(total) + parseInt(value.Num)
                 setStustot(total);
@@ -44,7 +44,7 @@ export const StreakGraph = ({ studentdata, totaldata }) => {
         ],
         datasets: [{
             label: 'Attendance',
-            data: [stutot ? stutot : stustot / totaldata.Days, totaldata.Days],
+            data: [stutot ? stutot : stustot / totaldata?.Days, totaldata?.Days],
             backgroundColor: [
                 'rgb(255, 99, 132)',
                 'rgb(54, 162, 235)'

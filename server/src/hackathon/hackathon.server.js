@@ -34,7 +34,7 @@ app.get('/file/:filename', async (req, res) => {
 });
 
 app.post('/inserttask', async (req, res) => {
-    await InsertTask(req.body.day, req.body.task, req.body.description, res)
+    await InsertTask(req.body.day, req.body.task, req.body.description,req.body.marks, res)
 })
 
 app.post('/deletetask', async (req, res) => {
@@ -42,7 +42,7 @@ app.post('/deletetask', async (req, res) => {
 })
 
 app.post('/edittask', async (req, res) => {
-    await EditTasks(req.body.selectday, req.body.selecttask, req.body.selectdesc, req.body.index, res)
+    await EditTasks(req.body.selectday, req.body.selecttask, req.body.selectdesc,  req.body.index, res)
 })
 
 app.post('/showtask', async (req, res) => {
