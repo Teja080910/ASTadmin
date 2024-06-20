@@ -7,7 +7,7 @@ export const TaskInput = ({ tasks, reload }) => {
     const [day, setDay] = useState('');
     const [task, setTask] = useState('');
     const [description, setDescription] = useState('');
-    const [marks,setMarks] = useState('');
+    const [marks, setMarks] = useState('');
     const [indexs, setIndexes] = useState();
     const [update, setUpdate] = useState(false)
     const [load, setLoad] = useState(false)
@@ -16,8 +16,9 @@ export const TaskInput = ({ tasks, reload }) => {
     const handleSubmit = async () => {
         setLoad(true)
         try {
-            const response = await axios.post(process.env.REACT_APP_database + '/inserttask', { day, task, description ,marks });
+            const response = await axios.post(process.env.REACT_APP_database + '/inserttask', { day, task, description, marks });
             if (response.data) {
+                reload()
                 setLoad(false)
                 toast({ title: "insert sucessfully", status: "success", position: "top-right", isClosable: true })
                 setDay('');
@@ -65,7 +66,7 @@ export const TaskInput = ({ tasks, reload }) => {
         }
     }
 
-    const EditTask = async (selectday, selecttask, selectdesc,selectmarks,index) => {
+    const EditTask = async (selectday, selecttask, selectdesc, selectmarks, index) => {
         try {
             setDay(selectday)
             setTask(selecttask)
@@ -105,6 +106,32 @@ export const TaskInput = ({ tasks, reload }) => {
         }
     }
 
+    const DayShow = async (dayshow) => {
+        try {
+            const show = await axios.post(process.env.REACT_APP_database + '/showday', { dayshow });
+            if (show.data) {
+                reload()
+                toast({ title: "access:show day", status: "success", position: "top-right", isClosable: true })
+            }
+        } catch (error) {
+            console.log(error)
+            toast({ title: error, status: "error", position: "bottom-left", isClosable: true })
+        }
+    }
+
+    const DayHide = async (dayhide ) => {
+        try {
+            const hide = await axios.post(process.env.REACT_APP_database + '/hideday', { dayhide });
+            if (hide.data) {
+                reload()
+                toast({ title: "access:hide day", status: "success", position: "top-right", isClosable: true })
+            }
+        } catch (error) {
+            console.log(error)
+            toast({ title: error, status: "error", position: "bottom-left", isClosable: true })
+        }
+    }
+
 
 
     return (
@@ -135,7 +162,7 @@ export const TaskInput = ({ tasks, reload }) => {
                     onChange={(e) => setMarks(e.target.value)}
                     size="lg"
                 />
-                {update ? <Button colorScheme="cyan" onClick={() => Edit(day, task, description,marks, indexs)}>{load ? "Updating..." : "Update Task"}</Button> :
+                {update ? <Button colorScheme="cyan" onClick={() => Edit(day, task, description, marks, indexs)}>{load ? "Updating..." : "Update Task"}</Button> :
                     <Button colorScheme="cyan" onClick={handleSubmit}>{load ? "Adding..." : "Add Task"}</Button>}
             </Stack>
 
@@ -144,7 +171,12 @@ export const TaskInput = ({ tasks, reload }) => {
                     <h1 className='h1-tasks'>Tasks in Bootcamp</h1>
                     {tasks?.map((task, index) => (
                         <Box key={index} className='task-item' p={4} borderWidth={1} borderRadius="lg" mb={4}>
-                            <Text fontWeight="bold" textAlign="center">Day {task?.Day}</Text>
+                            <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
+                                <Text fontWeight="bold" textAlign="center">Day {task?.Day}</Text>
+                                <div style={{ display: "flex", width: "30%", justifyContent: "right" }}>
+                                    {!task?.Show ? <Button onClick={() => DayShow(task?.Day)}>Show</Button> : <Button onClick={() => DayHide(task?.Day)}>Hide</Button>}
+                                </div>
+                            </div>
                             {
                                 task?.Tasks?.map((val, index) => (
                                     <>
@@ -154,11 +186,12 @@ export const TaskInput = ({ tasks, reload }) => {
                                         <div className='task-select' >
                                             <div className='task-select2'>
                                                 {<Button bg="#CE5A67" color="white" onClick={() => Delete(task?.Day, val?.Task, index)}>Delete</Button>}
-                                                <Button bg="#F4BF96" color="white" onClick={() => EditTask(task?.Day, val?.Task, val?.Desc,val?.Marks, index)}>Edit</Button>
+                                                <Button bg="#F4BF96" color="white" onClick={() => EditTask(task?.Day, val?.Task, val?.Desc, val?.Marks, index)}>Edit</Button>
                                                 {!val?.Show ? <Button bg="#1F1717" color="white" onClick={() => Show(task?.Day, index)}>Show</Button> :
                                                     <Button bg="#1F1717" color="white" onClick={() => Hide(task?.Day, index)}>Hide</Button>}
                                             </div>
                                         </div>
+                                        <hr />
                                     </>
                                 ))
                             }

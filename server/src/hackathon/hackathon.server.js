@@ -4,18 +4,18 @@ import express from 'express';
 import { AbsentStudent, AttendStudent } from '../bootcamp/attendance/attendance.js';
 import { FileByName, RetriveFiles, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
 import { DeleteAll, Students } from '../bootcamp/studentdata/students.js';
+import { DeleteStudent, UpdateStudent } from '../bootcamp/studentdata/updatestudent.js';
 import { UploadStudents } from '../bootcamp/studentdata/uploadstudentdata.js';
 import { DeleteTasks } from '../bootcamp/taskmanger/deletetask.js';
 import { EditTasks } from '../bootcamp/taskmanger/edittask.js';
 import { InsertTask } from '../bootcamp/taskmanger/insertask.js';
-import { HideTasks, ShowTasks } from '../bootcamp/taskmanger/showtask.js';
+import { HideDay, HideTasks, ShowDay, ShowTasks } from '../bootcamp/taskmanger/showtask.js';
 import { Tasks } from '../bootcamp/taskmanger/tasks.js';
 import { initiateMulter } from '../multer/multer.js';
-import { DeleteStudent, UpdateStudent } from '../bootcamp/studentdata/updatestudent.js';
+import { DeletePS } from './problemstatements/deleteps.js';
+import { EditPS } from './problemstatements/editps.js';
 import { InsertPS } from './problemstatements/insertps.js';
 import { PSS } from './problemstatements/pss.js';
-import { EditPS } from './problemstatements/editps.js';
-import { DeletePS } from './problemstatements/deleteps.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -59,6 +59,14 @@ app.post('/showtask', async (req, res) => {
 
 app.post('/hidetask', async (req, res) => {
     await HideTasks(req.body.selectday, req.body.index, res)
+})
+
+app.post('/showday', async (req, res) => {
+    await ShowDay(req.body.dayshow,res)
+})
+
+app.post('/hideday', async (req, res) => {
+    await HideDay(req.body.dayhide, res)
 })
 
 app.post('/tasks', async (req, res) => {

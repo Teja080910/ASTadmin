@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./TimerManager.css";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import "./TimerManager.css";
 
 const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
   const [timers, setTimers] = useState([]);
@@ -11,7 +11,6 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
   const [alert, setAlert] = useState("");
 
   const sendAlert = async () => {
-    URL = "http://localhost:5000";
     const result = await axios.post(`${URL}/api/notify`, {
       notification: alert,
     });
@@ -81,65 +80,65 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
   return (
 
     <div className="timer-container">
-     
-    <div className="timer-container-main">
-      <div>
-        <h1>Alerts</h1>
-        <input
-          type="text"
-          value={alert}
-          onChange={(e) => {
-            setAlert(e.target.value);
-          }}
-        />
-        <button onClick={sendAlert}>Send</button>
-      </div>
-      <hr/>
-      
-      <div>
-      <h1>Manage Timers</h1>
-        <label>Duration (hh:mm): </label>
-        <input
-          type="time"
-          value={duration}
-          onChange={(e) => setDuration(e.target.value)}
-          required
-        />
 
-        <label>Title: </label>
-        <input
-          type="text"
-          value={timerTitle}
-          onChange={(e) => setTimerTitle(e.target.value)}
-          required
-        />
-        <label>color: </label>
-        <input
-          type="color"
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
-          required
-        />
-        <button onClick={setEventTime}>Add Timer</button>
-      </div>
-      <div className="timers">
-        <h2>Existing Timers</h2>
-        <ul>
-          {timers.length>0 ? timers.map((timer) => (
-            <li key={timer.id}>
-              <div>
-              <p>{timer.title} - {new Date(timer.endTime).toLocaleString()}</p>
+      <div className="timer-container-main">
+        <div>
+          <h1>Alerts</h1>
+          <input
+            type="text"
+            value={alert}
+            onChange={(e) => {
+              setAlert(e.target.value);
+            }}
+          />
+          <button onClick={sendAlert}>Send</button>
+        </div>
+        <hr />
 
-              </div>
-              <div>
-              <button onClick={() => deleteTimer(timer.id)}><DeleteForeverIcon/></button>
+        <div>
+          <h1>Manage Timers</h1>
+          <label>Duration (hh:mm): </label>
+          <input
+            type="time"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+            required
+          />
 
-              </div>
-            </li>
-          )) : <li > no timers found</li>}
-        </ul>
+          <label>Title: </label>
+          <input
+            type="text"
+            value={timerTitle}
+            onChange={(e) => setTimerTitle(e.target.value)}
+            required
+          />
+          <label>color: </label>
+          <input
+            type="color"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+            required
+          />
+          <button onClick={setEventTime}>Add Timer</button>
+        </div>
+        <div className="timers">
+          <h2>Existing Timers</h2>
+          <ul>
+            {timers.length > 0 ? timers.map((timer) => (
+              <li key={timer.id}>
+                <div>
+                  <p>{timer.title} - {new Date(timer.endTime).toLocaleString()}</p>
+
+                </div>
+                <div>
+                  <button onClick={() => deleteTimer(timer.id)}><DeleteForeverIcon /></button>
+
+                </div>
+              </li>
+            )) : <li > no timers found</li>}
+          </ul>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

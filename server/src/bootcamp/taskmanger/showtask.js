@@ -14,6 +14,17 @@ export const ShowTasks = async (day, index, res) => {
     }
 }
 
+export const ShowDay = async (day, res) => {
+    try {
+        const updatetask = await db1.collection("Tasks").findOneAndUpdate({ Day: day }, { $set: {Show: true } })
+            if (updatetask?.value) {
+                res.json(updatetask)
+            }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const HideTasks = async (day, index, res) => {
     try {
         const tasks = await db1.collection("Tasks").findOne({ Day: day })
@@ -22,6 +33,17 @@ export const HideTasks = async (day, index, res) => {
             if (updatetask?.value) {
                 res.json(updatetask)
             }
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const HideDay = async (day, res) => {
+    try {
+        const updatetask = await db1.collection("Tasks").findOneAndUpdate({ Day: day }, { $set: { Show: false } })
+        if (updatetask?.value) {
+            res.json(updatetask)
         }
     } catch (error) {
         console.log(error)
