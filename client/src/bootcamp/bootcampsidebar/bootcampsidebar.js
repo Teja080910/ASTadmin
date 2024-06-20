@@ -58,13 +58,13 @@ export const BootcampSidebar = () => {
             <SidebarContent collapsed={collapsed} toggleSidebar={toggleSidebar} select={(val) => setSelect(val || 1)} />
             <main className='main-content' onClick={() => collapsed || toggleSidebar()} onDoubleClick={() =>toggleSidebar()}>
                 {
-                    set === "home" && <BootcampHome /> ||
+                    (set === "home" && <BootcampHome />) ||
                     // set === "team" && <BootcampTeam /> ||
-                    set === "attendance" && <BootAttendance /> ||
-                    set === "material" && <BootcampMaterial /> ||
-                    set === "score" && <BootcampScore /> ||
-                    set === "tasks" && <BootcampTasks />||
-                    set === "students"&&<StudentsData/>
+                    (set === "attendance" && <BootAttendance /> )||
+                    (set === "material" && <BootcampMaterial />) ||
+                    (set === "score" && <BootcampScore />) ||
+                    (set === "tasks" && <BootcampTasks />)||
+                    (set === "students"&&<StudentsData/>)
                 }
             </main>
         </div>
