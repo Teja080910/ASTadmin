@@ -18,6 +18,7 @@ import { UploadModel } from "./uploadmodel";
 export const StudentsData = () => {
     const [open, setOpen] = useState(false)
     const [show, setShow] = useState(false)
+    const [deletes, setDelete] = useState(false)
     const [dat, sdat] = useState([]);
     const [data, setData] = useState();
     const [select, sselect] = useState([]);
@@ -26,10 +27,30 @@ export const StudentsData = () => {
 
     const Remove = async (student) => {
         try {
-            const responce = await axios.post(process.env.REACT_APP_database + "/deletestudent",{student})
+            const responce = await axios.post(process.env.REACT_APP_database + "/deletestudent", { student })
             {
                 if (responce.data) {
-                    toast({ title:"Delete Sucessfully", status: "success", position: "top", isClosable: true })
+                    toast({ title: "Delete Sucessfully", status: "success", position: "top", isClosable: true })
+                    setTimeout(() => {
+                        window.location.reload(3)
+                    }, 1000);
+                }
+                else {
+                    toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true })
+                }
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    const RemoveAll = async () => {
+        try {
+            const responce = await axios.post(process.env.REACT_APP_database + "/deletestudents")
+            {
+                if (responce.data) {
+                    toast({ title: "Delete Sucessfully", status: "success", position: "top", isClosable: true })
                     setTimeout(() => {
                         window.location.reload(3)
                     }, 1000);
@@ -57,7 +78,7 @@ export const StudentsData = () => {
         <>
             {/* <BootcampNav /> */}
             <UploadModel isOpen={open} onClose={() => setOpen(false)} />
-            <StudentUpdateModel show={show} close={() => setShow(false)} data={data} />;
+            <StudentUpdateModel show={show} close={() => setShow(false)} data={data} />
             <div style={{ width: "100%", display: "flex", justifyContent: "right", padding: "5%" }}>
                 <Button style={{ backgroundColor: "black", color: 'white' }} onClick={() => setOpen(true)}>Upload File</Button>
             </div>
@@ -97,6 +118,15 @@ export const StudentsData = () => {
                             </Accordion>
                     }
                 </table>
+
+                <div style={{ width: "100%", display: "flex", justifyContent: "left", padding: "5%" }}>
+                    {!deletes?<Button style={{ backgroundColor: 'orangered', color: 'white' }} onClick={()=>setDelete(true)}>Delete All </Button>:
+                    <div style={{display:'inline-flex',justifyContent:'space-evenly',width:'20%'}}>
+                    <Button style={{ backgroundColor: 'yellowgreen', color: 'white' }} onClick={RemoveAll}>Confirm Delete</Button>
+                    <Button style={{ backgroundColor: 'orange', color: 'white' }} onClick={()=>setDelete(false)}>No</Button>
+                    </div>
+                    }
+                </div>
             </div>
         </>
     )

@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import { AbsentStudent, AttendStudent } from '../bootcamp/attendance/attendance.js';
 import { FileByName, RetriveFiles, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
-import { Students } from '../bootcamp/studentdata/students.js';
+import { DeleteAll, Students } from '../bootcamp/studentdata/students.js';
 import { UploadStudents } from '../bootcamp/studentdata/uploadstudentdata.js';
 import { DeleteTasks } from '../bootcamp/taskmanger/deletetask.js';
 import { EditTasks } from '../bootcamp/taskmanger/edittask.js';
@@ -79,6 +79,10 @@ app.post('/updatestudent',async(req,res)=>{
 
 app.post('/deletestudent',async(req,res)=>{
     await DeleteStudent(req.body.student,res)
+})
+
+app.post('/deletestudents',async(req,res)=>{
+    await DeleteAll(res)
 })
 
 app.post('/absentstudent/:regd',async(req,res)=>{

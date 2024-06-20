@@ -90,7 +90,7 @@ export const BootAttendance = () => {
                                     user?.Name?.toUpperCase().includes(select) ||
                                     user?.Name?.toLowerCase().includes(select))
                                 ).map((x, index) => (
-                                    x.Year == sessionStorage.year &&
+                                    (x?.Year && (x?.Year[0])) == sessionStorage.year &&
                                     <AccordionItem key={index} style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                                         <Box style={{ fontFamily: 'bold' }} flex="1" textAlign="left">
                                             {index + 1}. {x?.Name.toUpperCase()} ({x?.Reg_No.toUpperCase()})

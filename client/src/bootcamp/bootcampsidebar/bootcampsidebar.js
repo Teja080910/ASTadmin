@@ -23,7 +23,7 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
     const nav = useNavigate()
     return (
         <Sidebar collapsed={collapsed} id='sidebar'>
-            <Menu>
+            <Menu onClick={collapsed ? toggleSidebar : null}>
                 <MenuItem
                     icon={<MenuOutlinedIcon />}
                     onClick={toggleSidebar}

@@ -7,7 +7,8 @@ import {
     ModalContent,
     ModalFooter,
     ModalHeader,
-    ModalOverlay
+    ModalOverlay,
+    useToast
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import axios from 'axios';
@@ -15,15 +16,29 @@ import { FileInput, Label } from "flowbite-react";
 
 export const UploadModel = ({ isOpen, onClose }) => {
     const [file, setFile] = useState()
+    const toast=useToast()
     const UploadFile = async () => {
         try {
             const formData = new FormData();
         formData.append("file", file);
         await axios.post(process.env.REACT_APP_database + "/studentxlsx", formData)
-            .then((res) => console.log(res))
+            .then((res) =>{
+                if(res?.data?.message){
+                    toast({ title:res?.data?.message, status: "success", position: "top", isClosable: true })
+                    setTimeout(() => {
+                        window.location.reload(3)
+                    }, 1000);
+                }
+                if(res?.data?.error){
+                    toast({ title:res?.data?.error, status: "error", position: "bottom-left", isClosable: true })
+                }
+                if(res?.data?.duplicates){
+                    toast({ title:res?.data?.duplicates, status: "error", position: "bottom-left", isClosable: true })
+                }
+            })
             .catch((e) => console.log(e))
         } catch (error) {
-            console.log(error)
+            toast({ title:error, status: "error", position: "bottom-left", isClosable: true })
         }
     }
     return (
