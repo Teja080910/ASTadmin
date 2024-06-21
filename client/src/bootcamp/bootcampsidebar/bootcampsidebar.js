@@ -9,22 +9,21 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import ScoreIcon from '@mui/icons-material/Score';
 import React, { useState } from 'react';
 import { Menu, MenuItem, Sidebar } from 'react-pro-sidebar';
+import { useNavigate } from 'react-router-dom';
 import { BootAttendance } from '../attendance/attendance';
 import { BootcampHome } from '../bootcamphome/bootcamphome';
-import { BootcampTeam } from '../bootcampteams/bootcampteams';
 import { BootcampMaterial } from '../materials/uploadmaterials';
 import { BootcampScore } from '../scoremanager/bootcampscore';
+import { StudentsData } from '../studentdata/studentdata';
 import BootcampTasks from '../taskmanger/bootcamptaskmager';
 import './bootcampsidebar.css';
-import { useNavigate } from 'react-router-dom';
-import { StudentsData } from '../studentdata/studentdata';
 
 const queryParams = new URLSearchParams(window.location.search);
 const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
     const nav = useNavigate()
     return (
         <Sidebar collapsed={collapsed} id='sidebar'>
-            <Menu>
+            <Menu onClick={collapsed ? toggleSidebar : null}>
                 <MenuItem
                     icon={<MenuOutlinedIcon />}
                     onClick={toggleSidebar}
@@ -57,15 +56,15 @@ export const BootcampSidebar = () => {
     return (
         <div id="app" style={{ height: '100vh', display: 'flex' }}>
             <SidebarContent collapsed={collapsed} toggleSidebar={toggleSidebar} select={(val) => setSelect(val || 1)} />
-            <main className='main-content' onClick={() => collapsed || toggleSidebar()}>
+            <main className='main-content' onClick={() => collapsed || toggleSidebar()} onDoubleClick={() =>toggleSidebar()}>
                 {
-                    set === "home" && <BootcampHome /> ||
-                    set === "team" && <BootcampTeam /> ||
-                    set === "attendance" && <BootAttendance /> ||
-                    set === "material" && <BootcampMaterial /> ||
-                    set === "score" && <BootcampScore /> ||
-                    set === "tasks" && <BootcampTasks />||
-                    set === "students"&&<StudentsData/>
+                    (set === "home" && <BootcampHome />) ||
+                    // set === "team" && <BootcampTeam /> ||
+                    (set === "attendance" && <BootAttendance /> )||
+                    (set === "material" && <BootcampMaterial />) ||
+                    (set === "score" && <BootcampScore />) ||
+                    (set === "tasks" && <BootcampTasks />)||
+                    (set === "students"&&<StudentsData/>)
                 }
             </main>
         </div>

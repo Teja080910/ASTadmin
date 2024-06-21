@@ -10,3 +10,14 @@ export const Students = async (res) => {
         console.log(error)
     }
 }
+
+export const DeleteAll = async (res) => {
+    try {
+        const students = await db1.collection("Hackathondata").deleteMany()
+        if (students) {
+            res.json(students)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}

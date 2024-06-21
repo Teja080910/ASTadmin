@@ -6,7 +6,7 @@ const persistConfig = {
   storage: new CookieStorage(Cookies, {
     expiration: {
       // default: 30 * 86400
-      default:60*20
+      default:3600*5
     },
     path: '/',
   }),

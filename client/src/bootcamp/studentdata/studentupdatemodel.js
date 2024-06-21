@@ -13,6 +13,7 @@ export const StudentUpdateModel = ({ show, close, data }) => {
             gmail: null,
             branch: null,
             number: null,
+            year:null,
             score: null
         }
     )
@@ -24,6 +25,7 @@ export const StudentUpdateModel = ({ show, close, data }) => {
             setStudent((val) => ({ ...val, reg: data?.Reg_No }))
             setStudent((val) => ({ ...val, name: student.name || data?.Name }))
             setStudent((val) => ({ ...val, gmail: student.gmail || data?.Gmail }))
+            setStudent((val) => ({ ...val, year: student.year || data?.Year }))
             setStudent((val) => ({ ...val, branch: student.branch || data?.Branch }))
             setStudent((val) => ({ ...val, number: student.number || data?.Number }))
             setStudent((val) => ({ ...val, score: student.score || data?.Score }))
@@ -53,7 +55,8 @@ export const StudentUpdateModel = ({ show, close, data }) => {
                 <p>{data?.Reg_No}</p>
                 <Input placeholder='name' type='text' value={student.name ? student.name : data?.Name} onChange={(e) => setStudent((val) => ({ ...val, name: e.target.value }))} /><br />
                 <Input placeholder='gmail' value={student.gmail || data?.Gmail} onChange={(e) => setStudent((val) => ({ ...val, gmail: e.target.value }))} /><br />
-                <Input placeholder='branch' value={student.branch || data?.Branch} onChange={(e) => setStudent((val) => ({ ...val, branch: e.target.value }))} /><br />
+                <Input placeholder='year' value={student.year || (data?.Year[0]) || data?.Year} onChange={(e) => setStudent((val) => ({ ...val, year: e.target.value }))} /><br />
+                <Input placeholder='branch' value={student.branch || (data?.Year)?.slice(3) || data?.Branch} onChange={(e) => setStudent((val) => ({ ...val, branch: e.target.value }))} /><br />
                 <Input placeholder='number' value={student.number || data?.Number} onChange={(e) => setStudent((val) => ({ ...val, number: e.target.value }))} /><br />
                 <Input placeholder='score' value={student.score || data?.Score} onChange={(e) => setStudent((val) => ({ ...val, score: e.target.value }))} /><br />
             </Modal.Body>
