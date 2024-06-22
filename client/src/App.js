@@ -21,6 +21,7 @@ import { Appstore } from './collection/redux/login.js';
 import Sample from './collection/sample/sample.js';
 import './responce.css';
 import { HackathonSidebar } from './hackathon/hackathonsidebar/hackathonsidebar.js';
+import Timer from './hackathon/main-timer/Timer.jsx';
 function App() {
   const [set, setSet] = useState()
   const [time, setTime] = useState()
@@ -55,6 +56,8 @@ function App() {
           <Route path='/redux' element={<Appstore />} />
           <Route path='/bootcamp' element={<BootcampSidebar />} />
           <Route path='/hackathon' element={<HackathonSidebar/>}/>
+          <Route path='/hackathon/timer' element={<Timer/>}/>
+
 
         </Routes>
       </BrowserRouter>

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./TimerManager.css";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import Controls from "../hackathonTimer/Controls";
+import { useToast } from "@chakra-ui/react";
 
 const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
   const [timers, setTimers] = useState([]);
@@ -9,13 +11,29 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
   const [duration, setDuration] = useState("");
   const [color, setColor] = useState(false);
   const [alert, setAlert] = useState("");
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
 
   const sendAlert = async () => {
-    URL = "http://localhost:5000";
+    if (alert.length < 2) {
+      toast({
+        title: "enter message",
+        status: "info",
+        position: "top",
+        duration: 2000,
+        isClosable: false,
+      });
+      return false;
+    }
     const result = await axios.post(`${URL}/api/notify`, {
       notification: alert,
     });
-    console.log(result);
+    toast({
+      title: result.data.message,
+      status: "success",
+      position: "top",
+      isClosable: false,
+    });
     if (result.data === " ") {
       setAlert("");
     }
@@ -29,16 +47,30 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
           setTimers(response.data.timers);
         }
       } catch (error) {
-        console.error("There was an error fetching the timers!", error);
+        toast({
+          title: "There was an error fetching the timers!",
+          status: "error",
+          position: "top",
+          isClosable: true,
+        });
       }
     };
 
     fetchTimers();
-  }, [URL]);
+  }, []);
 
   const setEventTime = async () => {
+    setLoading(true);
+
     if (!timerTitle || !duration) {
-      alert("Please enter both duration and title");
+      toast({
+        title: "Please enter both duration and title",
+        status: "warning",
+        position: "top",
+        isClosable: true,
+      });
+
+      setLoading(false);
       return;
     }
 
@@ -58,88 +90,121 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
       setTimers([...timers, response.data.timer]);
       setTimerTitle("");
       setDuration("");
+      if (response.data.message === "Timer created") {
+        toast({
+          title: response.data.message,
+          status: "success",
+          position: "top",
+          isClosable: true,
+        });
+      }
     } catch (error) {
-      alert(error.message);
-      console.log("There was an error creating the timer!", error);
+      toast({
+        title: error.message,
+        status: "error",
+        position: "top",
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
   const deleteTimer = async (timerId) => {
-    console.log("Deleting timer " + timerId);
     try {
       const response = await axios.post(`${URL}/api/deletetimer`, {
         id: timerId,
       });
       if (response.data.message === "Timer deleted successfully") {
         setTimers((timers) => timers.filter((timer) => timer.id !== timerId));
+        toast({
+          title: "Timer deleted successfully",
+          status: "success",
+          position: "top",
+          isClosable: true,
+        });
       }
     } catch (error) {
-      console.error("There was an error deleting the timer!", error);
+      toast({
+        title: "There was an error deleting the timer!",
+        status: "error",
+        position: "top",
+        isClosable: true,
+      });
     }
   };
 
   return (
-
     <div className="timer-container">
-     
-    <div className="timer-container-main">
-      <div>
-        <h1>Alerts</h1>
-        <input
-          type="text"
-          value={alert}
-          onChange={(e) => {
-            setAlert(e.target.value);
-          }}
-        />
-        <button onClick={sendAlert}>Send</button>
-      </div>
-      <hr/>
-      
-      <div>
-      <h1>Manage Timers</h1>
-        <label>Duration (hh:mm): </label>
-        <input
-          type="time"
-          value={duration}
-          onChange={(e) => setDuration(e.target.value)}
-          required
-        />
+      <div className="timer-container-main">
+        <div>
+          <h1>Alerts</h1>
+          <input
+            type="text"
+            value={alert}
+            onChange={(e) => {
+              setAlert(e.target.value);
+            }}
+          />
+          <button onClick={sendAlert}>Send</button>
+        </div>
+        <hr />
 
-        <label>Title: </label>
-        <input
-          type="text"
-          value={timerTitle}
-          onChange={(e) => setTimerTitle(e.target.value)}
-          required
-        />
-        <label>color: </label>
-        <input
-          type="color"
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
-          required
-        />
-        <button onClick={setEventTime}>Add Timer</button>
-      </div>
-      <div className="timers">
-        <h2>Existing Timers</h2>
-        <ul>
-          {timers.length>0 ? timers.map((timer) => (
-            <li key={timer.id}>
-              <div>
-              <p>{timer.title} - {new Date(timer.endTime).toLocaleString()}</p>
+        <div>
+          <h1>Manage Timers</h1>
+          <label>Duration (hh:mm): </label>
+          <input
+            type="time"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+            required
+          />
 
-              </div>
-              <div>
-              <button onClick={() => deleteTimer(timer.id)}><DeleteForeverIcon/></button>
-
-              </div>
-            </li>
-          )) : <li > no timers found</li>}
-        </ul>
+          <label>Title: </label>
+          <input
+            type="text"
+            value={timerTitle}
+            onChange={(e) => setTimerTitle(e.target.value)}
+            required
+          />
+          <label>color: </label>
+          <input
+            type="color"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+            required
+          />
+          <button onClick={setEventTime} disabled={loading}>
+            {loading ? "loading..." : "Add Timer"}
+          </button>
+        </div>
+        <div className="timers">
+          <h2>Existing Timers</h2>
+          <ul>
+            {timers.length > 0 ? (
+              timers.map((timer) => (
+                <li key={timer.id}>
+                  <div>
+                    <p>
+                      {timer.title} - {new Date(timer.endTime).toLocaleString()}
+                    </p>
+                  </div>
+                  <div>
+                    <button onClick={() => deleteTimer(timer.id)}>
+                      <DeleteForeverIcon />
+                    </button>
+                  </div>
+                </li>
+              ))
+            ) : (
+              <li> no timers found</li>
+            )}
+          </ul>
+        </div>
       </div>
-    </div>
+      <div className="timer-block">
+        <Controls />
+      </div>
     </div>
   );
 };

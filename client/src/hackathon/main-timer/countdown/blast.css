@@ -1,0 +1,93 @@
+.koala--art {
+  position: absolute;
+  bottom: -190px;
+  right: 0px;
+}
+.koala--background {
+  img {
+    width: 100%;
+    height: 100vh;
+  }
+}
+.koala--head {
+  position: absolute;
+
+  animation: koala--head--sleep 4s cubic-bezier(0.44, 0.05, 0.65, 0.94) infinite;
+  transform-origin: 50% 50%;
+  left: 260px;
+  top: 140px;
+  img {
+    height: 180px;
+  }
+}
+.koala--arm {
+  position: absolute;
+  opacity: 1;
+top: 120px;
+right: 20px;
+
+
+img{
+    z-index: -1;
+    height:240px;
+}
+
+}
+.clock--minute {
+  position: relative;
+  width: 10px;
+  height: 90px;
+  top: -519px;
+  left: 106px;
+  background-color: #2d2d2d;
+  border-radius: 20px;
+  animation: clock--minute--rotate 5s linear infinite;
+  transform-origin: 50% 96%;
+}
+.clock--hour {
+  position: relative;
+  width: 10px;
+  height: 70px;
+  top: -589px;
+  left: 105px;
+  background-color: #2d2d2d;
+  border-radius: 20px;
+  animation: clock--hour--rotate 60s linear infinite;
+  transform-origin: 50% 96%;
+}
+.clock--center {
+  position: relative;
+  top: -602px;
+  left: 100px;
+  width: 20px;
+  height: 20px;
+  background-color: #b81b1b;
+  border-radius: 100px;
+}
+@keyframes clock--hour--rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes clock--minute--rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes koala--head--sleep {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1.5deg);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
