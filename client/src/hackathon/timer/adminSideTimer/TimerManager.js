@@ -13,7 +13,6 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
   const toast = useToast();
 
   const sendAlert = async () => {
-    URL = "http://localhost:5000";
     const result = await axios.post(`${URL}/api/notify`, {
       notification: alert,
     });
