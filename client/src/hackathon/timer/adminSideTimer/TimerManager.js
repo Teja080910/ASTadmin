@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./TimerManager.css";
 import { useToast } from '@chakra-ui/react';
+import Controls from '../hackathonTimer/Controls';
 
 const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
   const [timers, setTimers] = useState([]);
@@ -183,7 +184,11 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
           )) : <li > no timers found</li>}
         </ul>
       </div>
+      
     </div>
+    <div className='timer-block'>
+        <Controls />
+      </div>
     </div>
   );
 };
