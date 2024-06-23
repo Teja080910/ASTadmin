@@ -1,9 +1,25 @@
 .blank-input {
-  width:30%;
+  width: 15%;
   outline: none;
   border-bottom: 1px solid black;
-  border: 'none';        
+  border: 'none';
   margin-top: 10px;
   padding: 5px;
+}
 
+.boxscores {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+@media (max-width:500px) {
+  .blank-input {
+    width: 25%;
+  }
+
+  .boxscores {
+    display: grid;
+    justify-content: space-evenly;
+  }
 }

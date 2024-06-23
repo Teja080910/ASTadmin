@@ -12,6 +12,7 @@
     flex: 1;
     padding: 2rem;
     height: 100vh;
+    overflow-y: scroll;
     background-color: white;
 }
 

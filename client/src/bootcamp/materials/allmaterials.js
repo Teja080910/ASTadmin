@@ -1,4 +1,5 @@
 import {
+    Button as ChakraButton,
     Table,
     TableCaption,
     TableContainer,
@@ -6,30 +7,47 @@ import {
     Td,
     Th,
     Thead,
-    Tr,Button as ChakraButton
+    Tr
 } from '@chakra-ui/react';
-
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button } from 'react-bootstrap';
-import './materials.css'; 
-
+import React, { useEffect, useState } from 'react';
+import './materials.css';
+import { Box } from '@chakra-ui/react';
 
 export const AllMaterials = () => {
     const [data, setData] = useState([]);
+    const [imageUrl, setImageUrl] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const OpenFile = async (file) => {
         try {
-            const url = `${process.env.REACT_APP_database}/file/${file}`;
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', file);
-            link.click();
+             const url = `${process.env.REACT_APP_database}/file/${file}`;
+            window.open(url, '_blank');
         } catch (e) {
             console.log(e);
         }
     };
 
+    const OpenImage = async (filename) => {
+        try {
+            const url = `${process.env.REACT_APP_database}/file/${filename}`;
+            const response = await axios.get(url, { responseType: 'blob' });
+            if (response.data.type.startsWith('text/xml')) {
+                const imageBlob = new Blob([response.data], { type: 'image' });
+                const imageUrl = URL.createObjectURL(imageBlob);
+                console.log(imageUrl)
+                setImageUrl(imageUrl);
+            } else {
+                console.error('The file is not an image');
+                setError('The file is not an image');
+            }
+        } catch (e) {
+            console.error(e);
+            setError('Error opening file');
+        }
+    };
+    console.log(imageUrl)
     useEffect(() => {
         axios.post(process.env.REACT_APP_database + "/files")
             .then((res) => setData(res.data))
@@ -55,20 +73,20 @@ export const AllMaterials = () => {
                             <Td>{val?.filename}</Td>
                             <Td>
                                 <ChakraButton
-                                        colorScheme="blue"
-                                        size="sm"
-                                        mr={2}
-                                        onClick={() => OpenFile(val?.filename)}
-                                    >
-                                        Photo
-                                    </ChakraButton>
+                                    colorScheme="blue"
+                                    size="sm"
+                                    mr={2}
+                                    onClick={() => OpenImage(val?.filename)}
+                                >
+                                    Photo
+                                </ChakraButton>
                                 <ChakraButton
-                                        colorScheme="blue"
-                                        size="sm"
-                                        mr={2}
-                                        onClick={() => OpenFile(val?.filename)}
-                                    >Files
-                                    </ChakraButton>
+                                    colorScheme="blue"
+                                    size="sm"
+                                    mr={2}
+                                    onClick={() => OpenFile(val?.filename)}
+                                >Files
+                                </ChakraButton>
                             </Td>
                             <Td>
                                 <ChakraButton size={'sm'} colorScheme='red'>Delete</ChakraButton>
@@ -77,6 +95,11 @@ export const AllMaterials = () => {
                     </Tbody>
                 ))}
             </Table>
+            {imageUrl && (
+                <Box mt={4} textAlign="center">
+                    <img src={imageUrl} alt="file preview" style={{ maxWidth: '100%', height: 'auto' }} />
+                </Box>
+            )}
         </TableContainer>
     );
 };

@@ -1,15 +1,31 @@
 import { bucket, db1 } from '../../db.js';
-export const UploadFiles = (file, res) => {
+export const UploadFiles = async (files, theme, materialname, res) => {
     try {
-        const { originalname, buffer } = file;
-        const uploadStream = bucket.openUploadStream(originalname);
-        uploadStream.end(buffer);
-        uploadStream.on('finish', () => {
-            res.status(200).send('File uploaded successfully');
+        const uploadPromises = files.map(file => {
+            const { originalname, buffer } = file;
+            return new Promise((resolve, reject) => {
+                const uploadStream = bucket.openUploadStream(originalname, {
+                    metadata: { Theme:theme, Name:materialname }
+                });
+                uploadStream.end(buffer);
+                uploadStream.on('finish', () => {
+                    resolve(uploadStream);
+                });
+                uploadStream.on('error', (error) => {
+                    reject(error);
+                });
+            });
         });
-        uploadStream.on('error', (error) => {
-            res.status(500).send('Error uploading file');
-        });
+
+        await Promise.all(uploadPromises)
+            .then((result) => {
+                if (result[0]?.files) {
+                    res.json({ message: "upload files" })
+                } else {
+                    res.json({ error: "try again" })
+                }
+            })
+            .catch((e) => console.log(e))
     } catch (error) {
         console.log(error)
     }
