@@ -3,6 +3,13 @@
   bottom: -190px;
   right: 0px;
 }
+.background{
+  width: 100%;
+  height: 100%;
+  background-image: url('../../../../public/static/nightsky-background.png');
+  background-color: red !important;
+
+}
 .koala--background {
   img {
     width: 100%;

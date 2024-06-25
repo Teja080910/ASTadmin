@@ -1,75 +1,100 @@
-import React, { useState, useEffect } from 'react';
-import socketIOClient from "socket.io-client";
+import React, { useState} from "react";
+import { imageMappings, backgrounds } from "../../resources";
 import "./Controls.css";
-
-
-const SOCKET_SERVER_URL = "http://localhost:5000"; 
-const socket = socketIOClient(SOCKET_SERVER_URL);
-
-const Controls = () => {
-  const imageMappings = [
-    { code: '000', },
-    { code: '001', path: '../head.png' },
-    { code: '002', path: '../clock.png' },
-    // Add more mappings as needed
-  ];
-
-  const [leftImage, setLeftImage] = useState(imageMappings[0]?.code || '');
-  const [rightImage, setRightImage] = useState(imageMappings[0]?.code || '');
-
-  useEffect(() => {
-    // Emit initial state
-    socket.emit('changeSide', { code: leftImage, side: 'left' });
-    socket.emit('changeSide', { code: rightImage, side: 'right' });
-  }, []);
+import { Select } from "@chakra-ui/react";
+import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
+const Controls = ({ socket }) => {
+  const [leftImage, setLeftImage] = useState(imageMappings[0]?.code || "");
+  const [rightImage, setRightImage] = useState(imageMappings[0]?.code || "");
+  const [BackGround, setBackground] = useState(backgrounds[0]?.code || "");
 
   const handleSelectChange = (event, side) => {
     const code = event.target.value;
-    if (side === 'left') {
+    if (side === "left") {
       setLeftImage(code);
-      socket.emit('changeSide', { code, side });
-    } else if (side === 'right') {
+      socket.emit("changeSide", { code, side });
+    } else if (side === "right") {
       setRightImage(code);
-      socket.emit('changeSide', { code, side });
+      socket.emit("changeSide", { code, side });
+    } else if (side === "background") {
+      setBackground(code);
+      socket.emit("changeBackground", { code });
     }
   };
 
   return (
     <div className="controls">
-      <div className="image-mappings">
-        <h3>Activity Image </h3>
-        <div>
-
-      
-        {imageMappings?.map((image) => (
-          image.path &&
-          <div key={image.code} className="image-mapping">
-            <img src={image.path} alt={`activity  ${image.code}`} className="mapping-img" />
-            <p>{`Code: ${image.code}`}</p>
+      <div className="activity-controls">
+        <div className="image-mappings">
+          <h3>Activity Image </h3>
+          <div className="images">
+            {imageMappings?.map(
+              (image) =>
+                image.path && (
+                  <div key={image.code} className="image-mapping">
+                    <img
+                      src={image.path}
+                      alt={`activity  ${image.code}`}
+                      className="mapping-img"
+                    />
+                    <p>{`Code: ${image.code}`}</p>
+                  </div>
+                )
+            )}
           </div>
-
-        ))}
+        </div>
+        <div className="controls">
+          <div className="control-item">
+            <h3>Left Side</h3>
+            <Select
+              value={leftImage}
+              onChange={(e) => handleSelectChange(e, "left")}
+                  icon={<ArrowDropDownCircleIcon />}
+              variant='outline'
+            >
+              {imageMappings.map((image) => (
+                <option key={image.code} value={image.code}>
+                  {image.code}
+                </option>
+              ))}
+            </Select>
           </div>
+          <div className="control-item">
+            <h3>Right Side</h3>
+            <Select
+              value={rightImage}
+              onChange={(e) => handleSelectChange(e, "right")}
+              icon={<ArrowDropDownCircleIcon />}
+              variant='outline'
+            >
+              {imageMappings.map((image) => (
+                <option key={image.code} value={image.code}>
+                  {image.code}
+                </option>
+              ))}
+            </Select>
+          </div>
+        </div>
       </div>
-      <div className="control-item">
-        <h3>Left Side</h3>
-        <select value={leftImage} onChange={(e) => handleSelectChange(e, 'left')}>
-          {imageMappings.map((image) => (
-            <option key={image.code} value={image.code}>
-              {image.code}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="control-item">
-        <h3>Right Side</h3>
-        <select value={rightImage} onChange={(e) => handleSelectChange(e, 'right')}>
-          {imageMappings.map((image) => (
-            <option key={image.code} value={image.code}>
-              {image.code}
-            </option>
-          ))}
-        </select>
+      <div className="background-controls">
+        <div className="controls">
+          <div className="control-item">
+            <h3>Backgrounds </h3>
+            <Select
+              value={BackGround} 
+              variant='filled'
+              onChange={(e) => handleSelectChange(e, "background")}
+              icon={<ArrowDropDownCircleIcon />}
+
+            >
+              {backgrounds.map((image) => (
+                <option key={image.code} value={image.code}>
+                  {image.name}
+                </option>
+              ))}
+            </Select>
+          </div>
+        </div>
       </div>
     </div>
   );

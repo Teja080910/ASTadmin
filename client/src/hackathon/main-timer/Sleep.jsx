@@ -3,9 +3,12 @@ const Sleep = () => {
 
 
   return (
+    <div className="background">
+
+    
     <div className="koala--art">
       <div className="koala--background">
-        <img src="../clock.png" alt="body"/>
+        <img src="../tree-pig.png" alt="body"/>
       </div>
 
       <div className="koala--head">
@@ -19,6 +22,7 @@ const Sleep = () => {
       <div className="clock--minute"></div>
       <div className="clock--hour"></div>
       <div className="clock--center"></div>
+    </div>
     </div>
   );
 };

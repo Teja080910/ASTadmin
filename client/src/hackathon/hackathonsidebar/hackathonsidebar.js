@@ -40,7 +40,7 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
     );
 }
 
-export const HackathonSidebar = () => {
+export const HackathonSidebar = ({socket}) => {
   const [collapsed, setCollapsed] = useState(false);
   const [select, setSelect] = useState(sessionStorage?.select);
   const queryParams = new URLSearchParams(window.location.search);
@@ -66,7 +66,7 @@ export const HackathonSidebar = () => {
           (set === "team" && <HackathonTeam />) ||
             (set === "tasks" && <HackathonTasks />) ||
             (set === "problemstatements" && <PSS />) ||
-            (set === "timer" && <TimeManager />)
+            (set === "timer" && <TimeManager socket={socket}/>)
         }
       </main>
     </div>

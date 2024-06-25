@@ -1,41 +1,31 @@
 import { useEffect, useState } from "react";
-import socketIOClient from "socket.io-client";
-
 import "./countdown/Activities.css";
+import { imageMappings } from "../resources";
 
-const SOCKET_SERVER_URL = "http://localhost:5000";
-const socket = socketIOClient(SOCKET_SERVER_URL);
-
-const Activities = () => {
+const Activities = ({ socket }) => {
   const [images, setImages] = useState([]);
-
-  const imageMappings = [
-    { code: "001", path: "../head.png" },
-    { code: "002", path: "../clock.png" },
-  ];
 
   useEffect(() => {
     socket.emit("activeimages");
     socket.on("activeimages", (data) => {
-      console.log(data);
       const updatedImages = data
-        .filter(item => item.code !== "000")
-        .map(item => {
-          const imageMapping = imageMappings.find(img => img.code === item.code);
+        .filter((item) => item.code !== "000")
+        .map((item) => {
+          const imageMapping = imageMappings.find(
+            (img) => img.code === item.code
+          );
           return imageMapping ? { ...item, path: imageMapping.path } : item;
         });
-  
+
       setImages(updatedImages);
     });
-    socket.on("imageData", (data) => {
+    socket.on('imageData', (data) => {
       setImages((prevImages) => {
-        const existingImage = imageMappings.find(
-          (img) => img.code === data.code
-        );
-        if (existingImage) {
+        const existingImage = imageMappings.find((img) => img.code === data.code);
+        if (existingImage && existingImage.code !== '000') {
           const newImage = { ...existingImage, side: data.side };
           return [
-            ...prevImages.filter((img) => img.code !== data.code),
+            ...prevImages.filter((img) => img.code !== data.code && img.code !== '000'),
             newImage,
           ];
         } else {

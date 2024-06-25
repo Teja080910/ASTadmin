@@ -2,10 +2,10 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./TimerManager.css";
-import { useToast } from '@chakra-ui/react';
+import { Text, useToast } from '@chakra-ui/react';
 import Controls from '../hackathonTimer/Controls';
 
-const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
+const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" ,socket}) => {
   const [timers, setTimers] = useState([]);
   const [timerTitle, setTimerTitle] = useState("");
   const [duration, setDuration] = useState("");
@@ -129,7 +129,7 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
      
     <div className="timer-container-main">
       <div>
-        <h1>Alerts</h1>
+        <Text fontSize='3xl'  noOfLines={1}>Alerts to Students</Text>
         <input
           type="text"
           value={alert}
@@ -142,7 +142,7 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
       <hr/>
       
       <div>
-      <h1>Manage Timers</h1>
+      <Text fontSize='3xl'  noOfLines={1}>Manage Timers</Text>
         <label>Duration (hh:mm): </label>
         <input
           type="time"
@@ -168,7 +168,7 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
         <button onClick={setEventTime}>Add Timer</button>
       </div>
       <div className="timers">
-        <h2>Existing Timers</h2>
+        <Text fontSize='3xl'  noOfLines={1}>Existing Timers</Text>
         <ul>
           {timers.length>0 ? timers.map((timer) => (
             <li key={timer.id}>
@@ -187,7 +187,7 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" }) => {
       
     </div>
     <div className='timer-block'>
-        <Controls />
+        <Controls socket={socket} />
       </div>
     </div>
   );
