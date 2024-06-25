@@ -15,3 +15,25 @@ thead {
 tbody tr:hover {
     background-color: #f2f3f5;
 }
+
+.openmaterilas{
+    width: 95%;
+    height: 100vh;
+    background-color: black;
+    position:absolute;
+    top: 0%;
+    left: 5%;
+    /* display: flex;
+    justify-content: center; */
+}
+
+.deleteall{
+    width: 85%;
+    justify-content: right;
+    display: flex;
+}
+
+.openmaterilasbutton{
+    display: flex;
+    justify-content: right;
+}

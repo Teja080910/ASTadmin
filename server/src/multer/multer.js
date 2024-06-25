@@ -1,4 +1,5 @@
 import multer from 'multer';
+import sharp from 'sharp';
 export const initiateMulter = (resize = true) => {
     return async (req, res, next) => {
         const storage = multer.memoryStorage();
@@ -11,7 +12,7 @@ export const initiateMulter = (resize = true) => {
             }
             if (resize && req.files && req.files.length > 0) {
                 for (const file of req.files) {
-                    if (file.mimetype.includes("image") && file.size > 1024) {
+                    if (file.mimetype.includes("image","file") && file.size > 1024) {
                         try {
                             file.buffer = await sharp(file.buffer)
                                 .resize(1024, null, { fit: 'contain' })

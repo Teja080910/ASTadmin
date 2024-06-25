@@ -2,7 +2,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import { AbsentStudent, AttendStudent } from '../bootcamp/attendance/attendance.js';
-import { FileByName, RetriveFiles, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
+import { Materials } from '../bootcamp/materials/materials.js';
+import { FileByName, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
+import { GivenMarks } from '../bootcamp/scoremanager/score.js';
 import { DeleteAll, Students } from '../bootcamp/studentdata/students.js';
 import { DeleteStudent, UpdateStudent } from '../bootcamp/studentdata/updatestudent.js';
 import { UploadStudents } from '../bootcamp/studentdata/uploadstudentdata.js';
@@ -16,6 +18,8 @@ import { DeletePS } from './problemstatements/deleteps.js';
 import { EditPS } from './problemstatements/editps.js';
 import { InsertPS } from './problemstatements/insertps.js';
 import { PSS } from './problemstatements/pss.js';
+import { DeleteMaterial, DeleteMaterials } from '../bootcamp/materials/deletematerials.js';
+import { EditMaterial } from '../bootcamp/materials/editmaterial.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -27,13 +31,14 @@ app.get('/hackathon', (req, res) => {
 
 // ***********************************BootCamp***************************************************** //
 app.post('/uploadfile', initiateMulter(), async (req, res) => {
+    const { materialName, theme } = req.body;
     if (req.files) {
-        await UploadFiles(req?.files[0], res)
+        await UploadFiles(req?.files, theme, materialName, res)
     }
 });
 
 app.post('/files', async (req, res) => {
-    await RetriveFiles(res)
+    await Materials(res)
 });
 
 app.get('/file/:filename', async (req, res) => {
@@ -41,8 +46,20 @@ app.get('/file/:filename', async (req, res) => {
     await FileByName(filename, res)
 });
 
+app.post('/deletefile', async (req, res) => {
+    await DeleteMaterial(req.body.theme, req.body.photo,req.body.pdf, res)
+})
+
+app.post('/editfile', async (req, res) => {
+    await EditMaterial(req.body.theme, res)
+})
+
+app.post('/deleteallfiles', async (req, res) => {
+    await DeleteMaterials(res)
+})
+
 app.post('/inserttask', async (req, res) => {
-    await InsertTask(req.body.day, req.body.task, req.body.description,req.body.marks, res)
+    await InsertTask(req.body.day, req.body.task, req.body.description, req.body.marks, res)
 })
 
 app.post('/deletetask', async (req, res) => {
@@ -50,7 +67,7 @@ app.post('/deletetask', async (req, res) => {
 })
 
 app.post('/edittask', async (req, res) => {
-    await EditTasks(req.body.selectday, req.body.selecttask, req.body.selectdesc,req.body.selectmarks,req.body.index, res)
+    await EditTasks(req.body.selectday, req.body.selecttask, req.body.selectdesc, req.body.selectmarks, req.body.index, res)
 })
 
 app.post('/showtask', async (req, res) => {
@@ -62,7 +79,7 @@ app.post('/hidetask', async (req, res) => {
 })
 
 app.post('/showday', async (req, res) => {
-    await ShowDay(req.body.dayshow,res)
+    await ShowDay(req.body.dayshow, res)
 })
 
 app.post('/hideday', async (req, res) => {
@@ -73,50 +90,54 @@ app.post('/tasks', async (req, res) => {
     await Tasks(res)
 })
 
-app.post('/bootcampstudents',async(req,res)=>{
+app.post('/bootcampstudents', async (req, res) => {
     await Students(res)
 })
 
-app.post('/attendstudent/:regd',async(req,res)=>{
-    await AttendStudent(req.params.regd,res)
+app.post('/attendstudent/:regd', async (req, res) => {
+    await AttendStudent(req.params.regd, res)
 })
 
-app.post('/updatestudent',async(req,res)=>{
-    await UpdateStudent(req.body.student,res)
+app.post('/updatestudent', async (req, res) => {
+    await UpdateStudent(req.body.student, res)
 })
 
-app.post('/deletestudent',async(req,res)=>{
-    await DeleteStudent(req.body.student,res)
+app.post('/deletestudent', async (req, res) => {
+    await DeleteStudent(req.body.student, res)
 })
 
-app.post('/deletestudents',async(req,res)=>{
+app.post('/deletestudents', async (req, res) => {
     await DeleteAll(res)
 })
 
-app.post('/absentstudent/:regd',async(req,res)=>{
-    await AbsentStudent(req.params.regd,res)
+app.post('/absentstudent/:regd', async (req, res) => {
+    await AbsentStudent(req.params.regd, res)
 })
 
-app.post('/studentxlsx',initiateMulter(),async(req,res)=>{
-    await UploadStudents(req?.files[0],res)
+app.post('/givenmarks', async (req, res) => {
+    await GivenMarks(req.body.user, req.body.marks, req.body.dayindex, req.body.taskindex, res)
+})
+
+app.post('/studentxlsx', initiateMulter(), async (req, res) => {
+    await UploadStudents(req?.files[0], res)
 })
 
 
 // *************************************************Hackathon****************************************** //
 
-app.post('/insertstatement',async(req,res)=>{
-    await InsertPS(req.body.number,req.body.statement,req.body.description,res)
+app.post('/insertstatement', async (req, res) => {
+    await InsertPS(req.body.number, req.body.statement, req.body.description, res)
 })
 
-app.post('/editstatement',async(req,res)=>{
-    await EditPS(req.body.selectnumber,req.body.selectstatement,req.body.selectdesc,res)
+app.post('/editstatement', async (req, res) => {
+    await EditPS(req.body.selectnumber, req.body.selectstatement, req.body.selectdesc, res)
 })
 
-app.post('/deletestatement',async(req,res)=>{
-    await DeletePS(req.body.selectstatement,res)
+app.post('/deletestatement', async (req, res) => {
+    await DeletePS(req.body.selectstatement, res)
 })
 
-app.post('/statements',async(req,res)=>{
+app.post('/statements', async (req, res) => {
     await PSS(res)
 })
 

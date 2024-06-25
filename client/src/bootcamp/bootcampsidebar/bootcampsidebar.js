@@ -4,7 +4,6 @@ import AttendanceIcon from '@mui/icons-material/EventAvailable';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import ScoreIcon from '@mui/icons-material/Score';
 import React, { useState } from 'react';
@@ -32,7 +31,6 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
                     <h2>Bootcamp</h2>
                 </MenuItem>
                 <MenuItem icon={<HomeOutlinedIcon />} onClick={() => window.location.href = '/'}>Home</MenuItem>
-                <MenuItem icon={<PeopleOutlinedIcon />} onClick={() => { select(2); queryParams.set("page", "team"); nav({ search: queryParams.toString() }) }}>Team</MenuItem>
                 <MenuItem icon={<AttendanceIcon />} onClick={() => { select(3); queryParams.set("page", "attendance"); nav({ search: queryParams.toString() }) }}>Attendance</MenuItem>
                 <MenuItem icon={<LibraryBooksIcon />} onClick={() => { select(4); queryParams.set("page", "material"); nav({ search: queryParams.toString() }) }}>Materials</MenuItem>
                 <MenuItem icon={<ScoreIcon />} onClick={() => { select(5); queryParams.set("page", "score"); nav({ search: queryParams.toString() }) }}>Score</MenuItem>
@@ -48,7 +46,7 @@ export const BootcampSidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [select, setSelect] = useState(sessionStorage?.select)
     const queryParams = new URLSearchParams(window.location.search);
-    let set = queryParams?.get("page")||"home";
+    let set = queryParams?.get("page") || "home";
     const toggleSidebar = () => {
         setCollapsed(!collapsed);
     };
@@ -56,15 +54,14 @@ export const BootcampSidebar = () => {
     return (
         <div id="app" style={{ height: '100vh', display: 'flex' }}>
             <SidebarContent collapsed={collapsed} toggleSidebar={toggleSidebar} select={(val) => setSelect(val || 1)} />
-            <main className='main-content' onClick={() => collapsed || toggleSidebar()} onDoubleClick={() =>toggleSidebar()}>
+            <main className='main-content' onClick={() => collapsed || toggleSidebar()} onDoubleClick={() => toggleSidebar()}>
                 {
                     (set === "home" && <BootcampHome />) ||
-                    // set === "team" && <BootcampTeam /> ||
-                    (set === "attendance" && <BootAttendance /> )||
+                    (set === "attendance" && <BootAttendance />) ||
                     (set === "material" && <BootcampMaterial />) ||
                     (set === "score" && <BootcampScore />) ||
-                    (set === "tasks" && <BootcampTasks />)||
-                    (set === "students"&&<StudentsData/>)
+                    (set === "tasks" && <BootcampTasks />) ||
+                    (set === "students" && <StudentsData />)
                 }
             </main>
         </div>

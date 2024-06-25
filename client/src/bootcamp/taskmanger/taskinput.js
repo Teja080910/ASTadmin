@@ -119,7 +119,7 @@ export const TaskInput = ({ tasks, reload }) => {
         }
     }
 
-    const DayHide = async (dayhide ) => {
+    const DayHide = async (dayhide) => {
         try {
             const hide = await axios.post(process.env.REACT_APP_database + '/hideday', { dayhide });
             if (hide.data) {
