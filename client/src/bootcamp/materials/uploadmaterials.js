@@ -1,14 +1,14 @@
 import { Button, Input, Stack, useToast } from '@chakra-ui/react';
-import axios from 'axios';
 import { FileInput, Label, Select } from "flowbite-react";
 import { useState } from 'react';
+import { Actions } from '../../actions/actions';
 import { AllMaterials } from "./allmaterials";
 export const BootcampMaterial = () => {
     const [photo, setPhoto] = useState()
     const [file, setFile] = useState()
     const [materialName, setMaterialName] = useState();
     const [theme, setTheme] = useState();
-    const [isLoading,setIsLoading]=useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const toast = useToast();
     const UploadFile = async () => {
         setIsLoading(true)
@@ -18,7 +18,7 @@ export const BootcampMaterial = () => {
             formData.append("file", file);
             formData.append("materialName", materialName);
             formData.append("theme", theme);
-            await axios.post(process.env.REACT_APP_database + "/uploadfile", formData)
+            Actions.UploadMaterials(formData)
                 .then((res) => {
                     if (res?.data?.message) {
                         setIsLoading(false)
@@ -68,10 +68,13 @@ export const BootcampMaterial = () => {
                                 <option value='NODE'>NODE</option>
                                 <option value='MONGODB'>MONGODB</option>
                             </Select>
-                            <Button colorScheme='cyan' onClick={UploadFile}>{isLoading?"Uploading....":"Upload"}</Button>
+                            <Button colorScheme='cyan' onClick={UploadFile}>{isLoading ? "Uploading...." : "Upload"}</Button>
                         </Stack>
                     </div>
                 </div>
+            </div>
+            <div className='deleteall'>
+                <Button onClick={() => { Actions.DeleteAllMaterials().then((res) => toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true })) }} bg="red.600" color="white" size={'sm'}>Delete All</Button>
             </div>
             <div className="allmetirials">
                 <div className="allmeti">

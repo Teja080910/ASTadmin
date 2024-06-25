@@ -2,7 +2,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import { AbsentStudent, AttendStudent } from '../bootcamp/attendance/attendance.js';
-import { FileByName, RetriveFiles, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
+import { Materials } from '../bootcamp/materials/materials.js';
+import { FileByName, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
+import { GivenMarks } from '../bootcamp/scoremanager/score.js';
 import { DeleteAll, Students } from '../bootcamp/studentdata/students.js';
 import { DeleteStudent, UpdateStudent } from '../bootcamp/studentdata/updatestudent.js';
 import { UploadStudents } from '../bootcamp/studentdata/uploadstudentdata.js';
@@ -16,7 +18,8 @@ import { DeletePS } from './problemstatements/deleteps.js';
 import { EditPS } from './problemstatements/editps.js';
 import { InsertPS } from './problemstatements/insertps.js';
 import { PSS } from './problemstatements/pss.js';
-import { GivenMarks } from '../bootcamp/scoremanager/score.js';
+import { DeleteMaterial, DeleteMaterials } from '../bootcamp/materials/deletematerials.js';
+import { EditMaterial } from '../bootcamp/materials/editmaterial.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -30,18 +33,30 @@ app.get('/hackathon', (req, res) => {
 app.post('/uploadfile', initiateMulter(), async (req, res) => {
     const { materialName, theme } = req.body;
     if (req.files) {
-        await UploadFiles(req?.files,theme,materialName, res)
+        await UploadFiles(req?.files, theme, materialName, res)
     }
 });
 
 app.post('/files', async (req, res) => {
-    await RetriveFiles(res)
+    await Materials(res)
 });
 
 app.get('/file/:filename', async (req, res) => {
     const { filename } = req.params;
     await FileByName(filename, res)
 });
+
+app.post('/deletefile', async (req, res) => {
+    await DeleteMaterial(req.body.theme, req.body.photo,req.body.pdf, res)
+})
+
+app.post('/editfile', async (req, res) => {
+    await EditMaterial(req.body.theme, res)
+})
+
+app.post('/deleteallfiles', async (req, res) => {
+    await DeleteMaterials(res)
+})
 
 app.post('/inserttask', async (req, res) => {
     await InsertTask(req.body.day, req.body.task, req.body.description, req.body.marks, res)
