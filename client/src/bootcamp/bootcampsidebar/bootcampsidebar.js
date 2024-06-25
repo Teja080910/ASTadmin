@@ -21,7 +21,7 @@ const queryParams = new URLSearchParams(window.location.search);
 const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
     const nav = useNavigate()
     return (
-        <Sidebar collapsed={collapsed} id='sidebar'>
+        <Sidebar collapsed={collapsed} id='sidebar' onMouseOver={collapsed ? toggleSidebar : null} onMouseLeave={!collapsed ? toggleSidebar : null} >
             <Menu onClick={collapsed ? toggleSidebar : null}>
                 <MenuItem
                     icon={<MenuOutlinedIcon />}
