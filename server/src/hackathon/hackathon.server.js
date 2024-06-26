@@ -22,7 +22,7 @@ import { InsertPS } from './problemstatements/insertps.js';
 import { PSS } from './problemstatements/pss.js';
 import { AdminLogin } from '../bootcamp/admin/adminlogin.js';
 import { AdminRegister } from '../bootcamp/admin/adminregister.js';
-import { AddTeamCodes } from './teamcodes/teamcodes.js';
+import { AddTeamCodes, DeleteTeam } from './teamcodes/teamcodes.js';
 import { AllTeamCodes } from './teamcodes/allteamcodes.js';
 dotenv.config()
 const app = express()
@@ -155,6 +155,10 @@ app.post('/statements', async (req, res) => {
 
 app.post('/teamsinput', async (req, res) => {
     await AddTeamCodes(req.body.teams,res)
+})
+
+app.post('/deleteteam', async (req, res) => {
+    await DeleteTeam(req.body.teams,res)
 })
 
 app.post('/teamscodes', async (req, res) => {

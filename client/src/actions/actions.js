@@ -41,6 +41,10 @@ export const Actions = {
         return await axios.post(process.env.REACT_APP_database + "/teamsinput", { teams })
     },
 
+    DeleteTeam: async (teams) => {
+        return await axios.post(process.env.REACT_APP_database + "/deleteteam", { teams })
+    },
+
     TeamsCodes: async () => {
         return await axios.post(process.env.REACT_APP_database + "/teamscodes")
     }

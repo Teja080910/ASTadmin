@@ -19,3 +19,17 @@ export const AddTeamCodes = async (size, res) => {
         }
     }
 }
+
+export const DeleteTeam=async(team)=>{
+    try {
+        await db1.collection('Teams').findOneAndUpdate({TeamCode: parseInt(team)},{$set:{ Team:null, Gmail:null, Phone:null,Members:null, Password:null }})
+            .then((details) => {
+                if(details?._id){
+                    res.json({ message: "sucess", data: details });
+                }
+            })
+            .catch((e) => console.log(e))
+    } catch (error) {
+        console.log(error)
+    }
+}
