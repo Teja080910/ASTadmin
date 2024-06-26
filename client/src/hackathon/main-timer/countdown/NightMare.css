@@ -1,0 +1,66 @@
+/* src/components/Nightmare.css */
+.nightmare {
+    background: linear-gradient(to bottom, #000, #2c3e50);
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .buildings {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 100%;
+    height: auto;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  
+  .streetlight {
+    position: absolute;
+    bottom: 0%;
+    width: 20px;
+    height: 200px;
+    background: #444;
+    z-index: 2;
+  }
+  
+  .streetlight::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: -22px;
+    width: 70px;
+    height: 70px;
+    background: yellow;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: flicker 3s infinite;
+  }
+  
+  .streetlight1 {
+    left: 20%;
+  }
+  
+  .streetlight2 {
+    left: 58%;
+  }
+  
+  .streetlight3 {
+    left: 80%;
+  }
+  
+  @keyframes flicker {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+    75% { opacity: 0.3; }
+  }
+  
+
+  .streetlights{
+    width: 100%;
+    height: auto;
+    top:-20px;
+
+  }

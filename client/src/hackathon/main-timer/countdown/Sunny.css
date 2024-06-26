@@ -1,0 +1,114 @@
+/* src/components/Sunny.css */
+.sunny {
+    background: linear-gradient(to bottom, #87ceeb, #f0e68c);
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .move-sun {
+    position: absolute;
+    left: 9%;
+    width: 100px;
+    height: 100px;
+    transform: translateX(-50%);
+    animation: sun 60s linear infinite;
+    border-radius: 50%;
+  }
+  
+  img.rot-sun {
+    position: relative;
+    max-width: 230px !important;
+    height: 230px;
+    animation: rotate-sun 10s linear infinite;
+    top: -65%;
+    left: -65%;
+    z-index: 5;
+   
+  }
+  
+  .cloud img {
+    position: absolute;
+    opacity: 0.8;
+  }
+  
+  .cloud1 {
+    top: 20%;
+    left: -15%;
+    width: 200px;
+    height: auto;
+    animation: float 13s linear infinite;
+    z-index: 4;
+  }
+  
+  .cloud2 {
+    top: 30%;
+    left: 30%;
+    width: 300px;
+    height: auto;
+    animation: float 15s linear infinite;
+    z-index: 6;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100vw);
+    }
+  }
+  
+  @keyframes sun {
+    0% {
+      left: 102%;
+      top: 300px;
+      box-shadow: 0px 0px 60px 30px rgba(250, 0, 0, 0.5),
+        0 0 200px 200px rgba(255, 0, 0, 0.3);
+    }
+    10% {
+      top: 100px;
+      box-shadow: 0px 0px 30px 30px rgba(250, 230, 0, 0.5),
+        0 0 200px 200px rgba(250, 230, 0, 0.3);
+    }
+    20% {
+      top: 25px;
+      box-shadow: 0px 0px 30px 30px rgba(250, 230, 0, 0.5),
+        0 0 200px 200px rgba(250, 230, 0, 0.3);
+    }
+    30% {
+      top: 35px;
+      box-shadow: 0px 0px 30px 30px rgba(250, 230, 0, 0.5),
+        0 0 200px 200px rgba(250, 230, 0, 0.3);
+    }
+    38% {
+      top: 110px;
+      box-shadow: 0px 0px 60px 30px rgba(250, 100, 0, 0.5),
+        0 0 200px 200px rgba(250, 100, 0, 0.3);
+    }
+    50% {
+      left: -20%;
+      top: 350px;
+      box-shadow: 0px 0px 60px 30px rgba(250, 70, 0, 0.5),
+        0 0 200px 200px rgba(250, 70, 0, 0.3);
+    }
+    51% {
+      left: -40%;
+      top: 350px;
+    }
+    100% {
+      left: -40%;
+      top: 350px;
+    }
+  }
+  
+  @keyframes rotate-sun {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

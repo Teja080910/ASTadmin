@@ -1,0 +1,33 @@
+.activities {
+  z-index: 50;
+  position: relative;
+  padding: 20px;
+}
+
+.activities .activity {
+  position: absolute;
+  top: 310px;
+  margin: 10px;
+  width: 290px;
+  height: 300px;
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  object-fit: cover;
+}
+
+img.img {
+width: 300px !important;
+  height: 300px;
+
+ 
+}
+
+.activity.left {
+  left: 0;
+}
+
+.activity.right {
+  right: 0;
+}

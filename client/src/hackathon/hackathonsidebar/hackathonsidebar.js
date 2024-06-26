@@ -19,8 +19,8 @@ const queryParams = new URLSearchParams(window.location.search);
 const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
     const nav = useNavigate()
     return (
-        <Sidebar collapsed={collapsed} id='sidebar'>
-            <Menu  onClick={collapsed ? toggleSidebar : null}>
+        <Sidebar collapsed={collapsed} id='sidebar' onMouseOver={collapsed ? toggleSidebar : null} onMouseLeave={!collapsed ? toggleSidebar : null}>
+            <Menu  onClick={collapsed ? toggleSidebar : null} >
                 <MenuItem
                     icon={<MenuOutlinedIcon />}
                     onClick={toggleSidebar}
@@ -40,7 +40,7 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
     );
 }
 
-export const HackathonSidebar = () => {
+export const HackathonSidebar = ({socket}) => {
   const [collapsed, setCollapsed] = useState(false);
   const [select, setSelect] = useState(sessionStorage?.select);
   const queryParams = new URLSearchParams(window.location.search);
@@ -66,7 +66,7 @@ export const HackathonSidebar = () => {
           (set === "team" && <HackathonTeam />) ||
             (set === "tasks" && <HackathonTasks />) ||
             (set === "problemstatements" && <PSS />) ||
-            (set === "timer" && <TimeManager />)
+            (set === "timer" && <TimeManager socket={socket}/>)
         }
       </main>
     </div>

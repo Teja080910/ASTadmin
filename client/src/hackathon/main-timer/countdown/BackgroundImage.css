@@ -1,0 +1,9 @@
+/* src/components/BackgroundImage.css */
+.background-image {
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  

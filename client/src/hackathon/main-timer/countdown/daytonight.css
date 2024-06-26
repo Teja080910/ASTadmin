@@ -1,0 +1,582 @@
+	
+		#carblock{
+			width: 100%;
+			height: 100vh;
+			background: linear-gradient(0deg, #007, #abf, #ddf);
+			overflow:hidden;
+			margin: 0;
+
+		}
+		/* start of background */
+		#background {
+			
+			position: absolute;
+			width: 100%;
+			height: 390px;
+         
+			overflow: hidden;
+			animation-name: sky;
+			animation-direction: normal;
+			animation-delay: 0s;
+			animation-duration: 60s;
+			animation-iteration-count: infinite;
+			animation-fill-mode: backwards;
+			transition-timing-function: ease-in-out;
+		}
+		@keyframes sky {
+			  0%{background-color: #aaf;}
+			 10%{background-color: #ccf;}
+			 20%{background-color: #ddf;}
+			 30%{background-color: #ccf;}
+			 40%{background-color: #bbf;}
+			 50%{background-color: #55f;}
+			 60%{background-color: #00a;}
+			 70%{background-color: #005;}
+			 80%{background-color: #006;}
+			 90%{background-color: #008;}
+			100%{background-color: #aaf;}
+		}
+		#stars {
+			position: absolute;
+			height:0px;
+			width:100%;
+			overflow: visible;
+			animation: stars;
+			animation-duration: 60s;
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
+		}
+		@keyframes stars {
+			0% {opacity:0; left:-10%;}
+			40% {opacity:0; left:-10%;}
+			55%{opacity:1;}
+			90% {opacity: 1;}
+			100% {opacity: 0; left:-25%;}
+		}
+		#starshine1, #starshine2, #starshine3  {
+			position: absolute;
+			display: inline;
+			letter-spacing: 10px;
+			left:-10%;
+		}
+		#starshine1 {
+			color:#fcc;
+			animation: starshine1;
+			animation-duration: 1s;
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
+		}
+		@keyframes starshine1 {
+			0%{opacity: 1.2;}
+			100%{opacity: 0.2;}
+		}
+		#starshine2 {
+			color:#dfd;
+			animation: starshine2;
+			animation-duration: 2.1s;
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
+		}
+		@keyframes starshine2 {
+			0%{opacity: 0.8;}
+			100%{opacity: 0.2;}	
+		}
+		#starshine3 {
+			color:#ddf;
+			animation: starshine3;
+			animation-duration: 3s;
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
+		}
+		@keyframes starshine3 {
+			0%{opacity: 1;}
+			100%{opacity: 0.2;}
+		}
+		#sun {
+			position: relative;
+			height: 50px;
+			width: 50px;
+			/* //background: radial-gradient(#fe0,#fb0,#ff0); */
+			border-radius: 50%;
+			box-shadow: 0px 0px 10px 30px rgba(250,230,0,0.5), 0 0 50px 300px rgba(250, 230, 0, 0.1);
+			left:102%;
+			top:300px;
+			animation-name: sun;
+			animation-delay: 0s;
+			animation-duration: 60s;
+			animation-direction: normal;
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
+			animation-fill-mode: backwards;
+		}
+		@keyframes sun {
+			0%{left: 102%; top:300px; background: radial-gradient(#fd0,#f90); box-shadow: 0px 0px 60px 30px rgba(250,0,0,0.5), 0 0 200px 200px rgba(255, 0, 0, 0.3);}
+			10%{				top:100px; background: radial-gradient(#ff0,#fb0); box-shadow: 0px 0px 30px 30px rgba(250,230,0,0.5), 0 0 200px 200px rgba(250, 230, 0, 0.3);}
+			20%{				top:25px; background: radial-gradient(#ff0,#fd0); box-shadow: 0px 0px 30px 30px rgba(250,230,0,0.5), 0 0 200px 200px rgba(250, 230, 0, 0.3);}
+			30%{				top:35px; background: radial-gradient(#ff0,#fd0); box-shadow: 0px 0px 30px 30px rgba(250,230,0,0.5), 0 0 200px 200px rgba(250, 230, 0, 0.3);}
+			38%{				top:110px; background: radial-gradient(#ff0,#fb0); box-shadow: 0px 0px 60px 30px rgba(250,100,0,0.5), 0 0 200px 200px rgba(250, 100, 0, 0.3);}
+			50%{left:-20%; top:350px; background: radial-gradient(#fd0,#f90); box-shadow: 0px 0px 60px 30px rgba(250,70,0,0.5), 0 0 200px 200px rgba(250, 70, 0, 0.3);}
+			51%{left:-40%; top:350px;}
+			100%{left:-40%; top:350px;}
+		}
+		#moon {
+			position: relative;
+			height: 1px;
+			width: 1px;
+			background-color: transparent;
+			background: radial-gradient(#fee,#ffd,#fff);
+			border-radius: 50%;
+			box-shadow: 5px 60px 190px 60px rgba(250,250,250,0.5);
+			left:102%;
+			top:200px;
+			animation-name: moon;
+			animation-delay: 0s;
+			animation-duration: 60s;
+			animation-direction: normal;
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
+			animation-fill-mode: none;
+			animation-play-state: running;
+		}
+		@keyframes moon {
+			0%{left: 105%; top:200px;}
+			50%{left: 102%; top:200px;}
+			60%{			top:50px;}
+			70%{			top:-50px;}
+			80%{			top:-10px;}
+			90%{			top:100px;}
+			100%{left:-20%; top:330px;}
+		}
+		#mooncurve {
+			position: relative;
+			width: 70px;
+			height: 70px;
+			background-color: transparent;
+			border-radius: 50%;
+			box-shadow: -20px 20px 0px 0px #eee;
+		}
+		#cloud-back {
+			position: relative;
+		}
+
+		#hill2 {
+			
+			position: absolute;
+			top:50px;
+		
+			left: 100%;
+			top: -380px;
+			animation-name: hill2;
+			animation-direction: normal;
+			animation-delay: 3s;
+			animation-duration: 35s;
+			animation-timing-function: linear;
+			animation-play-state: running;
+			animation-iteration-count: infinite;
+		}
+		@keyframes hill2 {
+			0%{left: 100%;}
+			100%{left:-61%;}
+		}
+		#h2peak1 {
+			position: relative;
+			width: 130px;
+			height:150px;
+			background:linear-gradient(0deg, #311 ,#422, #522);
+			left:150px;
+			top:390px;
+			border-radius: 100% 30% 0 0;			
+		}
+		#h2peak2 {
+			position: relative;
+			width: 75px;
+			height:250px;
+			background:radial-gradient( #311, #522 80%);
+			left:290px;
+			top:210px;
+			border-radius: 100% 50% 0 0;			
+		}
+		#h2top{
+			position: relative;
+			width: 400px;
+			height:200px;
+			background:radial-gradient( #311, #522 75%);
+			left:100px;
+			top:100px;
+			border-radius: 70% 100% 0 0;
+		}
+		#h2baseleft{
+			position: relative;
+			width: 550px;
+			height:150px;
+			background: linear-gradient(0deg, #201010, #522 99%);
+			left:50px;
+			top:0px;
+			border-radius: 30% 50% 0 0;
+			transform: skewX(150deg);
+		}
+		#h2baseright{
+			position: relative;
+			width: 350px;
+			height:110px;
+			background:linear-gradient(10deg, #221111, #5a2020);
+			left:470px;
+			top:-110px;
+			border-radius: 30% 50% 0 0;
+			transform: skewX(50deg);
+		}
+
+
+		#hill1 {
+			position: absolute;
+			top:50px;
+			
+			left: 105%;
+			animation-name: hill1;
+			animation-direction: normal;
+			animation-delay: 0s;
+			animation-duration: 20s;
+			animation-timing-function: linear;
+			animation-play-state: running;
+			animation-iteration-count: infinite;
+		}
+		@keyframes hill1 {
+			0%{left: 105%;}
+			100%{left:-45%;}
+		}
+		#h1top{
+			position: relative;
+			width: 270px;
+			height:150px;
+			background:linear-gradient(0deg, #422, #522);
+			left:250px;
+			top:130px;
+			border-radius: 100% 50% 0 0;
+		}
+		#h1baseleft{
+			position: relative;
+			width: 350px;
+			height:150px;
+			background: linear-gradient(-30deg, #211, #522);
+			left:50px;
+			top:50px;
+			border-radius: 30% 30% 0 0;
+			transform: skewX(120deg);
+		}
+		#h1baseright{
+			position: relative;
+			width: 300px;
+			height:130px;
+			background:linear-gradient(10deg, #211, #522);
+			left:300px;
+			top:-100px;
+			border-radius: 30% 50% 0 0;
+			transform: skewX(20deg);
+		}
+		#cloud-front {
+			position: relative;
+		}
+		#tree {
+			position: relative;
+		}
+		/* end of background */
+
+		/* start of road */
+		#road{
+			position: absolute;
+			background-color: #555;
+			width: 100%;
+			height: 100px;
+			bottom: 0px;
+			overflow: hidden;
+			animation-name: road;
+			animation-duration: 60s;
+			animation-direction: normal;
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
+		}
+		@keyframes road {
+			0% {background-color: #555;}
+			/* //10% {background-color: #555;}
+			//20% {background-color: #555;} */
+			30% {background-color: #aaa;}
+			/* //40% {background-color: #555;} */
+			50% {background-color: #555;}
+			60% {background-color: #333;}
+			70% {background-color: #333;}
+			80% {background-color: #333;}
+			/* //90% {background-color: #444;} */
+			100% {background-color: #555;}
+		}
+		#road-lane {
+			position: relative;
+			width:50%;
+			height:10px;
+			float: right;
+			top: 35%;
+			background-color: #fff;
+			opacity: 0.8;
+			animation-name: road-lane;
+			animation-duration: 1s;
+			animation-delay: 0s;
+			animation-direction: normal;
+			animation-play-state: running;
+			animation-iteration-count: infinite;
+			animation-fill-mode: forwards;
+			animation-timing-function: linear;
+		}
+		@keyframes road-lane{
+			0%{right:-50%; transform: skewX(45deg); }
+			100%{right:100%; transform: skewX(-45deg); }
+		}
+		/* end of road */
+
+		/* start of wheels */
+		#wheelfront {
+			left:530px;
+		}
+		#wheelrear {
+			left:220px;
+		}
+		#wheelfront, #wheelrear{
+			position: absolute;
+			height:40px;
+			width:40px;
+			border-radius: 50%;
+			border: 20px solid #222;
+			background-color: #555;
+			bottom: 15px;
+			z-index:5;
+		   box-shadow: 0px 3px 5px 0 yellow;
+			animation-name: wheel;
+			animation-duration: 0.5s;
+			animation-iteration-count: infinite;
+			animation-delay: 0s;
+			animation-direction: normal;
+			animation-timing-function: linear;
+			animation-fill-mode: forwards;
+				}
+		@keyframes wheel {
+			25%{transform: rotateZ(90deg);}
+			55%{transform: rotateZ(180deg);}
+			75%{transform: rotateZ(270deg);}
+			100%{transform: rotateZ(360deg);}
+		}
+		#front-spinner1, #front-spinner2, #front-spinner3{
+			position:relative;
+			width:10px;
+			height:15px;
+            top: 0;
+            left: 0;
+         
+            
+			background-color: #ccc;
+			border-radius: 50% 50% 50% 5% ;
+		}
+		#front-spinner1{
+			top:-3px;
+			left:-15px;			
+			transform: rotateZ(60deg);
+		}
+		#front-spinner2{
+			top:-15px;
+			left:4px;
+			transform: rotateZ(310deg);
+		}
+		#front-spinner3{
+			top:-49px;
+			left:-4px;
+			transform: rotateZ(190deg);
+		}
+		/* end of wheels */
+
+		/* start of car body*/
+		#carbody {
+			animation-name: carbody;
+			animation-direction: normal;
+			animation-duration: 1s;
+			animation-delay: 0s;
+			animation-timing-function: linear;
+			animation-iteration-count: infinite;
+		}
+		@keyframes carbody{
+			20%{transform: translateY(1px);}
+			40%{transform: translateY(-1px);}
+			60%{transform: translateY(1px);}
+			80%{transform: translateY(-1px);}
+			100%{transform: translateY(1px);}
+		}
+        #carbody{
+            position: relative;
+
+            bottom: -250px !important;
+        
+        }
+		#carbody #cbottom{
+			position: relative;
+			background: linear-gradient(.5deg, #500, #a22 13%, #c22, #c00);
+			width: 500px;
+			height:100px;
+			left:150px;
+			top:190px;
+			border-radius: 100px 200px 10px 5px;
+			box-shadow: 0px 40px 30px -10px rgba(0,0,0,0.3);
+			animation-name: cbottomshadow;
+			animation-direction: normal;
+			animation-duration: 60s;
+			animation-delay: 0s;
+			animation-timing-function: linear;
+			animation-iteration-count: infinite;
+		}
+		@keyframes cbottomshadow {
+			0%{box-shadow: 0px 40px 30px -10px rgba(0,0,0,0.3);}
+			50%{box-shadow: 0px 40px 30px -10px rgba(0,0,0,0.3);}
+			60%{box-shadow: 0px 40px 30px -10px rgba(0,0,0,0.6);}
+			90%{box-shadow: 0px 40px 30px -10px rgba(0,0,0,0.6);}
+			100%{box-shadow: 0px 40px 30px -10px rgba(0,0,0,0.3);}
+		}
+		#carbody #ctop{
+			position: relative;
+			background: linear-gradient(-20deg, rgba(80,48,48,1), rgba(32,32,32,1), rgba(80,64,64,0.95), rgba(32,16,16,1), rgba(16,16,16,1));
+			width: 240px;
+			height: 80px;
+			left: 220px;
+			top: 242px;
+			transform: rotateZ(-15deg) skewX(30deg);
+			border: 10px solid #c00;
+			border-top: 10px solid #c00;
+			border-radius: 0 50px 0 0;
+		}
+        #carname{
+            z-index: 15;
+            position: absolute;
+			text-align: center;
+			width: 400px;
+			height: 80px;
+			left: 200px;
+			top: 290px;
+			animation-name: carbody;
+			font-size: 600;
+		
+			
+
+        }
+		#headlight {
+			position: relative;
+			width:10px;
+			height: 20px;
+			background-color: #ff0;
+			top:120px;
+			left:620px;
+			border: 1px solid silver;
+			border-radius: 0 50% 50% 0;
+			transform: skewX(30deg) skewY(30deg);
+		}
+		#lightbeam {
+			position: relative;
+			width: 300px;
+			height: 100px;
+			background: linear-gradient(90deg, rgba(255,255,0,0.5), rgba(255,255,0,0.3), rgba(255,255,0,0.2), rgba(255,255,0,0.1));
+			border-radius: 0 20% 50% 100%;
+			transform: skewX(0deg) skewY(0deg) rotateZ(-30deg);
+			box-shadow: 0px 0px 25px 15px rgba(255,255,0,0.1);
+			top:-75px;
+			left: 5px;
+			animation-name: lightbeam;
+			animation-delay: 0s;
+			animation-duration: 60s;
+			animation-direction: normal;
+			animation-timing-function: linear;
+			animation-iteration-count: infinite;
+			animation-play-state: running;
+		}
+		@keyframes lightbeam {
+			0%{opacity: 0;}
+			49%{opacity: 0;}
+			50%{opacity: 1;}
+			95%{opacity: 1;}
+			96%{opacity: 0;}
+			100%{opacity: 0;}
+		}
+		#taillight {
+			position: relative;
+			width: 10px;
+			height: 20px;
+			background-color: #f00;
+			top:90px;
+			left:155px;
+			border: 1px solid silver;
+			border-radius: 100% 10% 10% 10%;
+			box-shadow: -5px 0  10px 10px rgba(255,0,0,0);
+			animation-name: taillight-glow;
+			animation-direction: normal;
+			animation-duration: 60s;
+			animation-iteration-count: infinite;
+		}
+		@keyframes taillight-glow{
+			0%{box-shadow: -5px 0  10px 10px rgba(255,0,0,0);}
+			49%{box-shadow: -5px 0  10px 10px rgba(255,0,0,0);}
+			50%{box-shadow: -5px 0  10px 10px rgba(255,0,0,0.5);}
+			95%{box-shadow: -5px 0  10px 10px rgba(255,0,0,0.5);}
+			96%{box-shadow: -5px 0  10px 10px rgba(255,0,0,0);}
+			100%{box-shadow: -5px 0  10px 10px rgba(255,0,0,0);}
+		}
+		#doorhandle {
+			position: relative;
+			height:5px;
+			width:20px;
+			background: linear-gradient(0deg, rgba(0,0,0,0), rgba(0,0,0,0.5));
+			border-top: 5px solid #333;
+			border-right: 10px solid #333;
+			border-top-right-radius: 15px;
+			border-bottom-left-radius: 10px;
+			top:30px;
+			left:380px;
+		}
+		#carshadow {
+			position: relative;
+			width: 500px;
+			height: 70px;
+			top:130px;
+			bottom: 150px;
+			border-radius: 20px;
+			animation-name: carshadow;
+			animation-direction: normal;
+			animation-duration: 60s;
+			animation-iteration-count: infinite;
+			background-color: #000;
+		}
+		@keyframes carshadow {
+			0%{border-radius: 0px 0px 100% 10px; opacity:0.05;}
+			10%{border-radius: 0px 0px 95% 20px; opacity:0.06;}
+			20%{border-radius: 0px 0px 90% 20%; opacity:0.07;}
+			30%{border-radius: 5px 5px 50% 10%; opacity:0.1;}
+			40%{border-radius: 20px 0px 0px 80%; opacity:0.07;}
+			50%{border-radius: 30px 0px 0px 100%; opacity:0.05;}
+			52%{border-radius: 0px 0px 100% 5px; opacity:0.01;}
+			60%{border-radius: 0px 0px 100% 15px; opacity:0.02;}
+			70%{border-radius: 0px 0px 95% 0px; opacity:0.03;}
+			80%{border-radius: 0px 0px 90% 90%; opacity:0.04;}
+			90%{border-radius: 50px 0px 10% 80%; opacity:0.03;}
+			100%{border-radius: 0px 0px 70% 30%; opacity:0.02;}
+		}
+
+		/* end of car body*/
+.box .label{
+	color: white;
+}
+
+
+@keyframes fadeIn {
+	from {
+	  opacity: 0;
+	}
+	to {
+	  opacity: 1;
+	}
+  }
+  
+  .fade-in {
+	animation: fadeIn 1s ease-in-out;
+  }
+  
