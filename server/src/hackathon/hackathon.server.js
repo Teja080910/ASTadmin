@@ -2,6 +2,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import { AbsentStudent, AttendStudent } from '../bootcamp/attendance/attendance.js';
+import { DeleteMaterial, DeleteMaterials } from '../bootcamp/materials/deletematerials.js';
+import { EditMaterial } from '../bootcamp/materials/editmaterial.js';
 import { Materials } from '../bootcamp/materials/materials.js';
 import { FileByName, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
 import { GivenMarks } from '../bootcamp/scoremanager/score.js';
@@ -18,8 +20,10 @@ import { DeletePS } from './problemstatements/deleteps.js';
 import { EditPS } from './problemstatements/editps.js';
 import { InsertPS } from './problemstatements/insertps.js';
 import { PSS } from './problemstatements/pss.js';
-import { DeleteMaterial, DeleteMaterials } from '../bootcamp/materials/deletematerials.js';
-import { EditMaterial } from '../bootcamp/materials/editmaterial.js';
+import { AdminLogin } from '../bootcamp/admin/adminlogin.js';
+import { AdminRegister } from '../bootcamp/admin/adminregister.js';
+import { AddTeamCodes } from './teamcodes/teamcodes.js';
+import { AllTeamCodes } from './teamcodes/allteamcodes.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -27,6 +31,14 @@ app.use(express.json())
 app.get('/hackathon', (req, res) => {
     res.json("hackathon server is running.....");
 })
+
+app.post('/bootcampadminlogin',async (req, res) => {
+    await AdminLogin(req.body, res)
+});
+
+app.post('/bootcampadminregister',async (req, res) => {
+    await AdminRegister(req.body, res)
+});
 
 
 // ***********************************BootCamp***************************************************** //
@@ -47,7 +59,7 @@ app.get('/file/:filename', async (req, res) => {
 });
 
 app.post('/deletefile', async (req, res) => {
-    await DeleteMaterial(req.body.theme, req.body.photo,req.body.pdf, res)
+    await DeleteMaterial(req.body.theme, req.body.photo, req.body.pdf, res)
 })
 
 app.post('/editfile', async (req, res) => {
@@ -126,11 +138,11 @@ app.post('/studentxlsx', initiateMulter(), async (req, res) => {
 // *************************************************Hackathon****************************************** //
 
 app.post('/insertstatement', async (req, res) => {
-    await InsertPS(req.body.number, req.body.statement, req.body.description, res)
+    await InsertPS(req.body.number, req.body.statement, req.body.description,req.body.theme, res)
 })
 
 app.post('/editstatement', async (req, res) => {
-    await EditPS(req.body.selectnumber, req.body.selectstatement, req.body.selectdesc, res)
+    await EditPS(req.body.selectnumber, req.body.selectstatement, req.body.selectdesc,req.body.theme, res)
 })
 
 app.post('/deletestatement', async (req, res) => {
@@ -139,6 +151,14 @@ app.post('/deletestatement', async (req, res) => {
 
 app.post('/statements', async (req, res) => {
     await PSS(res)
+})
+
+app.post('/teamsinput', async (req, res) => {
+    await AddTeamCodes(req.body.teams,res)
+})
+
+app.post('/teamscodes', async (req, res) => {
+    await AllTeamCodes(res)
 })
 
 export default app;
