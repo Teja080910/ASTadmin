@@ -110,3 +110,21 @@ input[type="text"] {
 .timers ul li button:hover {
   background-color: #c82333;
 }
+
+.timer-block {
+  background: white;
+  padding: 20px;
+
+  gap: 20px;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  @media (max-width: 480px) {
+    width: 80vw;
+    flex-direction: column;
+    gap: 2px;
+  }
+}
