@@ -21,10 +21,8 @@ import { Appstore } from './collection/redux/login.js';
 import Sample from './collection/sample/sample.js';
 import './responce.css';
 import { HackathonSidebar } from './hackathon/hackathonsidebar/hackathonsidebar.js';
-<<<<<<< HEAD
 import { RegisterForm } from './bootcamp/Register/register.js';
 import { LoginForm } from './bootcamp/login/login.js';
-=======
 import Timer from './hackathon/main-timer/Timer.jsx';
 import socketIOClient from "socket.io-client";
 const SOCKET_SERVER_URL = "https://timer-server-edko.onrender.com";
@@ -32,7 +30,6 @@ const socket = socketIOClient(SOCKET_SERVER_URL);
 
 
 
->>>>>>> 190f5f8cc36b3ebac8fc08c0336300c61bb1d23c
 function App() {
   const [set, setSet] = useState()
   const [time, setTime] = useState()
@@ -67,7 +64,10 @@ function App() {
           <Route path='/redux' element={<Appstore />} />
           <Route path='/bootcamp' element={<BootcampSidebar />} />
           <Route path='/hackathon' element={<HackathonSidebar/>}/>
-
+          <Route path='/bootcampregister' element={<RegisterForm/>}/>
+          <Route path='/bootcamplogin' element={<LoginForm/>}/>
+          <Route path='/hackathon' element={<HackathonSidebar socket={socket}/>}/>
+          <Route path='/hackathon/timer' element={<Timer socket={socket}/>}/>
         </Routes>
       </BrowserRouter>
 
