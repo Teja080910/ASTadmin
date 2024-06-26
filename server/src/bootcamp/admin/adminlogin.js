@@ -1,8 +1,8 @@
 import { db1 } from "../../db.js";
 export const AdminLogin = async (data, res) => {
-    const { email, password } = data;
+    const { mail, password } = data;
     try {
-        const admin = await db1.collection('Hacthonadmin').findOne({ Gmail: email });
+        const admin = await db1.collection('Hacthonadmin').findOne({ Gmail: mail });
         if (!admin) {
             return res.json({ error: 'Invalid admin' });
         }

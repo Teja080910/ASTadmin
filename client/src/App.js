@@ -23,10 +23,10 @@ import './responce.css';
 import { HackathonSidebar } from './hackathon/hackathonsidebar/hackathonsidebar.js';
 import Timer from './hackathon/main-timer/Timer.jsx';
 import socketIOClient from "socket.io-client";
+import { Actions } from './actions/actions.js';
+import { BootLogin } from './collection/admin/adminactions.js';
 const SOCKET_SERVER_URL = "https://timer-server-edko.onrender.com";
 const socket = socketIOClient(SOCKET_SERVER_URL);
-
-
 
 function App() {
   const [set, setSet] = useState()
@@ -39,6 +39,7 @@ function App() {
           setSet(res?.data)
         }
       }).catch((e) => console.log(e))
+      BootLogin().then(()=>{}).catch((e)=>console.log(e))
   }, [sessionStorage.gmail])
   Timings().then((res) => setTime(res))
   return (

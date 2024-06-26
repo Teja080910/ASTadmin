@@ -24,6 +24,7 @@ export const BootAttendance = () => {
             {
                 if (responce?.data?.message) {
                     toast({ title: registerno + " Attend", status: "success", position: "top", isClosable: true })
+                    fetchData()
                 }
                 else {
                     toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true })
@@ -40,6 +41,7 @@ export const BootAttendance = () => {
             {
                 if (responce1) {
                     toast({ title: registerno + " Absent", status: "success", position: "top", isClosable: true })
+                    fetchData()
                 }
                 else {
                     toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true })
@@ -53,15 +55,18 @@ export const BootAttendance = () => {
     const Year = () => {
         sessionStorage.year = year;
     }
-    useEffect(() => {
-        axios.post(process.env.REACT_APP_database + "/bootcampstudents")
+    const fetchData = async () => {
+        await axios.post(process.env.REACT_APP_database + "/bootcampstudents")
             .then((result) => {
                 sdat((result.data.sort((a, b) => a.Year - b.Year)));
-                console.log(dat.map((val)=>val.Reg_No))
+                console.log(dat.map((val) => val.Reg_No))
             })
         setTimeout(() => {
             setIsLoading(false);
         }, 2000);
+    }
+    useEffect(() => {
+        fetchData()
     }, [year])
     return (
         <>
@@ -96,8 +101,8 @@ export const BootAttendance = () => {
                                             {index + 1}. {x?.Name.toUpperCase()} ({x?.Reg_No.toUpperCase()})
                                         </Box>
                                         {x.Date !== date.toDateString() ?
-                                            <Button colorScheme="blue" onClick={()=>Attend(x?.Reg_No)}>Attend</Button> :
-                                            <Button colorScheme="red" onClick={()=>Absent(x?.Reg_No)}>Absent</Button>
+                                            <Button colorScheme="blue" onClick={() => Attend(x?.Reg_No)}>Attend</Button> :
+                                            <Button colorScheme="red" onClick={() => Absent(x?.Reg_No)}>Absent</Button>
                                         }
                                     </AccordionItem>
                                 ))}

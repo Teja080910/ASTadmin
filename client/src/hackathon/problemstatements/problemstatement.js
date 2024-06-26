@@ -1,4 +1,4 @@
-import { Box, Button, Input, Stack, Text, useToast } from '@chakra-ui/react';
+import { Box, Button, Input, Select, Stack, Text, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useState } from 'react';
 import './ps.css';
@@ -15,7 +15,7 @@ export const PSInput = ({ tasks, reload }) => {
         setLoad(true)
         if (number && statement && description) {
             try {
-                const response = await axios.post(process.env.REACT_APP_database + '/insertstatement', { number, statement, description });
+                const response = await axios.post(process.env.REACT_APP_database + '/insertstatement', { number, statement, description,theme:sessionStorage?.theme});
                 if (response?.data?.message) {
                     setLoad(false)
                     reload()
@@ -59,7 +59,7 @@ export const PSInput = ({ tasks, reload }) => {
 
     const Edit = async (selectnumber, selectstatement, selectdesc) => {
         try {
-            const edit = await axios.post(process.env.REACT_APP_database + '/editstatement', { selectnumber, selectstatement, selectdesc });
+            const edit = await axios.post(process.env.REACT_APP_database + '/editstatement', { selectnumber, selectstatement, selectdesc,theme:sessionStorage?.theme});
             if (edit.data) {
                 reload()
                 setNumber('');
@@ -76,12 +76,13 @@ export const PSInput = ({ tasks, reload }) => {
         }
     }
 
-    const EditTask = async (selectstatement, selectnumber, selectdesc) => {
+    const EditTask = async (selectstatement, selectnumber, selectdesc,theme) => {
         try {
             setNumber(selectnumber)
             setStatement(selectstatement)
             setDescription(selectdesc)
             setUpdate(true)
+            sessionStorage.theme=theme;
         } catch (error) {
             console.log(error)
             toast({ title: error, status: "error", position: "bottom-left", isClosable: true })
@@ -91,6 +92,11 @@ export const PSInput = ({ tasks, reload }) => {
     return (
         <div className="task-form">
             <Stack spacing={4}>
+                <Select onChange={(e)=>sessionStorage.theme=e.target.value}>
+                    <option>Choose Theme</option>
+                    <option value="yoga">Yoga</option>
+                    <option value='sports'>Sports</option>
+                </Select>
                 <Input placeholder="Enter Statement Number" value={number} onChange={(e) => { setNumber(e.target.value) }} size="lg" type='number' />
                 <Input placeholder="Enter Statement" value={statement} onChange={(e) => setStatement(e.target.value)} size="lg" />
                 <Input
@@ -109,12 +115,13 @@ export const PSInput = ({ tasks, reload }) => {
                     {tasks?.map((task, index) => (
                         <Box key={index} className='task-item' p={4} borderWidth={1} borderRadius="lg" mb={4}>
                             <Text fontWeight="bold" textAlign="center">Problem Statement {task?.Number}</Text>
-                            <Text className='task-title'>Task: {task?.Statement}</Text>
-                            <Text className='task-description'>Description: {task?.Desc}</Text>
+                            <Text className='task-title'>Task : {task?.Statement}</Text>
+                            <Text className='task-description'>Description : {task?.Desc}</Text>
+                            <Text>Theme : {task?.Theme}</Text>
                             <div className='task-select' >
                                 <div className='task-select2'>
                                     {<Button bg="#CE5A67" color="white" onClick={() => Delete(task?.Statement)}>Delete</Button>}
-                                    <Button bg="#F4BF96" color="white" onClick={() => EditTask(task?.Statement, task?.Number, task?.Desc)}>Edit</Button>
+                                    <Button bg="#F4BF96" color="white" onClick={() => EditTask(task?.Statement, task?.Number, task?.Desc,task?.Theme)}>Edit</Button>
                                 </div>
                             </div>
                         </Box>
