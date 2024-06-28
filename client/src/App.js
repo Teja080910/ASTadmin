@@ -26,13 +26,18 @@ import Sample from './collection/sample/sample.js';
 import { HackathonSidebar } from './hackathon/hackathonsidebar/hackathonsidebar.js';
 import Timer from './hackathon/main-timer/Timer.jsx';
 import './responce.css';
+
+import { io } from "socket.io-client";
+
 const SOCKET_SERVER_URL = "https://timer-server-edko.onrender.com";
-const socket = socketIOClient(SOCKET_SERVER_URL);
+
 
 function App() {
   const [set, setSet] = useState()
   const [time, setTime] = useState()
   const salt = CryptoENC
+
+  const socket = io(SOCKET_SERVER_URL);
   useEffect(() => {
     axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
       .then((res) => {
@@ -63,7 +68,6 @@ function App() {
           <Route path='sample' element={<Sample />} />
           <Route path='/redux' element={<Appstore />} />
           <Route path='/bootcamp' element={<BootcampSidebar />} />
-          <Route path='/hackathon' element={<HackathonSidebar />} />
           <Route path='/bootcampregister' element={<RegisterForm />} />
           <Route path='/bootcamplogin' element={<LoginForm />} />
           <Route path='/hackathon' element={<HackathonSidebar socket={socket} />} />

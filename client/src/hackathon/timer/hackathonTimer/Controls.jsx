@@ -1,13 +1,43 @@
-import React, { useState } from "react";
-import { imageMappings, backgrounds } from "../../resources";
+import React, { useState, useEffect } from "react";
+import { imageMappings, backgrounds, games } from "../../resources";
 import "./Controls.css";
-import { Select } from "@chakra-ui/react";
-import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
+import { Select, Table, Tbody, Tr, Td, Th, Thead } from "@chakra-ui/react";
+import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 
 const Controls = ({ socket }) => {
   const [leftImage, setLeftImage] = useState(imageMappings[0]?.code || "");
   const [rightImage, setRightImage] = useState(imageMappings[0]?.code || "");
-  const [BackGround, setBackground] = useState(backgrounds[0]?.code || "");
+  const [background, setBackground] = useState(backgrounds[0]?.code || "");
+  const [game, setGame] = useState(games[0]?.code || "");
+  const [scores, setScores] = useState([]);
+
+  useEffect(() => {
+    socket.on("gameData", (data) => {
+      if (data.code !== "no-game"){
+        setGame(false); 
+      }else{
+        setGame(data.code); 
+
+
+      }
+    });
+    socket.emit("getAllScores");
+    socket.on("allScores", (data) => {
+      // Sort scores in descending order and add ranking
+      const sortedScores = data
+        .sort((a, b) => b.score - a.score)
+        .map((score, index) => ({ ...score, rank: index + 1 }));
+      setScores(sortedScores);
+    });
+
+  
+    
+
+    return () => {
+      socket.off("gameData");
+      socket.off("allScores");
+    };
+  }, [socket]);
 
   const handleSelectChange = (event, side) => {
     const code = event.target.value;
@@ -20,6 +50,9 @@ const Controls = ({ socket }) => {
     } else if (side === "background") {
       setBackground(code);
       socket.emit("changeBackground", { code });
+    } else if (side === "games") {
+      setGame(code);
+      socket.emit("addGame", { code });
     }
   };
 
@@ -89,7 +122,7 @@ const Controls = ({ socket }) => {
                 onChange={(e) => handleSelectChange(e, "left")}
                 icon={<ArrowDropDownCircleIcon />}
                 variant="outline"
-                   placeholder="select code or drag images"
+                placeholder="select code or drag images"
               >
                 {imageMappings.map((image) => (
                   <option key={image.code} value={image.code}>
@@ -128,7 +161,7 @@ const Controls = ({ socket }) => {
           <div className="control-item">
             <h3>Backgrounds</h3>
             <Select
-              value={BackGround}
+              value={background}
               variant="filled"
               onChange={(e) => handleSelectChange(e, "background")}
               icon={<ArrowDropDownCircleIcon />}
@@ -140,7 +173,43 @@ const Controls = ({ socket }) => {
               ))}
             </Select>
           </div>
+
+          <div className="control-item">
+            <h3>Games</h3>
+            <Select
+              value={game}
+              variant="filled"
+              placeholder="add game"
+              onChange={(e) => handleSelectChange(e, "games")}
+              icon={<ArrowDropDownCircleIcon />}
+            >
+              {games.map((game) => (
+                <option key={game.code} value={game.code}>
+                  {game.name}
+                </option>
+              ))}
+            </Select>
+          </div>
         </div>
+      </div>
+      <div className="scores-table">
+        <h3>Scores</h3>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>User ID</Th>
+              <Th>Score</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {scores.map((score) => (
+              <Tr key={score.userid}>
+                <Td>{score.userid}</Td>
+                <Td>{score.score}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
       </div>
     </div>
   );

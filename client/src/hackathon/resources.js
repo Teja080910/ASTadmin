@@ -26,6 +26,12 @@ const backgrounds = [
   { code: "img-002", name: "cloudy-image", path: ".././static/cloudy.png" },
   { code: "img-003", name: "butterfly-img", path: ".././static/butterfly.png" },
 ];
+const games = [
+ {
+  code :"no-game",name : "NO GAME",
+  code: "pig-batter", name: "PIG BATTER"
+ }
 
+]
 
-export { imageMappings, backgrounds };
+export { imageMappings, backgrounds,games };
