@@ -13,14 +13,14 @@ export const HackathonTeam = () => {
     const [selectedStudent, setSelectedStudent] = useState(null);
     const toast = useToast();
 
-    const fetchStudentData = async () => {
+    const fetchData = async () => {
         await Actions.TeamsCodes()
         .then((res)=>setDat(res?.data))
         .catch((e)=>console.log(e))
     };
 
     useEffect(() => {
-        fetchStudentData();
+        fetchData();
     }, []);
 
  
@@ -31,7 +31,7 @@ export const HackathonTeam = () => {
                 <Input id="search" value={select} placeholder="Enter Team Number (e.g., team1)" onChange={(e) => setSelect(e.target.value)} width="70%" />
             </Box>
 
-            <Teams data={dat}/>
+            <Teams data={dat} refresh={()=>fetchData()}/>
 
             <CodesCard />
         </>

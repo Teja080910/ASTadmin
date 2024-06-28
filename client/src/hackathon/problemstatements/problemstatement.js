@@ -82,7 +82,6 @@ export const PSInput = ({ tasks, reload }) => {
             setStatement(selectstatement)
             setDescription(selectdesc)
             setUpdate(true)
-            sessionStorage.theme=theme;
         } catch (error) {
             console.log(error)
             toast({ title: error, status: "error", position: "bottom-left", isClosable: true })
