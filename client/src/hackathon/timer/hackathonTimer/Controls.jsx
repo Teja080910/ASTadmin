@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { imageMappings, backgrounds, games } from "../../resources";
 import "./Controls.css";
-import { Select, Table, Tbody, Tr, Td, Th, Thead } from "@chakra-ui/react";
+import { Select } from "@chakra-ui/react";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
+import ScoreTable from "./ScoreTable";
 
 const Controls = ({ socket }) => {
   const [leftImage, setLeftImage] = useState(imageMappings[0]?.code || "");
@@ -12,9 +13,10 @@ const Controls = ({ socket }) => {
   const [scores, setScores] = useState([]);
 
   useEffect(() => {
+    socket.emit("gameData");
     socket.on("gameData", (data) => {
-      if (data.code !== "no-game") {
-        setGame(false);
+      if (data.code === "000") {
+        setGame(games[0]?.code);
       } else {
         setGame(data.code);
       }
@@ -174,7 +176,6 @@ const Controls = ({ socket }) => {
             <Select
               value={game}
               variant="filled"
-              placeholder="add game"
               onChange={(e) => handleSelectChange(e, "games")}
               icon={<ArrowDropDownCircleIcon />}
             >
@@ -187,25 +188,7 @@ const Controls = ({ socket }) => {
           </div>
         </div>
       </div>
-      <div className="scores-table">
-        <h3>Scores</h3>
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th>User ID</Th>
-              <Th>Score</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {scores.map((score) => (
-              <Tr key={score.userid}>
-                <Td>{score.userid}</Td>
-                <Td>{score.score}</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </div>
+      {game && <ScoreTable scores={scores}/>}
     </div>
   );
 };

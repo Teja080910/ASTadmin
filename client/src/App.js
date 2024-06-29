@@ -43,7 +43,7 @@ function App() {
         }
       }).catch((e) => console.log(e))
     BootLogin().then(() => { }).catch((e) => console.log(e))
-  }, [sessionStorage.gmail])
+  }, [salt])
   Timings().then((res) => setTime(res))
   return (
     <>

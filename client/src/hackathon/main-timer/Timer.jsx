@@ -4,6 +4,7 @@ import axios from "axios";
 import TimeBasedComponent from "./TimeBasedComponent";
 import Activities from "./Activitys";
 import { Button } from "@chakra-ui/react";
+import Scorer from "./Scorer";
 
 const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
   const [timeLeft, setTimeLeft] = useState({
@@ -12,6 +13,7 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
     seconds: 0,
   });
   const [endTime, setEndTime] = useState(null);
+  const [gamedata, setGameData] = useState(false);
 
   const getTimeLeft = (endTime) => {
     const total = endTime - Date.now();
@@ -65,6 +67,17 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
   useEffect(() => {
     getHackTime(url);
   }, [url]);
+  useEffect(() => {
+    socket.emit("gameData");
+
+    socket.on("gameData", (data) => {
+      if (data.code === "000" ) {
+        setGameData(null);
+      } else {
+        setGameData(data.code);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (endTime) {
@@ -88,7 +101,7 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
       <div className="hack-title">
         <h1 className="h1-animation">VEDIC VISION HACKATHON</h1>
       </div>
-
+      {gamedata && <Scorer socket={socket} />}
       <div className="count-icon" style={{ textAlign: "center" }}>
         {timeLeft.hours < 1 ? (
           <Button
