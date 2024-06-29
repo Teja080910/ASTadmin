@@ -9,7 +9,7 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com" ,socket}) 
   const [timers, setTimers] = useState([]);
   const [timerTitle, setTimerTitle] = useState("");
   const [duration, setDuration] = useState("");
-  const [color, setColor] = useState(false);
+  const [color, setColor] = useState("#435666");
   const [alert, setAlert] = useState("");
   const [loading, setLoading] = useState(false);
   const toast = useToast();
