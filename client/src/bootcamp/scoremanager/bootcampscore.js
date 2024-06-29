@@ -73,10 +73,10 @@ export const BootcampScore = () => {
             ) : (
                 <Flex flexDirection="column" alignItems="center">
                     {dat.filter(user =>
-                        user.Reg_No.toLowerCase().includes(select) ||
-                        user.Reg_No.toUpperCase().includes(select) ||
-                        user.Name.toUpperCase().includes(select) ||
-                        user.Name.toLowerCase().includes(select)
+                        user.Reg_No?.toLowerCase().includes(select) ||
+                        user.Reg_No?.toUpperCase().includes(select) ||
+                        user.Name?.toUpperCase().includes(select) ||
+                        user.Name?.toLowerCase().includes(select)
                     )
                         .map((x, index) => (
                             x?.Tasks && <Box
