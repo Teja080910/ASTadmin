@@ -175,7 +175,7 @@ const Controls = ({ socket }) => {
           </div>
 
           <div className="control-item">
-            <h3>Games</h3>
+            <h3>Add Games</h3>
             <Select
               value={game}
               variant="filled"
