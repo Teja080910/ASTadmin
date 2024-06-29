@@ -3,7 +3,6 @@ import CryptoAES from 'crypto-js/aes.js';
 import CryptoENC from "crypto-js/enc-utf8";
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import socketIOClient from "socket.io-client";
 import { Admin, Adminreg } from '../src/collection/admin/admin.js';
 import Login from '../src/collection/cerdentials/login.js';
 import Signup from '../src/collection/cerdentials/signup.js';
@@ -36,9 +35,10 @@ function App() {
   const [set, setSet] = useState()
   const [time, setTime] = useState()
   const salt = CryptoENC
-
-  const socket = io(SOCKET_SERVER_URL);
+var socket;
+ 
   useEffect(() => {
+    socket = io(SOCKET_SERVER_URL);
     axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
       .then((res) => {
         if (res?.data?.Password === CryptoAES.decrypt(sessionStorage.password ? sessionStorage.password : "1234", sessionStorage.gmail ? sessionStorage.gmail : "1234").toString(salt)) {
