@@ -13,12 +13,10 @@ const Controls = ({ socket }) => {
 
   useEffect(() => {
     socket.on("gameData", (data) => {
-      if (data.code !== "no-game"){
-        setGame(false); 
-      }else{
-        setGame(data.code); 
-
-
+      if (data.code !== "no-game") {
+        setGame(false);
+      } else {
+        setGame(data.code);
       }
     });
     socket.emit("getAllScores");
@@ -29,9 +27,6 @@ const Controls = ({ socket }) => {
         .map((score, index) => ({ ...score, rank: index + 1 }));
       setScores(sortedScores);
     });
-
-  
-    
 
     return () => {
       socket.off("gameData");
