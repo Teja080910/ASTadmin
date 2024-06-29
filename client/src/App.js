@@ -25,20 +25,17 @@ import Sample from './collection/sample/sample.js';
 import { HackathonSidebar } from './hackathon/hackathonsidebar/hackathonsidebar.js';
 import Timer from './hackathon/main-timer/Timer.jsx';
 import './responce.css';
+import { socket } from './socket.js';
 
-import { io } from "socket.io-client";
-
-const SOCKET_SERVER_URL = "https://timer-server-edko.onrender.com";
 
 
 function App() {
   const [set, setSet] = useState()
   const [time, setTime] = useState()
   const salt = CryptoENC
-var socket;
+
  
   useEffect(() => {
-    socket = io(SOCKET_SERVER_URL);
     axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
       .then((res) => {
         if (res?.data?.Password === CryptoAES.decrypt(sessionStorage.password ? sessionStorage.password : "1234", sessionStorage.gmail ? sessionStorage.gmail : "1234").toString(salt)) {
@@ -46,7 +43,7 @@ var socket;
         }
       }).catch((e) => console.log(e))
     BootLogin().then(() => { }).catch((e) => console.log(e))
-  }, [sessionStorage.gmail])
+  }, [salt])
   Timings().then((res) => setTime(res))
   return (
     <>

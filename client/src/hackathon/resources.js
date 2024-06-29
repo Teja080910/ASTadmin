@@ -28,8 +28,10 @@ const backgrounds = [
 ];
 const games = [
  {
-  code :"no-game",name : "NO GAME",
-  code: "pig-batter", name: "PIG BATTER"
+  code :"000",name : "NO GAME",
+ 
+ },{
+   code: "game-001", name: "PIG BATTER"
  }
 
 ]
