@@ -32,11 +32,11 @@ app.get('/hackathon', (req, res) => {
     res.json("hackathon server is running.....");
 })
 
-app.post('/bootcampadminlogin',async (req, res) => {
+app.post('/bootcampadminlogin', async (req, res) => {
     await AdminLogin(req.body, res)
 });
 
-app.post('/bootcampadminregister',async (req, res) => {
+app.post('/bootcampadminregister', async (req, res) => {
     await AdminRegister(req.body, res)
 });
 
@@ -138,11 +138,11 @@ app.post('/studentxlsx', initiateMulter(), async (req, res) => {
 // *************************************************Hackathon****************************************** //
 
 app.post('/insertstatement', async (req, res) => {
-    await InsertPS(req.body.number, req.body.statement, req.body.description,req.body.theme, res)
+    await InsertPS(req.body.number, req.body.statement, req.body.description, req.body.theme, res)
 })
 
 app.post('/editstatement', async (req, res) => {
-    await EditPS(req.body.selectnumber, req.body.selectstatement, req.body.selectdesc,req.body.theme, res)
+    await EditPS(req.body.selectnumber, req.body.selectstatement, req.body.selectdesc, req.body.theme, res)
 })
 
 app.post('/deletestatement', async (req, res) => {
@@ -154,11 +154,11 @@ app.post('/statements', async (req, res) => {
 })
 
 app.post('/teamsinput', async (req, res) => {
-    await AddTeamCodes(req.body.teams,res)
+    await AddTeamCodes(req.body.teams, res)
 })
 
 app.post('/deleteteam', async (req, res) => {
-    await DeleteTeam(req.body.teams,res)
+    await DeleteTeam(req.body.teams, res)
 })
 
 app.post('/teamscodes', async (req, res) => {

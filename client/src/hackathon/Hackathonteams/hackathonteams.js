@@ -1,17 +1,13 @@
-import { Box, Input, useToast } from "@chakra-ui/react";
-import axios from "axios";
+import { Box, Input } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { CodesCard } from "./codescard";
-import './hackscore.css'
-import { Teams } from "./teams";
 import { Actions } from "../../actions/actions";
+import { CodesCard } from "./codescard";
+import './hackscore.css';
+import { Teams } from "./teams";
 
 export const HackathonTeam = () => {
     const [dat, setDat] = useState([]);
     const [select, setSelect] = useState("");
-    const [isLoading, setIsLoading] = useState(true);
-    const [selectedStudent, setSelectedStudent] = useState(null);
-    const toast = useToast();
 
     const fetchData = async () => {
         await Actions.TeamsCodes()

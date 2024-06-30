@@ -13,7 +13,7 @@ export const Timings = async () => {
         console.log("Geolocation is not supported by this browser.");
     }
     if (((time <= "19:50:00 pm" && time >= "17:00:00 pm") || ("0" + time <= "07:50:00 pm" && "0" + time >= "05:00:00 pm"))) {
-        if ((latitude == "16.54" && longitude === "81.50") || (latitude === "16.55" && longitude === "81.51") || (latitude === "16.53" && longitude === "81.49")) {
+        if ((latitude === "16.54" && longitude === "81.50") || (latitude === "16.55" && longitude === "81.51") || (latitude === "16.53" && longitude === "81.49")) {
             return { tech: true }
         }
         else {

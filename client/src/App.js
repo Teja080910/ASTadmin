@@ -1,7 +1,8 @@
 import axios from 'axios';
 import CryptoAES from 'crypto-js/aes.js';
 import CryptoENC from "crypto-js/enc-utf8";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import socketIOClient from "socket.io-client";
 import { Admin, Adminreg } from '../src/collection/admin/admin.js';
@@ -12,10 +13,10 @@ import { Addproject, Projects } from '../src/collection/project/project.js';
 import { Pro } from '../src/collection/project/sampleproject.js';
 import { Scrum } from '../src/collection/scrummaster/scrum.js';
 import './App.css';
+import { Actions } from './actions/actions.js';
 import { RegisterForm } from './bootcamp/Register/register.js';
 import { BootcampSidebar } from './bootcamp/bootcampsidebar/bootcampsidebar.js';
 import { LoginForm } from './bootcamp/login/login.js';
-import { BootLogin } from './collection/admin/adminactions.js';
 import { Attendance } from './collection/attendance/attendance.js';
 import { Timings } from './collection/attendance/timings.js';
 import { Face } from './collection/face/face.js';
@@ -30,28 +31,46 @@ const SOCKET_SERVER_URL = "https://timer-server-edko.onrender.com";
 const socket = socketIOClient(SOCKET_SERVER_URL);
 
 function App() {
-  const [set, setSet] = useState()
+  const [set, setSet] = useState(false)
+  const [boot, setBoot] = useState(false)
+  const [load, setLoad] = useState(false)
   const [time, setTime] = useState()
+  const mail = useSelector((state) => state.user.bootmail);
+  const password = useSelector((state) => state.user.bootpassword);
   const salt = CryptoENC
-  useEffect(() => {
-    axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
+  const AdminLogin = async () => {
+    await axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
       .then((res) => {
         if (res?.data?.Password === CryptoAES.decrypt(sessionStorage.password ? sessionStorage.password : "1234", sessionStorage.gmail ? sessionStorage.gmail : "1234").toString(salt)) {
-          setSet(res?.data)
+          setSet(true)
+          setLoad(true)
         }
       }).catch((e) => console.log(e))
-    BootLogin().then(() => { }).catch((e) => console.log(e))
-  }, [sessionStorage.gmail])
+  }
+  set || AdminLogin()
+
+  const BootCamp = async () => {
+    await Actions.BootAdminLogin(mail, CryptoAES.decrypt(password ? password : "1234", mail ? mail : "1234").toString(salt))
+      .then((res) => {
+        if (res?.data?.message) {
+          setBoot(true)
+          setLoad(true)
+        }
+      }).catch((e) => console.log(e))
+  }
+
+  boot || BootCamp()
+
   Timings().then((res) => setTime(res))
   return (
-    <>
+    load && <>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path="/adminlogin" element={<Admin />} />
           <Route path='adminregister' element={<Adminreg />} />
           <Route path="/attendance" element={!set ? <Attendance /> : <Admin />} />
-          <Route path='/tech' element={time?.tech ? <Login /> : <Attendance />} />
+          <Route path='/tech' element={!time?.tech ? <Login /> : <Attendance />} />
           <Route path="/register" element={<Signup />} />
           <Route path='/yoga' element={time?.yoga ? <Yoga /> : <Attendance />} />
           <Route path='/addproject' element={<Addproject />} />
@@ -62,19 +81,16 @@ function App() {
           <Route path='/face' element={<Face />} />
           <Route path='sample' element={<Sample />} />
           <Route path='/redux' element={<Appstore />} />
-          <Route path='/bootcamp' element={<BootcampSidebar />} />
-          <Route path='/hackathon' element={<HackathonSidebar />} />
+          <Route path='/bootcamp' element={boot ? <BootcampSidebar /> : <LoginForm />} />
+          <Route path='/hackathon' element={boot ? <HackathonSidebar socket={socket} /> : <LoginForm />} />
           <Route path='/bootcampregister' element={<RegisterForm />} />
           <Route path='/bootcamplogin' element={<LoginForm />} />
-          <Route path='/hackathon' element={<HackathonSidebar socket={socket} />} />
-          <Route path='/hackathon/timer' element={<Timer socket={socket} />} />
+          {/* <Route path='/hackathon' element={<HackathonSidebar socket={socket} />} /> */}
+          <Route path='/hackathon/timer' element={boot ? <Timer socket={socket} /> : <LoginForm />} />
         </Routes>
       </BrowserRouter>
-
     </>
   );
 }
 
 export default App;
-
-
