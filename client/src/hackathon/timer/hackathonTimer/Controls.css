@@ -20,7 +20,22 @@
 .images{
   display: flex;
   overflow-x: scroll;
+  scrollbar-width: thin;
 
+}
+.images::-webkit-scrollbar {
+  width: 2px;
+}
+.images::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+.images::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.images::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }
 
 .mapping-img {
@@ -28,6 +43,9 @@
   height: 50px;
   object-fit: contain;
   margin-right: 10px;
+}
+.mapping-img:hover{
+  transform: scale(1.5);
 }
 
 .control-item {

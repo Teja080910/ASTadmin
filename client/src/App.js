@@ -4,7 +4,6 @@ import CryptoENC from "crypto-js/enc-utf8";
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import socketIOClient from "socket.io-client";
 import { Admin, Adminreg } from '../src/collection/admin/admin.js';
 import Login from '../src/collection/cerdentials/login.js';
 import Signup from '../src/collection/cerdentials/signup.js';
@@ -27,8 +26,9 @@ import Sample from './collection/sample/sample.js';
 import { HackathonSidebar } from './hackathon/hackathonsidebar/hackathonsidebar.js';
 import Timer from './hackathon/main-timer/Timer.jsx';
 import './responce.css';
-const SOCKET_SERVER_URL = "https://timer-server-edko.onrender.com";
-const socket = socketIOClient(SOCKET_SERVER_URL);
+import { socket } from './socket.js';
+
+
 
 function App() {
   const [set, setSet] = useState(false)
