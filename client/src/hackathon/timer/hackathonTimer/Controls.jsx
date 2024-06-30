@@ -15,10 +15,10 @@ const Controls = ({ socket }) => {
   useEffect(() => {
     socket.emit("gameData");
     socket.on("gameData", (data) => {
-      if (data.code === "000") {
+      if (data?.code === "000") {
         setGame(games[0]?.code);
       } else {
-        setGame(data.code);
+        setGame(data?.code);
       }
     });
     socket.emit("getAllScores");

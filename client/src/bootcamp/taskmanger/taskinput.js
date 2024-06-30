@@ -15,7 +15,8 @@ export const TaskInput = ({ tasks, reload }) => {
     const formRef = useRef(null);
 
     const handleSubmit = async () => {
-        setLoad(true);
+        if(day&&task&&description&&marks){
+            setLoad(true);
         try {
             const response = await axios.post(process.env.REACT_APP_database + '/inserttask', { day, task, description, marks });
             if (response.data) {
@@ -30,9 +31,13 @@ export const TaskInput = ({ tasks, reload }) => {
             }
         } catch (error) {
             setLoad(false);
-            toast({ title: error.message, status: "error", position: "bottom-left", isClosable: true });
+            toast({ title: error.message, status: "error", position: "bottom-right", isClosable: true });
             console.error('Error adding new task:', error);
         }
+        } else{
+            toast({ title:"required all fields", status: "error", position: "bottom-right", isClosable: true });
+        }
+        
     };
 
     const Delete = async (selectday, selecttask) => {

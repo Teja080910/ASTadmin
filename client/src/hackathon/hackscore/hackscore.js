@@ -1,5 +1,4 @@
 import {
-    Badge,
     Box,
     Button,
     Flex,
@@ -21,7 +20,7 @@ export const HackScore = () => {
     const toast = useToast()
 
     const fetchStudentData = async () => {
-        await Actions.Students()
+        await Actions.TeamsCodes()
             .then((res) => {
                 setDat(res?.data)
                 setIsLoading(false);
@@ -31,23 +30,19 @@ export const HackScore = () => {
             })
     };
 
-    const GivenMarks = async (user, marks, total, dayindex, taskindex) => {
-        if (marks <= parseInt(total)) {
-            await Actions.Givenmarks(user, marks, dayindex, taskindex)
-                .then((res) => {
-                    if (res?.data) {
-                        fetchStudentData()
-                        toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true })
-                    } else {
-                        toast({ title: res?.data?.error, status: 'error', position: 'bottom-right', isClosable: true })
-                    }
-                })
-                .catch((e) => {
-                    toast({ title: e?.message, status: 'error', position: 'bottom-right', isClosable: true })
-                })
-        } else {
-            toast({ title: "marks error", status: 'warning', position: 'bottom-right', isClosable: true })
-        }
+    const GivenMarks = async (code, marks, taskindex) => {
+        await Actions.Roundmarks(code, marks, taskindex)
+            .then((res) => {
+                if (res?.data) {
+                    fetchStudentData()
+                    toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true })
+                } else {
+                    toast({ title: res?.data?.error, status: 'error', position: 'bottom-right', isClosable: true })
+                }
+            })
+            .catch((e) => {
+                toast({ title: e?.message, status: 'error', position: 'bottom-right', isClosable: true })
+            })
     }
 
     useEffect(() => {
@@ -72,13 +67,12 @@ export const HackScore = () => {
             ) : (
                 <Flex flexDirection="column" alignItems="center">
                     {dat.filter(user =>
-                        user.Reg_No?.toLowerCase().includes(select) ||
-                        user.Reg_No?.toUpperCase().includes(select) ||
-                        user.Name?.toUpperCase().includes(select) ||
-                        user.Name?.toLowerCase().includes(select)
+                        user?.Team?.toLowerCase().includes(select) ||
+                        user?.Team?.toUpperCase().includes(select) ||
+                        user?.TeamCode?.toString().includes(select)
                     )
                         .map((x, index) => (
-                            x?.Tasks && <Box
+                            <Box
                                 style={{ fontFamily: 'serif' }}
                                 key={index}
                                 borderWidth="1px"
@@ -91,25 +85,22 @@ export const HackScore = () => {
                                 width="100%"
                                 maxW="xx-l"
                             >
-                                <Heading style={{ fontFamily: 'serif' }} as="h2" size="md">{x?.Name.toUpperCase()}</Heading>
-                                <Flex justifyContent="space-between" alignItems="center" mt={2}>
-                                    <Badge style={{ marginLeft: '80%' }} colorScheme="blue">{x?.Year} Btech</Badge>
-                                </Flex>
+                                <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                                    <Heading style={{ fontFamily: 'serif', color: 'darkgreen' }} as="h2" size="md">{x?.Team}</Heading>
+                                    <Heading style={{ fontFamily: 'serif', color: 'blue' }} as="h2" size="md">{x?.TeamCode}</Heading>
+                                </div>
                                 {
-                                    Object?.values(x?.Tasks ? x?.Tasks : 0)?.map((val, dayindex) => (
+                                    Object?.values(x?.Rounds ? x?.Rounds : 0)?.map((val, taskindex) => (
                                         <div>
-                                            <h6>Round {dayindex + 1}</h6>
                                             {
-                                                val?.map((val2, taskindex) => (
-                                                    <Text className="boxscores" mt={2}>
-                                                        <h5>Task {taskindex + 1}: {val2?.Task}</h5>
-                                                        <p>score:<input style={{ textAlign: 'center' }} id={val2?.Task} className="blank-input" placeholder='Enter task1 score'
-                                                            value={marks[val2?.Task] || val2?.GetMarks || ''}
-                                                            onChange={(e) => setMarks(state => ({ ...state, [val2?.Task]: e.target.value }))}
-                                                        />/{val2?.Marks}</p>
-                                                        <Button mt={2} onClick={() => GivenMarks(x?.Reg_No, marks[val2?.Task] || val2?.GotMarks, val2?.Marks, dayindex, taskindex)}>Save</Button>
-                                                    </Text>
-                                                ))
+                                                <Text className="boxscores" mt={2}>
+                                                    <h5>Round {taskindex + 1}: {val?.Task}</h5>
+                                                    <p>score:<input style={{ textAlign: 'center' }} id={val?.Task} className="blank-input" placeholder='Enter task1 score'
+                                                        value={marks[val?.Task] || val?.Marks || ''}
+                                                        onChange={(e) => setMarks(state => ({ ...state, [val?.Task]: e.target.value }))}
+                                                    /></p>
+                                                    <Button mt={2} onClick={() => GivenMarks(x?.TeamCode, marks[val?.Task], (taskindex + 1))}>Save</Button>
+                                                </Text>
                                             }
                                         </div>
                                     ))

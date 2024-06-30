@@ -34,7 +34,7 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
         <MenuItem icon={<ScoreIcon />} onClick={() => { select(5); queryParams.set("page", "score"); nav({ search: queryParams.toString() }) }}>Score</MenuItem>
         <MenuItem icon={<AssignmentIcon />} onClick={() => { select(6); queryParams.set("page", "tasks"); nav({ search: queryParams.toString() }) }}>Tasks</MenuItem>
         <MenuItem icon={<LightbulbIcon />} onClick={() => { select(7); queryParams.set("page", "problemstatements"); nav({ search: queryParams.toString() }) }}>Problem Statements</MenuItem>
-        <MenuItem icon={<AccessTimeFilledIcon />} onClick={() => { select(7); queryParams.set("page", "timer"); nav({ search: queryParams.toString() }); }}>Timer Manager</MenuItem>
+        <MenuItem icon={<AccessTimeFilledIcon />} onClick={() => { select(8); queryParams.set("page", "timer"); nav({ search: queryParams.toString() }); }}>Timer Manager</MenuItem>
         <MenuItem icon={<CodeIcon />} onClick={() => window.location.href = '/bootcamp'}>Bootcamp</MenuItem>
       </Menu>
     </Sidebar>

@@ -24,6 +24,7 @@ import { AdminLogin } from '../bootcamp/admin/adminlogin.js';
 import { AdminRegister } from '../bootcamp/admin/adminregister.js';
 import { AddTeamCodes, DeleteTeam } from './teamcodes/teamcodes.js';
 import { AllTeamCodes } from './teamcodes/allteamcodes.js';
+import { DeleteRound, InsertRound, RoundMarks } from './hacktasks/addround.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -163,6 +164,18 @@ app.post('/deleteteam', async (req, res) => {
 
 app.post('/teamscodes', async (req, res) => {
     await AllTeamCodes(res)
+})
+
+app.post('/insertround',async(req,res)=>{
+    await InsertRound(req.body.code,req.body.roundno,req.body.task,req.body.desc,res)
+})
+
+app.post('/deleteround',async(req,res)=>{
+    await DeleteRound(req.body.code,req.body.roundno,req.body.task,req.body.desc,res)
+})
+
+app.post('/roundmarks', async (req, res) => {
+    await RoundMarks(req.body.code, req.body.marks,req.body.taskindex, res)
 })
 
 export default app;

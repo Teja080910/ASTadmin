@@ -1,7 +1,7 @@
 import axios from 'axios';
 import CryptoAES from 'crypto-js/aes.js';
 import CryptoENC from "crypto-js/enc-utf8";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Admin, Adminreg } from '../src/collection/admin/admin.js';
@@ -47,7 +47,6 @@ function App() {
         }
       }).catch((e) => console.log(e))
   }
-  set || AdminLogin()
 
   const BootCamp = async () => {
     await Actions.BootAdminLogin(mail, CryptoAES.decrypt(password ? password : "1234", mail ? mail : "1234").toString(salt))
@@ -59,36 +58,65 @@ function App() {
       }).catch((e) => console.log(e))
   }
 
-  boot || BootCamp()
+  const Timing = () => {
+    Timings().then((res) => setTime(res)).catch((e) => console.log(e))
+  }
 
-  Timings().then((res) => setTime(res))
+  useEffect(() => {
+    AdminLogin()
+    BootCamp()
+    Timing()
+  }, [set, boot, time])
   return (
-    load && <>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path="/adminlogin" element={<Admin />} />
-          <Route path='adminregister' element={<Adminreg />} />
-          <Route path="/attendance" element={!set ? <Attendance /> : <Admin />} />
-          <Route path='/tech' element={!time?.tech ? <Login /> : <Attendance />} />
-          <Route path="/register" element={<Signup />} />
-          <Route path='/yoga' element={time?.yoga ? <Yoga /> : <Attendance />} />
-          <Route path='/addproject' element={<Addproject />} />
-          <Route path='/projects' element={<Projects />} />
-          <Route path='/scrummaster' element={<Scrum />} />
-          <Route path='/pro' element={<Pro />} />
-          <Route path='/chatwithme' element={<Send />} />
-          <Route path='/face' element={<Face />} />
-          <Route path='sample' element={<Sample />} />
-          <Route path='/redux' element={<Appstore />} />
-          <Route path='/bootcamp' element={boot ? <BootcampSidebar /> : <LoginForm />} />
-          <Route path='/hackathon' element={boot ? <HackathonSidebar socket={socket} /> : <LoginForm />} />
-          <Route path='/bootcampregister' element={<RegisterForm />} />
-          <Route path='/bootcamplogin' element={<LoginForm />} />
-          {/* <Route path='/hackathon' element={<HackathonSidebar socket={socket} />} /> */}
-          <Route path='/hackathon/timer' element={boot ? <Timer socket={socket} /> : <LoginForm />} />
-        </Routes>
-      </BrowserRouter>
+    <>
+      {
+        load && <>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path="/adminlogin" element={<Admin />} />
+              <Route path='adminregister' element={<Adminreg />} />
+              <Route path="/register" element={<Signup />} />
+              <Route path='/addproject' element={<Addproject />} />
+              <Route path='/projects' element={<Projects />} />
+              <Route path='/scrummaster' element={<Scrum />} />
+              <Route path='/pro' element={<Pro />} />
+              <Route path='/chatwithme' element={<Send />} />
+              <Route path='/face' element={<Face />} />
+              <Route path='sample' element={<Sample />} />
+              <Route path='/redux' element={<Appstore />} />
+              <Route path='/bootcampregister' element={<RegisterForm />} />
+              <Route path='/bootcamplogin' element={<LoginForm />} />
+              <Route path="/attendance" element={!set ? <Attendance /> : <Admin />} />
+              <Route path='/tech' element={!time?.tech ? <Login /> : <Attendance />} />
+              <Route path='/yoga' element={time?.yoga ? <Yoga /> : <Attendance />} />
+              <Route path='/bootcamp' element={boot ? <BootcampSidebar /> : <LoginForm />} />
+              <Route path='/hackathon' element={boot ? <HackathonSidebar socket={socket} /> : <LoginForm />} />
+              <Route path='/hackathon/timer' element={boot ? <Timer socket={socket} /> : <LoginForm />} />
+            </Routes>
+          </BrowserRouter>
+        </>
+      }
+      {/* <>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path="/adminlogin" element={<Admin />} />
+            <Route path='adminregister' element={<Adminreg />} />
+            <Route path="/register" element={<Signup />} />
+            <Route path='/addproject' element={<Addproject />} />
+            <Route path='/projects' element={<Projects />} />
+            <Route path='/scrummaster' element={<Scrum />} />
+            <Route path='/pro' element={<Pro />} />
+            <Route path='/chatwithme' element={<Send />} />
+            <Route path='/face' element={<Face />} />
+            <Route path='sample' element={<Sample />} />
+            <Route path='/redux' element={<Appstore />} />
+            <Route path='/bootcampregister' element={<RegisterForm />} />
+            <Route path='/bootcamplogin' element={<LoginForm />} />
+          </Routes>
+        </BrowserRouter>
+      </> */}
     </>
   );
 }
