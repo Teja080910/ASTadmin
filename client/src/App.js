@@ -33,11 +33,13 @@ import { socket } from './socket.js';
 function App() {
   const [set, setSet] = useState(false)
   const [boot, setBoot] = useState(false)
+  const [bootload, setBootload] = useState(false)
   const [load, setLoad] = useState(false)
   const [time, setTime] = useState()
   const mail = useSelector((state) => state.user.bootmail);
   const password = useSelector((state) => state.user.bootpassword);
   const salt = CryptoENC
+  
   const AdminLogin = async () => {
     await axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
       .then((res) => {
@@ -45,6 +47,7 @@ function App() {
           setSet(true)
           setLoad(true)
         }
+        setLoad(true)
       }).catch((e) => console.log(e))
   }
 
@@ -53,8 +56,9 @@ function App() {
       .then((res) => {
         if (res?.data?.message) {
           setBoot(true)
-          setLoad(true)
+          setBootload(true)
         }
+        setBootload(true)
       }).catch((e) => console.log(e))
   }
 
@@ -70,55 +74,40 @@ function App() {
   return (
     <>
       {
-        load && <>
+        <>
           <BrowserRouter>
             <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path="/adminlogin" element={<Admin />} />
-              <Route path='adminregister' element={<Adminreg />} />
-              <Route path="/register" element={<Signup />} />
-              <Route path='/addproject' element={<Addproject />} />
-              <Route path='/projects' element={<Projects />} />
-              <Route path='/scrummaster' element={<Scrum />} />
-              <Route path='/pro' element={<Pro />} />
-              <Route path='/chatwithme' element={<Send />} />
-              <Route path='/face' element={<Face />} />
-              <Route path='sample' element={<Sample />} />
-              <Route path='/redux' element={<Appstore />} />
-              <Route path='/bootcampregister' element={<RegisterForm />} />
-              <Route path='/bootcamplogin' element={<LoginForm />} />
-              <Route path="/attendance" element={!set ? <Attendance /> : <Admin />} />
-              <Route path='/tech' element={!time?.tech ? <Login /> : <Attendance />} />
-              <Route path='/yoga' element={time?.yoga ? <Yoga /> : <Attendance />} />
-              <Route path='/bootcamp' element={boot ? <BootcampSidebar /> : <LoginForm />} />
-              <Route path='/hackathon' element={boot ? <HackathonSidebar socket={socket} /> : <LoginForm />} />
-              <Route path='/hackathon/timer' element={boot ? <Timer socket={socket} /> : <LoginForm />} />
+              {
+                load && <>
+                  <Route path='/' element={<Home />} />
+                  <Route path="/adminlogin" element={<Admin />} />
+                  <Route path='adminregister' element={<Adminreg />} />
+                  <Route path="/register" element={<Signup />} />
+                  <Route path='/addproject' element={<Addproject />} />
+                  <Route path='/projects' element={<Projects />} />
+                  <Route path='/scrummaster' element={<Scrum />} />
+                  <Route path='/pro' element={<Pro />} />
+                  <Route path='/chatwithme' element={<Send />} />
+                  <Route path='/face' element={<Face />} />
+                  <Route path='sample' element={<Sample />} />
+                  <Route path='/redux' element={<Appstore />} />
+                  <Route path='/bootcampregister' element={<RegisterForm />} />
+                  <Route path='/bootcamplogin' element={<LoginForm />} />
+                  <Route path="/attendance" element={!set ? <Attendance /> : <Admin />} />
+                  <Route path='/tech' element={!time?.tech ? <Login /> : <Attendance />} />
+                  <Route path='/yoga' element={time?.yoga ? <Yoga /> : <Attendance />} />
+                </>
+              }
+              {bootload && <>
+                <Route path='/bootcamp' element={boot ? <BootcampSidebar /> : <LoginForm />} />
+                <Route path='/hackathon' element={boot ? <HackathonSidebar socket={socket} /> : <LoginForm />} />
+                <Route path='/hackathon/timer' element={boot ? <Timer socket={socket} /> : <LoginForm />} />
+              </>}
             </Routes>
           </BrowserRouter>
         </>
       }
-      {/* <>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path="/adminlogin" element={<Admin />} />
-            <Route path='adminregister' element={<Adminreg />} />
-            <Route path="/register" element={<Signup />} />
-            <Route path='/addproject' element={<Addproject />} />
-            <Route path='/projects' element={<Projects />} />
-            <Route path='/scrummaster' element={<Scrum />} />
-            <Route path='/pro' element={<Pro />} />
-            <Route path='/chatwithme' element={<Send />} />
-            <Route path='/face' element={<Face />} />
-            <Route path='sample' element={<Sample />} />
-            <Route path='/redux' element={<Appstore />} />
-            <Route path='/bootcampregister' element={<RegisterForm />} />
-            <Route path='/bootcamplogin' element={<LoginForm />} />
-          </Routes>
-        </BrowserRouter>
-      </> */}
     </>
   );
 }
-
 export default App;
