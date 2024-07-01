@@ -94,7 +94,7 @@ function App() {
                   <Route path='/bootcampregister' element={<RegisterForm />} />
                   <Route path='/bootcamplogin' element={<LoginForm />} />
                   <Route path="/attendance" element={set ? <Attendance /> : <Admin />} />
-                  <Route path='/tech' element={set?time?.tech? <Login /> : <Attendance />:<Admin/>} />
+                  <Route path='/tech' element={set?!time?.tech? <Login /> : <Attendance />:<Admin/>} />
                   <Route path='/yoga' element={set?time?.yoga  ? <Yoga /> : <Attendance />:<Admin/>} />
                 </>
               }
