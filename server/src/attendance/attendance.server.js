@@ -2,16 +2,16 @@ import { Client } from '@octoai/client';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import asyncHandler from 'express-async-handler';
 import session from 'express-session';
 import { Resend } from 'resend';
 import { db } from '../db.js';
+import { SendOtp } from './sendotp.js';
 import { AttendStudent } from './attendancelogin.js';
-import { message } from './message.js';
 
 dotenv.config();
 const app = express();
 const port = 3000;
+const resend = new Resend(process.env.Resend_Key);
 
 app.use(cors());
 app.use(express.json());
@@ -34,75 +34,11 @@ app.get('/attendance', (req, res) => {
 });
 
 app.post('/sendotp', async (req, res) => {
-    const resend = new Resend(process.env.Resend_Key);
-    const { regd } = req.body;
-    try {
-        const user = await db.collection('Signup').findOne({ Reg_No: regd });
-        if (!user) {
-            return res.json({ error: 'Invalid registration number.' });
-        }
-        const otp = Math.floor(100000 + Math.random() * 900000);
-        req.session.key = otp;
-        console.log(regd, req.session);
-
-        // Uncomment this section to send OTP via email
-        /*
-        const { data, error } = await resend.emails.send({
-            from: 'AST Teams <login@ast-admin.in>',
-            to: [user?.Gmail],
-            subject: 'Your OTP for daily login',
-            html: await message.otp(user?.Name, otp, user?.Gmail, user?.Num),
-        });
-
-        if (data) {
-            res.status(200).json({ message: "OTP successfully sent to your email" });
-        } else if (error) {
-            res.status(500).json({ error: error });
-        }
-        */
-
-    } catch (e) {
-        console.error(e);
-        res.status(500).json({ error: 'Error sending OTP' });
-    }
+    await SendOtp(req,resend,res)
 });
 
-// Student attendance login/signup route
-app.post('/signup-student', async (req, res) => {
-    try {
-        const date = new Date();
-        const { regd, otp } = req.body;
-        let day;
-        console.log(req.session.key)
-        if (req.session.key === otp) {
-            const user = await db.collection("Signup").findOne({ Reg_No: regd });
-
-            if (user?.Login !== date.toDateString()) {
-                if (user?.Num) {
-                    day = parseInt(user?.Num) + 1;
-                } else {
-                    day = 1;
-                }
-
-                if (user?.Date && user?.Date !== date.toDateString()) {
-                    await db.collection('Attendance').findOneAndUpdate({ Date: day }, { $push: { Data: { Gmail: user?.Gmail } } });
-                } else {
-                    await db.collection('Attendance').insertOne({ Date: day, Data: [{ Gmail: user?.Gmail }] });
-                }
-
-                const attend = await db.collection("Signup").findOneAndUpdate({ Reg_No: regd }, { $set: { Login: date.toDateString(), Num: day } });
-
-                if (attend?.value) {
-                    res.json({ message: "attend", data: attend });
-                }
-            }
-        } else {
-            res.json({ error: "otp mismatch" });
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: 'Error processing attendance' });
-    }
+app.post('/signin-student', async (req, res) => {
+    await AttendStudent(req,res)
 });
 
 try {

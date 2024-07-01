@@ -8,8 +8,6 @@ export const SendOtp = async (req, resend, res) => {
             return res.json({ error: 'Invalid registration number.' });
         }
         const otp = Math.floor(100000 + Math.random() * 900000);
-        req.session.key = otp
-        console.log(regd, req.session)
         const { data, error } = await resend.emails.send({
             from: 'AST Teams <login@ast-admin.in>',
             to: [user?.Gmail],
@@ -17,7 +15,7 @@ export const SendOtp = async (req, resend, res) => {
             html: await message.otp(user?.Name, otp, user?.Gmail, user?.Num),
         });
         if (data) {
-            res.status(200).json({ message: "OTP successfully sent to your email" });
+            res.status(200).json({ message: "OTP successfully sent to your email",OTP:otp});
         }
         if (error) {
             res.status(200).json({ error: error });

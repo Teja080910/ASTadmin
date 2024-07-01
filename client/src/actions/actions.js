@@ -6,8 +6,8 @@ export const Actions = {
         return await axios.post(api + "/bootcampstudents")
     },
 
-    StudentLogin: async (regd, otp) => {
-        return await axios.post(api + "/signup-student", { regd, otp })
+    StudentLogin: async (regd) => {
+        return await axios.post(api + "/signin-student", { regd })
     },
 
     SendOtp: async (regd) => {

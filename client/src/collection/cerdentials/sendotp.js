@@ -13,17 +13,23 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Actions } from '../../actions/actions';
-export const SednOTP = ({ atnd, isOpen, onClose }) => {
+export const SednOTP = ({ atnd, isOpen, onClose, data, refresh }) => {
     const toast = useToast()
     const [otp, setOtp] = useState();
     const handleAttend = async () => {
         try {
-            console.log(otp)
-            const res = await Actions.StudentLogin(atnd, otp);
-            if (res?.data?.message) {
-                toast({ title: res.data.message, status: "success", position: "top-right", isClosable: true });
+            if (data?.OTP === parseInt(otp)) {
+                const res = await Actions.StudentLogin(atnd, otp);
+                if (res?.data?.message) {
+                    setOtp('')
+                    onClose()
+                    refresh()
+                    toast({ title: res.data.message, status: "success", position: "top-right", isClosable: true });
+                } else {
+                    toast({ title: res.data.error, status: "error", position: "bottom-right", isClosable: true });
+                }
             } else {
-                toast({ title: res.data.error, status: "error", position: "bottom-right", isClosable: true });
+                toast({ title: "OTP mismatch", status: "error", position: "bottom-right", isClosable: true });
             }
         } catch (error) {
             console.error(error);

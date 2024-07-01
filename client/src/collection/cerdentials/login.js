@@ -8,6 +8,7 @@ import { SednOTP } from "./sendotp";
 
 const Login = () => {
     const [dat, setDat] = useState([]);
+    const [data, setData] = useState();
     const [atnd, setAtnd] = useState();
     const [select, setSelect] = useState("");
     const [show, setShow] = useState(false);
@@ -21,12 +22,14 @@ const Login = () => {
         try {
             const res = await Actions.SendOtp(regd);
             if (res?.data?.message) {
+                setData(res?.data);
                 toast({ title: res.data.message, status: "success", position: "top-right", isClosable: true });
             } else {
                 toast({ title: res.data.error, status: "error", position: "bottom-right", isClosable: true });
             }
         } catch (error) {
             console.error(error);
+            toast({ title: "Failed to send OTP", status: "error", position: "bottom-right", isClosable: true });
         }
     };
 
@@ -50,6 +53,7 @@ const Login = () => {
             }
         } catch (error) {
             console.error(error);
+            toast({ title: "Failed to delete student", status: "error", position: "bottom-left", isClosable: true });
         }
     };
 
@@ -60,12 +64,13 @@ const Login = () => {
     const fetchData = async () => {
         try {
             const studentRes = await axios.post(`${process.env.REACT_APP_database}/students`);
-            setDat(studentRes.data.sort((a, b) => a.Year - b.Year));
+            setDat(studentRes.data);
             const totalDaysRes = await axios.post(`${process.env.REACT_APP_database}/totaldays`);
             setTat(totalDaysRes.data);
             setIsLoading(false);
         } catch (error) {
             console.error(error);
+            toast({ title: "Failed to fetch data", status: "error", position: "bottom-right", isClosable: true });
         }
     };
 
@@ -76,7 +81,7 @@ const Login = () => {
     return (
         <>
             <Navbars />
-            <SednOTP atnd={atnd} isOpen={show} onClose={() => setShow(false)} />
+            <SednOTP atnd={atnd} isOpen={show} onClose={() => setShow(false)} data={data} refresh={fetchData} />
             <div className="otp" id='password'>
                 <input
                     type="password"
@@ -152,7 +157,7 @@ const Login = () => {
                                                 {x.Login !== date.toDateString() && (
                                                     <button
                                                         style={{ backgroundColor: "#3498db", borderRadius: "8px", border: "none", color: "white", padding: "5px" }}
-                                                        onClick={() => { handleSend(x?.Reg_No); setShow(true); setAtnd(x?.Reg_No) }}
+                                                        onClick={() => { handleSend(x?.Reg_No); setShow(true); setAtnd(x?.Reg_No); }}
                                                     >
                                                         <b>Attend</b>
                                                     </button>
