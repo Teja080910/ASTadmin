@@ -13,11 +13,11 @@ export const AttendStudent = async (req, res) => {
             }
             if (user?.Date) {
                 if (user?.Date !== date.toDateString()) {
-                    await db.collection('Attendance').findOneAndUpdate({ Date: day }, { $push: { Data: { Gmail: user?.Gmail } } })
+                    await db.collection('Attendance').findOneAndUpdate({ Date: date.toDateString() }, { $push: { Data: { Gmail: user?.Gmail } } })
                 }
             }
             else {
-                await db.collection('Attendance').insertOne({ Date: day, Data: [{ Gmail: user?.Gmail }] })
+                await db.collection('Attendance').insertOne({ Date: date.toDateString(), Data: [{ Gmail: user?.Gmail }] })
             }
             const attend = await db.collection("Signup").findOneAndUpdate({ Reg_No: regd }, { $set: { Login: date.toDateString(), Num: day } })
             if (attend?.value) {
