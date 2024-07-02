@@ -31,6 +31,7 @@
     "nodemailer": "^6.9.12",
     "nodemon": "^2.0.22",
     "npm": "^10.8.1",
+    "resend": "^3.4.0",
     "sharp": "^0.33.4",
     "textflow.js": "^0.1.4",
     "twilio": "^4.19.0",
