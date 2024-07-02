@@ -68,7 +68,7 @@ export const HackathonSidebar = ({ socket }) => {
         onDoubleClick={() => toggleSidebar()}
       >
         {
-          // set === "home" && <BootcampHome /> ||
+          /* (set === "home" && <HackathonHome />) || */
           (set === "team" && <HackathonTeam />) ||
           (set === "score" && <HackScore />) ||
           (set === "tasks" && <HackathonTasks />) ||
