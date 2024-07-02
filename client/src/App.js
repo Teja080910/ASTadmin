@@ -25,7 +25,6 @@ import { RegisterForm } from './bootcamp/Register/register.js';
 import { LoginForm } from './bootcamp/login/login.js';
 import Timer from './hackathon/main-timer/Timer.jsx';
 import socketIOClient from "socket.io-client";
-import FeedbackForm from './hackathon/feedbackform/feedbackform.js';
 const SOCKET_SERVER_URL = "https://timer-server-edko.onrender.com";
 const socket = socketIOClient(SOCKET_SERVER_URL);
 
@@ -67,7 +66,6 @@ function App() {
           <Route path='/hackathon' element={<HackathonSidebar/>}/>
           <Route path='/bootcampregister' element={<RegisterForm/>}/>
           <Route path='/bootcamplogin' element={<LoginForm/>}/>
-          <Route path='/hackathon/feedbackform' element={<FeedbackForm/>}/>
           <Route path='/hackathon' element={<HackathonSidebar socket={socket}/>}/>
           <Route path='/hackathon/timer' element={<Timer socket={socket}/>}/>
         </Routes>

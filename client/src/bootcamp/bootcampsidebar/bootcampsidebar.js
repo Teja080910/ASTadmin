@@ -6,6 +6,7 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import ScoreIcon from '@mui/icons-material/Score';
+import Groups2OutlinedIcon from '@mui/icons-material/Groups2Outlined';
 import React, { useState } from 'react';
 import { Menu, MenuItem, Sidebar } from 'react-pro-sidebar';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +16,7 @@ import { BootcampMaterial } from '../materials/uploadmaterials';
 import { BootcampScore } from '../scoremanager/bootcampscore';
 import { StudentsData } from '../studentdata/studentdata';
 import BootcampTasks from '../taskmanger/bootcamptaskmager';
+import { Others } from '../others/others';
 import './bootcampsidebar.css';
 
 const queryParams = new URLSearchParams(window.location.search);
@@ -36,12 +38,12 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
                 <MenuItem icon={<ScoreIcon />} onClick={() => { select(5); queryParams.set("page", "score"); nav({ search: queryParams.toString() }) }}>Score</MenuItem>
                 <MenuItem icon={<AssignmentIcon />} onClick={() => { select(6); queryParams.set("page", "tasks"); nav({ search: queryParams.toString() }) }}>Tasks</MenuItem>
                 <MenuItem icon={<SchoolOutlinedIcon />} onClick={() => { select(7); queryParams.set("page", "students"); nav({ search: queryParams.toString() }) }}>Students Data</MenuItem>
+                <MenuItem icon={<Groups2OutlinedIcon /> }onClick={() => { select(8); queryParams.set("page", "others"); nav({ search: queryParams.toString() }) }}>Others</MenuItem>
                 <MenuItem icon={<CodeIcon />} onClick={() => window.location.href = '/hackathon'}>Hackathon</MenuItem>
             </Menu>
         </Sidebar>
     );
 }
-
 export const BootcampSidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [select, setSelect] = useState(sessionStorage?.select)
@@ -50,7 +52,6 @@ export const BootcampSidebar = () => {
     const toggleSidebar = () => {
         setCollapsed(!collapsed);
     };
-
     return (
         <div id="app" style={{ height: '100vh', display: 'flex' }}>
             <SidebarContent collapsed={collapsed} toggleSidebar={toggleSidebar} select={(val) => setSelect(val || 1)} />
@@ -61,7 +62,9 @@ export const BootcampSidebar = () => {
                     (set === "material" && <BootcampMaterial />) ||
                     (set === "score" && <BootcampScore />) ||
                     (set === "tasks" && <BootcampTasks />) ||
-                    (set === "students" && <StudentsData />)
+                    (set === "students" && <StudentsData />) ||
+                    (set === "others" && <Others />)
+
                 }
             </main>
         </div>

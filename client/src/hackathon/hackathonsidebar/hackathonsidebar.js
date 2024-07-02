@@ -14,7 +14,6 @@ import HackathonTasks from "../hacktasks/hackathontask";
 import PSS from "../problemstatements/ps";
 import "./hackathonsidebar.css";
 import TimeManager from "../timer/adminSideTimer/TimerManager";
-import { HackathonHome } from "../hackathonhome/hackathonhome";
 
 const queryParams = new URLSearchParams(window.location.search);
 const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
@@ -63,7 +62,7 @@ export const HackathonSidebar = ({socket}) => {
         onDoubleClick={() => toggleSidebar()}
       >
         {
-          (set === "home" && <HackathonHome />) ||
+          /* (set === "home" && <HackathonHome />) || */
           (set === "team" && <HackathonTeam />) ||
             (set === "tasks" && <HackathonTasks />) ||
             (set === "problemstatements" && <PSS />) ||
