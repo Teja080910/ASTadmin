@@ -78,6 +78,13 @@
   font-size: x-large;
 }
 
+#studetail {
+  width: 95%;
+  margin:2% 2%;
+  border-radius: 20%;
+  font-size: x-large;
+}
+
 table tbody p {
   position: absolute;
   margin: 12px 0px 1px 1.3%;
@@ -261,5 +268,24 @@ table tbody p {
 
   .studentdata {
     height: 100vh;
+  }
+}
+
+@media (max-width:500px) {
+  #studetail thead{
+    font-size:15px;
+  }
+  #studetail thead tr td link{
+    font-size:15px;
+  }
+  #studetail thead th{
+    font-size:8px;
+  }
+  #studetail thead td{
+    font-size:10px;
+  }
+  #studetail button{
+    width: 30px;
+    font-size:5px;
   }
 }

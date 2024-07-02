@@ -64,7 +64,9 @@ const Login = () => {
     const fetchData = async () => {
         try {
             const studentRes = await axios.post(`${process.env.REACT_APP_database}/students`);
-            setDat(studentRes.data);
+            // const filterdata=studentRes.data.filter(student=>student?.Num!==undefined)
+            const storeddata = studentRes.data.sort((a, b) => b?.Num - a?.Num)
+            setDat(storeddata);
             const totalDaysRes = await axios.post(`${process.env.REACT_APP_database}/totaldays`);
             setTat(totalDaysRes.data);
             setIsLoading(false);
@@ -115,7 +117,7 @@ const Login = () => {
                     placeholder="Enter User mail or name"
                     onChange={(e) => setSelect(e.target.value)}
                 />
-                <table className="studetail">
+                <table id="studetail">
                     {isLoading ? (
                         <tr>
                             <td style={{ backgroundColor: 'white', textAlign: 'center' }} colSpan={5}>
@@ -165,7 +167,7 @@ const Login = () => {
                                             </td>
                                             <td>
                                                 <div style={{ position: "relative" }}>
-                                                    <div className="main-streak-text"><b>{parseInt(x.Num)}</b></div>
+                                                    <div className="main-streak-text"><b>{parseInt(x?.Num)}</b></div>
                                                 </div>
                                             </td>
                                             <td>

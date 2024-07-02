@@ -8,7 +8,7 @@ import {
     ModalFooter,
     ModalHeader,
     ModalOverlay,
-    PinInput, PinInputField,
+    Input,
     useToast
 } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -29,6 +29,7 @@ export const SednOTP = ({ atnd, isOpen, onClose, data, refresh }) => {
                     toast({ title: res.data.error, status: "error", position: "bottom-right", isClosable: true });
                 }
             } else {
+                setOtp('')
                 toast({ title: "OTP mismatch", status: "error", position: "bottom-right", isClosable: true });
             }
         } catch (error) {
@@ -43,14 +44,13 @@ export const SednOTP = ({ atnd, isOpen, onClose, data, refresh }) => {
                 <ModalCloseButton />
                 <ModalBody>
                     <HStack>
-                        <PinInput type='alphanumeric' >
-                            <PinInputField onChange={(e) => setOtp(e.target.value)} />
-                            <PinInputField onChange={(e) => setOtp(otp + e.target.value)} />
-                            <PinInputField onChange={(e) => setOtp(otp + e.target.value)} />
-                            <PinInputField onChange={(e) => setOtp(otp + e.target.value)} />
-                            <PinInputField onChange={(e) => setOtp(otp + e.target.value)} />
-                            <PinInputField onChange={(e) => setOtp(otp + e.target.value)} />
-                        </PinInput>
+                        <Input
+                            color='teal'
+                            placeholder='Enter OTP'
+                            _placeholder={{ color: 'inherit' }}
+                            value={otp}
+                            onChange={(e) => setOtp(e.target.value)}
+                        />
                     </HStack>
                 </ModalBody>
                 <ModalFooter>
