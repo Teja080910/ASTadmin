@@ -13,7 +13,7 @@ const Signup = () => {
   const [branch, Setbranch] = useState("");
   const [email, SetEmail] = useState("");
   const [num, snum] = useState(0);
-  const toast=useToast();
+  const toast = useToast();
   const Handleclick = async () => {
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     try {
@@ -27,13 +27,13 @@ const Signup = () => {
             const res = await axios.post(process.env.REACT_APP_database + "/signup/" + email + "/" + name + "/" + regd + "/" + year + "/" + branch + "/" + num)
             {
               if (res) {
-                toast({title:"Register Successfully",status:'success',position:"bottom-right", isClosable:true})
+                toast({ title: "Register Successfully", status: 'success', position: "bottom-right", isClosable: true })
                 setTimeout(() => {
                   window.location = '/login'
                 }, 1000);
               }
               else {
-                toast({title:"Try again",status:"error",position:"bottom-left", isClosable:true})
+                toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true })
               }
             }
           }

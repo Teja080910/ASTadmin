@@ -1,0 +1,18 @@
+#codesinput{
+    width: 100%;
+}
+
+.codescard{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.teamstable{
+    margin-top: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}

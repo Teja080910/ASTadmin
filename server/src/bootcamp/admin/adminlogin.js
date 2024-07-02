@@ -1,13 +1,23 @@
 import { db1 } from "../../db.js";
 export const AdminLogin = async (data, res) => {
-    const { email, password } = data;
+    const { mail, password } = data;
+    const date = new Date().toDateString();
     try {
-        const admin = await db1.collection('Hacthonadmin').findOne({ Gmail: email });
+        const admin = await db1.collection('Hacthonadmin').findOne({ Gmail: mail });
         if (!admin) {
             return res.json({ error: 'Invalid admin' });
         }
         if (admin?.Password === password) {
-            return res.json({ message: "admin login sucessfully", data: admin })
+            if (admin?.Date !== date) {
+                const count = parseInt(admin?.Count || 0) + 1
+                const adminupdate = await db1.collection('Hacthonadmin').findOneAndUpdate({ Gmail: mail }, { $set: { Date: date, Count: count } });
+                if (adminupdate?.value?.Gmail) {
+                    return res.json({ message: "admin login sucessfully", data: admin })
+                }
+            }
+            if (admin?.Date === date) {
+                return res.json({ message: "admin login sucessfully", data: admin })
+            }
         }
         else {
             return res.json({ error: "incorrect password", data: admin })

@@ -31,6 +31,8 @@ export const UpdateData = () => {
             axios.post(process.env.REACT_APP_database + "/student/" +gmail)
                 .then((res) => {
                     sdata(res.data)
+                    sname(res?.data?.Name)
+                    syear(res?.data?.Year)
                 })
                 .catch((e) => console.log(e))
     }, [gmail])
@@ -43,7 +45,7 @@ export const UpdateData = () => {
                     <input className="form-control" type="text" id="smn" placeholder="Enter your gmail" onChange={(e) => sgmail(e.target.value)} />
                 </div>
                 <div className="form-group">
-                    <label>Name: <input className="form-control" type="text" defaultValue={data?.Name?.toUpperCase()} placeholder="Enter your name" onChange={(e) => sname(e.target.value.toUpperCase())}/></label>
+                    <label>Name: <input className="form-control" type="text" value={name || data?.Name?.toUpperCase()} placeholder="Enter your name" onChange={(e) => sname(e.target.value.toUpperCase())}/></label>
                 </div>
                 <div className="form-group">
                     <label>Register Number: {data?.Reg_No?.toUpperCase()}</label>

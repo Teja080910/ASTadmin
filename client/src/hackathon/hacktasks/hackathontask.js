@@ -1,7 +1,7 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Actions } from '../../actions/actions';
 import './hackathontasks.css';
-import { TaskInput } from './taskinput';
+import { RoundInput } from './roundinput';
 
 const HackathonTasks = () => {
     const [tasks, setTasks] = useState([]);
@@ -9,19 +9,17 @@ const HackathonTasks = () => {
         fetchTasks();
     }, []);
     const fetchTasks = async () => {
-        try {
-            const response = await axios.post(process.env.REACT_APP_database + '/tasks');
-            setTasks(response.data);
-        } catch (error) {
-            console.error('Error fetching tasks:', error);
-        }
+        await Actions.TeamsCodes()
+            .then((res) => {
+                setTasks(res?.data)
+            }).catch((e) => console.log(e))
     };
     const reloadTasks = () => {
         fetchTasks();
     };
     return (
         <div className='task-manager'>
-            <TaskInput tasks={tasks} reload={reloadTasks} />
+            <RoundInput tasks={tasks} reload={reloadTasks} />
         </div>
     );
 };

@@ -2,14 +2,45 @@ import { Client } from '@octoai/client';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
+import session from 'express-session';
+import { Resend } from 'resend';
 import { db } from '../db.js';
-dotenv.config()
-const app = express()
-app.use(cors())
-app.use(express.json())
+import { SendOtp } from './sendotp.js';
+import { AttendStudent } from './attendancelogin.js';
+
+dotenv.config();
+const app = express();
+const port = 3000;
+const resend = new Resend(process.env.Resend_Key);
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(session({
+    secret: 'teja&90ohytgi',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        path: '/',
+        secure: false,
+        maxAge: 600000,
+        sameSite:'strict'
+    }
+}));
+
 app.get('/attendance', (req, res) => {
     res.json("attendance server is running.....");
-})
+});
+
+app.post('/sendotp', async (req, res) => {
+    await SendOtp(req,resend,res)
+});
+
+app.post('/signin-student', async (req, res) => {
+    await AttendStudent(req,res)
+});
+
 try {
     const client1 = new Client(process.env.OCTOAI_TOKEN);
 
@@ -128,39 +159,7 @@ try {
             })
             .catch((e) => console.log(e))
     })
-    app.post('/loginstudent/:gmail/:num/:date', async (req, res) => {
-        await db.collection('Attendance').findOne({ Date: req.params.date, Data: { Gmail: req.params.gmail } })
-            .then(async (details) => {
-                if (!details) {
-                    await db.collection('Attendance').findOneAndUpdate({ Date: req.params.date }, { $push: { Data: { Gmail: req.params.gmail } } })
-                        .then(async (details) => {
-                            if (details.value) {
-                                await db.collection('Signup').findOneAndUpdate({ Gmail: req.params.gmail }, { $set: { Num: req.params.num, Login: req.params.date } })
-                                    .then((details) => {
-                                        if (details) {
-                                            res.json(details)
-                                        }
-                                    })
-                                    .catch((e) => console.log(e))
-                            }
-                            else {
-                                await db.collection('Attendance').insertOne({ Date: req.params.date, Data: [{ Gmail: req.params.gmail }] })
-                                    .then(async (details) => {
-                                        await db.collection('Signup').findOneAndUpdate({ Gmail: req.params.gmail }, { $set: { Num: req.params.num, Login: req.params.date } })
-                                            .then(async (details) => {
-                                                if (details) {
-                                                    res.json(details)
-                                                }
-                                            })
-                                            .catch((e) => console.log(e))
-                                    })
-                                    .catch((e) => console.log(e))
-                            }
-                        })
-                        .catch((e) => console.log(e))
-                }
-            }).catch((e) => console.log(e))
-    })
+
     app.post('/worksubmit/', async (req, res) => {
         await db.collection('Signup').findOneAndUpdate({ Gmail: req.body.name }, { $push: { [`Works.${req.body.date}`]: req.body.work } })
             .then((details) => {
@@ -265,12 +264,6 @@ try {
             // await db.collection('Signup').updateMany({ Num: { $in: ["9", "0"] } },{ $set: { Num: 0 } })
             .then((e) => console.log(e)).catch((e) => console.log(e))
     })
-
-
-
-
-
-
 
     app.post('/sadhanaloginstudent/:gmail/:num/:date', async (req, res) => {
         await db.collection('Signup').findOneAndUpdate({ Gmail: req.params.gmail }, { $set: { MrngStreak: req.params.num, MrngLogin: req.params.date } })

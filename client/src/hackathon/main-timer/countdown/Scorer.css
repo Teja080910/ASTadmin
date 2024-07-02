@@ -1,0 +1,141 @@
+.scorer {
+    position: fixed;
+    right: -10px;
+    top: 31%;
+    transform: translateY(-30%);
+    padding: 10px;
+    border-radius: 8px;
+    color: #1b3035;
+    font-weight: 600;
+    z-index: 10;
+    width: 300px;
+  }
+  
+  .score-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .score-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    background: #437682;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-left: solid 2px #1b3035;
+  
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .score-item-titles {
+    display: flex;
+    justify-content: space-between;
+    background: #437682;
+    border-top: solid 2px #1b3035;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-radius: 5px;
+    animation: fadeIn 0.5s ease-in-out;
+    margin-bottom: 10px;
+  }
+  
+  .score-head {
+    text-align: center;
+    background: #437682;
+    border-radius: 5px;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+  
+  .score-head p {
+    height: 10px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .rank,
+  .score {
+    text-align: center;
+    width: 50px !important; 
+    height: 20px;
+  }
+  
+  .userid {
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    text-align: left;
+    width: 180px !important; 
+
+  }
+  
+  .score-enter {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  
+  .score-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 500ms, transform 500ms;
+  }
+  
+  .score-exit {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .score-exit-active {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 500ms, transform 500ms;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .score-item.up::before {
+    content: "↑";
+    color: green;
+    position: relative;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .score-item.down::before {
+    content: "↓";
+    color: red;
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .crown {
+    margin-left: 5px;
+    position: relative;
+    bottom: 32px;
+    left: 10px;
+  }
+  
+  .crown.rank-1 {
+    color: gold;
+  }
+  
+  .crown.rank-2 {
+    color: silver;
+  }
+  
+  .crown.rank-3 {
+    color: #cd7f32; /* Bronze color */
+  }
+  

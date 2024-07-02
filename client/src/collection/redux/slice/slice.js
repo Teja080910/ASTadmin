@@ -9,10 +9,16 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 username: action.payload.username,
             };
-        case 'ROUND':
-            return{
+        case 'BOOT':
+            return {
                 ...state,
-                round:action.payload.round
+                bootmail: action.payload.bootmail,
+                bootpassword: action.payload.bootpassword
+            };
+        case 'ROUND':
+            return {
+                ...state,
+                round: action.payload.round
             }
         default:
             return state;

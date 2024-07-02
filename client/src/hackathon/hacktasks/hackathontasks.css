@@ -59,6 +59,10 @@
     display: flex;
     justify-content: space-evenly;
 }
+.teamhead{
+    display: flex;
+    justify-content: space-evenly;
+}
 @media (max-width:770px) {
     .task-select{
         display: flex;

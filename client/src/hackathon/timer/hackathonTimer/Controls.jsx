@@ -1,12 +1,40 @@
-import React, { useState} from "react";
-import { imageMappings, backgrounds } from "../../resources";
+import React, { useState, useEffect } from "react";
+import { imageMappings, backgrounds, games } from "../../resources";
 import "./Controls.css";
 import { Select } from "@chakra-ui/react";
-import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
+import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
+import ScoreTable from "./ScoreTable";
+
 const Controls = ({ socket }) => {
   const [leftImage, setLeftImage] = useState(imageMappings[0]?.code || "");
   const [rightImage, setRightImage] = useState(imageMappings[0]?.code || "");
-  const [BackGround, setBackground] = useState(backgrounds[0]?.code || "");
+  const [background, setBackground] = useState(backgrounds[0]?.code || "");
+  const [game, setGame] = useState(games[0]?.code || "");
+  const [scores, setScores] = useState([]);
+
+  useEffect(() => {
+    socket.emit("gameData");
+    socket.on("gameData", (data) => {
+      if (data?.code === "000") {
+        setGame(games[0]?.code);
+      } else {
+        setGame(data?.code);
+      }
+    });
+    socket.emit("getAllScores");
+    socket.on("allScores", (data) => {
+      // Sort scores in descending order and add ranking
+      const sortedScores = data
+        .sort((a, b) => b.score - a.score)
+        .map((score, index) => ({ ...score, rank: index + 1 }));
+      setScores(sortedScores);
+    });
+
+    return () => {
+      socket.off("gameData");
+      socket.off("allScores");
+    };
+  }, [socket]);
 
   const handleSelectChange = (event, side) => {
     const code = event.target.value;
@@ -19,25 +47,60 @@ const Controls = ({ socket }) => {
     } else if (side === "background") {
       setBackground(code);
       socket.emit("changeBackground", { code });
+    } else if (side === "games") {
+      setGame(code);
+      socket.emit("addGame", { code });
     }
+  };
+
+  const handleDragStart = (event, code, side) => {
+    event.dataTransfer.setData("code", code);
+    event.dataTransfer.setData("side", side);
+  };
+
+  const handleDrop = (event, side) => {
+    const code = event.dataTransfer.getData("code");
+    const originalSide = event.dataTransfer.getData("side");
+
+    if (originalSide !== side) {
+      if (side === "left") {
+        setLeftImage(code);
+        socket.emit("changeSide", { code, side });
+      } else if (side === "right") {
+        setRightImage(code);
+        socket.emit("changeSide", { code, side });
+      }
+    }
+    event.preventDefault();
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
   };
 
   return (
     <div className="controls">
       <div className="activity-controls">
         <div className="image-mappings">
-          <h3>Activity Image </h3>
+          <h3>Activity Image</h3>
           <div className="images">
             {imageMappings?.map(
               (image) =>
                 image.path && (
-                  <div key={image.code} className="image-mapping">
+                  <div
+                    key={image.code}
+                    className="image-mapping"
+                    draggable
+                    onDragStart={(event) =>
+                      handleDragStart(event, image.code, image.side)
+                    }
+                  >
                     <img
                       src={image.path}
-                      alt={`activity  ${image.code}`}
+                      alt={`activity ${image.code}`}
                       className="mapping-img"
                     />
-                    <p>{`Code: ${image.code}`}</p>
+                    <p>{`${image.code}`}</p>
                   </div>
                 )
             )}
@@ -46,46 +109,59 @@ const Controls = ({ socket }) => {
         <div className="controls">
           <div className="control-item">
             <h3>Left Side</h3>
-            <Select
-              value={leftImage}
-              onChange={(e) => handleSelectChange(e, "left")}
-                  icon={<ArrowDropDownCircleIcon />}
-              variant='outline'
+            <div
+              className="drop-area"
+              onDrop={(event) => handleDrop(event, "left")}
+              onDragOver={handleDragOver}
             >
-              {imageMappings.map((image) => (
-                <option key={image.code} value={image.code}>
-                  {image.code}
-                </option>
-              ))}
-            </Select>
+              <Select
+                value={leftImage}
+                onChange={(e) => handleSelectChange(e, "left")}
+                icon={<ArrowDropDownCircleIcon />}
+                variant="outline"
+                placeholder="select code or drag images"
+              >
+                {imageMappings.map((image) => (
+                  <option key={image.code} value={image.code}>
+                    {image.code}
+                  </option>
+                ))}
+              </Select>
+            </div>
           </div>
           <div className="control-item">
             <h3>Right Side</h3>
-            <Select
-              value={rightImage}
-              onChange={(e) => handleSelectChange(e, "right")}
-              icon={<ArrowDropDownCircleIcon />}
-              variant='outline'
+            <div
+              className="drop-area"
+              onDrop={(event) => handleDrop(event, "right")}
+              onDragOver={handleDragOver}
             >
-              {imageMappings.map((image) => (
-                <option key={image.code} value={image.code}>
-                  {image.code}
-                </option>
-              ))}
-            </Select>
+              <Select
+                value={rightImage}
+                onChange={(e) => handleSelectChange(e, "right")}
+                icon={<ArrowDropDownCircleIcon />}
+                variant="outline"
+                placeholder="select or drag images"
+              >
+                {imageMappings.map((image) => (
+                  <option key={image.code} value={image.code}>
+                    {image.code}
+                  </option>
+                ))}
+              </Select>
+            </div>
           </div>
         </div>
       </div>
       <div className="background-controls">
         <div className="controls">
           <div className="control-item">
-            <h3>Backgrounds </h3>
+            <h3>Backgrounds</h3>
             <Select
-              value={BackGround} 
-              variant='filled'
+              value={background}
+              variant="filled"
               onChange={(e) => handleSelectChange(e, "background")}
               icon={<ArrowDropDownCircleIcon />}
-
             >
               {backgrounds.map((image) => (
                 <option key={image.code} value={image.code}>
@@ -94,8 +170,25 @@ const Controls = ({ socket }) => {
               ))}
             </Select>
           </div>
+
+          <div className="control-item">
+            <h3>Add Games</h3>
+            <Select
+              value={game}
+              variant="filled"
+              onChange={(e) => handleSelectChange(e, "games")}
+              icon={<ArrowDropDownCircleIcon />}
+            >
+              {games.map((game) => (
+                <option key={game.code} value={game.code}>
+                  {game.name}
+                </option>
+              ))}
+            </Select>
+          </div>
         </div>
       </div>
+      {game && <ScoreTable scores={scores}/>}
     </div>
   );
 };

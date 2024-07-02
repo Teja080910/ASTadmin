@@ -1,8 +1,8 @@
 import { db1 } from "../../db.js"
 
-export const EditPS = async (number, statement, desc,res) => {
+export const EditPS = async (number, statement, desc,theme,res) => {
     try {
-        const editps = await db1.collection("ProblemStatements").findOneAndUpdate({ Number: number }, { $set: { Statement: statement,Desc:desc} })
+        const editps = await db1.collection("ProblemStatements").findOneAndUpdate({ Number: number }, { $set: { Statement: statement,Desc:desc,Theme:theme} })
         if (editps?.value?.Statement) {
             res.json(editps)
         }
