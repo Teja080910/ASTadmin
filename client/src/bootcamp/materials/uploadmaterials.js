@@ -74,7 +74,7 @@ export const BootcampMaterial = () => {
                 </div>
             </div>
             <div className='deleteall'>
-                <Button onClick={() => { Actions.DeleteAllMaterials().then((res) => toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true })) }} bg="red.600" color="white" size={'sm'}>Delete All</Button>
+                <Button onClick={() => { Actions.DeleteAllMaterials().then((res) => {toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true });window.location.reload(10)}) }} bg="red.600" color="white" size={'sm'}>Delete All</Button>
             </div>
             <div className="allmetirials">
                 <div className="allmeti">

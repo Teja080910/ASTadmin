@@ -77,26 +77,34 @@ export const RetriveFiles = async (res) => {
 }
 
 export const FileByName = (filename, res) => {
-    const downloadStream = bucket.openDownloadStreamByName(filename);
-    downloadStream.on('error', (error) => {
-        console.error(error);
-        res.status(404).send('File not found');
-    });
-    downloadStream.on('file', (file) => {
-        const mimeType = mime.getType(file.filename);
-        res.set('Content-Type', mimeType);
-    });
+    try {
+        const downloadStream = bucket.openDownloadStreamByName(filename);
+        downloadStream.on('error', (error) => {
+            console.error(error);
+            res.status(404).send('File not found');
+        });
+        downloadStream.on('file', (file) => {
+            const mimeType = mime.getType(file.filename);
+            res.set('Content-Type', mimeType);
+        });
 
-    downloadStream.pipe(res);
+        downloadStream.pipe(res);
+    } catch (error) {
+
+    }
 }
 
 export const DeleteFile = async (photo, pdf) => {
-    const filenames = [photo, pdf]
-    const files = await db1.collection('uploads.files').find({ filename: { $in: filenames } }).toArray();
-    if (files.length > 0) {
-        for (const file of files) {
-            const fileId = file._id;
-            await bucket.delete(fileId)
+    try {
+        const filenames = [photo, pdf]
+        const files = await db1.collection('uploads.files').find({ filename: { $in: filenames } }).toArray();
+        if (files.length > 0) {
+            for (const file of files) {
+                const fileId = file._id;
+                await bucket.delete(fileId)
+            }
         }
+    } catch (error) {
+
     }
 }

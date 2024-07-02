@@ -9,18 +9,19 @@ export const Modules = {
 
     Attendance: async () => {
         const data = await Modules.data()
-        const filterData = data.filter(student => student?.AttendDays !== undefined)
-        const sortData = filterData.sort((a, b) => b?.AttendDays - a?.AttendDays)
+        const filterData = data?.filter(student => student?.AttendDays !== undefined)
+        const sortData = filterData?.sort((a, b) => b?.AttendDays - a?.AttendDays)
         return sortData
     },
 
     Score: async () => {
         const data = await Modules.data();
-        const filterData = data.filter(student => student?.Tasks);
-        const marks = filterData.map(student => {
+        const filterData = data?.filter(student => student?.Tasks);
+        const marks = filterData?.map(student => {
             let totalMarks = 0;
             Object.values(student?.Tasks)?.forEach(tasks => {
-                tasks.forEach(task => {
+                console.log(tasks)
+                Object.values(tasks)?.forEach(task => {
                     totalMarks += parseInt(task?.GetMarks || 0);
                 });
             });
@@ -35,7 +36,7 @@ export const Modules = {
             let totalMarks = 0;
             let total=0;
             student?.Tasks&&Object.values(student?.Tasks)?.forEach(tasks => {
-                tasks.forEach(task => {
+                Object.values(tasks)?.forEach(task => {
                     totalMarks += parseInt(task?.GetMarks || 0);
                 });
             });
