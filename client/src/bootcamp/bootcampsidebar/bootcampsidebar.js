@@ -64,7 +64,7 @@ export const BootcampSidebar = () => {
                 {
                     (set === "home" && <BootcampHome />) ||
                     (set === "attendance" && <BootAttendance />) ||
-                    (set === "material" && <BootcampMaterial />) ||
+                    (set === "material" && <BootcampMaterial />) || 
                     (set === "score" && <BootcampScore />) ||
                     (set === "tasks" && <BootcampTasks />) ||
                     (set === "students" && <StudentsData />) ||
