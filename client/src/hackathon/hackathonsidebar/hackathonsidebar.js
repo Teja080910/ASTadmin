@@ -15,6 +15,8 @@ import HackathonTasks from "../hacktasks/hackathontask";
 import PSS from "../problemstatements/ps";
 import TimeManager from "../timer/adminSideTimer/TimerManager";
 import "./hackathonsidebar.css";
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+
 import { useDispatch } from "react-redux";
 
 const queryParams = new URLSearchParams(window.location.search);
@@ -39,8 +41,8 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
         <MenuItem icon={<AccessTimeFilledIcon />} onClick={() => { select(8); queryParams.set("page", "timer"); nav({ search: queryParams.toString() }); }}>Timer Manager</MenuItem>
         <MenuItem  icon={<CodeIcon />} onClick={() => window.location.href = '/bootcamp'}>Bootcamp</MenuItem>
       </Menu>
-      <Menu style={{position:'absolute',bottom:0,color:"red"}}>
-      <MenuItem onClick={() =>{dispatch({ type: 'BOOT', payload: { bootmail:null, bootpassword:null}});window.location.reload(1000)}}>Log out</MenuItem>
+      <Menu style={{ position: 'absolute', bottom: 0, color: "red",width:"100%" }}>
+                <MenuItem icon={<PowerSettingsNewIcon />} onClick={() =>{dispatch({ type: 'BOOT', payload: { bootmail:null, bootpassword:null}});window.location.reload(1000)}}>Log out</MenuItem>
       </Menu>
     </Sidebar>
   );
