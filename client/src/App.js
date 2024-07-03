@@ -48,7 +48,7 @@ function App() {
           setLoad(true)
         }
         setLoad(true)
-      }).catch((e) => console.log(e))
+      }).catch((e) =>{})
   }
 
   const BootCamp = async () => {
@@ -59,11 +59,11 @@ function App() {
           setBootload(true)
         }
         setBootload(true)
-      }).catch((e) => console.log(e))
+      }).catch((e) => {})
   }
 
   const Timing = () => {
-    Timings().then((res) => setTime(res)).catch((e) => console.log(e))
+    Timings().then((res) => setTime(res)).catch((e) => {})
   }
 
   useEffect(() => {

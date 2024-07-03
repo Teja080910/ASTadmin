@@ -55,7 +55,6 @@ export const BootcampScore = () => {
     }, []);
     return (
         <div className="scores">
-            {/* <div className="clgname">VEDIC VISION BOOTCAMP</div> */}
             <br />
             <Box display="flex" justifyContent="center" mb={6}>
                 <Input
@@ -104,10 +103,10 @@ export const BootcampScore = () => {
                                                 <Text className="boxscores" mt={2}>
                                                     <h5>Task {taskindex + 1}: {val2?.Task}</h5>
                                                     <p>score:<input style={{ textAlign: 'center' }} id={val2?.Task} className="blank-input" placeholder='Enter task1 score'
-                                                        value={marks[val2?.Task] || val2?.GetMarks || ''}
-                                                        onChange={(e) => setMarks(state => ({ ...state, [val2?.Task]: e.target.value }))}
+                                                        value={marks[x?.Name+val2?.Task] || val2?.GetMarks || ''}
+                                                        onChange={(e) => setMarks(state => ({ ...state, [x?.Name+val2?.Task]: e.target.value }))}
                                                     />/{val2?.Marks}</p>
-                                                    <Button mt={2} onClick={() => GivenMarks(x?.Reg_No, marks[val2?.Task] || val2?.GotMarks, val2?.Marks, dayindex, taskindex)}>Save</Button>
+                                                    <Button mt={2} onClick={() => GivenMarks(x?.Reg_No, marks[x?.Name+val2?.Task] || val2?.GotMarks, val2?.Marks, dayindex, taskindex)}>Save</Button>
                                                 </Text>
                                             ))
                                         }
