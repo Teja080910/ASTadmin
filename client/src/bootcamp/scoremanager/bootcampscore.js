@@ -118,9 +118,10 @@ export const BootcampScore = () => {
                             width="100%"
                             maxW="xxl"
                         >
-                            <Heading as="h2" size="md" mb={4}>{x?.Name.toUpperCase()}</Heading>
                             <Flex justifyContent="space-between" alignItems="center" mb={4}>
-                                <Badge colorScheme="blue">{x?.Year} Btech</Badge>
+                            <Heading as="h2" size="md" mb={4}>{x?.Name.toUpperCase()}</Heading>
+
+                                <Badge colorScheme="blue">{x?.Year} B.Tech</Badge>
                             </Flex>
                             <Table variant="simple" colorScheme="gray">
                                 <Thead>
