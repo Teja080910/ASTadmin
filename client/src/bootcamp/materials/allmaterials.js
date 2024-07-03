@@ -108,7 +108,7 @@ export const AllMaterials = () => {
         await Actions.DeleteMaterial(photo, pdf, theme)
             .then((res) => {
                 if (res?.data) {
-                    toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true })
+                    toast({ title: "deleted", status: 'success', position: 'top-right', isClosable: true })
                     fecthFiles()
                 } else {
                     toast({ title: res?.data?.error, status: 'error', position: 'bottom-right', isClosable: true })

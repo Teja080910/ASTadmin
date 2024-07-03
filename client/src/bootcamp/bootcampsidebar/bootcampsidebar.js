@@ -60,11 +60,11 @@ export const BootcampSidebar = () => {
     return (
         <div id="app" style={{ height: '100vh', display: 'flex' }}>
             <SidebarContent collapsed={collapsed} toggleSidebar={toggleSidebar} select={(val) => setSelect(val || 1)} />
-            <main className='main-content' onClick={() => collapsed || toggleSidebar()} onDoubleClick={() => toggleSidebar()}>
+            <main className='main-content' onClick={() => collapsed || toggleSidebar()}>
                 {
                     (set === "home" && <BootcampHome />) ||
                     (set === "attendance" && <BootAttendance />) ||
-                    (set === "material" && <BootcampMaterial />) ||
+                    (set === "material" && <BootcampMaterial />) || 
                     (set === "score" && <BootcampScore />) ||
                     (set === "tasks" && <BootcampTasks />) ||
                     (set === "students" && <StudentsData />) ||

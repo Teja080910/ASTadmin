@@ -154,7 +154,7 @@ export const TaskInput = ({ tasks, reload }) => {
                 <Input
                     placeholder="Enter day"
                     value={day}
-                    onChange={(e) => setDay(e.target.value)}
+                    onChange={(e) => setDay(e.target.value.replace(/[ ,.]/g, ''))}
                     size="lg"
                     type='number'
                 />
