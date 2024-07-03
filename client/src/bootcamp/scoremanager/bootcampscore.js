@@ -12,6 +12,7 @@ import {
     Table,
     Tbody,
     Td,
+    Text,
     Th,
     Thead,
     Tr,
@@ -31,14 +32,13 @@ export const BootcampScore = () => {
     const searchInputRef = useRef(null);
 
     const fetchStudentData = async () => {
-        await Actions.Students()
-            .then((res) => {
-                setDat(res?.data)
-                setIsLoading(false);
-            })
-            .catch((e) => {
-                console.log(e)
-            });
+        try {
+            const res = await Actions.Students();
+            setDat(res?.data);
+            setIsLoading(false);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const GivenMarks = async (user, marks, total, dayindex, taskindex) => {
@@ -46,15 +46,15 @@ export const BootcampScore = () => {
             await Actions.Givenmarks(user, marks, dayindex, taskindex)
                 .then((res) => {
                     if (res?.data) {
-                        fetchStudentData();
-                        toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true });
+                        fetchStudentData()
+                        toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true })
                     } else {
-                        toast({ title: res?.data?.error, status: 'error', position: 'bottom-right', isClosable: true });
+                        toast({ title: res?.data?.error, status: 'error', position: 'bottom-right', isClosable: true })
                     }
                 })
                 .catch((e) => {
-                    toast({ title: e?.message, status: 'error', position: 'bottom-right', isClosable: true });
-                });
+                    toast({ title: e?.message, status: 'error', position: 'bottom-right', isClosable: true })
+                })
         } else {
             toast({ title: "Marks error", status: 'warning', position: 'bottom-right', isClosable: true });
         }
@@ -64,10 +64,7 @@ export const BootcampScore = () => {
         fetchStudentData();
 
         const handleKeyDown = (event) => {
-            console.log(event.key)
-
-            if (event.shiftKey && (event.key === 'f'|| event.key === 'F')) {
-
+            if (event.shiftKey && (event.key === 'f' || event.key === 'F')) {
                 event.preventDefault();
                 searchInputRef.current.focus();
             }
@@ -79,10 +76,10 @@ export const BootcampScore = () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, []);
-     console.log(window.innerWidth)
+
     return (
         <div className="scores">
-        <Box display="flex" justifyContent="center" mb={6}>
+            <Box display="flex" justifyContent="center" mb={6}>
                 <InputGroup width="70%">
                     <Input
                         ref={searchInputRef}
@@ -119,13 +116,13 @@ export const BootcampScore = () => {
                             m={4}
                             p={4}
                             width="100%"
-                            maxW="xx-l"
+                            maxW="xxl"
                         >
                             <Heading as="h2" size="md" mb={4}>{x?.Name.toUpperCase()}</Heading>
                             <Flex justifyContent="space-between" alignItems="center" mb={4}>
                                 <Badge colorScheme="blue">{x?.Year} Btech</Badge>
                             </Flex>
-                            <Table variant="simple">
+                            <Table variant="simple" colorScheme="gray">
                                 <Thead>
                                     <Tr>
                                         <Th>Day</Th>
@@ -137,19 +134,20 @@ export const BootcampScore = () => {
                                     </Tr>
                                 </Thead>
                                 <Tbody>
-                                    {Object.values(x?.Tasks || {}).map((val, dayindex) => (
-                                        val?.map((val2, taskindex) => (
+                                    {Object.values(x?.Tasks || {}).map((val, dayindex) =>
+                                        val.map((val2, taskindex) => (
                                             <Tr key={`${dayindex}-${taskindex}`}>
                                                 <Td> {dayindex + 1}</Td>
-                                                <Td>{dayindex + 1}</Td>
+                                                <Td> {taskindex+ 1}</Td>
+
                                                 <Td>{val2?.Task}</Td>
                                                 <Td>
                                                     <Input
                                                         size="sm"
                                                         width="50px"
                                                         textAlign="center"
-                                                        value={marks[val2?.Task] || val2?.GetMarks || ''}
-                                                        onChange={(e) => setMarks(state => ({ ...state, [val2?.Task]: e.target.value }))}
+                                                        value={marks[`${x?.Name}-${dayindex}-${taskindex}`] || val2?.GetMarks || ''}
+                                                        onChange={(e) => setMarks(state => ({ ...state, [`${x?.Name}-${dayindex}-${taskindex}`]: e.target.value }))}
                                                     />
                                                 </Td>
                                                 <Td>{val2?.Marks}</Td>
@@ -157,14 +155,14 @@ export const BootcampScore = () => {
                                                     <Button
                                                         size="sm"
                                                         colorScheme="blue"
-                                                        onClick={() => GivenMarks(x?.Reg_No, marks[val2?.Task] || val2?.GotMarks, val2?.Marks, dayindex, taskindex)}
+                                                        onClick={() => GivenMarks(x?.Reg_No, marks[`${x?.Name}-${dayindex}-${taskindex}`] || val2?.GotMarks, val2?.Marks, dayindex, taskindex)}
                                                     >
                                                         Save
                                                     </Button>
                                                 </Td>
                                             </Tr>
                                         ))
-                                    ))}
+                                    )}
                                 </Tbody>
                             </Table>
                         </Box>
