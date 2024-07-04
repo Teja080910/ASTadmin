@@ -1,74 +1,161 @@
 .appcontainer {
-    width:66%;
-    margin-top: 10%;
-    margin-bottom: 10%;
-    margin-left: 10%;
+    margin: 2%;
+    padding: 5% 20%;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    position: relative;
 }
 
-.appcontainer button:first-child {
-    height: 20vh;
-    width: 50%;
-    background-image: url("./graduation.png");
+.card {
+    background-position: center;
+    background-size: contain;
+    object-fit: contain;
     background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-color: white;
+  
+ 
+}
+.hover-items{
+    display: none;
+}
+.hover-items:hover{
+    display: block;
 }
 
-.appcontainer button:nth-child(2) {
-    height: 20vh;
-    width: 50%;
-    background-color: white;
-    background-image: url("./chat-app.png");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+/* Slider CSS */
+
+.wrapper {
+    max-width: 1100px;
+    width: 100%;
+    position: relative;
 }
 
-.appcontainer button:nth-child(3) {
-    height: 20vh;
-    width: 50%;
-    background-color: white;
-    background-image: url("./note.png");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+.wrapper i {
+    top: 50%;
+    z-index: 9;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    font-size: 1.25rem;
+    position: absolute;
+    text-align: center;
+    line-height: 50px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
+    transform: translateY(-50%);
+    transition: transform 0.1s linear;
+
+    @media (max-width :460px){
+        display: none;
+    }
 }
 
-.appcontainer button:nth-child(4) {
-    height: 20vh;
-    width: 50%;
-    background-color: white;
-    background-image: url("./chat.png");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+.wrapper i:active {
+    transform: translateY(-50%) scale(0.85);
 }
 
-@media (max-width:500px) {
-    .appcontainer {
-        width:100%;
-        margin-top: 5%;
-        margin-bottom: 10%;
-        margin-left: 0%;
-        display: grid;
-        justify-content: center;
-    }
+.wrapper i:first-child {
+    left: 1px;
+}
 
-    .appcontainer button:first-child {
-        height:20vh;
-        width: 80%;
-    }
+.wrapper i:last-child {
+    right: 1px;
+}
 
-    .appcontainer button:nth-child(2) {
-        height:20vh;
-        width: 80%;
-    }
+.wrapper .carousel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% / 3) - 102px);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 62px;
+    border-radius: 8px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
 
-    .appcontainer button:nth-child(3) {
-        height:20vh;
-        width: 80%;
-        margin-left: 5%;
-    }
+.carousel::-webkit-scrollbar {
+    display: none;
+}
 
-    .appcontainer button:nth-child(4) {
-        height:20vh;
-        width: 80%;
+.carousel.no-transition {
+    scroll-behavior: auto;
+}
+
+.carousel.dragging {
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+}
+
+.carousel.dragging .card {
+    cursor: grab;
+    user-select: none;
+}
+
+.carousel :where(.card, .img) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#left {
+    z-index: 9;
+}
+
+.carousel .card {
+    scroll-snap-align: start;
+    height: 205px;
+    list-style: none;
+    background-color: white;
+    cursor: pointer;
+    padding-bottom: 15px;
+    flex-direction: column;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden; 
+}
+
+.carousel .card:hover .overlay {
+    opacity: 1;
+}
+
+
+
+.carousel .card .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    justify-content:end;
+    align-items: end;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: white;
+    text-align: center;
+}
+
+.carousel .card h2,
+.carousel .card span {
+    margin: 0;
+    padding: 5px;
+    text-shadow: black 1px 1px;
+}
+
+@media screen and (max-width: 900px) {
+    .wrapper .carousel {
+        grid-auto-columns: calc((100% / 2) - 9px);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .wrapper .carousel {
+        grid-auto-columns: 100%;
     }
 }

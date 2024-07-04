@@ -65,32 +65,35 @@
 .graphinput {
     display: grid;
     align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .graphdiv {
     width: 100%;
-    padding-left: 10%;
-    margin-left: 10%;
+   
 }
 
 .graphinput input {
-    width: 50%;
     height: 5vh;
 }
 
-.labelinput tr td
-{
-    width: 1%;
-}
+
 
 .labelinput tr td input
 {
     width: 20px;
 }
+.labelinput tr td 
+{
+    width: 100%;
+justify-content: center;
 
-.studetail tr:nth-child(odd) {
-    background-color: #f2f2f2;
 }
+
+
+
+
 
 .streak-text {
     width: 150%;
@@ -109,9 +112,12 @@
     height: 5vh;
     background-image: url("./streak.png");
     background-repeat: no-repeat;
+    object-fit: cover;
+color: black;
     background-size: 100% 100%;
-    color: black;
-    font-size: 15px;
+    font-size: 10px;
+    padding-top: 20px !important;
+    padding: 9px;
     display: flex;
     justify-content:center;
     align-items: center;
@@ -123,13 +129,7 @@ img {
     max-width: 100%;
     height: 70px;
 }
-.applications{
-    width: 100%;
-    /* height: 20vh; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 .boothack{
     width: 100%;
     height: 30vh;
@@ -148,9 +148,7 @@ img {
         padding-left: 0%;
         margin-left: 0%;
     }
-    .graphinput input {
-        width: 100%;
-    }
+ 
 
     .homename {
         font-size: 50px;
@@ -171,7 +169,6 @@ img {
 
     .streakgrid {
         width: 100%;
-        /* padding: 3%; */
     }
 
     .streakgrid table tbody {
