@@ -1,0 +1,110 @@
+**********************Features***************************
+
+Attendance Website:- https://asteam-attendance.vercel.app/
+1.Authentication
+2.Streak maintance by taken attendance with authentication
+3.Daily checking attendance and print out that
+4.Daily work submission
+5.Attendance on both technology and sadhana, indiviual checking attendance through register number.
+6.Face recorigination(optional)
+7.Chat bot (AI)
+
+
+Exam Website:- https://asteam-exam.vercel.app/
+1.Authentication
+2.Exam (questions, fill in the blanks, choose the correct answers)
+3.Teams (CURD)
+4.Team work:-Each team has indiviual work (present and past with dates), Score by team perfomance
+5.Exam questions (CURD)
+6.Paper Correction and student Score
+
+
+Project Hub Website:- https://ast-projecthub.vercel.app/
+1.Authentication
+2.Upload projects indiviual, through college, through university
+3.Document Upload
+4.Student profile (CURD)
+5.Show projects like (All projects, college wise, university wise, software, hardware)
+
+
+Authentication
+1.SMTP for mail transfer
+2.Firebase for Phone message, Storage for documents, captcha.
+
+
+
+
+
+
+1.Gamya *
+2.sai lakshmi*
+3.teja*
+4.sanjay*
+5.nagabushan*
+6.murari*
+7.haneef*
+8.tejaswi*
+9.gowri*
+10.varshit*
+11.kaveri*
+12.gowri sankar*
+13.praveen*
+14.rohini*
+15.ramsai*
+16.sriram*
+17.charishma*
+18.bhanu*
+19.ganesh*
+20.keerthana*
+21.kusma*
+22.indhu*
+23.charishma ece a*
+24.divya*
+
+
+Team 1
+1.Ramsai (Lead)
+2.praveen 
+3.charishma cse
+4.kaveri
+
+
+Team 2
+1.ganesh (Lead)
+2.rohini
+3.keerthana
+4.indhu
+
+
+
+Team 3
+1.sanjay (Lead)
+2.divya
+3.bhanu
+4.varshit
+
+
+
+
+Team 4
+1.teja (Lead)
+2.sai lakshmi
+3.Gamya
+4.murari
+
+
+
+Team 5
+1.Sriram (Lead)
+2.nagabushan
+3.charishma ece
+4.haneef
+
+
+
+
+Team 6
+1.gowri (Lead)
+2.tejaswi
+3.kusma
+4.gowri sankar

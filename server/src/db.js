@@ -1,11 +1,21 @@
-import { MongoClient } from "mongodb";
-let db; 
-async function connectToDB(cb){
-    const url = "mongodb+srv://aolsrkr2002:aol1234@ast.th0xtim.mongodb.net/?retryWrites=true&w=majority";
+import dotenv from 'dotenv';
+import { GridFSBucket, MongoClient } from "mongodb";
+dotenv.config()
+let db, db1, bucket;
+async function connectToDB(cb) {
+    const url = process.env.database
     const client = new MongoClient(url);
     await client.connect();
     db = client.db("Mern_Attendance");
+
+    const url1 = process.env.database1
+    const client1 = new MongoClient(url1);
+    await client1.connect();
+    db1 = client1.db("Hackathon");
+
+    bucket = new GridFSBucket(db1, { bucketName: 'uploads' });
     cb();
 }
 
-export { connectToDB, db };
+export { bucket, connectToDB, db, db1 };
+

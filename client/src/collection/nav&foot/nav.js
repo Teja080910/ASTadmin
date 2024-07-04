@@ -20,7 +20,7 @@ export const Navbars=()=>
           <Nav className="me-auto">
             <Nav.Link  href="/">Home</Nav.Link>
             <Nav.Link href="/attendance">Attendance</Nav.Link>
-            <Nav.Link href="/yoga" onClick={Pin}>Daily Sadhana</Nav.Link>
+            {/* <Nav.Link href="/yoga" onClick={Pin}>Daily Sadhana</Nav.Link> */}
             <NavDropdown title="More" id="basic-nav-dropdown">
               <NavDropdown.Item href="/addproject">Add Project</NavDropdown.Item>
               <NavDropdown.Item href="/projects">Projects</NavDropdown.Item>

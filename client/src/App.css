@@ -1,8 +1,5 @@
-
-
 /* login.js */
-.signup
-{
+.signup {
   text-decoration: none;
   padding: 0.5%;
   background-color: rgb(191, 80, 0);
@@ -10,14 +7,14 @@
   border-radius: 8px;
   color: aliceblue;
   font-size: 20px;
-  width:30%;
+  width: 30%;
   text-align: center;
-  
+
 }
-.complteday
-{
-  background-color:green;
-  margin-left:81.2%;
+
+.complteday {
+  background-color: green;
+  margin-left: 81.2%;
   margin-top: 20px;
   margin-bottom: 5%;
   color: white;
@@ -25,33 +22,37 @@
   padding: 5px;
   border-radius: 8px;
 }
-.border1{
+
+.border1 {
   margin-top: 10%;
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
 }
-.size{
-  width:80%;
-  height:25px;
+
+.size {
+  width: 80%;
+  height: 25px;
 }
-.display{
-  display:flex;
+
+.display {
+  display: flex;
   height: 10vh;
   width: 100%;
   position: fixed;
-  background-color:rgb(122, 122, 255);
+  background-color: rgb(122, 122, 255);
 }
-.display1{
-  display:flex;
+
+.display1 {
+  display: flex;
   height: 8vh;
   width: 100%;
   margin-top: 10vh;
   position: fixed;
   justify-content: space-between;
-  background-color:blue;
+  background-color: blue;
 }
-.display1item
-{
+
+.display1item {
   color: aliceblue;
   margin-left: 10%;
   text-decoration: none;
@@ -59,47 +60,53 @@
   border-radius: 5px;
   font-size: 20px;
 }
-.display1item:hover
-{
-  color:aqua;
+
+.display1item:hover {
+  color: aqua;
 }
-.center{
-  padding-left:57%;
-  color:green;
-  font-size: x-large;
-}
-.studetail
-{
-  width: 90%;
-  background-color: rgb(180, 251, 251);
-  margin:8vh 5% 5% 5%;
+
+.center {
+  padding-left: 57%;
+  color: green;
   font-size: x-large;
 }
 
-table tbody p
-{
-  position:absolute;
-  margin:12px 0px 1px 1.3%;
-  font-size:15px;
+.studetail {
+  width: 90%;
+  background-color: rgb(180, 251, 251);
+  margin: 8vh 5% 5% 5%;
+  font-size: x-large;
 }
-.studetail table tr th
-{
+
+#studetail {
+  width: 90%;
+  margin:2% 5%;
+  border-radius: 20%;
+  font-size: x-large;
+}
+
+table tbody p {
+  position: absolute;
+  margin: 12px 0px 1px 1.3%;
+  font-size: 15px;
+}
+
+.studetail table tr th {
   text-align: center;
 }
-.studetail table tr td
-{
+
+.studetail table tr td {
   text-align: center;
 }
-.studentcheck
-{
+
+.studentcheck {
   margin: 0% 0% 0% 10.5%;
   width: 79%;
   height: 5vh;
   font-size: x-large;
 }
 
-.projectlink
-{
+.projectlink {
   padding: 2% 0%;
   font-size: 30px;
   width: 98%;
@@ -110,39 +117,41 @@ table tbody p
   border-top: 8px solid #4fadfb;
   margin-top: 10px;
   text-align: center;
-  display:grid;
-  
+  display: grid;
+
 }
+
 .projectlink-container {
-      display: flex;
-      justify-content:space-around;
-      flex-direction: row;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
 }
-.clgname
-{
+
+.clgname {
   /* margin-top: 5%; */
   text-align: center;
-  background:linear-gradient(180deg,#2900de,#b10f0f);
+  background: linear-gradient(180deg, #2900de, #b10f0f);
   font-size: 80px;
   font-family: poppins;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.yearbtns
-{
-  display:flex;
+
+.yearbtns {
+  display: flex;
   justify-content: space-around;
-  
+
 }
-.yearbtnsink
-{
+
+.yearbtnsink {
   text-decoration: none;
   padding: 0.5%;
   background-color: blue;
   color: white;
-  width:fit-content;
+  width: fit-content;
   border-radius: 3px;
 }
+
 /*  */
 
 /*  */
@@ -150,23 +159,23 @@ table tbody p
 
 .otp {
   position: fixed;
-  width: 80%; 
-  max-width: 400px; 
+  width: 80%;
+  max-width: 400px;
   min-height: 80px;
   background-color: #3498db;
-  margin:15%  35% auto; 
+  margin: 15% 35% auto;
   display: none;
-  border-radius: 15px; 
+  border-radius: 15px;
   z-index: 1;
 }
 
 .otp input {
-  margin: 10px 0px 10px 20px; 
-  width: 90%; 
+  margin: 10px 0px 10px 20px;
+  width: 90%;
   font-size: xx-large;
-  border: none; 
+  border: none;
   text-align: center;
-  padding: 10px; 
+  padding: 10px;
   border-radius: 15px;
   min-height: 20px;
   max-height: 40px;
@@ -174,48 +183,48 @@ table tbody p
 }
 
 .otp button {
-  margin: 10px 20px; 
-  width: 50%; 
+  margin: 10px 20px;
+  width: 50%;
   text-align: center;
-  font-size:large;
+  font-size: large;
   border: none;
   background-color: green;
   color: white;
   border-radius: 15px;
   min-height: 35px;
 }
-.bg-body-tertiary
-{
+
+.bg-body-tertiary {
   width: 100%;
 }
-.card
-{
+
+.card {
   background-color: #84c8ff;
 }
-.projectbg
-{
+
+.projectbg {
   background-color: #EDF2F7;
   width: 100%;
   height: 92vh;
   overflow-y: scroll;
 }
-.card button
-{
+
+.card button {
   background: none;
   color: red;
   border: none;
 }
-.link
-{
+
+.link {
   text-decoration: none;
   color: rgb(70, 64, 0);
 }
-.link:hover
-{
-  color:#b10f0f;
+
+.link:hover {
+  color: #b10f0f;
 }
-.projectname
-{
+
+.projectname {
   color: black;
   font-weight: bold;
   font-size: 50px;
@@ -223,13 +232,13 @@ table tbody p
   justify-content: center;
   text-decoration: underline;
 }
-.simplegrid
-{
+
+.simplegrid {
   margin-left: 5%;
   width: 90%;
 }
-.stulogout
-{
+
+.stulogout {
   background: none;
   border: none;
   color: red;
@@ -237,7 +246,46 @@ table tbody p
   margin: 0;
   padding: 0.1;
 }
-.rotate
-{
+
+.rotate {
   transform: rotate(180deg);
+}
+
+.studentdata {
+  height: 70vh;
+  overflow-y: scroll;
+}
+
+.adminlogin {
+  margin-top: 10%;
+}
+
+@media (max-width:700px) {
+  .simplegrid {
+    margin-left: 0%;
+    width: 100%;
+  }
+
+  .studentdata {
+    height: 100vh;
+  }
+}
+
+@media (max-width:500px) {
+  #studetail thead{
+    font-size:15px;
+  }
+  #studetail thead tr td link{
+    font-size:15px;
+  }
+  #studetail thead th{
+    font-size:8px;
+  }
+  #studetail thead td{
+    font-size:10px;
+  }
+  #studetail button{
+    width: 30px;
+    font-size:5px;
+  }
 }

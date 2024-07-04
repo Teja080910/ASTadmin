@@ -1,39 +1,39 @@
 import { Button, SimpleGrid, useToast } from "@chakra-ui/react"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Navbars } from "../nav&foot/nav"
 import './attendance.css'
 import attendance from "./log.png"
+import { Timings } from "./timings"
 import yoga from "./yoga.png"
 export const Attendance = () => {
     const nav = useNavigate();
-    const date = new Date();
-    const time = new Date().toLocaleTimeString();
-    const toast=useToast();
+    const toast = useToast();
+    const [error, setError] = useState(false)
     const Tech = () => {
-        if ((time <= "19:20:00 pm" && time >= "17:00:00 pm") || (time <= "07:20:00 pm" && time >= "05:00:00 pm")) {
+        window.location.reload(2)
+    }
+    Timings().then((res) => {
+        if (!res?.tech) {
             nav("/tech")
         }
-        else if (date.getDay()===1 && ((time <= "19:20:00 pm" && time >= "17:00:00 pm") || (time <= "07:20:00 pm" && time >= "05:00:00 pm"))) {
-            nav("/tech")
+        else if (res?.yoga) {
+            nav("/yoga")
+        }
+        else if (!res?.loc) {
+            setError("loc")
         }
         else {
-            toast({title:"Time out",description:"Please open in correct timings",status:"error",position:"bottom-left", isClosable:true})
-            nav("/attendance");
+            setError("time")
         }
-    }
+    }).catch((e) => console.log(e))
     const Yoga = () => {
-        if ((time <= "19:20:00 pm" && time >= "17:00:00 pm") || (time <= "07:20:00 pm" && time >= "05:00:00 pm")) {
-            nav("/yoga")
-        }
-        else if (date.getDay()===1 && ((time <= "19:20:00 pm" && time >= "17:00:00 pm") || (time <= "07:20:00 pm" && time >= "05:00:00 pm"))) {
-            nav("/yoga")
-        }
-        else {
-            toast({title:"Time out",description:"Please open in correct timings",status:"error",position:"bottom-left", isClosable:true})
-            nav("/attendance");
-        }
+        window.location.reload(2)
     }
+    useEffect(() => {
+        error === "time" && toast({ title: "Time out", description: "Please open in correct timings", status: "error", position: "bottom-left", isClosable: true });
+        error === "loc" && toast({ title: "Location error", description: "Go to correct location", status: "error", position: "bottom-left", isClosable: true })
+    }, [error])
     return (
         <div>
             <Navbars />

@@ -9,6 +9,8 @@
 .listgrid{
     width: 50%;
     height: 300px;
+    display: flex;
+    justify-content: center;
 }
 
 .listgrid h6

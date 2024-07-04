@@ -1,42 +1,51 @@
 import axios from 'axios';
+import { useToast } from "@chakra-ui/react";
 import { useEffect, useState } from 'react';
 export const UpdateData = () => {
     const [data, sdata] = useState([]);
+    const [gmail,sgmail]=useState()
     const [name, sname] = useState();
     const [year, syear] = useState()
     const [load, sload] = useState(false);
+    const toast=useToast()
     const Update = async () => {
         sload(true)
-        axios.post(process.env.REACT_APP_database + "/updatestudent/" + name + "/" + year)
+        axios.post(process.env.REACT_APP_database + "/updatestudent/" +gmail+"/"+ name + "/" + year)
             .then((res) => {
                 if (res.data) {
                     sload(false)
-                    window.location.reload(2)
+                    toast({title:"Update sucessfully",status:"success",position:"bottom-right", isClosable:true})
+                    setTimeout(() => {
+                        window.location.reload(2)
+                    }, 1000);
                 }
                 else {
                     sload(false)
+                    toast({title:"Try again",status:"error",position:"bottom-left", isClosable:true})
                 }
             })
             .catch((e) => console.log(e))
     }
     useEffect(() => {
-        name &&
-            axios.post(process.env.REACT_APP_database + "/student/" + name)
+        gmail &&
+            axios.post(process.env.REACT_APP_database + "/student/" +gmail)
                 .then((res) => {
                     sdata(res.data)
+                    sname(res?.data?.Name)
+                    syear(res?.data?.Year)
                 })
                 .catch((e) => console.log(e))
-    }, [name])
+    }, [gmail])
     return (
         <>
             <div className="register-container container">
                 <div className="register-header">Update Your Data</div>
                 <div className="form-group">
                     <label>Student Email:</label>
-                    <input className="form-control" type="text" id="smn" placeholder="Enter your gmail" onChange={(e) => sname(e.target.value)} />
+                    <input className="form-control" type="text" id="smn" placeholder="Enter your gmail" onChange={(e) => sgmail(e.target.value)} />
                 </div>
                 <div className="form-group">
-                    <label>Name: {data?.Name?.toUpperCase()}</label>
+                    <label>Name: <input className="form-control" type="text" value={name || data?.Name?.toUpperCase()} placeholder="Enter your name" onChange={(e) => sname(e.target.value.toUpperCase())}/></label>
                 </div>
                 <div className="form-group">
                     <label>Register Number: {data?.Reg_No?.toUpperCase()}</label>
