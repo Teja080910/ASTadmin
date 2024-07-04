@@ -46,6 +46,10 @@
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
     transform: translateY(-50%);
     transition: transform 0.1s linear;
+
+    @media (max-width :460px){
+        display: none;
+    }
 }
 
 .wrapper i:active {
