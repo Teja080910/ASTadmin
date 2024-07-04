@@ -17,6 +17,7 @@ import { BootcampMaterial } from '../materials/uploadmaterials';
 import { BootcampScore } from '../scoremanager/bootcampscore';
 import { StudentsData } from '../studentdata/studentdata';
 import BootcampTasks from '../taskmanger/bootcamptaskmager';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { Others } from '../others/others';
 import './bootcampsidebar.css';
 
@@ -43,8 +44,8 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
                 <MenuItem icon={<Groups2OutlinedIcon /> }onClick={() => { select(8); queryParams.set("page", "others"); nav({ search: queryParams.toString() }) }}>Others</MenuItem>
                 <MenuItem icon={<CodeIcon />} onClick={() => window.location.href = '/hackathon'}>Hackathon</MenuItem>
             </Menu>
-            <Menu style={{ position: 'absolute', bottom: 0, color: "red" }}>
-                <MenuItem onClick={() => { dispatch({ type: 'BOOT', payload: { bootmail: null, bootpassword: null } }); window.location.reload(1000) }}>Log out</MenuItem>
+            <Menu style={{ position: 'absolute', bottom: 0, color: "red",width:"100%" }}>
+                <MenuItem icon={<PowerSettingsNewIcon />} onClick={() => { dispatch({ type: 'BOOT', payload: { bootmail: null, bootpassword: null } }); window.location.reload(1000) }} >Log out</MenuItem>
             </Menu>
         </Sidebar>
     );

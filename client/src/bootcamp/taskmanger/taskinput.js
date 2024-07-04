@@ -184,8 +184,8 @@ export const TaskInput = ({ tasks, reload }) => {
             <Box mt={8}>
                 <div className='task-box'>
                     <h1 className='h1-tasks'>Tasks in Bootcamp</h1>
-                    <Tabs>
-                        <TabList>
+                    <Tabs variant='enclosed' isFitted isLazy >
+                        <TabList overflowX="auto" overflowY="hidden">
                             {tasks.sort((a, b) => a.Day - b.Day).map((task, index) => (
                                 <Tab key={index}>Day {task.Day}</Tab>
                             ))}

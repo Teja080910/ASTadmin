@@ -5,30 +5,40 @@ import {
     Flex,
     Heading,
     Input,
+    InputGroup,
+    InputRightElement,
+    Kbd,
     Spinner,
+    Table,
+    Tbody,
+    Td,
     Text,
+    Th,
+    Thead,
+    Tr,
     useToast
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Actions } from "../../actions/actions";
 import './scoremanager.css';
+import SearchIcon from '@mui/icons-material/Search';
 
 export const BootcampScore = () => {
     const [dat, setDat] = useState([]);
     const [select, setSelect] = useState("");
     const [isLoading, setIsLoading] = useState(true);
-    const [marks, setMarks] = useState('');
-    const toast = useToast()
+    const [marks, setMarks] = useState({});
+    const toast = useToast();
+    const searchInputRef = useRef(null);
 
     const fetchStudentData = async () => {
-        await Actions.Students()
-            .then((res) => {
-                setDat(res?.data)
-                setIsLoading(false);
-            })
-            .catch((e) => {
-                console.log(e)
-            })
+        try {
+            const res = await Actions.Students();
+            setDat(res?.data);
+            setIsLoading(false);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const GivenMarks = async (user, marks, total, dayindex, taskindex) => {
@@ -46,24 +56,44 @@ export const BootcampScore = () => {
                     toast({ title: e?.message, status: 'error', position: 'bottom-right', isClosable: true })
                 })
         } else {
-            toast({ title: "marks error", status: 'warning', position: 'bottom-right', isClosable: true })
+            toast({ title: "Marks error", status: 'warning', position: 'bottom-right', isClosable: true });
         }
-    }
+    };
 
     useEffect(() => {
         fetchStudentData();
+
+        const handleKeyDown = (event) => {
+            if (event.shiftKey && (event.key === 'f' || event.key === 'F')) {
+                event.preventDefault();
+                searchInputRef.current.focus();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
     }, []);
+
     return (
         <div className="scores">
-            <br />
             <Box display="flex" justifyContent="center" mb={6}>
-                <Input
-                    id="search"
-                    value={select}
-                    placeholder="Enter User mail or name"
-                    onChange={(e) => setSelect(e.target.value)}
-                    width="70%"
-                />
+                <InputGroup width="70%">
+                    <Input
+                        ref={searchInputRef}
+                        id="search"
+                        value={select}
+                        placeholder="Enter User mail or name"
+                        onChange={(e) => setSelect(e.target.value)}
+                    />
+                    <InputRightElement pointerEvents="none" width="auto">
+                        <Flex alignItems="center">
+                            <Kbd color="black">shift</Kbd> + <Kbd color="black">F</Kbd> <SearchIcon />
+                        </Flex>
+                    </InputRightElement>
+                </InputGroup>
             </Box>
             {isLoading ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
@@ -78,41 +108,64 @@ export const BootcampScore = () => {
                         user?.Name?.toLowerCase()?.includes(select)
                     )?.map((x, index) => (
                         x?.Tasks && <Box
-                            style={{ fontFamily: 'serif' }}
                             key={index}
                             borderWidth="1px"
                             borderRadius="lg"
-                            overflow="hidden"
+                            overflow="auto"
                             shadow="lg"
                             m={4}
                             p={4}
-                            textAlign="center"
                             width="100%"
-                            maxW="xx-l"
+                            maxW="xxl"
                         >
-                            <Heading style={{ fontFamily: 'serif' }} as="h2" size="md">{x?.Name.toUpperCase()}</Heading>
-                            <Flex justifyContent="space-between" alignItems="center" mt={2}>
-                                <Badge style={{ marginLeft: '80%' }} colorScheme="blue">{x?.Year} Btech</Badge>
+                            <Flex justifyContent="space-between" alignItems="center" mb={4}>
+                            <Heading as="h2" size="md" mb={4}>{x?.Name.toUpperCase()}</Heading>
+
+                                <Badge colorScheme="blue">{x?.Year} B.Tech</Badge>
                             </Flex>
-                            {
-                                Object?.values(x?.Tasks ? x?.Tasks : 0)?.map((val, dayindex) => (
-                                    <div>
-                                        <h6>Day {dayindex + 1}</h6>
-                                        {
-                                            val?.map((val2, taskindex) => (
-                                                <Text className="boxscores" mt={2}>
-                                                    <h5>Task {taskindex + 1}: {val2?.Task}</h5>
-                                                    <p>score:<input style={{ textAlign: 'center' }} id={val2?.Task} className="blank-input" placeholder='Enter task1 score'
-                                                        value={marks[x?.Name+val2?.Task] || val2?.GetMarks || ''}
-                                                        onChange={(e) => setMarks(state => ({ ...state, [x?.Name+val2?.Task]: e.target.value }))}
-                                                    />/{val2?.Marks}</p>
-                                                    <Button mt={2} onClick={() => GivenMarks(x?.Reg_No, marks[x?.Name+val2?.Task] || val2?.GotMarks, val2?.Marks, dayindex, taskindex)}>Save</Button>
-                                                </Text>
-                                            ))
-                                        }
-                                    </div>
-                                ))
-                            }
+                            <Table variant="simple" colorScheme="gray">
+                                <Thead>
+                                    <Tr>
+                                        <Th>Day</Th>
+                                        <Th>Task No</Th>
+                                        <Th>Task</Th>
+                                        <Th>Score</Th>
+                                        <Th>Max Marks</Th>
+                                        <Th>Action</Th>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    {Object.values(x?.Tasks || {}).map((val, dayindex) =>
+                                        val.map((val2, taskindex) => (
+                                            <Tr key={`${dayindex}-${taskindex}`}>
+                                                <Td> {dayindex + 1}</Td>
+                                                <Td> {taskindex+ 1}</Td>
+
+                                                <Td>{val2?.Task}</Td>
+                                                <Td>
+                                                    <Input
+                                                        size="sm"
+                                                        width="50px"
+                                                        textAlign="center"
+                                                        value={marks[`${x?.Name}-${dayindex}-${taskindex}`] || val2?.GetMarks || ''}
+                                                        onChange={(e) => setMarks(state => ({ ...state, [`${x?.Name}-${dayindex}-${taskindex}`]: e.target.value }))}
+                                                    />
+                                                </Td>
+                                                <Td>{val2?.Marks}</Td>
+                                                <Td>
+                                                    <Button
+                                                        size="sm"
+                                                        colorScheme="blue"
+                                                        onClick={() => GivenMarks(x?.Reg_No, marks[`${x?.Name}-${dayindex}-${taskindex}`] || val2?.GotMarks, val2?.Marks, dayindex, taskindex)}
+                                                    >
+                                                        Save
+                                                    </Button>
+                                                </Td>
+                                            </Tr>
+                                        ))
+                                    )}
+                                </Tbody>
+                            </Table>
                         </Box>
                     ))}
                 </Flex>
