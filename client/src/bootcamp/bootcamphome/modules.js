@@ -20,7 +20,6 @@ export const Modules = {
         const marks = filterData?.map(student => {
             let totalMarks = 0;
             Object.values(student?.Tasks)?.forEach(tasks => {
-                console.log(tasks)
                 Object.values(tasks)?.forEach(task => {
                     totalMarks += parseInt(task?.GetMarks || 0);
                 });
