@@ -1,18 +1,38 @@
-import { Button, SimpleGrid } from '@chakra-ui/react'
-import './application.css'
-import {useNavigate} from 'react-router-dom'
+import { Box, Heading } from '@chakra-ui/react';
+import React from 'react';
+import CardSlider from './CardSlider';
+import CertificateImage from './graduation.png';
+import ChatAppImage from './chat-app.png';
+import NoteImage from './note.png';
+import "./application.css"
+
 export const Applications = () => {
-    const nav=useNavigate()
+    const cards = [
+        {
+            id: 1,
+            backgroundImage: CertificateImage,
+            label: "AST Certificates",
+            link: "https://ast-certificates.vercel.app/"
+        },
+        {
+            id: 2,
+            backgroundImage: ChatAppImage,
+            label: "Chat With Me",
+            link: "chatwithme"
+        },
+        {
+            id: 3,
+            backgroundImage: NoteImage,
+            label: "Note Group",
+            link: "https://notegroup.vercel.app/"
+        },
+        // Add more cards as needed
+    ];
+
     return (
-        <>
-            <div className='appcontainer'>
-                <SimpleGrid minChildWidth='200px' spacing='40px'>
-                    <Button onClick={()=>{window.location.href=("https://ast-certificates.vercel.app/")}}></Button>
-                    <Button onClick={()=>nav("chatwithme")}></Button>
-                    <Button onClick={()=>{window.location.href="https://notegroup.vercel.app/"}}></Button>
-                    <Button></Button>
-                </SimpleGrid>
-            </div>
-        </>
-    )
-}
+        <Box className='appcontainer' p={8} border="1px solid #ccc" borderRadius="lg" boxShadow="lg">
+            <Heading textAlign="center" mb={4} color="#8a2be2">Other Applications By AST TEAM</Heading>
+            <CardSlider cards={cards}/>
+        </Box>
+    );
+};

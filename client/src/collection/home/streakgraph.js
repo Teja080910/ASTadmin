@@ -1,45 +1,47 @@
-import { Input, SimpleGrid } from "@chakra-ui/react";
+import { Box, Input, SimpleGrid } from "@chakra-ui/react";
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
 import React, { useEffect, useState } from 'react';
 import { Pie } from "react-chartjs-2";
-ChartJS.register(ArcElement, Tooltip, Legend)
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 export const StreakGraph = ({ studentdata, totaldata }) => {
-    const [stustot, setStustot] = useState(0)
-    const [stutot, setStutot] = useState()
-    const [student, Setstudent] = useState(0)
-    const [name,setName]=useState();
-    const [select, setSelect] = useState()
+    const [stustot, setStustot] = useState(0);
+    const [stutot, setStutot] = useState();
+    const [student, Setstudent] = useState(0);
+    const [name, setName] = useState();
+    const [select, setSelect] = useState();
     let total = 0;
+
     useEffect(() => {
         studentdata.forEach(value => {
-           try
-           {
-            if (value.Reg_No === student?.toUpperCase()||value.Reg_No ===student?.toLowerCase()) {
-                setStutot((parseInt(value.Num) + parseInt(value.MrngStreak)) / 2)
-                setName(value.Name)
-                setStustot('')
-            }
-            if ((value.Reg_No === student?.toUpperCase()||value.Reg_No ===student?.toLowerCase()) && select === "MrngStreak") {
-                setStutot(value.MrngStreak)
-                setName(value.Name)
-                setStustot('')
-            }
-            if ((value.Reg_No === student?.toUpperCase()||value.Reg_No ===student?.toLowerCase()) && select === "Num") {
-                setStutot(value.Num)
-                setName(value.Name)
-                setStustot('')
-            }
-        }
-            catch {
-                total = parseInt(total) + parseInt(value.Num)
+            try {
+                if (value.Reg_No.toUpperCase() === student.toUpperCase()) {
+                    setStutot((parseInt(value.Num) + parseInt(value.MrngStreak)) / 2);
+                    setName(value.Name);
+                    setStustot('');
+                }
+                if (value.Reg_No.toUpperCase() === student.toUpperCase() && select === "MrngStreak") {
+                    setStutot(value.MrngStreak);
+                    setName(value.Name);
+                    setStustot('');
+                }
+                if (value.Reg_No.toUpperCase() === student.toUpperCase() && select === "Num") {
+                    setStutot(value.Num);
+                    setName(value.Name);
+                    setStustot('');
+                }
+            } catch {
+                total += parseInt(value.Num);
                 setStustot(total);
-                setStutot('')
+                setStutot('');
             }
         });
-    },)
+    }, [student, select, studentdata]);
+
     const data = {
         labels: [
-            stutot&&!stustot?`${name} attend days`:'Total students attend days',
+            stutot && !stustot ? `${name} attend days` : 'Total students attend days',
             'No of days conducted',
         ],
         datasets: [{
@@ -53,61 +55,54 @@ export const StreakGraph = ({ studentdata, totaldata }) => {
         }]
     };
 
-
     return (
-        <div className="streakdiv">
-            <SimpleGrid className="graphdiv" spacingX={40} spacingY={20} templateColumns='repeat(auto-fill, minmax(400px, 2fr))'>
-                <div>
-                    {<Pie
+        <Box className="streakdiv" p={4}>
+            <SimpleGrid className="graphdiv" spacing={{ base: 4, md: 10 }} columns={{ base: 1, md: 2 }}>
+                <Box>
+                    <Pie
                         data={data}
-                        width={400}
-                        height={400}
+                        width={360}
+                        height={360}
                         options={{ maintainAspectRatio: false }}
-                    />}
-                </div>
-                <div className="graphinput">
-                    <div className="labelinput">
+                    />
+                </Box>
+                <Box className="graphinput">
+                    <Box className="labelinput" mb={4}>
                         <table>
-                        <tr>
-                            <td>
-                                <label for="Technology">Technology:</label>
-                            </td>
-                            <td>
-                                <input id="Technology" name="attendance" type="radio" onChange={() => setSelect("Num")} />
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <label for="Sadhana">Sadhana:</label>
-                            </td>
-                            <td>
-                                <input id="Sadhana" name="attendance" type="radio" onChange={() => setSelect("MrngStreak")} />
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <label for="Both">Both:</label>
-                            </td>
-                            <td>
-                                <input id="Both" name="attendance" type="radio" onChange={() => setSelect("")} />
-                            </td>
-                        </tr>
-
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label htmlFor="Technology">Technology:</label>
+                                    </td>
+                                    <td>
+                                        <input id="Technology" name="attendance" type="radio" onChange={() => setSelect("Num")} />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label htmlFor="Sadhana">Sadhana:</label>
+                                    </td>
+                                    <td>
+                                        <input id="Sadhana" name="attendance" type="radio" onChange={() => setSelect("MrngStreak")} />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label htmlFor="Both">Both:</label>
+                                    </td>
+                                    <td>
+                                        <input id="Both" name="attendance" type="radio" onChange={() => setSelect("")} />
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
-
-
-                    </div>
-                    <div>
+                    </Box>
+                    <Box>
                         <h6>Individual Attendance::{name?.toUpperCase()}</h6>
-                        <div>
-                            <Input type="text" placeholder="Enter your Register Number" onChange={(e) => Setstudent(e.target.value)} />
-                        </div>
-                    </div>
-                </div>
+                        <Input type="text" placeholder="Enter your Register Number" onChange={(e) => Setstudent(e.target.value)} />
+                    </Box>
+                </Box>
             </SimpleGrid>
-        </div>
-
+        </Box>
     );
 };
