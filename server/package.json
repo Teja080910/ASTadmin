@@ -36,8 +36,5 @@
     "textflow.js": "^0.1.4",
     "twilio": "^4.19.0",
     "xlsx": "^0.18.5"
-  },
-  "devDependencies": {
-    "cross-env": "^7.0.3"
   }
 }
