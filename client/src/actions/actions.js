@@ -54,21 +54,37 @@ export const Actions = {
         return await axios.post(api + "/deleteteam", { teams })
     },
 
+    InternalMarks: async (user, marks) => {
+        return await axios.post(api + "/internalmarks", { user, marks })
+    },
+
+    ActivityMarks: async (user, marks) => {
+        return await axios.post(api + "/activitymarks", { user, marks })
+    },
+
     // *********************************************** Hackathon data ***************************************** //
 
     TeamsCodes: async () => {
         return await axios.post(api + "/teamscodes")
     },
 
-    InsertRound: async (code,roundno,task,desc) => {
-        return await axios.post(api + "/insertround",{code,roundno,task,desc})
+    InsertRound: async (code, roundno, task, desc) => {
+        return await axios.post(api + "/insertround", { code, roundno, task, desc })
     },
 
-    DeleteRound: async (code,roundno,task,desc) => {
-        return await axios.post(api + "/deleteround",{code,roundno,task,desc})
+    DeleteRound: async (code, roundno, task, desc) => {
+        return await axios.post(api + "/deleteround", { code, roundno, task, desc })
     },
 
     Roundmarks: async (code, marks, taskindex) => {
         return await axios.post(api + "/roundmarks", { code, marks, taskindex })
     },
+
+    Start:async()=>{
+        return await axios.post(api + "/starthack")
+    },
+
+    Stop:async()=>{
+        return await axios.post(api + "/stophack")
+    }
 }

@@ -20,18 +20,15 @@ const ScoreTable = ({ scores }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const itemsPerPage = 10;
 
-  // Filtered and sorted scores based on search term and sorting configuration
   const filteredAndSortedScores = React.useMemo(() => {
     let sortableItems = [...scores];
 
-    // Filter by search term
     if (searchTerm) {
       sortableItems = sortableItems.filter((score) =>
         score.userid.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
-    // Sort by sortConfig
     if (sortConfig !== null) {
       sortableItems.sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {
@@ -66,7 +63,7 @@ const ScoreTable = ({ scores }) => {
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1); // Reset to first page when searching
+    setCurrentPage(1);
   };
 
   return (

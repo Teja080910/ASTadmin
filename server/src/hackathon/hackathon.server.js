@@ -1,11 +1,14 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
+import { AdminLogin } from '../bootcamp/admin/adminlogin.js';
+import { AdminRegister } from '../bootcamp/admin/adminregister.js';
 import { AbsentStudent, AttendStudent } from '../bootcamp/attendance/attendance.js';
 import { DeleteMaterial, DeleteMaterials } from '../bootcamp/materials/deletematerials.js';
 import { EditMaterial } from '../bootcamp/materials/editmaterial.js';
 import { Materials } from '../bootcamp/materials/materials.js';
 import { FileByName, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
+import { ActivityMarks, InternalMarks } from '../bootcamp/others/others.js';
 import { GivenMarks } from '../bootcamp/scoremanager/score.js';
 import { DeleteAll, Students } from '../bootcamp/studentdata/students.js';
 import { DeleteStudent, UpdateStudent } from '../bootcamp/studentdata/updatestudent.js';
@@ -16,15 +19,13 @@ import { InsertTask } from '../bootcamp/taskmanger/insertask.js';
 import { HideDay, HideTasks, ShowDay, ShowTasks } from '../bootcamp/taskmanger/showtask.js';
 import { Tasks } from '../bootcamp/taskmanger/tasks.js';
 import { initiateMulter } from '../multer/multer.js';
+import { DeleteRound, InsertRound, RoundMarks } from './hacktasks/addround.js';
 import { DeletePS } from './problemstatements/deleteps.js';
 import { EditPS } from './problemstatements/editps.js';
 import { InsertPS } from './problemstatements/insertps.js';
 import { PSS } from './problemstatements/pss.js';
-import { AdminLogin } from '../bootcamp/admin/adminlogin.js';
-import { AdminRegister } from '../bootcamp/admin/adminregister.js';
-import { AddTeamCodes, DeleteTeam } from './teamcodes/teamcodes.js';
 import { AllTeamCodes } from './teamcodes/allteamcodes.js';
-import { DeleteRound, InsertRound, RoundMarks } from './hacktasks/addround.js';
+import { AddTeamCodes, DeleteTeam } from './teamcodes/teamcodes.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -135,6 +136,14 @@ app.post('/studentxlsx', initiateMulter(), async (req, res) => {
     await UploadStudents(req?.files[0], res)
 })
 
+app.post('/internalmarks', async (req, res) => {
+    await InternalMarks(req.body.user, req.body.marks, res)
+})
+
+app.post('/activitymarks', async (req, res) => {
+    await ActivityMarks(req.body.user, req.body.marks, res)
+})
+
 
 // *************************************************Hackathon****************************************** //
 
@@ -175,6 +184,10 @@ app.post('/deleteround', async (req, res) => {
 })
 
 app.post('/roundmarks', async (req, res) => {
+    await RoundMarks(req.body.code, req.body.marks, req.body.taskindex, res)
+})
+
+app.post('/starthack', async (req, res) => {
     await RoundMarks(req.body.code, req.body.marks, req.body.taskindex, res)
 })
 

@@ -188,7 +188,7 @@ const Controls = ({ socket }) => {
           </div>
         </div>
       </div>
-      {game && <ScoreTable scores={scores}/>}
+      {game && <ScoreTable scores={scores} />}
     </div>
   );
 };
