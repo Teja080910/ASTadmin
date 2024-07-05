@@ -26,6 +26,8 @@ import { InsertPS } from './problemstatements/insertps.js';
 import { PSS } from './problemstatements/pss.js';
 import { AllTeamCodes } from './teamcodes/allteamcodes.js';
 import { AddTeamCodes, DeleteTeam } from './teamcodes/teamcodes.js';
+import { StartHackathon } from './start&stop/hackathonstart.js';
+import { EndHackathon } from './start&stop/hackathonend.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -188,7 +190,11 @@ app.post('/roundmarks', async (req, res) => {
 })
 
 app.post('/starthack', async (req, res) => {
-    await RoundMarks(req.body.code, req.body.marks, req.body.taskindex, res)
+    await StartHackathon("hackathon@gmail.com", res)
+})
+
+app.post('/stophack', async (req, res) => {
+    await EndHackathon("hackathon@gmail.com", res)
 })
 
 export default app;
