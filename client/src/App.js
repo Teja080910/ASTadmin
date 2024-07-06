@@ -27,6 +27,7 @@ import { HackathonSidebar } from './hackathon/hackathonsidebar/hackathonsidebar.
 import Timer from './hackathon/main-timer/Timer.jsx';
 import './responce.css';
 import { socket } from './socket.js';
+import NetworkChecker from './NetworkChecker.js';
 
 
 
@@ -75,6 +76,7 @@ function App() {
     <>
       {
         <>
+        <NetworkChecker/>
           <BrowserRouter>
             <Routes>
               {
