@@ -21,7 +21,7 @@ export const BootcampHome = () => {
     }, [])
 
     return (
-        <Container maxW="container.xl" py={10}>
+        <Container maxW="container.xl" py={10} zIndex={-1}>
             <Heading textAlign="center" mb={10} className="animate__animated animate__swing">Top Members</Heading>
             <Grid templateColumns={{base:"repeat(auto-fit, minmax(200px, 1fr))",md:"repeat(auto-fit, minmax(400px, 1fr))"}} gap={6}>
                 <Box className="animate__animated animate__jello" bg="white" p={5} shadow="md" borderRadius="md">

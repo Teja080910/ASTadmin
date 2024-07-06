@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "AST TEAM ADMIN",
+  "name": "ARKHA SODHARA TECH TEAM ADMIN",
   "icons": [
     {
       "src": "favicon.ico",
@@ -19,7 +19,54 @@
     }
   ],
   "start_url": ".",
-  "display": "standalone",
+  "display": "fullscreen",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "id": "ast team - admin",
+  "description": "Administrative dashboard for the ARKHA SODHARA TECH Team, providing tools and insights for team management and project oversight.",
+  "dir": "ltr",
+  "lang": "en",
+  "orientation": "portrait",
+  "shortcuts": [
+    {
+      "name": "Bootcamp",
+      "url": "/bootcamp",
+      "description": "This is Bootcamp management of ast admin"
+    },
+    {
+      "name": "Hackathon",
+      "url": "/hackathon",
+      "description": "This is Hackathon management of ast admin"
+    },
+    {
+      "name": "Hackathon Timer",
+      "url": "/hackathon/timer",
+      "description": "This is Display timer for Hackathon"
+    }
+  ],
+  "categories": [
+    "education",
+    "games",
+    "health"
+  ],
+  "screenshots" : [
+  {
+    "src": "screenshot1.png",
+    "sizes": "1280x720",
+    "type": "image/jpg",
+    "platform": "wide"
+  },
+  {
+    "src": "screenshot2.png",
+    "sizes": "1280x720",
+    "type": "image/jpg",
+    "platform": "wide"
+  },
+  {
+    "src": "screenshot3.png",
+    "sizes": "720x1280",
+    "type": "image/jpg",
+    "platform": "wide"
+  }
+]
 }
