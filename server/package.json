@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "build": "npm i"
+    "build": "npm i",
+    "postinstall": "npm install sharp --platform=linux --arch=x64"
   },
   "author": "Teja",
   "license": "ISC",
