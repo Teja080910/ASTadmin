@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
-import './bootcamphome.css'
+import { Box, Flex, Heading, Text, Grid, VStack, Container } from "@chakra-ui/react"
 import { Modules } from "./modules"
+
 export const BootcampHome = () => {
-    const [attendance, setAttendance] = useState()
-    const [score, setScore] = useState()
-    const [overall, setOverall] = useState()
+    const [attendance, setAttendance] = useState([])
+    const [score, setScore] = useState([])
+    const [overall, setOverall] = useState([])
+
     const Overall = async () => {
         const attendData = await Modules.Attendance()
         setAttendance(attendData)
@@ -13,61 +15,69 @@ export const BootcampHome = () => {
         const overallData = await Modules.Overall()
         setOverall(overallData)
     }
+
     useEffect(() => {
         Overall()
     }, [])
+
     return (
-        <>
-            <div className="home-container">
-                <h1 className="animate__animated animate__swing">Top Three Members</h1>
-                <div className="grid">
-                    <div className="member-card large animate__animated animate__jello">
-                        <h3>Overall</h3>
+        <Container maxW="container.xl" py={10}>
+            <Heading textAlign="center" mb={10} className="animate__animated animate__swing">Top Members</Heading>
+            <Grid templateColumns={{base:"repeat(auto-fit, minmax(200px, 1fr))",md:"repeat(auto-fit, minmax(400px, 1fr))"}} gap={6}>
+                <Box className="animate__animated animate__jello" bg="white" p={5} shadow="md" borderRadius="md">
+                    <Heading size="md" mb={4}>Overall</Heading>
+                    <VStack spacing={2}>
                         {
-                            overall?.slice(0, 9)?.map((student) => (
-                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <h4 style={{ fontFamily: '-moz-initial' }}>{student?.Name?.toUpperCase()}</h4>
-                                    <h4 style={{ fontFamily: '-moz-initial' }}>{student?.Total}</h4>
-                                </div>
+                            overall?.slice(0, 8)?.map((student, index) => (
+                                <Flex key={index} justify="space-between" w="100%">
+                                    <Text fontFamily="monospace">{student?.Name?.toUpperCase()}</Text>
+                                    <Text fontFamily="monospace">{student?.Total}</Text>
+                                </Flex>
                             ))
                         }
-                    </div>
+                    </VStack>
+                </Box>
+                <Box>
 
-                    <div className="member-card animate__animated animate__jello">
-                        <h3>Highest Attendance</h3>
+
+                <Box className="animate__animated animate__jello" bg="white" p={5} shadow="md" borderRadius="md">
+                    <Heading size="md" mb={4}>Highest Attendance</Heading>
+                    <VStack spacing={2}>
                         {
-                            attendance?.slice(0, 3)?.map((student) => (
-                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <h4 style={{ fontFamily: '-moz-initial' }}>{student?.Name?.toUpperCase()}</h4>
-                                    <h4 style={{ fontFamily: '-moz-initial' }}>{student?.AttendDays}</h4>
-                                </div>
+                            attendance?.slice(0, 3)?.map((student, index) => (
+                                <Flex key={index} justify="space-between" w="100%">
+                                    <Text fontFamily="monospace">{student?.Name?.toUpperCase()}</Text>
+                                    <Text fontFamily="monospace">{student?.AttendDays}</Text>
+                                </Flex>
                             ))
                         }
+                    </VStack>
+                </Box>
 
-                    </div>
-                    <div className="member-card animate__animated animate__jello">
-                        <h3>Highest Score</h3>
+                <Box className="animate__animated animate__jello" bg="white" p={5} mt={10} shadow="md" borderRadius="md">
+                    <Heading size="md" mb={4}>Highest Score</Heading>
+                    <VStack spacing={2}>
                         {
-                            score?.slice(0, 3)?.map((student) => (
-                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <h4 style={{ fontFamily: '-moz-initial' }}>{student?.Name?.toUpperCase()}</h4>
-                                    <h4 style={{ fontFamily: '-moz-initial' }}>{student?.Marks}</h4>
-                                </div>
+                            score?.slice(0, 3)?.map((student, index) => (
+                                <Flex key={index} justify="space-between" w="100%">
+                                    <Text fontFamily="monospace">{student?.Name?.toUpperCase()}</Text>
+                                    <Text fontFamily="monospace">{student?.Marks}</Text>
+                                </Flex>
                             ))
                         }
+                    </VStack>
+                </Box>
+                </Box>
+                <Box className="animate__animated animate__jello" bg="white" p={5} shadow="md" borderRadius="md">
+                    <Heading size="md" mb={4}>Activities</Heading>
+                    <Text fontFamily="monospace">Name - </Text>
+                </Box>
 
-                    </div>
-                    <div className="member-card animate__animated animate__jello">
-                        <h3>Activities</h3>
-                        <h5 style={{ fontFamily: '-moz-initial' }}>Name - </h5>
-                    </div>
-                    <div className="member-card animate__animated animate__jello">
-                        <h3>Internal Marks</h3>
-                        <h5 style={{ fontFamily: '-moz-initial' }}>Name - </h5>
-                    </div>
-                </div>
-            </div>
-        </>
+                <Box className="animate__animated animate__jello" bg="white" p={5} shadow="md" borderRadius="md">
+                    <Heading size="md" mb={4}>Internal Marks</Heading>
+                    <Text fontFamily="monospace">Name - </Text>
+                </Box>
+            </Grid>
+        </Container>
     )
 }
-
