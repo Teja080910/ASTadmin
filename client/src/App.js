@@ -27,7 +27,7 @@ import { HackathonSidebar } from './hackathon/hackathonsidebar/hackathonsidebar.
 import Timer from './hackathon/main-timer/Timer.jsx';
 import './responce.css';
 import { socket } from './socket.js';
-import NetworkChecker from './NetworkChecker.js';
+import EnhancedNetworkChecker from './NetworkChecker.js';
 
 
 
@@ -39,7 +39,7 @@ function App() {
   const [load, setLoad] = useState(false)
   const [time, setTime] = useState()
   const mail = useSelector((state) => state.user.bootmail);
-document.title = "HOME | AST ADMIN"
+  document.title = "HOME | AST ADMIN"
 
   const password = useSelector((state) => state.user.bootpassword);
   const salt = CryptoENC
@@ -79,7 +79,7 @@ document.title = "HOME | AST ADMIN"
     <>
       {
         <>
-        <NetworkChecker/>
+        <EnhancedNetworkChecker/>
           <BrowserRouter>
             <Routes>
               {
