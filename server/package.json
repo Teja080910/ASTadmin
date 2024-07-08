@@ -8,8 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "build": "npm i",
-    "postinstall": "npm install sharp --platform=linux --arch=x64"
+    "build": "npm i"
   },
   "author": "Teja",
   "license": "ISC",
@@ -33,7 +32,6 @@
     "nodemon": "^2.0.22",
     "npm": "^10.8.1",
     "resend": "^3.4.0",
-    "sharp": "^0.33.4",
     "textflow.js": "^0.1.4",
     "twilio": "^4.19.0",
     "xlsx": "^0.18.5"

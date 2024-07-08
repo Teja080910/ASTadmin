@@ -25,9 +25,9 @@ import Footer from '../footer/Footer';
 const queryParams = new URLSearchParams(window.location.search);
 const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
     const nav = useNavigate()
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
     return (
-        <Sidebar collapsed={collapsed} id='sidebar' style={{zIndex:9}} onMouseOver={collapsed ? toggleSidebar : null} onMouseLeave={!collapsed ? toggleSidebar : null} >
+        <Sidebar collapsed={collapsed} id='sidebar' style={{ zIndex: 9 }} onMouseOver={collapsed ? toggleSidebar : null} onMouseLeave={!collapsed ? toggleSidebar : null} >
             <Menu onClick={collapsed ? toggleSidebar : null}>
                 <MenuItem
                     icon={<MenuOutlinedIcon />}
@@ -42,10 +42,10 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
                 <MenuItem icon={<ScoreIcon />} onClick={() => { select(5); queryParams.set("page", "score"); nav({ search: queryParams.toString() }) }}>Score</MenuItem>
                 <MenuItem icon={<AssignmentIcon />} onClick={() => { select(6); queryParams.set("page", "tasks"); nav({ search: queryParams.toString() }) }}>Tasks</MenuItem>
                 <MenuItem icon={<SchoolOutlinedIcon />} onClick={() => { select(7); queryParams.set("page", "students"); nav({ search: queryParams.toString() }) }}>Students Data</MenuItem>
-                <MenuItem icon={<Groups2OutlinedIcon /> }onClick={() => { select(8); queryParams.set("page", "others"); nav({ search: queryParams.toString() }) }}>Others</MenuItem>
+                <MenuItem icon={<Groups2OutlinedIcon />} onClick={() => { select(8); queryParams.set("page", "others"); nav({ search: queryParams.toString() }) }}>Others</MenuItem>
                 <MenuItem icon={<CodeIcon />} onClick={() => window.location.href = '/hackathon'}>Hackathon</MenuItem>
             </Menu>
-            <Menu style={{ position: 'absolute', bottom: 0, color: "red",width:"100%" }}>
+            <Menu style={{ position: 'absolute', bottom: 0, color: "red", width: "100%" }}>
                 <MenuItem icon={<PowerSettingsNewIcon />} onClick={() => { dispatch({ type: 'BOOT', payload: { bootmail: null, bootpassword: null } }); window.location.reload(1000) }} >Log out</MenuItem>
             </Menu>
         </Sidebar>
@@ -69,7 +69,7 @@ export const BootcampSidebar = () => {
                 {
                     (set === "home" && <BootcampHome />) ||
                     (set === "attendance" && <BootAttendance />) ||
-                    (set === "material" && <BootcampMaterial />) || 
+                    (set === "material" && <BootcampMaterial />) ||
                     (set === "score" && <BootcampScore />) ||
                     (set === "tasks" && <BootcampTasks />) ||
                     (set === "students" && <StudentsData />) ||

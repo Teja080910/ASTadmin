@@ -80,11 +80,11 @@ export const Actions = {
         return await axios.post(api + "/roundmarks", { code, marks, taskindex })
     },
 
-    Start:async()=>{
+    Start: async () => {
         return await axios.post(api + "/starthack")
     },
 
-    Stop:async()=>{
+    Stop: async () => {
         return await axios.post(api + "/stophack")
     }
 }
