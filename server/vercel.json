@@ -1,8 +1,5 @@
 {
   "version": 2,
-  "env": {
-    "SHARP_IGNORE_GLOBAL_LIBVIPS": "1"
-  },
   "builds": [
     {
       "src": "src/server.js",
