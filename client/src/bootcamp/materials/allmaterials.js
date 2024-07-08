@@ -27,6 +27,7 @@ export const AllMaterials = () => {
     const [model, setModel] = useState(false)
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    window.title = "Student Materials | Bootcamp | VEDIC VISION | TEAM AST"
 
     const OpenFile = async (filename) => {
         try {

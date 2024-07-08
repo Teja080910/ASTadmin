@@ -26,7 +26,7 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
     const nav = useNavigate()
     const dispatch=useDispatch()
     return (
-        <Sidebar collapsed={collapsed} id='sidebar' onMouseOver={collapsed ? toggleSidebar : null} onMouseLeave={!collapsed ? toggleSidebar : null} >
+        <Sidebar collapsed={collapsed} id='sidebar' style={{zIndex:9}} onMouseOver={collapsed ? toggleSidebar : null} onMouseLeave={!collapsed ? toggleSidebar : null} >
             <Menu onClick={collapsed ? toggleSidebar : null}>
                 <MenuItem
                     icon={<MenuOutlinedIcon />}
@@ -54,6 +54,9 @@ export const BootcampSidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [select, setSelect] = useState(sessionStorage?.select)
     const queryParams = new URLSearchParams(window.location.search);
+
+
+
     let set = queryParams?.get("page") || "home";
     const toggleSidebar = () => {
         setCollapsed(!collapsed);
