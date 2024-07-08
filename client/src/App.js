@@ -39,7 +39,7 @@ function App() {
   const [load, setLoad] = useState(false)
   const [time, setTime] = useState()
   const mail = useSelector((state) => state.user.bootmail);
-  document.title = "HOME | AST ADMIN"
+  // document.title = "HOME | AST ADMIN"
 
   const password = useSelector((state) => state.user.bootpassword);
   const salt = CryptoENC
