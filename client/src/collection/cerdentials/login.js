@@ -14,6 +14,7 @@ import {
   InputGroup,
   Kbd,
   InputRightElement,
+  Text,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
@@ -299,7 +300,7 @@ const Login = () => {
         <Box boxShadow="base" borderRadius="md" ml={{ base: "1", md: "10" }} mr={{ base: "1", md: "10" }} overflow="auto">
 
     
-        <Table variant="simple" size="lg" id="studetail"  p={3} >
+        <Table variant="simple" size="lg"   p={3} >
           {isLoading ? (
             <Tbody>
               <Tr>
@@ -335,7 +336,9 @@ const Login = () => {
                         <Tr key={x.Reg_No}>
                           <Td>{index + 1}</Td>
                           <Td>{x?.Reg_No.toUpperCase()}</Td>
-                          <Td>{x?.Name.toUpperCase()}</Td>
+                          <Td  >
+                            {x?.Name.toUpperCase()}
+                            </Td>
                           <Td>
                             {x.Login !== date.toDateString() && (
                               <Button

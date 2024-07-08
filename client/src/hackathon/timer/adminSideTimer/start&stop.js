@@ -23,7 +23,7 @@ export const StartAndStop = ({ timer, start, stop, setEventTime, deleteTimer,set
 
   const StopHackathon = async () => {
     setTimerTitle('hackathon')
-    deleteTimer(timers.filter((timer)=> timer.title =="hackathon")[0].id); // Call deleteTimer to remove the timer
+    deleteTimer(timers.filter((timer)=> timer.title ==="hackathon")[0].id); // Call deleteTimer to remove the timer
 
     await Actions.Stop()
       .then((res) => {
@@ -31,7 +31,7 @@ export const StartAndStop = ({ timer, start, stop, setEventTime, deleteTimer,set
           console.log("set animation");
           stop();
           
-          deleteTimer(timers.filter((timer)=>(timer.title =="hackathon")[0].id)); // Call deleteTimer to remove the timer
+          deleteTimer(timers.filter((timer)=>(timer.title ==="hackathon")[0].id)); 
         } else {
           toast({ title: res?.data?.error, position: 'bottom-right', status: 'error', isClosable: true });
         }
