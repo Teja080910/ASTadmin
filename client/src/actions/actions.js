@@ -67,6 +67,18 @@ export const Actions = {
     TeamsCodes: async () => {
         return await axios.post(api + "/teamscodes")
     },
+    TeamRegistrers: async () => {
+        return await axios.post(api + "/teamregistrers")
+    },
+    CreateRegistrer: async (id, name, password) => {
+        return await axios.post(api + "/createregistrer", { id, name, password });
+    },
+    DeleteRegistrer: async (id) => {
+        return await axios.delete(api + `/deleteregistrer/${id}`);
+    },
+    UpdateRegistrerStatus: async (id, status) => {
+        return await axios.put(api + `/updateregistrerstatus/${id}`, { status });
+    },
 
     InsertRound: async (code, roundno, task, desc) => {
         return await axios.post(api + "/insertround", { code, roundno, task, desc })
