@@ -30,7 +30,7 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com", socket })
         const response = await axios.get(`${URL}/api/timer`);
         if (response.data.timers) {
           setTimers(response.data.timers);
-     
+
         }
       } catch (error) {
         toast({ title: "There was an error fetching the timers!", status: "error", position: "top", isClosable: true });
@@ -88,35 +88,35 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com", socket })
 
   return (
     <div className="timer-container">
- 
+
       <div className="timer-container-main">
         <div>
-        <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' p='3' margin={1}>
-          <StartAndStop 
-        timer={value => setTimer(value)} 
-        setEventTime={setEventTime} 
-        deleteTimer={deleteTimer} 
-        timers={timers}
-        start={() => console.log("Timer started")} 
-        stop={() => console.log("Timer stopped")} 
-        setTimerTitle={setTimerTitle}
-      />
+          <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' p='3' margin={1}>
+            <StartAndStop
+              timer={value => setTimer(value)}
+              setEventTime={setEventTime}
+              deleteTimer={deleteTimer}
+              timers={timers}
+              start={() => console.log("Timer started")}
+              stop={() => console.log("Timer stopped")}
+              setTimerTitle={setTimerTitle}
+            />
           </Box>
 
           <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' p='3' m="1">
 
-          <Text fontSize='3xl' noOfLines={1}>Alerts to Students</Text>
-          <input
-            type="text"
-            value={alert}
-            onChange={(e) => { setAlert(e.target.value); }}
-          />
-          <Button backgroundColor="gray.500" onClick={sendAlert}>Send</Button>
+            <Text fontSize='3xl' noOfLines={1}>Alerts to Students</Text>
+            <input
+              type="text"
+              value={alert}
+              onChange={(e) => { setAlert(e.target.value); }}
+            />
+            <Button backgroundColor="gray.500" onClick={sendAlert}>Send</Button>
           </Box>
-       
-       
+
+
         </div>
-     
+
         <hr />
         <div>
           <Text fontSize='3xl' noOfLines={1}>Manage Timers</Text>

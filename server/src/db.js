@@ -17,5 +17,5 @@ async function connectToDB(cb) {
     cb();
 }
 
-export { bucket, connectToDB, db, db1 } ;
+export { bucket, connectToDB, db, db1 };
 
