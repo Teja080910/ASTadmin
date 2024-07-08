@@ -18,6 +18,7 @@ export const BootAttendance = () => {
     const [isLoading, setIsLoading] = useState(true);
     const date = new Date();
     const toast = useToast()
+    window.title = "Student Attendance | Bootcamp | VEDIC VISION | TEAM AST"
     const Attend = async (registerno) => {
         try {
             const responce = await axios.post(process.env.REACT_APP_database + "/attendstudent/" + registerno)

@@ -25,8 +25,12 @@ export const LoginForm = () => {
   const [mail, setMail] = useState()
   const dispatch = useDispatch()
   const toast = useToast()
+  const [loading,setLoading] = useState(false)
   const [password, setPassword] = useState()
+  document.title = "LOGIN | AST ADMIN"
+
   const Login = async () => {
+    setLoading(true)
     await Actions.BootAdminLogin(mail, password)
       .then((res) => {
         if (res?.data?.message) {
@@ -39,6 +43,18 @@ export const LoginForm = () => {
         }
       })
       .catch((e) => console.log(e))
+      .finally(
+        ()=>{
+          setLoading(false);
+        }
+      )
+  }
+  const handelKeyDown =(e)=>{
+
+   if(e.key === "Enter"){
+    Login()
+   }
+
   }
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -51,7 +67,7 @@ export const LoginForm = () => {
             flexDirection: 'column',
             alignItems: 'center',
           }}
-        >
+          boxShadow='dark-lg' p='6' rounded='md' bg='white'        >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -81,6 +97,7 @@ export const LoginForm = () => {
               id="password"
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={handelKeyDown}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -93,20 +110,9 @@ export const LoginForm = () => {
               sx={{ mt: 3, mb: 2 }}
               onClick={Login}
             >
-              Sign In
+           {loading ?"logging in ....": "Sign In"}  
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/bootcampregister" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
+          
           </Box>
         </Box>
       </Container>

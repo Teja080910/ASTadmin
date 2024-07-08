@@ -33,13 +33,13 @@ export const Modules = {
         const data = await Modules.data();
         const marks = data?.map(student => {
             let totalMarks = 0;
-            let total=0;
-            student?.Tasks&&Object.values(student?.Tasks)?.forEach(tasks => {
+            let total = 0;
+            student?.Tasks && Object.values(student?.Tasks)?.forEach(tasks => {
                 Object.values(tasks)?.forEach(task => {
                     totalMarks += parseInt(task?.GetMarks || 0);
                 });
             });
-            total=parseInt(totalMarks)+parseInt(student?.AttendDays || 0)+parseInt(student?.ActivityMarks || 0)+parseInt(student?.InternalMarks || 0)
+            total = parseInt(totalMarks) + parseInt(student?.AttendDays || 0) + parseInt(student?.ActivityMarks || 0) + parseInt(student?.InternalMarks || 0)
             return { Name: student?.Name, Total: total };
         });
         return marks.sort((a, b) => b.Total - a.Total);

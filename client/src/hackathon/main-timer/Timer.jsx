@@ -8,7 +8,7 @@ import Scorer from "./Scorer";
 
 const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
   const [timeLeft, setTimeLeft] = useState({
-    hours: 0,
+    hours: 24,
     minutes: 0,
     seconds: 0,
   });
@@ -51,16 +51,15 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
             localStorage.setItem("HackTime", hackathonEndTime.toString());
           }
         } else {
-          setEndTime(new Date(0)); // Set to epoch start to indicate no timer
+          setEndTime(new Date(0)); 
           localStorage.setItem("HackTime", new Date(0).toString());
         }
       } else {
-        setEndTime(new Date(0)); // Set to epoch start to indicate no timer
+        setEndTime(new Date()); 
         localStorage.setItem("HackTime", new Date(0).toString());
       }
     } catch (error) {
       console.log(error);
-      // Optionally handle network errors here without clearing the stored time
     }
   };
 
@@ -71,10 +70,10 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
     socket.emit("gameData");
 
     socket.on("gameData", (data) => {
-      if (data.code === "000" ) {
+      if (data?.code === "000" ) {
         setGameData(null);
       } else {
-        setGameData(data.code);
+        setGameData(data?.code);
       }
     });
   }, []);
