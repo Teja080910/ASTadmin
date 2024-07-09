@@ -43,10 +43,7 @@ const HackathonTeamRegistrer = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
 
-        setTeams((prev) => [...prev, formData]);
-return
         e.preventDefault();
         if (formData.password !== formData.confirmPassword) {
             toast({
