@@ -28,6 +28,8 @@ import { AllTeamCodes } from './teamcodes/allteamcodes.js';
 import { AddTeamCodes, DeleteTeam } from './teamcodes/teamcodes.js';
 import { StartHackathon } from './start&stop/hackathonstart.js';
 import { EndHackathon } from './start&stop/hackathonend.js';
+import { AllTeamRegistrers } from './teamregistrers/allregistrers.js';
+import { CreateRegistrer, DeleteRegistrer, UpdateRegistrerStatus } from './teamregistrers/registrersactions.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -176,6 +178,19 @@ app.post('/deleteteam', async (req, res) => {
 app.post('/teamscodes', async (req, res) => {
     await AllTeamCodes(res)
 })
+app.post('/teamregistrers', async (req, res) => {
+    await AllTeamRegistrers(res)
+})
+app.post('/createregistrer', async (req, res) => {
+    await CreateRegistrer(req, res);
+});
+app.delete('/deleteregistrer/:id', async (req, res) => {
+    await DeleteRegistrer(req, res);
+});
+
+app.put('/updateregistrerstatus/:id', async (req, res) => {
+    await UpdateRegistrerStatus(req, res);
+});
 
 app.post('/insertround', async (req, res) => {
     await InsertRound(req.body.code, req.body.roundno, req.body.task, req.body.desc, res)
