@@ -79,10 +79,10 @@
 }
 
 #studetail {
-  width: 90%;
-  margin:2% 5%;
+ 
+ 
   border-radius: 20%;
-  font-size: x-large;
+  
 }
 
 table tbody p {
@@ -126,6 +126,11 @@ table tbody p {
   justify-content: space-around;
   flex-direction: row;
 }
+.sticky-search-bar{
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 200;
+}
 
 .clgname {
   /* margin-top: 5%; */
@@ -135,6 +140,7 @@ table tbody p {
   font-family: poppins;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  overflow: hidden;
 }
 
 .yearbtns {

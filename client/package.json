@@ -52,6 +52,7 @@
     "redux-persist-cookie-storage": "^1.0.0",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.7.5",
+    "styled-components": "^6.1.11",
     "tailwindcss": "^3.4.3",
     "textflow.js": "^0.1.4",
     "twilio": "^4.19.0",

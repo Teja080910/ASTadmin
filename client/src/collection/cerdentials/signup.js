@@ -15,7 +15,7 @@ const Signup = () => {
   const [num, snum] = useState(0);
   const toast = useToast();
   const Handleclick = async () => {
-    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     try {
       if (emailRegex.test(email)) {
         const res = await axios.post(process.env.REACT_APP_database + "/student/" + email)
@@ -30,6 +30,7 @@ const Signup = () => {
                 toast({ title: "Register Successfully", status: 'success', position: "bottom-right", isClosable: true })
                 setTimeout(() => {
                   window.location = '/login'
+                  window.history.back();
                 }, 1000);
               }
               else {
@@ -53,7 +54,8 @@ const Signup = () => {
       window.location = '/yoga';
     }
     else {
-      window.location = '/login';
+      window.history.back();
+      // window.location = '/login';
     }
   }
   return (
@@ -172,7 +174,7 @@ const Signup = () => {
                 <b>Register</b>
               </button>
               <Link className="login-link" onClick={Login}>
-                <b>Login</b>
+                <b>Attend</b>
               </Link>
             </div>
           </div>

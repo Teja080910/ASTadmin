@@ -14,15 +14,18 @@
     /* padding: 0; */
     margin-bottom: 1%;
     font-family:Georgia, 'Times New Roman', Times, serif;
+    transform: scale(0.9);
+
 }
 .clgname:hover {
-    transform: scale(1.1);
+    overflow-x: hidden;
+
+    transform: scale(1);
 }
 
 @media (max-width:500px) {
     .clgname{
         margin-top: 20%;
-      font-size: 1.5em;
     }
   }
 
