@@ -78,7 +78,7 @@ export const Others = () => {
           {
             data?.filter(user => user?.Name?.includes(searchRegNoActivities) || user?.Reg_No?.includes(searchRegNoActivities))?.map((student) => (
               <div>
-                <p>{student?.Name}</p>
+                <p onClick={()=>setActivities(student?.Reg_No)}>{student?.Name}</p>
                 <p>{student?.ActivityMarks}</p>
               </div>
             ))
@@ -109,7 +109,7 @@ export const Others = () => {
           {
             data?.filter(user => user?.Name?.includes(searchRegNoInternal) || user?.Reg_No?.includes(searchRegNoInternal))?.map((student) => (
               <div>
-                <p>{student?.Name}</p>
+                <p onClick={()=>setInternal(student?.Reg_No)}>{student?.Name}</p>
                 <p>{student?.InternalMarks}</p>
               </div>
             ))
