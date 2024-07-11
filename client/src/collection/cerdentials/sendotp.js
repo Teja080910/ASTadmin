@@ -20,13 +20,13 @@ export const SednOTP = ({ atnd, isOpen, onClose, data, refresh }) => {
     const handleAttend = async () => {
         setLoad(true)
         try {
-            if (data?.OTP === parseInt(otp)) {
+            if (data?.OTP === parseInt(otp) ) {
                 const res = await Actions.StudentLogin(atnd, otp);
-                if (res?.data?.message) {
+               
+                if (res?.data?.message ) {
                     setOtp('')
-                    setLoad(false)
-                    toast({ title: res.data.message, status: "success", position: "top-right", isClosable: true });
                     onClose()
+                    toast({ title: res.data?.message, status: "success", position: "top-right", isClosable: true });
                     refresh()
                 } else {
                     toast({ title: res.data.error, status: "error", position: "bottom-right", isClosable: true });
@@ -40,6 +40,9 @@ export const SednOTP = ({ atnd, isOpen, onClose, data, refresh }) => {
         } catch (error) {
             console.error(error);
             setLoad(false)
+        }finally
+        {
+            setLoad(true)
         }
     };
     return (

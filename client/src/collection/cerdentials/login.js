@@ -152,6 +152,15 @@ const Login = () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+  const handleAttendName = () => {
+    console.log(atnd, "Attend");
+    const updatedDat = dat.map((student) =>
+      student.Reg_No === atnd
+        ? { ...student, Login: date.toDateString(),Num: parseInt(student.Num)+1 }
+        : student
+    );
+    setDat(updatedDat);
+  };
 
   return (
     <>
@@ -161,7 +170,7 @@ const Login = () => {
         isOpen={show}
         onClose={() => setShow(false)}
         data={data}
-        refresh={fetchData()}
+        refresh={handleAttendName}
       
       />
        <DeleteConform
@@ -239,7 +248,7 @@ const Login = () => {
             boxShadow="base"
           >
             <Box>Total days</Box>
-            <Box>{tat.Days}</Box>
+            <Box>{tat?.Days}</Box>
           </Box>
 
           <Box
@@ -254,7 +263,7 @@ const Login = () => {
             <Box textAlign="center">
               <b>Scrum Master</b>
             </Box>
-            <Box>{tat.Scum}</Box>
+            <Box>{tat?.Scum}</Box>
           </Box>
           <Box
             minW={"50px"}
