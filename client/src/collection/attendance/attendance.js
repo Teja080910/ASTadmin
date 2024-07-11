@@ -11,7 +11,8 @@ export const Attendance = () => {
     const toast = useToast();
     const [error, setError] = useState(false)
     const Tech = () => {
-        window.location.reload(2)
+        // window.location.reload(2)
+        nav("/tech")
     }
     Timings().then((res) => {
         if (res?.tech) {
@@ -28,7 +29,8 @@ export const Attendance = () => {
         }
     }).catch((e) => console.log(e))
     const Yoga = () => {
-        window.location.reload(2)
+        // window.location.reload(2)
+        nav("/yoga")
     }
     useEffect(() => {
         error === "time" && toast({ title: "Time out", description: "Please open in correct timings", status: "error", position: "bottom-left", isClosable: true });

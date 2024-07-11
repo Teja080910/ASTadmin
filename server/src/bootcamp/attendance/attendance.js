@@ -11,7 +11,7 @@ export const AttendStudent = async (reg, res) => {
             } else {
                 day = 1;
             }
-            const attend = await db1.collection("Hackathondata").findOneAndUpdate({ Reg_No: reg }, { $set: { Date: date.toDateString(), AttendDays: day,AttendTime:[date]} })
+            const attend = await db1.collection("Hackathondata").findOneAndUpdate({ Reg_No: reg }, { $set: { Date: date.toDateString(), AttendDays: day,AttendTime:[...user?.AttendTime,date]} })
             if (attend?.value) {   
                 res.json({message:"attend",data:attend})
             }

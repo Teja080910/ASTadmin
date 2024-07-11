@@ -28,6 +28,7 @@ import Timer from './hackathon/main-timer/Timer.jsx';
 import './responce.css';
 import { socket } from './socket.js';
 import EnhancedNetworkChecker from './NetworkChecker.js';
+import { ConsoleLogin } from './ast-console/sigin.js';
 
 
 
@@ -101,6 +102,7 @@ function App() {
                   <Route path="/attendance" element={set ? <Attendance /> : <Admin />} />
                   <Route path='/tech' element={set?!time?.tech? <Login /> : <Attendance />:<Admin/>} />
                   <Route path='/yoga' element={set?time?.yoga  ? <Yoga /> : <Attendance />:<Admin/>} />
+                  <Route path='/console' element={<ConsoleLogin/>}/>
                 </>
               }
               {bootload && <>
