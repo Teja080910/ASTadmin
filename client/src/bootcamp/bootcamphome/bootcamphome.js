@@ -29,7 +29,7 @@ export const BootcampHome = () => {
     return (
         <Container maxW="container.xl" py={10} zIndex={-1}>
             <Heading textAlign="center" mb={10} className="animate__animated animate__swing">Top Members</Heading>
-            <Grid templateColumns={{ base: "repeat(auto-fit, minmax(200px, 1fr))", md: "repeat(auto-fit, minmax(400px, 1fr))" }} gap={6}>
+            <Grid templateColumns={{ base: "repeat(auto-fit, minmax(200px, 1fr))", md: "repeat(auto-fit, minmax(375px, 1fr))",xl:"repeat(auto-fit, minmax(420px, 1fr))", }} gap={6}>
                 <Box className="animate__animated animate__jello" bg="white" p={5} shadow="md" borderRadius="md">
                     <Heading size="md" mb={4}>Overall</Heading>
                     <VStack spacing={2}>
@@ -74,6 +74,9 @@ export const BootcampHome = () => {
                         </VStack>
                     </Box>
                 </Box>
+             
+
+               
                 <Box className="animate__animated animate__jello" bg="white" p={5} shadow="md" borderRadius="md">
                     <Heading size="md" mb={4}>Activities</Heading>
                     <VStack spacing={2}>
@@ -89,7 +92,7 @@ export const BootcampHome = () => {
                     </VStack>
                 </Box>
 
-                <Box className="animate__animated animate__jello" bg="white" p={5} shadow="md" borderRadius="md">
+                <Box className="animate__animated animate__jello" bg="white" p={5}  shadow="md" borderRadius="md">
                     <Heading size="md" mb={4}>Internal Marks</Heading>
                     <VStack spacing={2}>
                         {
@@ -103,6 +106,7 @@ export const BootcampHome = () => {
                         }
                     </VStack>
                 </Box>
+               
             </Grid>
         </Container>
     )

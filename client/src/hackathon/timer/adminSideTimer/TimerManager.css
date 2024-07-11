@@ -8,11 +8,11 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-
+flex-direction: row;
   @media (max-width: 480px) {
     width: 80%;
-    flex-direction: column;
     gap: 2px;
+    margin-left: 10%;
   }
 }
 
@@ -24,9 +24,7 @@
   align-items: center;
 }
 
-/* .starthackathon-btn{
-  
-} */
+
 
 .timer-container-main {
   background: white;
@@ -141,6 +139,7 @@ input[type="text"] {
   @media (max-width: 480px) {
     width: 80vw;
     flex-direction: column;
+    margin-left: 10%;
     gap: 2px;
   }
 }
