@@ -176,13 +176,13 @@ const HackathonTeamRegistrer = () => {
             <Box w="100%" maxW="500px" mb={8}>
                 <form onSubmit={handleSubmit}>
                     <FormControl isRequired mb={4}>
-                        <FormLabel>Register ID</FormLabel>
+                        <FormLabel>Register Mobile Number</FormLabel>
                         <Input
                             type="text"
                             name="id"
                             value={formData.id}
                             onChange={handleChange}
-                            placeholder="Enter Register ID"
+                            placeholder="Enter Register Mobile Number"
                         />
                     </FormControl>
                     <FormControl isRequired mb={4}>

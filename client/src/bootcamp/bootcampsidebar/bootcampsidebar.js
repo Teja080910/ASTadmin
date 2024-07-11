@@ -19,6 +19,7 @@ import { StudentsData } from '../studentdata/studentdata';
 import BootcampTasks from '../taskmanger/bootcamptaskmager';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { Others } from '../others/others';
+import HouseIcon from '@mui/icons-material/House';
 import './bootcampsidebar.css';
 import Footer from '../footer/Footer';
 
@@ -37,6 +38,7 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
                     <h2>Bootcamp</h2>
                 </MenuItem>
                 <MenuItem icon={<HomeOutlinedIcon />} onClick={() => window.location.href = '/'}>Home</MenuItem>
+                <MenuItem icon={<HouseIcon />} onClick={() => window.location.href = '/bootcamp'}>House</MenuItem>
                 <MenuItem icon={<AttendanceIcon />} onClick={() => { select(3); queryParams.set("page", "attendance"); nav({ search: queryParams.toString() }) }}>Attendance</MenuItem>
                 <MenuItem icon={<LibraryBooksIcon />} onClick={() => { select(4); queryParams.set("page", "material"); nav({ search: queryParams.toString() }) }}>Materials</MenuItem>
                 <MenuItem icon={<ScoreIcon />} onClick={() => { select(5); queryParams.set("page", "score"); nav({ search: queryParams.toString() }) }}>Score</MenuItem>
