@@ -1,87 +1,127 @@
 import {
     Accordion,
     AccordionItem,
+    Badge,
     Box,
+    Button,
     Input,
     Spinner,
+    Text,
     useToast
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/esm/Button";
+import React, { useEffect, useState, useRef } from "react";
 import { BootcampNav } from "../bootcampnav/bootcampnav";
 import './attendance.css';
+
 export const BootAttendance = () => {
     const [dat, sdat] = useState([]);
-    const [select, sselect] = useState([]);
-    const [year, syear] = useState();
+    const [select, sselect] = useState('');
+    const [year, syear] = useState(sessionStorage.year||1);
     const [isLoading, setIsLoading] = useState(true);
     const date = new Date();
-    const toast = useToast()
-    // window.title = "Student Attendance | Bootcamp | VEDIC VISION | TEAM AST"
+    const toast = useToast();
+    const searchRef = useRef(null);
+
     const Attend = async (registerno) => {
         try {
             const responce = await axios.post(process.env.REACT_APP_database + "/attendstudent/" + registerno)
             {
                 if (responce?.data?.message) {
-                    toast({ title: registerno + " Attend", status: "success", position: "top", isClosable: true })
-                    fetchData()
-                }
-                else {
-                    toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true })
+                    toast({ title: registerno + " Attend", status: "success", position: "top", isClosable: true });
+                    fetchData();
+                } else {
+                    toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true });
                 }
             }
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
         }
     }
+
     const Absent = async (registerno) => {
         try {
             const responce1 = await axios.post(process.env.REACT_APP_database + "/absentstudent/" + registerno)
             {
                 if (responce1) {
-                    toast({ title: registerno + " Absent", status: "success", position: "top", isClosable: true })
-                    fetchData()
-                }
-                else {
-                    toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true })
+                    toast({ title: registerno + " Absent", status: "success", position: "top", isClosable: true });
+                    fetchData();
+                } else {
+                    toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true });
                 }
             }
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
         }
     }
+
     const Year = () => {
         sessionStorage.year = year;
     }
+
     const fetchData = async () => {
         await axios.post(process.env.REACT_APP_database + "/bootcampstudents")
             .then((result) => {
-                sdat((result.data.sort((a, b) => a.Year - b.Year)));
-                console.log(dat.map((val) => val.Reg_No))
+                sdat(result.data.sort((a, b) => a.Year - b.Year));
             })
         setTimeout(() => {
             setIsLoading(false);
         }, 2000);
     }
+
     useEffect(() => {
-        fetchData()
-    }, [year])
+        fetchData();
+    }, [year]);
+
+    useEffect(() => {
+        if (searchRef.current) {
+            searchRef.current.focus();
+        }
+
+        const handleKeyPress = (event) => {
+            if (event.shiftKey && event.key === 'F') {
+                event.preventDefault();
+                if (searchRef.current) {
+                    searchRef.current.focus();
+                }
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyPress);
+        };
+    }, []);
+
+    const filteredData = dat.filter(user => 
+        (user?.Reg_No?.toLowerCase().includes(select) ||
+        user?.Reg_No?.toUpperCase().includes(select) ||
+        user?.Name?.toUpperCase().includes(select) ||
+        user?.Name?.toLowerCase().includes(select)) &&
+        (user?.Year && (user?.Year[0])) == sessionStorage.year
+    );
+
     return (
         <>
             <BootcampNav />
             <div className="yearbtns">
-                <Button className="yearbtnsink" style={{ backgroundColor: '#17D7A0', borderRadius: '10px', borderColor: 'white' }} onClick={Year} onClickCapture={(e) => { syear(1) }}><b>I Btech</b></Button>
-                <Button className="yearbtnsink" style={{ backgroundColor: '#CCA8E9', borderRadius: '10px', borderColor: 'white' }} onClick={Year} onClickCapture={(e) => { syear(2) }}><b>II Btech</b></Button>
-                <Button className="yearbtnsink" style={{ backgroundColor: '#A1EAFB', borderRadius: '10px', borderColor: 'white' }} onClick={Year} onClickCapture={(e) => { syear(3) }}><b>III Btech</b></Button>
-                <Button className="yearbtnsink" style={{ backgroundColor: '#F185B3', borderRadius: '10px', borderColor: 'white' }} onClick={Year} onClickCapture={(e) => { syear(4) }}><b>IV Btech</b></Button>
+                <Button className="yearbtnsink"  style={{ backgroundColor: '#17D7A0', borderRadius: '10px', border: year ===1 ? "solid 3px black":"white" ,}} onClick={Year} onClickCapture={(e) => { syear(1) }}><b>I B.Tech</b></Button>
+                <Button className="yearbtnsink" style={{ backgroundColor: '#CCA8E9', borderRadius: '10px', border:  year ===2 ? "solid 3px black":"white" }} onClick={Year} onClickCapture={(e) => { syear(2) }}><b>II B.Tech</b></Button>
+                <Button className="yearbtnsink" style={{ backgroundColor: '#A1EAFB', borderRadius: '10px', border:  year ===3 ? "solid 3px black":"white" }} onClick={Year} onClickCapture={(e) => { syear(3) }}><b>III B.Tech</b></Button>
+                <Button className="yearbtnsink" style={{ backgroundColor: '#F185B3', borderRadius: '10px', border:    year ===4 ? "solid 3px black":"white"}} onClick={Year} onClickCapture={(e) => { syear(4) }}><b>IV B.Tech</b></Button>
             </div>
             <br />
             <div>
                 <Box display="flex" justifyContent="center" mb={6}>
-                    <Input id="search" value={select} placeholder="Enter User mail or name" onChange={(e) => sselect(e.target.value)} width="50%" />
+                    <Input
+                        ref={searchRef}
+                        id="search"
+                        value={select}
+                        placeholder="Enter User mail or name"
+                        onChange={(e) => sselect(e.target.value)}
+                        width="50%"
+                    />
                 </Box>
                 <table className="studetail">
                     {
@@ -90,13 +130,7 @@ export const BootAttendance = () => {
                                 <Spinner size="xl" />
                             </Box> :
                             <Accordion allowToggle>
-                                {dat.filter(user =>
-                                (user?.Reg_No?.toLowerCase().includes(select) ||
-                                    user?.Reg_No?.toUpperCase().includes(select) ||
-                                    user?.Name?.toUpperCase().includes(select) ||
-                                    user?.Name?.toLowerCase().includes(select))
-                                ).map((x, index) => (
-                                    (x?.Year && (x?.Year[0])) == sessionStorage.year &&
+                                {filteredData.length > 0 ? filteredData.map((x, index) => (
                                     <AccordionItem key={index} style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                                         <Box style={{ fontFamily: 'bold' }} flex="1" textAlign="left">
                                             {index + 1}. {x?.Name.toUpperCase()} ({x?.Reg_No.toUpperCase()})
@@ -106,11 +140,17 @@ export const BootAttendance = () => {
                                             <Button colorScheme="red" onClick={() => Absent(x?.Reg_No)}>Absent</Button>
                                         }
                                     </AccordionItem>
-                                ))}
+                                )) : (
+                                    <Box textAlign="center" width="100%">
+                                        <Text>
+                                            No data matches your current Search <Badge>{select}</Badge> or the selected Year <Badge>{year} B.Tech</Badge>
+                                        </Text>
+                                    </Box>
+                                )}
                             </Accordion>
                     }
                 </table>
             </div>
         </>
-    )
+    );
 }
