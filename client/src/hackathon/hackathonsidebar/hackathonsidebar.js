@@ -27,8 +27,8 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
   const nav = useNavigate()
   const dispatch=useDispatch()
   return (
-    <Sidebar collapsed={collapsed} id='sidebar' onMouseOver={collapsed ? toggleSidebar : null} onMouseLeave={!collapsed ? toggleSidebar : null}>
-      <Menu onClick={collapsed ? toggleSidebar : null} >
+    <Sidebar collapsed={collapsed} id='sidebar' onMouseOver={collapsed ? toggleSidebar : null} onMouseLeave={!collapsed ? toggleSidebar : null} >
+      <Menu onClick={collapsed ? toggleSidebar : null} style={{zIndex:"100"}}>
         <MenuItem
           icon={<MenuOutlinedIcon />}
           onClick={toggleSidebar}
@@ -72,7 +72,7 @@ export const HackathonSidebar = ({ socket }) => {
       <main
         className="main-content"
         onClick={() => collapsed || toggleSidebar()}
-        onDoubleClick={() => toggleSidebar()}
+      
       >
         {
           /* (set === "home" && <HackathonHome />) || */
