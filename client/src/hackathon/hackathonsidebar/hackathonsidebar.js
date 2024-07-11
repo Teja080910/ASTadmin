@@ -19,6 +19,7 @@ import "./hackathonsidebar.css";
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { Others } from "../hackathonothers/others";
+import { HackathonHome } from "../hackathonhome/hackathonhome";
 
 import { useDispatch } from "react-redux";
 import HackathonTeamRegistrer from "../Hackathonteams/hackathonteamregister";
@@ -78,7 +79,7 @@ export const HackathonSidebar = ({ socket }) => {
       
       >
         {
-          /* (set === "home" && <HackathonHome />) || */
+          (set === "home" && <HackathonHome />) || 
           (set === "team" && <HackathonTeam />) ||
           (set === "score" && <HackScore />) ||
           (set === "tasks" && <HackathonTasks />) ||

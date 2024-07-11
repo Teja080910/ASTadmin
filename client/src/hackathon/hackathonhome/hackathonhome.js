@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Box, Flex, Heading, Text, Grid, VStack, Container } from "@chakra-ui/react"
 import { Modules } from "./modules"
 
-export const BootcampHome = () => {
+export const HackathonHome = () => {
     const [attendance, setAttendance] = useState([])
     const [score, setScore] = useState([])
     const [overall, setOverall] = useState([])
