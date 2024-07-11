@@ -20,6 +20,7 @@ import BootcampTasks from '../taskmanger/bootcamptaskmager';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { Others } from '../others/others';
 import './bootcampsidebar.css';
+import Footer from '../footer/Footer';
 
 const queryParams = new URLSearchParams(window.location.search);
 const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
@@ -61,7 +62,7 @@ export const BootcampSidebar = () => {
     const toggleSidebar = () => {
         setCollapsed(!collapsed);
     };
-    return (
+    return (<>
         <div id="app" style={{ height: '100vh', display: 'flex' }}>
             <SidebarContent collapsed={collapsed} toggleSidebar={toggleSidebar} select={(val) => setSelect(val || 1)} />
             <main className='main-content' onClick={() => collapsed || toggleSidebar()}>
@@ -76,6 +77,9 @@ export const BootcampSidebar = () => {
 
                 }
             </main>
+            
         </div>
+        {/* <Footer /> */}
+         </>
     );
 };

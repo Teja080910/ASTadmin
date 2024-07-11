@@ -46,10 +46,16 @@ export const Modules = {
     },
 
     Internals: async () => {
-
+        const data = await Modules.data()
+        const filterData = data?.filter(student => student?.InternalMarks !== undefined)
+        const sortData = filterData?.sort((a, b) => b?.InternalMarks - a?.InternalMarks)
+        return sortData
     },
 
     Activities: async () => {
-
+        const data = await Modules.data()
+        const filterData = data?.filter(student => student?.ActivityMarks !== undefined)
+        const sortData = filterData?.sort((a, b) => b?.ActivityMarks - a?.ActivityMarks)
+        return sortData
     }
 }

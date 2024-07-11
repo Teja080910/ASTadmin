@@ -6,6 +6,8 @@ export const BootcampHome = () => {
     const [attendance, setAttendance] = useState([])
     const [score, setScore] = useState([])
     const [overall, setOverall] = useState([])
+    const [internal, setInternal] = useState([])
+    const [activity,setActivity]=useState([])
 
     const Overall = async () => {
         const attendData = await Modules.Attendance()
@@ -14,6 +16,10 @@ export const BootcampHome = () => {
         setScore(scoreData)
         const overallData = await Modules.Overall()
         setOverall(overallData)
+        const internalData = await Modules.Internals()
+        setInternal(internalData)
+        const activityData=await Modules.Activities()
+        setActivity(activityData)
     }
 
     useEffect(() => {
@@ -70,12 +76,32 @@ export const BootcampHome = () => {
                 </Box>
                 <Box className="animate__animated animate__jello" bg="white" p={5} shadow="md" borderRadius="md">
                     <Heading size="md" mb={4}>Activities</Heading>
-                    <Text fontFamily="monospace">Name - </Text>
+                    <VStack spacing={2}>
+                        {
+                            activity?.slice(0, 3)?.map((student, index) => (
+                                <Flex key={index} justify="space-between" w="100%">
+                                    {console.log(student)}
+                                    <Text fontFamily="monospace">{student?.Name?.toUpperCase()}</Text>
+                                    <Text fontFamily="monospace">{student?.ActivityMarks}</Text>
+                                </Flex>
+                            ))
+                        }
+                    </VStack>
                 </Box>
 
                 <Box className="animate__animated animate__jello" bg="white" p={5} shadow="md" borderRadius="md">
                     <Heading size="md" mb={4}>Internal Marks</Heading>
-                    <Text fontFamily="monospace">Name - </Text>
+                    <VStack spacing={2}>
+                        {
+                            internal?.slice(0, 3)?.map((student, index) => (
+                                <Flex key={index} justify="space-between" w="100%">
+                                    {console.log(student)}
+                                    <Text fontFamily="monospace">{student?.Name?.toUpperCase()}</Text>
+                                    <Text fontFamily="monospace">{student?.InternalMarks}</Text>
+                                </Flex>
+                            ))
+                        }
+                    </VStack>
                 </Box>
             </Grid>
         </Container>

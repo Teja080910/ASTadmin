@@ -1,66 +1,131 @@
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import CryptoAES from 'crypto-js/aes';
+import "bootstrap/dist/css/bootstrap.min.css";
+import CryptoAES from "crypto-js/aes";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import '../admin/admin.css';
-import { Navbars } from '../nav&foot/nav';
+import "../admin/admin.css";
+import { Navbars } from "../nav&foot/nav";
 export const Admin = () => {
   const [gmail, setgmail] = useState([]);
   const [password, setpassword] = useState([]);
   const date = new Date();
-  const toast=useToast()
+  const toast = useToast();
   const Submit = async () => {
     try {
-      const responce = await axios.post(process.env.REACT_APP_database + "/admincheck/" + gmail )
+      const responce = await axios.post(
+        process.env.REACT_APP_database + "/admincheck/" + gmail
+      );
       {
-        if (responce.data?.Password===password) {
+        if (responce.data?.Password === password) {
           if (responce.data.Dates !== date.toDateString()) {
-            const res1 = await axios.post(process.env.REACT_APP_database + "/totaldays")
+            const res1 = await axios.post(
+              process.env.REACT_APP_database + "/totaldays"
+            );
             {
               if (res1.data) {
                 if (res1.data.Date !== date.toDateString()) {
                   let tdays = parseInt(res1.data.Days) + 1;
-                  const res = await axios.post(process.env.REACT_APP_database + "/updateadmin/" + gmail + "/" + date.toDateString() + "/" + tdays)
+                  const res = await axios.post(
+                    process.env.REACT_APP_database +
+                      "/updateadmin/" +
+                      gmail +
+                      "/" +
+                      date.toDateString() +
+                      "/" +
+                      tdays
+                  );
                   {
                     if (res) {
                       sessionStorage.gmail = gmail;
-                      sessionStorage.password = CryptoAES.encrypt(password, gmail).toString();
-                      toast({title:"Login Success",description:"Admin sucessfully logged in Today",status:"success",position:"top", isClosable:true})
-                      setTimeout(()=>window.location.href="/attendance",1000)
-                    }
-                    else {
-                      toast({title:"Try again",description:"Please login again",status:"error",position:"bottom-left", isClosable:true})
+                      sessionStorage.password = CryptoAES.encrypt(
+                        password,
+                        gmail
+                      ).toString();
+                      toast({
+                        title: "Login Success",
+                        description: "Admin sucessfully logged in Today",
+                        status: "success",
+                        position: "top",
+                        isClosable: true,
+                      });
+                      setTimeout(
+                        () => (window.location.href = "/attendance"),
+                        1000
+                      );
+                    } else {
+                      toast({
+                        title: "Try again",
+                        description: "Please login again",
+                        status: "error",
+                        position: "bottom-left",
+                        isClosable: true,
+                      });
                     }
                   }
-                }
-                else {
+                } else {
                   sessionStorage.gmail = gmail;
-                  sessionStorage.password = CryptoAES.encrypt(password, gmail).toString();
-                  toast({title:"Login Success",description:"Admin 2 sucessfully logged in Today",status:"success",position:"top", isClosable:true})
-                  setTimeout(()=>window.location.href="/attendance",1000)
+                  sessionStorage.password = CryptoAES.encrypt(
+                    password,
+                    gmail
+                  ).toString();
+                  toast({
+                    title: "Login Success",
+                    description: "Admin 2 sucessfully logged in Today",
+                    status: "success",
+                    position: "top",
+                    isClosable: true,
+                  });
+                  setTimeout(
+                    () => (window.location.href = "/attendance"),
+                    1000
+                  );
                 }
               }
             }
-          }
-          else {
+          } else {
             sessionStorage.gmail = gmail;
-            sessionStorage.password = CryptoAES.encrypt(password, gmail).toString();
-            sessionStorage.removeItem('yoga');
-            toast({title:"Login Success",description:"Admin sucessfully logged in again",status:"success",position:"top", isClosable:true})
-            setTimeout(()=>window.location.href="/attendance",1000)
+            sessionStorage.password = CryptoAES.encrypt(
+              password,
+              gmail
+            ).toString();
+            sessionStorage.removeItem("yoga");
+            toast({
+              title: "Login Success",
+              description: "Admin sucessfully logged in again",
+              status: "success",
+              position: "top",
+              isClosable: true,
+            });
+            setTimeout(() => (window.location.href = "/attendance"), 1000);
           }
-        }
-        else {
-          toast({title:"Please register as admin",description:"Credentials unmatched",status:"error",position:"bottom-left", isClosable:true})
+        } else {
+          toast({
+            title: "Please register as admin",
+            description: "Credentials unmatched",
+            status: "error",
+            position: "bottom-left",
+            isClosable: true,
+          });
         }
       }
+    } catch (e) {
+      toast({
+        title: "Network Error",
+        description: e?.name,
+        status: "warning",
+        position: "bottom-left",
+        isClosable: true,
+      });
     }
-    catch (e) {
-      toast({title:"Network Error",description:e?.name,status:"warning",position:"bottom-left", isClosable:true})
+  };
+
+  const handelkeydown = (e) => {
+    if (e.key === "Enter") {
+      Submit();
     }
-  }
+  };
+
   return (
     <>
       <Navbars />
@@ -89,6 +154,7 @@ export const Admin = () => {
               placeholder="Enter Password"
               value={password}
               onChange={(e) => setpassword(e.target.value)}
+              onKeyDown={(e) => handelkeydown(e)}
             />
           </div>
           <div style={{ display: "flex", justifyContent: "center" }}>
@@ -98,36 +164,60 @@ export const Admin = () => {
           </div>
         </div>
       </div>
-
-
     </>
-  )
-}
-
-
+  );
+};
 
 export const Adminreg = () => {
   const nav = useNavigate();
   const [gmail, setgmail] = useState([]);
   const [password, setpassword] = useState([]);
-  const toast=useToast();
+  const toast = useToast();
   const Submit = async () => {
-    await axios.post(process.env.REACT_APP_database + "/admincheck/" + gmail + "/" + password)
-    .then(async(res)=>{
-      if (res.data) {
-        toast({title:"Already Register",status:"error",position:"bottom-left", isClosable:true})
-      }
-      else {
-        if (await axios.post(process.env.REACT_APP_database + "/adminregi/" + gmail + "/" + password)) {
-          toast({title:"Sucessfully Registered",status:"success",position:"bottom-right", isClosable:true})
-          nav('/adminlogin')
+    await axios
+      .post(
+        process.env.REACT_APP_database + "/admincheck/" + gmail + "/" + password
+      )
+      .then(async (res) => {
+        if (res.data) {
+          toast({
+            title: "Already Register",
+            status: "error",
+            position: "bottom-left",
+            isClosable: true,
+          });
+        } else {
+          if (
+            await axios.post(
+              process.env.REACT_APP_database +
+                "/adminregi/" +
+                gmail +
+                "/" +
+                password
+            )
+          ) {
+            toast({
+              title: "Sucessfully Registered",
+              status: "success",
+              position: "bottom-right",
+              isClosable: true,
+            });
+            nav("/adminlogin");
+          }
         }
-      }
-    }).catch((e)=>toast({title:e.message,description:e.name,status:"error",position:"bottom-left", isClosable:true}))
-  }
+      })
+      .catch((e) =>
+        toast({
+          title: e.message,
+          description: e.name,
+          status: "error",
+          position: "bottom-left",
+          isClosable: true,
+        })
+      );
+  };
   return (
     <>
-
       <div className="login-container">
         <h1 className="heading">Admin Register</h1>
         <div className="form">
@@ -163,5 +253,5 @@ export const Adminreg = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};

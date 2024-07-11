@@ -40,7 +40,7 @@ export const SednOTP = ({ atnd, isOpen, onClose, data, refresh }) => {
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Modal Title</ModalHeader>
+                <ModalHeader>Enter OTP</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <HStack>
