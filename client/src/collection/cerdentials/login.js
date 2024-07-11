@@ -161,6 +161,7 @@ const Login = () => {
         isOpen={show}
         onClose={() => setShow(false)}
         data={data}
+        refresh={fetchData()}
       
       />
        <DeleteConform

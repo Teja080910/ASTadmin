@@ -16,24 +16,30 @@ import { Actions } from '../../actions/actions';
 export const SednOTP = ({ atnd, isOpen, onClose, data, refresh }) => {
     const toast = useToast()
     const [otp, setOtp] = useState();
+    const [load,setLoad]=useState(false)
     const handleAttend = async () => {
+        setLoad(true)
         try {
             if (data?.OTP === parseInt(otp)) {
                 const res = await Actions.StudentLogin(atnd, otp);
                 if (res?.data?.message) {
                     setOtp('')
+                    setLoad(false)
+                    toast({ title: res.data.message, status: "success", position: "top-right", isClosable: true });
                     onClose()
                     refresh()
-                    toast({ title: res.data.message, status: "success", position: "top-right", isClosable: true });
                 } else {
                     toast({ title: res.data.error, status: "error", position: "bottom-right", isClosable: true });
+                    setLoad(false)
                 }
             } else {
                 setOtp('')
                 toast({ title: "OTP mismatch", status: "error", position: "bottom-right", isClosable: true });
+                setLoad(false)
             }
         } catch (error) {
             console.error(error);
+            setLoad(false)
         }
     };
     return (
@@ -57,7 +63,7 @@ export const SednOTP = ({ atnd, isOpen, onClose, data, refresh }) => {
                     <Button mr={3} onClick={onClose}>
                         Close
                     </Button>
-                    <Button colorScheme='blue' onClick={handleAttend}><b>Submit</b></Button>
+                    <Button colorScheme='blue' onClick={handleAttend}><b>{load?"Submitting...":"Submit"}</b></Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>
