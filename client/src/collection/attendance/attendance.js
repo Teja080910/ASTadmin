@@ -14,15 +14,15 @@ export const Attendance = () => {
         window.location.reload(2)
     }
     Timings().then((res) => {
-        if (!res?.tech) {
+        if (res?.tech) {
             nav("/tech")
         }
         else if (res?.yoga) {
             nav("/yoga")
         }
-        else if (!res?.loc) {
-            setError("loc")
-        }
+        // else if (!res?.loc) {
+        //     setError("loc")
+        // }
         else {
             setError("time")
         }

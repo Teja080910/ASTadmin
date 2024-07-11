@@ -66,8 +66,8 @@ function App() {
       }).catch((e) => {})
   }
 
-  const Timing = () => {
-    Timings().then((res) => setTime(res)).catch((e) => {})
+  const Timing = async() => {
+    await Timings().then((res) => {setTime(res);console.log(res)}).catch((e) => {console.log(e)})
   }
 
   useEffect(() => {
@@ -99,8 +99,8 @@ function App() {
                   <Route path='/bootcampregister' element={<RegisterForm />} />
                   <Route path='/bootcamplogin' element={<LoginForm />} />
                   <Route path="/attendance" element={set ? <Attendance /> : <Admin />} />
-                  <Route path='/tech' element={set?!time?.tech? <Login /> : <Attendance />:<Admin/>} />
-                  <Route path='/yoga' element={set?time?.yoga  ? <Yoga /> : <Attendance />:<Admin/>} />
+                  <Route path='/tech' element={set?time?.tech? <Login /> : <Attendance />:<Admin/>} />
+                  <Route path='/yoga' element={set?!time?.yoga  ? <Yoga /> : <Attendance />:<Admin/>} />
                 </>
               }
               {bootload && <>
