@@ -18,13 +18,16 @@ export const SednOTP = ({ atnd, isOpen, onClose, data, refresh }) => {
     const [otp, setOtp] = useState();
     const handleAttend = async () => {
         try {
-            if (data?.OTP === parseInt(otp)) {
+            if (data?.OTP === parseInt(otp) ) {
                 const res = await Actions.StudentLogin(atnd, otp);
-                if (res?.data?.message) {
+               
+                if (res?.data?.message ) {
                     setOtp('')
                     onClose()
+                    toast({ title: res.data?.message, status: "success", position: "top-right", isClosable: true });
+
                     refresh()
-                    toast({ title: res.data.message, status: "success", position: "top-right", isClosable: true });
+                    console.log("called refresh")
                 } else {
                     toast({ title: res.data.error, status: "error", position: "bottom-right", isClosable: true });
                 }
