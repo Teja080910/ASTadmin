@@ -104,8 +104,8 @@ function App() {
                 </>
               }
               {bootload && <>
-                <Route path='/bootcamp' element={!boot ? <BootcampSidebar /> : <LoginForm />} />
-                <Route path='/hackathon' element={!boot ? <HackathonSidebar socket={socket} /> : <LoginForm />} />
+                <Route path='/bootcamp' element={boot ? <BootcampSidebar /> : <LoginForm />} />
+                <Route path='/hackathon' element={boot ? <HackathonSidebar socket={socket} /> : <LoginForm />} />
                 <Route path='/hackathon/timer' element={boot ? <Timer socket={socket} /> : <LoginForm />} />
               </>}
             </Routes>
