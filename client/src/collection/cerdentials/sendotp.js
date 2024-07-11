@@ -27,7 +27,6 @@ export const SednOTP = ({ atnd, isOpen, onClose, data, refresh }) => {
                     setOtp('')
                     onClose()
                     toast({ title: res.data?.message, status: "success", position: "top-right", isClosable: true });
-
                     refresh()
                 } else {
                     toast({ title: res.data.error, status: "error", position: "bottom-right", isClosable: true });
@@ -41,6 +40,9 @@ export const SednOTP = ({ atnd, isOpen, onClose, data, refresh }) => {
         } catch (error) {
             console.error(error);
             setLoad(false)
+        }finally
+        {
+            setLoad(true)
         }
     };
     return (
