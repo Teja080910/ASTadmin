@@ -74,7 +74,6 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com", socket })
   };
 
   const deleteTimer = async (id) => {
-    console.log(id)
     try {
       const response = await axios.post(`${URL}/api/deletetimer`, { id: id });
       if (response.data.message === "Timer deleted successfully") {
@@ -87,7 +86,7 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com", socket })
   };
 
   return (
-    <div className="timer-container">
+    <Box className="timer-container" >
 
       <div className="timer-container-main">
         <div>
@@ -162,7 +161,7 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com", socket })
       <div className='timer-block'>
         <Controls socket={socket} />
       </div>
-    </div>
+    </Box>
   );
 };
 
