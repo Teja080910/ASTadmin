@@ -14,7 +14,7 @@ export const Others = () => {
 
   const handleSaveActivities = async () => {
     setLoad((state) => ({ ...state, searchRegNoActivities: true }))
-    await Actions.ActivityMarks(searchRegNoActivities, marksActivities)
+    await Actions.HackActivityMarks(searchRegNoActivities, marksActivities)
       .then((res) => {
         if (res?.data?.message) {
           Students()
@@ -35,8 +35,9 @@ export const Others = () => {
 
   const handleSaveInternal = async () => {
     setLoad((state) => ({ ...state, searchRegNoInternal: true }))
-    await Actions.InternalMarks(searchRegNoInternal, marksInternal)
+    await Actions.HackInternalMarks(searchRegNoInternal, marksInternal)
       .then((res) => {
+        console.log(res?.data)
         if (res?.data?.message) {
           Students()
           setMarksInternal('')
@@ -55,7 +56,7 @@ export const Others = () => {
   };
 
   const Students = async () => {
-    await Actions.Students().then((res) => setData(res?.data)).catch((e) => console.log(e))
+    await Actions.TeamsCodes().then((res) => setData(res?.data)).catch((e) => console.log(e))
   }
 
   useEffect(() => {
@@ -76,10 +77,10 @@ export const Others = () => {
         </div>
         {searchRegNoActivities && <div className="search-section">
           {
-            data?.filter(user => user?.Name?.includes(searchRegNoActivities) || user?.Reg_No?.includes(searchRegNoActivities))?.map((student) => (
+            data?.filter(user => user?.Team?.includes(searchRegNoActivities) || user?.TeamCode.toString()?.includes(searchRegNoActivities))?.map((student) => (
               <div>
-                <p onClick={()=>setActivities(student?.Reg_No)}>{student?.Name}</p>
-                <p>{student?.ActivityMarks}</p>
+                <p onClick={() => setActivities(student?.TeamCode)}>{student?.Team}</p>
+                <p>{student?.HackActivityMarks}</p>
               </div>
             ))
           }
@@ -107,10 +108,10 @@ export const Others = () => {
         </div>
         {searchRegNoInternal && <div className="search-section">
           {
-            data?.filter(user => user?.Name?.includes(searchRegNoInternal) || user?.Reg_No?.includes(searchRegNoInternal))?.map((student) => (
+            data?.filter(user => user?.Team?.includes(searchRegNoInternal) || user?.TeamCode.toString()?.includes(searchRegNoInternal))?.map((student) => (
               <div>
-                <p onClick={()=>setInternal(student?.Reg_No)}>{student?.Name}</p>
-                <p>{student?.InternalMarks}</p>
+                <p onClick={() => setInternal(student?.TeamCode)}>{student?.Team}</p>
+                <p>{student?.HackInternalMarks}</p>
               </div>
             ))
           }
