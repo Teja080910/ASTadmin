@@ -83,7 +83,6 @@ export const BootcampHome = () => {
                         {
                             activity?.slice(0, 3)?.map((student, index) => (
                                 <Flex key={index} justify="space-between" w="100%">
-                                    {console.log(student)}
                                     <Text fontFamily="monospace">{student?.Name?.toUpperCase()}</Text>
                                     <Text fontFamily="monospace">{student?.ActivityMarks}</Text>
                                 </Flex>
