@@ -136,7 +136,7 @@ export const Others = () => {
       </div>
       <div className='feedback-align'>
         
-        <Button className='feedbackform' onClick={submitFeedback} colorScheme='cyan'>Give Feedback</Button>
+        <Button className='animate__animated animate__lightSpeedInRight feedbackform' onClick={submitFeedback} colorScheme='cyan'>Give Feedback</Button>
         
         {showFeedbackForm && <FeedbackForm />} 
         </div>
