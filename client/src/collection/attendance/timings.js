@@ -5,7 +5,7 @@ export const Timings = () => {
     const minutes = date.getMinutes();
     
     let isTechTime = false;
-    const isYogaTime = (hours >= 5 && hours < 10);
+    const isYogaTime = (hours >= 5 && hours < 9);
 
     // Tech timings on Saturday (1pm to 5pm) and other days (5pm to 8:50pm)
     if (day === 6) {
