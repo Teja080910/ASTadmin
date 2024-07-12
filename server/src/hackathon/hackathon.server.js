@@ -30,6 +30,7 @@ import { StartHackathon } from './start&stop/hackathonstart.js';
 import { EndHackathon } from './start&stop/hackathonend.js';
 import { AllTeamRegistrers } from './teamregistrers/allregistrers.js';
 import { CreateRegistrer, DeleteRegistrer, UpdateRegistrerStatus } from './teamregistrers/registrersactions.js';
+import { HackActivityMarks, HackInternalMarks } from './others/others.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -178,12 +179,15 @@ app.post('/deleteteam', async (req, res) => {
 app.post('/teamscodes', async (req, res) => {
     await AllTeamCodes(res)
 })
+
 app.post('/teamregistrers', async (req, res) => {
     await AllTeamRegistrers(res)
 })
+
 app.post('/createregistrer', async (req, res) => {
     await CreateRegistrer(req, res);
 });
+
 app.delete('/deleteregistrer/:id', async (req, res) => {
     await DeleteRegistrer(req, res);
 });
@@ -210,6 +214,14 @@ app.post('/starthack', async (req, res) => {
 
 app.post('/stophack', async (req, res) => {
     await EndHackathon("hackathon@gmail.com", res)
+})
+
+app.post('/hackinternalmarks', async (req, res) => {
+    await HackInternalMarks(req.body.code, req.body.marks, res)
+})
+
+app.post('/hackactivitymarks', async (req, res) => {
+    await HackActivityMarks(req.body.code, req.body.marks, res)
 })
 
 export default app;

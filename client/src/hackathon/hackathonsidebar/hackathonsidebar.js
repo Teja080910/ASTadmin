@@ -28,10 +28,10 @@ import House from "@mui/icons-material/House";
 const queryParams = new URLSearchParams(window.location.search);
 const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
   const nav = useNavigate()
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
   return (
     <Sidebar collapsed={collapsed} id='sidebar' onMouseOver={collapsed ? toggleSidebar : null} onMouseLeave={!collapsed ? toggleSidebar : null} >
-      <Menu onClick={collapsed ? toggleSidebar : null} style={{zIndex:"100"}}>
+      <Menu onClick={collapsed ? toggleSidebar : null} style={{ zIndex: "100" }}>
         <MenuItem
           icon={<MenuOutlinedIcon />}
           onClick={toggleSidebar}
@@ -48,10 +48,10 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
         <MenuItem icon={<LightbulbIcon />} onClick={() => { select(7); queryParams.set("page", "problemstatements"); nav({ search: queryParams.toString() }) }}>Problem Statements</MenuItem>
         <MenuItem icon={<AccessTimeFilledIcon />} onClick={() => { select(8); queryParams.set("page", "timer"); nav({ search: queryParams.toString() }); }}>Timer Manager</MenuItem>
         <MenuItem icon={<Groups2OutlinedIcon />} onClick={() => { select(8); queryParams.set("page", "others"); nav({ search: queryParams.toString() }) }}>Others</MenuItem>
-        <MenuItem  icon={<CodeIcon />} onClick={() => window.location.href = '/bootcamp'}>Bootcamp</MenuItem>
+        <MenuItem icon={<CodeIcon />} onClick={() => window.location.href = '/bootcamp'}>Bootcamp</MenuItem>
       </Menu>
-      <Menu style={{ position: 'absolute', bottom: 0, color: "red",width:"100%" }}>
-            <MenuItem icon={<PowerSettingsNewIcon />} onClick={() =>{dispatch({ type: 'BOOT', payload: { bootmail:null, bootpassword:null}});window.location.reload(1000)}}>Log out</MenuItem>
+      <Menu style={{ position: 'absolute', bottom: 0, color: "red", width: "100%" }}>
+        <MenuItem icon={<PowerSettingsNewIcon />} onClick={() => { dispatch({ type: 'BOOT', payload: { bootmail: null, bootpassword: null } }); window.location.reload(1000) }}>Log out</MenuItem>
       </Menu>
     </Sidebar>
   );
@@ -76,7 +76,7 @@ export const HackathonSidebar = ({ socket }) => {
       <main
         className="main-content"
         onClick={() => collapsed || toggleSidebar()}
-      
+
       >
         {
           (set === "home" && <HackathonHome />) || 
