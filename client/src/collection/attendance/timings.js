@@ -1,43 +1,24 @@
-import { useState } from "react";
-export const Timings = async () => {
+export const Timings = () => {
     const date = new Date();
-    const time = new Date().toLocaleTimeString();
-    const [latitude, setLatitude] = useState()
-    const [longitude, setLongitude] = useState()
-    console.log(time>="5:00:00 am" && time<="8:39:51 am")
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-            setLatitude(position.coords.latitude.toFixed(2));
-            setLongitude(position.coords.longitude.toFixed(2));
-        });
+    const day = date.getDay();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    
+    let isTechTime = false;
+    const isYogaTime = (hours >= 5 && hours < 10);
+
+    // Tech timings on Saturday (1pm to 5pm) and other days (5pm to 8:50pm)
+    if (day === 6) {
+        isTechTime = (hours >= 13 && hours < 17) || (hours === 17 && minutes <= 50);
     } else {
-        console.log("Geolocation is not supported by this browser.");
+        isTechTime = (hours >= 17 && hours < 20) || (hours === 20 && minutes <= 50);
     }
-    if (((time <= "19:50:00 pm" && time >= "17:00:00 pm") || ( time <= "07:50:00 pm" &&  time >= "05:00:00 pm"))) {
-        return { tech: true }
-        // if ((latitude === "16.54" && longitude === "81.50") || (latitude === "16.55" && longitude === "81.51") || (latitude === "16.53" && longitude === "81.49")) {
-        //     return { tech: true }
-        // }
-        // else {
-        //     return {loc:true}
-        // }
-    }
-    if (date.getDay() === 6 && ((time >= "13:30:00 pm" && time <= "17:00:00 pm") || (time >= "1:30:00 pm" && time <= "5:00:00 pm"))) {
-        return { tech: true }
-        // if ((latitude === "16.54" && longitude === "81.50") || (latitude === "16.55" && longitude === "81.51") || (latitude === "16.53" && longitude === "81.49")) {
-        //     return { tech: true }
-        // }
-        // else {
-        //     return {loc:true}
-        // }
-    }
-    if (time <= "08:39:51 am" && time >= "05:00:00 am") {
-        return { yoga: true }
-    }
-    if (date.getDay() === 0 && (time <= "09:20:00 am" && time >= "05:00:00 am")) {
-        return { yoga: true }
-    }
-    // else {
-    //     return false
-    // }
-}
+
+    return new Promise((resolve, reject) => {
+        resolve({
+            tech: isTechTime,
+            yoga: isYogaTime,
+            loc: true // Setting loc to true since location check is removed
+        });
+    });
+};
