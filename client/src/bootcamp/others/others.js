@@ -1,7 +1,6 @@
 import { useToast ,Button} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Actions } from '../../actions/actions';
-import { FeedbackForm } from '../../bootcamp/others/feedbackform/feedbackform';
 import './others.css';
 
 export const Others = () => {
@@ -11,7 +10,6 @@ export const Others = () => {
   const [marksInternal, setMarksInternal] = useState('');
   const [data, setData] = useState()
   const [load, setLoad] = useState(false)
-  const [showFeedbackForm, setShowFeedbackForm] = useState(false);
 
   const toast = useToast()
 
@@ -65,9 +63,7 @@ export const Others = () => {
     Students()
   }, [])
 
-    const submitFeedback = () => {
-    setShowFeedbackForm(true); 
-  };
+
 
 
   return (
@@ -133,12 +129,6 @@ export const Others = () => {
           <button onClick={handleSaveInternal}>{load.searchRegNoInternal ? "Saving...." : "Save"}</button>
         </div>
       </div>
-      <div className='feedback-align'>
-        
-        <Button className='animate__animated animate__lightSpeedInRight feedbackform' onClick={submitFeedback} colorScheme='cyan'>Give Feedback</Button>
-        
-        {showFeedbackForm && <FeedbackForm />} 
-        </div>
     </div>
 
   );
