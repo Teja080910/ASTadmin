@@ -42,9 +42,7 @@ const FeedbackDisplay = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/feedbacks/unique-dates"
-        );
+        const response = await Actions.FeedbackInitial()
         const uniqueDatesWithLatestFeedbacks =
           response.data.uniqueDatesWithLatestFeedbacks;
         const latestTechDate = uniqueDatesWithLatestFeedbacks.tech[0]?.date;
