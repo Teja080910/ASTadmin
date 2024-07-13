@@ -28,6 +28,8 @@ export const SednOTP = ({ atnd, isOpen, onClose, data, refresh }) => {
                     onClose()
                     toast({ title: res.data?.message, status: "success", position: "top-right", isClosable: true });
                     refresh()
+                    setLoad(false)
+
                 } else {
                     toast({ title: res.data.error, status: "error", position: "bottom-right", isClosable: true });
                     setLoad(false)
