@@ -38,7 +38,6 @@ function App() {
   const password = useSelector((state) => state.user.bootpassword);
   const salt = CryptoENC
 
-  // Admin login check
   const AdminLogin = async () => {
     await axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
       .then((res) => {
@@ -50,7 +49,6 @@ function App() {
       }).catch((e) => {})
   }
 
-  // Bootcamp login check
   const BootCamp = async () => {
     await Actions.BootAdminLogin(mail, CryptoAES.decrypt(password ? password : "1234", mail ? mail : "1234").toString(salt))
       .then((res) => {
@@ -62,7 +60,6 @@ function App() {
       }).catch((e) => {})
   }
 
-  // Call all checks on component mount
   useEffect(() => {
     AdminLogin()
     BootCamp()

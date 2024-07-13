@@ -8,7 +8,7 @@ export const ConsoleSignin = async (data) => {
             return res.json({ error: 'admin not found' });
         }
         if (admin?.Password === password) {
-            return admin?.Club + admin?.Event
+            return admin
         }
     } catch (e) {
         console.error(e);

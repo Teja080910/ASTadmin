@@ -1,6 +1,6 @@
 import { db1, db2 } from "../../db.js";
 export const ConsoleAnotherRegister = async (data, res) => {
-    const { mail, password, phone, event, adminmail } = data;
+    const { mail, password, phone, adminmail } = data;
     try {
         const admin = await db2.collection('Hacthonadmin').findOne({ Gmail: adminmail });
         if (!admin) {
@@ -12,7 +12,7 @@ export const ConsoleAnotherRegister = async (data, res) => {
                 if (subadmin) {
                     return res.json({ error: 'exist admin' });
                 }
-                await db1.collection('Hacthonadmin').insertOne({ Gmail: mail, Event: event, Number: phone, Password: password, Admin: false })
+                await db2.collection('Hacthonadmin').insertOne({ Gmail: mail, Event: admin?.Event, Club: admin?.Club, Number: phone, Password: password, Admin: false })
                     .then(async (details) => {
                         if (details) {
                             await db2.collection("Hacthonadmin").findOneAndUpdate({ Gmail: adminmail }, { $set: { Admins: [...admin?.Admins, mail] } })

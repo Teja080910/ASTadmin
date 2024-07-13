@@ -7,7 +7,7 @@ import { ConsoleSignup } from "./signup"
 export const ConsoleLogin = () => {
     const [gmail, setGmail] = useState()
     const [password, setPassword] = useState()
-    const [sigup,setSignup]=useState(false)
+    const [sigup, setSignup] = useState(false)
     const toast = useToast()
     const Submit = async () => {
         await ConsoleActions.ConsoleLogin(gmail, password)
@@ -23,8 +23,8 @@ export const ConsoleLogin = () => {
     }
     return (
         <div style={{ width: '100%', justifyContent: 'space-evenly', display: 'flex' }}>
-            {sigup?<ConsoleSignup change={()=>setSignup(false)}/>
-            :<ASTConsole gmail={(value) => setGmail(value)} password={(value) => setPassword(value)} action={() => Submit()} change={()=>setSignup(true)}/>}
+            {sigup ? <ConsoleSignup change={() => setSignup(false)} />
+                : <ASTConsole gmail={(value) => setGmail(value)} password={(value) => setPassword(value)} action={() => Submit()} change={() => setSignup(true)} />}
         </div>
     )
 }

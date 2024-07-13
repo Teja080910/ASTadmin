@@ -11,6 +11,6 @@ export const ConsoleActions={
     },
 
     AnotherConsoleRegister: async (mail, password,phone,adminmail) => {
-        return await axios.post(api + "/consoleregister", { mail, password,phone,adminmail})
+        return await axios.post(api + "/anotherconsoleregister", { mail, password,phone,adminmail})
     },
 }
