@@ -1,4 +1,4 @@
-import { useToast } from '@chakra-ui/react';
+import { useToast ,Button} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Actions } from '../../actions/actions';
 import './others.css';
@@ -10,6 +10,7 @@ export const Others = () => {
   const [marksInternal, setMarksInternal] = useState('');
   const [data, setData] = useState()
   const [load, setLoad] = useState(false)
+
   const toast = useToast()
 
   const handleSaveActivities = async () => {
@@ -62,6 +63,7 @@ export const Others = () => {
   useEffect(() => {
     Students()
   }, [])
+
 
   return (
     <div className="others-container">
@@ -127,6 +129,7 @@ export const Others = () => {
         </div>
       </div>
     </div>
+
   );
 };
 

@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   justify-content: center;
   padding: 20px;
+  
 
 }
 
@@ -16,6 +17,7 @@
   margin: 20px;
   width: 300px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
 }
 
 .marks-entry h2 {
@@ -28,7 +30,7 @@
 .marks-section {
   margin-bottom: 5px;
   width: 100%;
-
+  
 }
 
 .search-section input,
@@ -39,6 +41,8 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
+  background-color: white;
+  
 
 }
 
@@ -85,9 +89,6 @@
     padding: 8px;
   }
 }
-
-
-
 
 
 .search-results {

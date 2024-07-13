@@ -17,7 +17,6 @@ import { RegisterForm } from './bootcamp/Register/register.js';
 import { BootcampSidebar } from './bootcamp/bootcampsidebar/bootcampsidebar.js';
 import { LoginForm } from './bootcamp/login/login.js';
 import { Attendance } from './collection/attendance/attendance.js';
-import { Timings } from './collection/attendance/timings.js';
 import { Face } from './collection/face/face.js';
 import { Home } from './collection/home/homes.js';
 import { Send } from './collection/project/send.js';
@@ -30,21 +29,16 @@ import { socket } from './socket.js';
 import EnhancedNetworkChecker from './NetworkChecker.js';
 import { ConsoleLogin } from './ast-console/sigin.js';
 
-
-
 function App() {
-
   const [set, setSet] = useState(false)
   const [boot, setBoot] = useState(false)
   const [bootload, setBootload] = useState(false)
   const [load, setLoad] = useState(false)
-  const [time, setTime] = useState()
   const mail = useSelector((state) => state.user.bootmail);
-  // document.title = "HOME | AST ADMIN"
-
   const password = useSelector((state) => state.user.bootpassword);
   const salt = CryptoENC
-  
+
+  // Admin login check
   const AdminLogin = async () => {
     await axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
       .then((res) => {
@@ -53,9 +47,10 @@ function App() {
           setLoad(true)
         }
         setLoad(true)
-      }).catch((e) =>{})
+      }).catch((e) => {})
   }
 
+  // Bootcamp login check
   const BootCamp = async () => {
     await Actions.BootAdminLogin(mail, CryptoAES.decrypt(password ? password : "1234", mail ? mail : "1234").toString(salt))
       .then((res) => {
@@ -67,54 +62,50 @@ function App() {
       }).catch((e) => {})
   }
 
-  const Timing = async() => {
-    await Timings().then((res) => {setTime(res);console.log(res)}).catch((e) => {console.log(e)})
-  }
-
+  // Call all checks on component mount
   useEffect(() => {
     AdminLogin()
     BootCamp()
-    Timing()
-  }, [set, boot, time])
+  }, [set, boot])
+
   return (
     <>
-      {
-        <>
-        <EnhancedNetworkChecker/>
-          <BrowserRouter>
-            <Routes>
-              {
-                load && <>
-                  <Route path='/' element={<Home />} />
-                  <Route path="/adminlogin" element={<Admin />} />
-                  <Route path='adminregister' element={<Adminreg />} />
-                  <Route path="/register" element={<Signup />} />
-                  <Route path='/addproject' element={<Addproject />} />
-                  <Route path='/projects' element={<Projects />} />
-                  <Route path='/scrummaster' element={<Scrum />} />
-                  <Route path='/pro' element={<Pro />} />
-                  <Route path='/chatwithme' element={<Send />} />
-                  <Route path='/face' element={<Face />} />
-                  <Route path='sample' element={<Sample />} />
-                  <Route path='/redux' element={<Appstore />} />
-                  <Route path='/bootcampregister' element={<RegisterForm />} />
-                  <Route path='/bootcamplogin' element={<LoginForm />} />
-                  <Route path="/attendance" element={set ? <Attendance /> : <Admin />} />
-                  <Route path='/tech' element={set?!time?.tech? <Login /> : <Attendance />:<Admin/>} />
-                  <Route path='/yoga' element={set?time?.yoga  ? <Yoga /> : <Attendance />:<Admin/>} />
-                  <Route path='/console' element={<ConsoleLogin/>}/>
-                </>
-              }
-              {bootload && <>
-                <Route path='/bootcamp' element={boot ? <BootcampSidebar /> : <LoginForm />} />
-                <Route path='/hackathon' element={boot ? <HackathonSidebar socket={socket} /> : <LoginForm />} />
-                <Route path='/hackathon/timer' element={boot ? <Timer socket={socket} /> : <LoginForm />} />
-              </>}
-            </Routes>
-          </BrowserRouter>
-        </>
-      }
+      <EnhancedNetworkChecker/>
+      <BrowserRouter>
+        <Routes>
+          {load && (
+            <>
+              <Route path='/' element={<Home />} />
+              <Route path="/adminlogin" element={<Admin />} />
+              <Route path='adminregister' element={<Adminreg />} />
+              <Route path="/register" element={<Signup />} />
+              <Route path='/addproject' element={<Addproject />} />
+              <Route path='/projects' element={<Projects />} />
+              <Route path='/scrummaster' element={<Scrum />} />
+              <Route path='/pro' element={<Pro />} />
+              <Route path='/chatwithme' element={<Send />} />
+              <Route path='/face' element={<Face />} />
+              <Route path='sample' element={<Sample />} />
+              <Route path='/redux' element={<Appstore />} />
+              <Route path='/bootcampregister' element={<RegisterForm />} />
+              <Route path='/bootcamplogin' element={<LoginForm />} />
+              <Route path="/attendance" element={set ? <Attendance /> : <Admin />} />
+              <Route path='/tech' element={set ? <Login /> : <Admin />} />
+              <Route path='/yoga' element={set ? <Yoga /> : <Admin />} />
+              <Route path='/console' element={<ConsoleLogin/>}/>
+            </>
+          )}
+          {bootload && (
+            <>
+              <Route path='/bootcamp' element={boot ? <BootcampSidebar /> : <LoginForm />} />
+              <Route path='/hackathon' element={boot ? <HackathonSidebar socket={socket} /> : <LoginForm />} />
+              <Route path='/hackathon/timer' element={boot ? <Timer socket={socket} /> : <LoginForm />} />
+            </>
+          )}
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
+
 export default App;
