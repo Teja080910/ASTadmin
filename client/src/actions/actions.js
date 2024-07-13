@@ -61,6 +61,13 @@ export const Actions = {
     ActivityMarks: async (user, marks) => {
         return await axios.post(api + "/activitymarks", { user, marks })
     },
+    FeedbackOnDateByType: async (date, type) => {
+        return await axios.post(`http://localhost:8000/feedbacks`,{date, type})
+    },
+
+
+
+
 
     // *********************************************** Hackathon data ***************************************** //
 

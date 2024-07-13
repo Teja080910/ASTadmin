@@ -31,6 +31,7 @@ import { EndHackathon } from './start&stop/hackathonend.js';
 import { AllTeamRegistrers } from './teamregistrers/allregistrers.js';
 import { CreateRegistrer, DeleteRegistrer, UpdateRegistrerStatus } from './teamregistrers/registrersactions.js';
 import { HackActivityMarks, HackInternalMarks } from './others/others.js';
+import { GetFeedbacks, GetUniqueDatesAndLatestFeedbacks } from '../bootcamp/feedbacks/feedback.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -148,6 +149,10 @@ app.post('/internalmarks', async (req, res) => {
 app.post('/activitymarks', async (req, res) => {
     await ActivityMarks(req.body.user, req.body.marks, res)
 })
+
+app.post('/feedbacks', GetFeedbacks);
+app.get('/feedbacks/unique-dates', GetUniqueDatesAndLatestFeedbacks);
+
 
 
 // *************************************************Hackathon****************************************** //
