@@ -65,7 +65,7 @@ export const Actions = {
         return await axios.post(api+`/feedbacks`,{date, type})
     },
     FeedbackInitial: async () => {
-        return await axios.post(api+`/feedbacks/unique-dates`)
+        return await axios.get(api+`/feedbacks/unique-dates`)
     },
 
 
