@@ -27,7 +27,7 @@ export const DeleteRound = async (code, roundno, task, desc, res) => {
         if (round?.Team) {
             const updateround = await db1.collection("Teams").findOneAndUpdate({ TeamCode: parseInt(code) }, { $unset: { [`Rounds.${roundno}`]: { Task: task, Desc: desc } } })
             if (updateround?.value?._id) {
-                res.json({ message: "round deleted", data: updateround })
+                res.json({ message: "round deleted"})
             } else {
                 res.json({ error: "deleted failed" })
             }

@@ -2,6 +2,7 @@ import { useToast ,Button} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Actions } from '../../actions/actions';
 import './others.css';
+import FeedbackDisplay from './feedbackDisplayer';
 
 export const Others = () => {
   const [searchRegNoActivities, setActivities] = useState();
@@ -67,6 +68,9 @@ export const Others = () => {
 
 
   return (
+    <div>
+
+   
     <div className="others-container">
       <div className="marks-entry">
         <h2>Activities</h2>
@@ -129,6 +133,10 @@ export const Others = () => {
           <button onClick={handleSaveInternal}>{load.searchRegNoInternal ? "Saving...." : "Save"}</button>
         </div>
       </div>
+
+    </div>
+    <FeedbackDisplay/>
+
     </div>
 
   );
