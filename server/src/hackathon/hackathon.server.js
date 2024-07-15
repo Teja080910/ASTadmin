@@ -32,6 +32,8 @@ import { AllTeamRegistrers } from './teamregistrers/allregistrers.js';
 import { CreateRegistrer, DeleteRegistrer, UpdateRegistrerStatus } from './teamregistrers/registrersactions.js';
 import { HackActivityMarks, HackInternalMarks } from './others/others.js';
 import { GetFeedbacks, GetUniqueDatesAndLatestFeedbacks } from '../bootcamp/feedbacks/feedback.js';
+import { UpdateTeam } from './teamcodes/updateteam.js';
+import { Resend } from 'resend';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -39,6 +41,7 @@ app.use(express.json())
 app.get('/hackathon', (req, res) => {
     res.json("hackathon server is running.....");
 })
+const resend = new Resend(process.env.Resend_Key || "anil reddy");
 
 app.post('/bootcampadminlogin', async (req, res) => {
     await AdminLogin(req.body, res)
@@ -180,7 +183,10 @@ app.post('/teamsinput', async (req, res) => {
 app.post('/deleteteam', async (req, res) => {
     await DeleteTeam(req.body.teams, res)
 })
-
+app.post('/updateteam/:team/:gmail/:phone/:code/:members', async (req, res) => {
+  
+    await UpdateTeam(req, res,resend);
+})
 app.post('/teamscodes', async (req, res) => {
     await AllTeamCodes(res)
 })
