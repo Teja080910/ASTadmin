@@ -25,7 +25,7 @@ export const CodesCard = () => {
         <div className='codescard'>
             <Card width={'50%'}>
                 <CardHeader>
-                    <Heading size='sm'>Add Team Codes</Heading>
+                    <Heading size='sm'>To Add Team Codes (Enter no. of teams)</Heading>
                 </CardHeader>
                 <CardBody >
                     <Input size='md' id='codesinput' value={size} type='number' placeholder='Enter Number Of Teams' onChange={(e)=>setSize(e.target.value)}/>
