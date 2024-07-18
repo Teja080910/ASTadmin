@@ -1,11 +1,11 @@
 import { db2 } from "../../db.js";
 
 export const ConsoleSignin = async (data) => {
-    const { mail, password } = data;
+    const { mail, password } = data.body;
     try {
         const admin = await db2.collection('Hacthonadmin').findOne({ Gmail: mail });
         if (!admin) {
-            return res.json({ error: 'admin not found' });
+            return{ error: 'admin not found' };
         }
         if (admin?.Password === password) {
             return admin
