@@ -191,10 +191,12 @@ app.post('/teamsinput', async (req, res) => {
 app.post('/deleteteam', async (req, res) => {
     await DeleteTeam(req.body.teams, res)
 })
+
 app.post('/updateteam/:team/:gmail/:phone/:code/:members', async (req, res) => {
 
     await UpdateTeam(req, res, resend);
 })
+
 app.post('/teamscodes', async (req, res) => {
     await AllTeamCodes(res)
 })

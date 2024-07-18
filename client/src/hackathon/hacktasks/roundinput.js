@@ -160,8 +160,8 @@ export const RoundInput = ({ tasks, reload }) => {
           size="lg"
         >
           {tasks?.map((team) => (
-            <option key={team.TeamCode} value={team.TeamCode}>
-              {team.TeamCode}
+            <option key={team?.TeamCode} value={team?.TeamCode}>
+              {team?.TeamCode}
             </option>
           ))}
         </Select>

@@ -10,22 +10,17 @@ export const HackathonTeam = () => {
 
     const fetchData = async () => {
         await Actions.TeamsCodes()
-        .then((res)=>setDat(res?.data))
-        .catch((e)=>console.log(e))
+            .then((res) => setDat(res?.data))
+            .catch((e) => console.log(e))
     };
 
     useEffect(() => {
         fetchData();
     }, []);
 
- 
-
     return (
         <>
-          
-
-            <Teams data={dat} refresh={()=>fetchData()}/>
-
+            <Teams data={dat} refresh={() => fetchData()} />
             <CodesCard />
         </>
     );
