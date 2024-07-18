@@ -61,9 +61,21 @@ export const Actions = {
     ActivityMarks: async (user, marks) => {
         return await axios.post(api + "/activitymarks", { user, marks })
     },
+    FeedbackOnDateByType: async (date, type) => {
+        return await axios.post(api+`/feedbacks`,{date, type})
+    },
+    FeedbackInitial: async () => {
+        return await axios.get(api+`/feedbacks/unique-dates`)
+    },
+
+
+
 
     // *********************************************** Hackathon data ***************************************** //
 
+    UpdateTeam: async (team, gmail, phone, code, members) => {
+        return await axios.post(api + "/updateteam/" + team + "/" + gmail + "/" + phone + "/" + code + "/" + members )
+    }, 
     TeamsCodes: async () => {
         return await axios.post(api + "/teamscodes")
     },

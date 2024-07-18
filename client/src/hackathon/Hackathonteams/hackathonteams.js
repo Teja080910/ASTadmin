@@ -7,7 +7,6 @@ import { Teams } from "./teams";
 
 export const HackathonTeam = () => {
     const [dat, setDat] = useState([]);
-    const [select, setSelect] = useState("");
 
     const fetchData = async () => {
         await Actions.TeamsCodes()
@@ -23,9 +22,7 @@ export const HackathonTeam = () => {
 
     return (
         <>
-            <Box display="flex" justifyContent="center" mb={6}>
-                <Input id="search" value={select} placeholder="Enter Team Number (e.g., team1)" onChange={(e) => setSelect(e.target.value)} width="70%" />
-            </Box>
+          
 
             <Teams data={dat} refresh={()=>fetchData()}/>
 

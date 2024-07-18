@@ -21,7 +21,7 @@ import { Actions } from '../../actions/actions';
 
 const defaultTheme = createTheme();
 
-export const LoginForm = () => {
+export const  LoginForm = () => {
   const [mail, setMail] = useState()
   const dispatch = useDispatch()
   const toast = useToast()
