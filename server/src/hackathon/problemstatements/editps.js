@@ -2,6 +2,7 @@ import { db1 } from "../../db.js"
 
 export const EditPS = async (number, statement, desc,theme,res) => {
     try {
+        await db1.collection("Teams").findOneAndUpdate({"PS.Number":number }, { $set: { PS: { Statement: statement, Number: number, Desc: desc } } })
         const editps = await db1.collection("ProblemStatements").findOneAndUpdate({ Number: number }, { $set: { Statement: statement,Desc:desc,Theme:theme} })
         if (editps?.value?.Statement) {
             res.json(editps)

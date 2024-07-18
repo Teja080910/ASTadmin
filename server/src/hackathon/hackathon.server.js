@@ -22,7 +22,7 @@ import { initiateMulter } from '../multer/multer.js';
 import { DeleteRound, InsertRound, RoundMarks } from './hacktasks/addround.js';
 import { DeletePS } from './problemstatements/deleteps.js';
 import { EditPS } from './problemstatements/editps.js';
-import { InsertPS } from './problemstatements/insertps.js';
+import { InsertPS, PSSC, PssCount } from './problemstatements/insertps.js';
 import { PSS } from './problemstatements/pss.js';
 import { AllTeamCodes } from './teamcodes/allteamcodes.js';
 import { AddTeamCodes, DeleteTeam } from './teamcodes/teamcodes.js';
@@ -168,6 +168,14 @@ app.post('/editstatement', async (req, res) => {
     await EditPS(req.body.selectnumber, req.body.selectstatement, req.body.selectdesc, req.body.theme, res)
 })
 
+app.post('/psscount', async (req, res) => {
+    await PssCount(req.body.count, res)
+})
+
+app.post('/pssc', async (req, res) => {
+    await PSSC(res)
+})
+
 app.post('/deletestatement', async (req, res) => {
     await DeletePS(req.body.selectstatement, res)
 })
@@ -184,8 +192,8 @@ app.post('/deleteteam', async (req, res) => {
     await DeleteTeam(req.body.teams, res)
 })
 app.post('/updateteam/:team/:gmail/:phone/:code/:members', async (req, res) => {
-  
-    await UpdateTeam(req, res,resend);
+
+    await UpdateTeam(req, res, resend);
 })
 app.post('/teamscodes', async (req, res) => {
     await AllTeamCodes(res)

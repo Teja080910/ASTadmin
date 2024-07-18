@@ -2,6 +2,7 @@ import { Box, Button, Input, Select, Stack, Text, Textarea, useToast } from '@ch
 import axios from 'axios';
 import React, { useState, useRef } from 'react';
 import './ps.css';
+import { CountProblemStatement } from './psscount';
 
 export const PSInput = ({ tasks, reload }) => {
     const [number, setNumber] = useState('');
@@ -10,6 +11,7 @@ export const PSInput = ({ tasks, reload }) => {
     const [update, setUpdate] = useState(false);
     const [load, setLoad] = useState(false);
     const toast = useToast();
+    const [show, setShow] = useState(true)
 
     const numberRef = useRef(null);
     const statementRef = useRef(null);
@@ -32,9 +34,9 @@ export const PSInput = ({ tasks, reload }) => {
                     setLoad(false);
                     reload();
                     toast({ title: response?.data?.error, status: "error", position: "bottom-right", isClosable: true });
-                    setNumber('');
-                    setStatement('');
-                    setDescription('');
+                    // setNumber('');
+                    // setStatement('');
+                    // setDescription('');
                 }
             } catch (error) {
                 setLoad(false);
@@ -96,6 +98,7 @@ export const PSInput = ({ tasks, reload }) => {
 
     return (
         <div className="task-form">
+            <CountProblemStatement show={show} hide={() => setShow(show ? false : true)} />
             <Stack spacing={4} p={4}>
                 <Select onChange={(e) => sessionStorage.theme = e.target.value}>
                     <option>Choose Theme</option>
@@ -119,7 +122,7 @@ export const PSInput = ({ tasks, reload }) => {
                 <div className='task-box'>
                     <h1 className='h1-tasks'>Problem Statements</h1>
                     {tasks?.map((task, index) => (
-                        <Box key={index} className='task-item' p={4} borderWidth={1} borderRadius="lg" mb={4}>
+                        task?.Number && <Box key={index} className='task-item' p={4} borderWidth={1} borderRadius="lg" mb={4}>
                             <Text fontWeight="bold" textAlign="center">Problem Statement {task?.Number}</Text>
                             <Text className='task-title'>Title : {task?.Statement}</Text>
                             <Text className='task-description'>Description : {task?.Desc}</Text>
