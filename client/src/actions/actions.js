@@ -75,9 +75,18 @@ export const Actions = {
 
     UpdateTeam: async (team, gmail, phone, code, members) => {
         return await axios.post(api + "/updateteam/" + team + "/" + gmail + "/" + phone + "/" + code + "/" + members )
-    }, 
+    },
+
     TeamsCodes: async () => {
         return await axios.post(api + "/teamscodes")
+    },
+
+    PSSC: async () => {
+        return await axios.post(api + "/pssc")
+    },
+
+    PssCount: async (count) => {
+        return await axios.post(api + "/psscount",{count})
     },
 
     TeamRegistrers: async () => {
