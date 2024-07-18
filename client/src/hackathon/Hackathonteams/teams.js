@@ -27,7 +27,7 @@ export const Teams = ({ data, refresh }) => {
 
     useEffect(() => {
         const handleKeyDown = (event) => {
-            
+
             if (event.shiftKey && event.key.toLowerCase() === 'f') {
                 event.preventDefault();
                 searchInputRef.current.focus();
@@ -63,9 +63,9 @@ export const Teams = ({ data, refresh }) => {
         setSelectedTeam(null);
     };
 
-    const filteredData = data.filter((team) => 
-        team.TeamCode.toString().includes(search) || 
-        (team.Team && team.Team.toLowerCase().includes(search.toLowerCase())) || 
+    const filteredData = data.filter((team) =>
+        team.TeamCode.toString().includes(search) ||
+        (team.Team && team.Team.toLowerCase().includes(search.toLowerCase())) ||
         (Array.isArray(team.Members) && team.Members.some(member => member.toLowerCase().includes(search.toLowerCase())))
     );
 
@@ -97,12 +97,12 @@ export const Teams = ({ data, refresh }) => {
                                 <Tr key={team.TeamCode}>
                                     <Td>{team.TeamCode}</Td>
                                     <Td>{team?.Team}</Td>
-                                    <Td>{Array.isArray(team?.Members) ? team?.Members?.length - team.Members.join(", ") : "No members"}</Td>
+                                    <Td>{(team?.Members)?.length}</Td>
                                     <Td>
                                         {team?.Team && (
-                                            <div style={{display:"flex",gap:"5px", alignItems:"stretch"}}>
+                                            <div style={{ display: "flex", gap: "5px", alignItems: "stretch" }}>
                                                 <Button colorScheme='blue' onClick={() => handleUpdateOpen(team)} size="sm"><EditIcon /></Button>
-                                                <Button bg={'red'} color={'white'} onClick={() => Delete(team?.TeamCode)} size="sm"><DeleteIcon/></Button>
+                                                <Button bg={'red'} color={'white'} onClick={() => Delete(team?.TeamCode)} size="sm"><DeleteIcon /></Button>
                                             </div>
                                         )}
                                     </Td>

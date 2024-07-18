@@ -2,29 +2,20 @@ import { Actions } from "../../actions/actions"
 
 export const Modules = {
     data: async () => {
-        return await Actions.Students()
+        return await Actions.TeamsCodes()
             .then((res) => { return (res?.data) })
             .catch((e) => console.log(e))
     },
 
-    Attendance: async () => {
-        const data = await Modules.data()
-        const filterData = data?.filter(student => student?.AttendDays !== undefined)
-        const sortData = filterData?.sort((a, b) => b?.AttendDays - a?.AttendDays)
-        return sortData
-    },
-
     Score: async () => {
         const data = await Modules.data();
-        const filterData = data?.filter(student => student?.Tasks);
+        const filterData = data?.filter(student => student?.Rounds);
         const marks = filterData?.map(student => {
             let totalMarks = 0;
-            Object.values(student?.Tasks)?.forEach(tasks => {
-                Object.values(tasks)?.forEach(task => {
-                    totalMarks += parseInt(task?.GetMarks || 0);
-                });
+            Object.values(student?.Rounds)?.forEach(tasks => {
+                totalMarks += parseInt(tasks?.Marks || 0);
             });
-            return { Name: student?.Name, Marks: totalMarks };
+            return { Name: student?.Team, Code: student?.TeamCode, Marks: totalMarks };
         });
         return marks.sort((a, b) => b.Marks - a.Marks);
     },
@@ -34,28 +25,26 @@ export const Modules = {
         const marks = data?.map(student => {
             let totalMarks = 0;
             let total = 0;
-            student?.Tasks && Object.values(student?.Tasks)?.forEach(tasks => {
-                Object.values(tasks)?.forEach(task => {
-                    totalMarks += parseInt(task?.GetMarks || 0);
-                });
+            student?.Tasks && Object.values(student?.Rounds)?.forEach(tasks => {
+                totalMarks += parseInt(tasks?.Marks || 0);
             });
-            total = parseInt(totalMarks) + parseInt(student?.AttendDays || 0) + parseInt(student?.ActivityMarks || 0) + parseInt(student?.InternalMarks || 0)
-            return { Name: student?.Name, Total: total };
+            total = parseInt(totalMarks) + parseInt(student?.HackActivityMarks || 0) + parseInt(student?.HackInternalMarks || 0)
+            return { Name: student?.Team, Code: student?.TeamCode, Total: total };
         });
         return marks.sort((a, b) => b.Total - a.Total);
     },
 
     Internals: async () => {
         const data = await Modules.data()
-        const filterData = data?.filter(student => student?.InternalMarks !== undefined)
-        const sortData = filterData?.sort((a, b) => b?.InternalMarks - a?.InternalMarks)
+        const filterData = data?.filter(student => student?.HackInternalMarks !== undefined)
+        const sortData = filterData?.sort((a, b) => b?.HackInternalMarks - a?.HackInternalMarks)
         return sortData
     },
 
     Activities: async () => {
         const data = await Modules.data()
-        const filterData = data?.filter(student => student?.ActivityMarks !== undefined)
-        const sortData = filterData?.sort((a, b) => b?.ActivityMarks - a?.ActivityMarks)
+        const filterData = data?.filter(student => student?.HackActivityMarks !== undefined)
+        const sortData = filterData?.sort((a, b) => b?.HackActivityMarks - a?.HackActivityMarks)
         return sortData
     }
 }
