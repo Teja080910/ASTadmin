@@ -1,6 +1,6 @@
-import { Box, Button, Input, Select, Stack, Text, useToast } from '@chakra-ui/react';
+import { Box, Button, Input, Select, Stack, Text, Textarea, useToast } from '@chakra-ui/react';
 import axios from 'axios';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import './ps.css';
 
 export const PSInput = ({ tasks, reload }) => {
@@ -96,7 +96,7 @@ export const PSInput = ({ tasks, reload }) => {
 
     return (
         <div className="task-form">
-            <Stack spacing={4}>
+            <Stack spacing={4} p={4}>
                 <Select onChange={(e) => sessionStorage.theme = e.target.value}>
                     <option>Choose Theme</option>
                     <option value="yoga">Yoga and Health</option>
@@ -104,7 +104,7 @@ export const PSInput = ({ tasks, reload }) => {
                 </Select>
                 <Input ref={numberRef} placeholder="Enter Statement Number" value={number} onChange={(e) => { setNumber(e.target.value) }} size="lg" type='number' />
                 <Input ref={statementRef} placeholder="Enter Statement" value={statement} onChange={(e) => setStatement(e.target.value)} size="lg" />
-                <Input
+                <Textarea
                     ref={descriptionRef}
                     placeholder="Enter description"
                     value={description}
