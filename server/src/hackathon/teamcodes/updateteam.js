@@ -11,19 +11,16 @@ export const UpdateTeam = async (req, res, resend) => {
       return res.json({ error: "Team not found" });
     }
 
-    const memberDetailsArray = members.split(',').map(detail => detail.trim());
-
-    // Validate new member details against Hackathondata
+    const memberDetailsArray = members.split(',').map(detail => detail.trim().toUpperCase());
     const students = await db1.collection("Hackathondata").find({
       Reg_No: { 
         $in: memberDetailsArray.map(regNo => new RegExp(`^${regNo}$`, 'i')) 
       }
     }).toArray();
-
     if (students.length !== memberDetailsArray.length) {
-      const existingMembers = students.map(student => student.Reg_No);
+      const existingMembers = students.map(student => student.Reg_No.toUpperCase());
       const missingMembers = memberDetailsArray.filter(member => !existingMembers.includes(member));
-      return res.json({ error: "One or more registration numbers are invalid or not found in Hackathon Registrations", matchingNumbers: missingMembers });
+      return res.json({ error: "One or more registration numbers are invalid or not found in Hackathon Registrations", missingNumbers: missingMembers });
     }
 
     // Check for existing members in other teams
