@@ -28,9 +28,7 @@ export const StartAndStop = ({ timer, start, stop, setEventTime, deleteTimer,set
     await Actions.Stop()
       .then((res) => {
         if (res?.data?.message) {
-          console.log("set animation");
           stop();
-          
           deleteTimer(timers.filter((timer)=>(timer.title ==="hackathon")[0].id)); 
         } else {
           toast({ title: res?.data?.error, position: 'bottom-right', status: 'error', isClosable: true });
