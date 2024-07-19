@@ -60,11 +60,15 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com", socket })
         endTime: newEndTimeISOString,
         timerColor: color,
       });
-      setTimers([...timers, response.data.timer]);
       setTimerTitle("");
       setDuration("");
       if (response.data.message === "Timer created") {
         toast({ title: response.data.message, status: "success", position: "top", isClosable: true });
+        setTimers([...timers, response.data.timer]);
+
+      }else {
+        toast({ title: response.data.message, status: "error", position: "top-right", isClosable: true });
+
       }
     } catch (error) {
       toast({ title: error.message, status: "error", position: "top", isClosable: true });
@@ -145,13 +149,13 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com", socket })
         <div className="timers">
           <Text fontSize='3xl' noOfLines={1}>Existing Timers</Text>
           <ul>
-            {timers.length > 0 ? timers.map((timer) => (
-              <li key={timer.id}>
+            {timers.length > 0 ? timers?.map((timer) => (
+              <li key={timer?.id}>
                 <div>
-                  <p>{timer.title} - {new Date(timer.endTime).toLocaleString()}</p>
+                  <p>{timer?.title} - {new Date(timer?.endTime).toLocaleString()}</p>
                 </div>
                 <div>
-                  <Button onClick={() => deleteTimer(timer.id)}><DeleteForeverIcon /></Button>
+                  <Button onClick={() => deleteTimer(timer?.id)}><DeleteForeverIcon /></Button>
                 </div>
               </li>
             )) : <li>no timers found</li>}

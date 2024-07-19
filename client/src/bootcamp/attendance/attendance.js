@@ -16,7 +16,7 @@ import './attendance.css';
 
 export const BootAttendance = () => {
     const [dat, sdat] = useState([]);
-    const [select, sselect] = useState('');
+    const [select, sselect] = useState("");
     const [year, syear] = useState(sessionStorage.year||1);
     const [isLoading, setIsLoading] = useState(true);
     const date = new Date();
@@ -57,6 +57,7 @@ export const BootAttendance = () => {
 
     const Year = () => {
         sessionStorage.year = year;
+        syear()
     }
 
     const fetchData = async () => {
@@ -64,9 +65,10 @@ export const BootAttendance = () => {
             .then((result) => {
                 sdat(result.data.sort((a, b) => a.Year - b.Year));
             })
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
+            .then(
+                setIsLoading(false)
+            )
+     
     }
 
     useEffect(() => {
@@ -93,13 +95,16 @@ export const BootAttendance = () => {
             document.removeEventListener('keydown', handleKeyPress);
         };
     }, []);
+    useEffect(()=>{
+        fetchData();
+    },[])
 
     const filteredData = dat.filter(user => 
         (user?.Reg_No?.toLowerCase().includes(select) ||
         user?.Reg_No?.toUpperCase().includes(select) ||
         user?.Name?.toUpperCase().includes(select) ||
         user?.Name?.toLowerCase().includes(select)) &&
-        (user?.Year && (user?.Year[0])) == sessionStorage.year
+       ( (user?.Year && (user?.Year[0])) === sessionStorage.year)
     );
 
     return (
@@ -126,12 +131,15 @@ export const BootAttendance = () => {
                 <table className="studetail">
                     {
                         isLoading ?
+                        <tr>
+
+                       
                             <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
                                 <Spinner size="xl" />
-                            </Box> :
+                            </Box>  </tr>:
                             <Accordion allowToggle>
                                 {filteredData.length > 0 ? filteredData.map((x, index) => (
-                                    <AccordionItem key={index} style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                                    <AccordionItem key={index} style={{ display: 'flex', justifyContent: 'space-evenly' }} p={1} >
                                         <Box style={{ fontFamily: 'bold' }} flex="1" textAlign="left">
                                             {index + 1}. {x?.Name.toUpperCase()} ({x?.Reg_No.toUpperCase()})
                                         </Box>
@@ -141,11 +149,11 @@ export const BootAttendance = () => {
                                         }
                                     </AccordionItem>
                                 )) : (
-                                    <Box textAlign="center" width="100%">
+                                    <tr textAlign="center" width="100%">
                                         <Text>
                                             No data matches your current Search <Badge>{select}</Badge> or the selected Year <Badge>{year} B.Tech</Badge>
                                         </Text>
-                                    </Box>
+                                    </tr>
                                 )}
                             </Accordion>
                     }
