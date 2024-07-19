@@ -97,7 +97,7 @@ export const Teams = ({ data, refresh }) => {
                                 <Tr key={team.TeamCode}>
                                     <Td>{team.TeamCode}</Td>
                                     <Td>{team?.Team}</Td>
-                                    <Td>{(team?.Members)?.length}</Td>
+                                    <Td>{(team?.Members)?.length }-{(team?.Members)?.join(" | ")}</Td>
                                     <Td>
                                         {team?.Team && (
                                             <div style={{ display: "flex", gap: "5px", alignItems: "stretch" }}>
