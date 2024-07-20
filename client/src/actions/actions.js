@@ -1,6 +1,12 @@
 import axios from "axios"
-import { api } from "./api"
+import { api, face_api } from "./api"
 export const Actions = {
+
+    FaceVerify: async (regd, photo) => {
+        return await axios.post(face_api + "/face", { regd, photo })
+    },
+
+    // **********************************************************Bootcamp data************************************************ //
 
     Students: async () => {
         return await axios.post(api + "/bootcampstudents")
@@ -62,10 +68,10 @@ export const Actions = {
         return await axios.post(api + "/activitymarks", { user, marks })
     },
     FeedbackOnDateByType: async (date, type) => {
-        return await axios.post(api+`/feedbacks`,{date, type})
+        return await axios.post(api + `/feedbacks`, { date, type })
     },
     FeedbackInitial: async () => {
-        return await axios.get(api+`/feedbacks/unique-dates`)
+        return await axios.get(api + `/feedbacks/unique-dates`)
     },
 
 
@@ -74,7 +80,7 @@ export const Actions = {
     // *********************************************** Hackathon data ***************************************** //
 
     UpdateTeam: async (team, gmail, phone, code, members) => {
-        return await axios.post(api + "/updateteam/" + team + "/" + gmail + "/" + phone + "/" + code + "/" + members )
+        return await axios.post(api + "/updateteam/" + team + "/" + gmail + "/" + phone + "/" + code + "/" + members)
     },
 
     TeamsCodes: async () => {
@@ -86,7 +92,7 @@ export const Actions = {
     },
 
     PssCount: async (count) => {
-        return await axios.post(api + "/psscount",{count})
+        return await axios.post(api + "/psscount", { count })
     },
 
     TeamRegistrers: async () => {
@@ -100,7 +106,7 @@ export const Actions = {
     DeleteRegistrer: async (id) => {
         return await axios.delete(api + `/deleteregistrer/${id}`);
     },
-    
+
     UpdateRegistrerStatus: async (id, status) => {
         return await axios.put(api + `/updateregistrerstatus/${id}`, { status });
     },
