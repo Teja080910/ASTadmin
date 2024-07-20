@@ -34,6 +34,8 @@ import { HackActivityMarks, HackInternalMarks } from './others/others.js';
 import { GetFeedbacks, GetUniqueDatesAndLatestFeedbacks } from '../bootcamp/feedbacks/feedback.js';
 import { UpdateTeam } from './teamcodes/updateteam.js';
 import { Resend } from 'resend';
+import { AllTechTeamMembers } from './techteam/alltechmembers.js';
+import { CreateTechTeamMember, DeleteTechTeamMember, UpdateTechTeamMemberStatus, UpdateTechTeamMemberSubject } from './techteam/alltechmemberactions.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -215,6 +217,25 @@ app.delete('/deleteregistrer/:id', async (req, res) => {
 
 app.put('/updateregistrerstatus/:id', async (req, res) => {
     await UpdateRegistrerStatus(req, res);
+});
+
+app.post('/teammembers', async (req, res) => {
+    await AllTechTeamMembers(res);
+});
+
+app.post('/createtechteammember', async (req, res) => {
+    await CreateTechTeamMember(req, res);
+});
+
+app.delete('/deletetechteammember/:id', async (req, res) => {
+    await DeleteTechTeamMember(req, res);
+});
+
+app.put('/updatetechteammemberstatus/:id', async (req, res) => {
+    await UpdateTechTeamMemberStatus(req, res);
+});
+app.put('/updatetechteammembersubject/:id', async (req, res) => {
+    await UpdateTechTeamMemberSubject(req, res);
 });
 
 app.post('/insertround', async (req, res) => {

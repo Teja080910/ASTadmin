@@ -20,10 +20,11 @@ import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { Others } from "../hackathonothers/others";
 import { HackathonHome } from "../hackathonhome/hackathonhome";
-
+import Diversity2Icon from '@mui/icons-material/Diversity2';
 import { useDispatch } from "react-redux";
 import HackathonTeamRegistrer from "../Hackathonteams/hackathonteamregister";
 import House from "@mui/icons-material/House";
+import HackathonTechTeam from "../techteam/techteam";
 
 const queryParams = new URLSearchParams(window.location.search);
 const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
@@ -45,6 +46,7 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
         <MenuItem icon={<ScoreIcon />} onClick={() => { select(5); queryParams.set("page", "score"); nav({ search: queryParams.toString() }) }}>Score</MenuItem>
         <MenuItem icon={<AssignmentIcon />} onClick={() => { select(6); queryParams.set("page", "tasks"); nav({ search: queryParams.toString() }) }}>Tasks</MenuItem>
         <MenuItem icon={<AccessibilityIcon />} onClick={() => { select(6); queryParams.set("page", "htrs"); nav({ search: queryParams.toString() }) }}>Htrs</MenuItem>
+        <MenuItem icon={<Diversity2Icon />} onClick={() => { select(6); queryParams.set("page", "techteam"); nav({ search: queryParams.toString() }) }}>Tech Team</MenuItem>
         <MenuItem icon={<LightbulbIcon />} onClick={() => { select(7); queryParams.set("page", "problemstatements"); nav({ search: queryParams.toString() }) }}>Problem Statements</MenuItem>
         <MenuItem icon={<AccessTimeFilledIcon />} onClick={() => { select(8); queryParams.set("page", "timer"); nav({ search: queryParams.toString() }); }}>Timer Manager</MenuItem>
         <MenuItem icon={<Groups2OutlinedIcon />} onClick={() => { select(8); queryParams.set("page", "others"); nav({ search: queryParams.toString() }) }}>Others</MenuItem>
@@ -83,6 +85,7 @@ export const HackathonSidebar = ({ socket }) => {
           (set === "team" && <HackathonTeam />) ||
           (set === "score" && <HackScore />) ||
           (set === "tasks" && <HackathonTasks />) ||
+          (set === "techteam" && <HackathonTechTeam />) ||
           (set === "problemstatements" && <PSS />) ||
           (set === "timer" && <TimeManager socket={socket} />) ||
           (set === "htrs" && <HackathonTeamRegistrer />) ||
