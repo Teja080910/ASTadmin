@@ -8,20 +8,35 @@ export const PSInput = ({ tasks, reload }) => {
     const [number, setNumber] = useState('');
     const [statement, setStatement] = useState('');
     const [description, setDescription] = useState('');
+    const [theme, setTheme] = useState('');
     const [update, setUpdate] = useState(false);
     const [load, setLoad] = useState(false);
     const toast = useToast();
-    const [show, setShow] = useState(true)
+    const [show, setShow] = useState(true);
 
     const numberRef = useRef(null);
     const statementRef = useRef(null);
     const descriptionRef = useRef(null);
 
+    const handleNumberAndThemeChange = (selectedNumber, selectedTheme) => {
+        setNumber(selectedNumber);
+        setTheme(selectedTheme);
+
+        const matchedTask = tasks.find(task => task.Number === selectedNumber);
+        if (matchedTask) {
+            setStatement(matchedTask.Statement);
+            setDescription(matchedTask.Desc);
+        } else {
+            setStatement('');
+            setDescription('');
+        }
+    };
+
     const handleSubmit = async () => {
         setLoad(true);
-        if (number && statement && description) {
+        if (number && statement && description && theme) {
             try {
-                const response = await axios.post(process.env.REACT_APP_database + '/insertstatement', { number, statement, description, theme: sessionStorage?.theme });
+                const response = await axios.post(process.env.REACT_APP_database + '/insertstatement', { number, statement, description, theme });
                 if (response?.data?.message) {
                     setLoad(false);
                     reload();
@@ -29,14 +44,12 @@ export const PSInput = ({ tasks, reload }) => {
                     setNumber('');
                     setStatement('');
                     setDescription('');
+                    setTheme('');
                 }
                 if (response?.data?.error) {
                     setLoad(false);
                     reload();
                     toast({ title: response?.data?.error, status: "error", position: "bottom-right", isClosable: true });
-                    // setNumber('');
-                    // setStatement('');
-                    // setDescription('');
                 }
             } catch (error) {
                 setLoad(false);
@@ -65,12 +78,13 @@ export const PSInput = ({ tasks, reload }) => {
     const handleEdit = async (selectNumber, selectStatement, selectDesc) => {
         setLoad(true);
         try {
-            const edit = await axios.post(process.env.REACT_APP_database + '/editstatement', { selectnumber: selectNumber, selectstatement: selectStatement, selectdesc: selectDesc, theme: sessionStorage?.theme });
+            const edit = await axios.post(process.env.REACT_APP_database + '/editstatement', { selectnumber: selectNumber, selectstatement: selectStatement, selectdesc: selectDesc, theme });
             if (edit.data) {
                 reload();
                 setNumber('');
                 setStatement('');
                 setDescription('');
+                setTheme('');
                 setUpdate(false);
                 toast({ title: "Edited successfully", status: "success", position: "top-right", isClosable: true });
             } else {
@@ -84,13 +98,13 @@ export const PSInput = ({ tasks, reload }) => {
         }
     };
 
-    const handleEditTask = (selectStatement, selectNumber, selectDesc) => {
+    const handleEditTask = (selectStatement, selectNumber, selectDesc, selectTheme) => {
         setNumber(selectNumber);
         setStatement(selectStatement);
         setDescription(selectDesc);
+        setTheme(selectTheme);
         setUpdate(true);
 
-        // Focus on the first input
         if (numberRef.current) {
             numberRef.current.focus();
         }
@@ -100,13 +114,32 @@ export const PSInput = ({ tasks, reload }) => {
         <div className="task-form">
             <CountProblemStatement show={show} hide={() => setShow(show ? false : true)} />
             <Stack spacing={4} p={4}>
-                <Select onChange={(e) => sessionStorage.theme = e.target.value}>
-                    <option>Choose Theme</option>
+                <Select
+                    onChange={(e) => {
+                        sessionStorage.theme = e.target.value;
+                        handleNumberAndThemeChange(number, e.target.value);
+                    }}
+                    placeholder='Choose Theme'
+                    value={theme}
+                >
                     <option value="yoga">Yoga and Health</option>
                     <option value='sports'>Sports</option>
                 </Select>
-                <Input ref={numberRef} placeholder="Enter Statement Number" value={number} onChange={(e) => { setNumber(e.target.value) }} size="lg" type='number' />
-                <Input ref={statementRef} placeholder="Enter Statement" value={statement} onChange={(e) => setStatement(e.target.value)} size="lg" />
+                <Input
+                    ref={numberRef}
+                    placeholder="Enter Statement Number"
+                    value={number}
+                    onChange={(e) => handleNumberAndThemeChange(e.target.value, theme)}
+                    size="lg"
+                    type='number'
+                />
+                <Input
+                    ref={statementRef}
+                    placeholder="Enter Statement"
+                    value={statement}
+                    onChange={(e) => setStatement(e.target.value)}
+                    size="lg"
+                />
                 <Textarea
                     ref={descriptionRef}
                     placeholder="Enter description"
@@ -114,26 +147,31 @@ export const PSInput = ({ tasks, reload }) => {
                     onChange={(e) => setDescription(e.target.value)}
                     size="lg"
                 />
-                {update ? <Button colorScheme="cyan" onClick={() => handleEdit(number, statement, description)}>{load ? "Updating..." : "Update Statement"}</Button> :
-                    <Button colorScheme="cyan" onClick={handleSubmit}>{load ? "Adding..." : "Add Statement"}</Button>}
+                {update ? (
+                    <Button colorScheme="cyan" onClick={() => handleEdit(number, statement, description)}>{load ? "Updating..." : "Update Statement"}</Button>
+                ) : (
+                    <Button colorScheme="cyan" onClick={handleSubmit}>{load ? "Adding..." : "Add Statement"}</Button>
+                )}
             </Stack>
 
             <Box mt={8}>
                 <div className='task-box'>
                     <h1 className='h1-tasks'>Problem Statements</h1>
                     {tasks?.map((task, index) => (
-                        task?.Number && <Box key={index} className='task-item' p={4} borderWidth={1} borderRadius="lg" mb={4}>
-                            <Text fontWeight="bold" textAlign="center">Problem Statement {task?.Number}</Text>
-                            <Text className='task-title'>Title : {task?.Statement}</Text>
-                            <Text className='task-description'>Description : {task?.Desc}</Text>
-                            <Text>Theme : {task?.Theme}</Text>
-                            <div className='task-select' >
-                                <div className='task-select2'>
-                                    <Button bg="#CE5A67" color="white" onClick={() => handleDelete(task?.Statement)}>Delete</Button>
-                                    <Button bg="#F4BF96" color="white" onClick={() => handleEditTask(task?.Statement, task?.Number, task?.Desc, task?.Theme)}>Edit</Button>
+                        task?.Number && (
+                            <Box key={index} className='task-item' p={4} borderWidth={1} borderRadius="lg" mb={4}>
+                                <Text fontWeight="bold" textAlign="center">Problem Statement {task?.Number}</Text>
+                                <Text className='task-title'>Title : {task?.Statement}</Text>
+                                <Text className='task-description'>Description : {task?.Desc}</Text>
+                                <Text>Theme : {task?.Theme}</Text>
+                                <div className='task-select'>
+                                    <div className='task-select2'>
+                                        <Button bg="#CE5A67" color="white" onClick={() => handleDelete(task?.Statement)}>Delete</Button>
+                                        <Button bg="#F4BF96" color="white" onClick={() => handleEditTask(task?.Statement, task?.Number, task?.Desc, task?.Theme)}>Edit</Button>
+                                    </div>
                                 </div>
-                            </div>
-                        </Box>
+                            </Box>
+                        )
                     ))}
                 </div>
             </Box>
