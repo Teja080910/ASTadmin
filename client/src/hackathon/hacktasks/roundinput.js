@@ -10,16 +10,16 @@ import {
   Textarea,
   Badge,
 } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Actions } from "../../actions/actions";
 import "./hackathontasks.css";
 
 export const RoundInput = ({ tasks, reload }) => {
-  const [round, setRound] = useState("");
+  const [round, setRound] = useState(1);
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
-  const [team, setTeam] = useState("");
+  const [team, setTeam] = useState(parseInt(tasks[0]?.TeamCode) || "");
   const [search, setSearch] = useState("");
   const [load, setLoad] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
@@ -27,6 +27,35 @@ export const RoundInput = ({ tasks, reload }) => {
   const dispatch = useDispatch();
   const saveround = useSelector((state) => state.user.round);
   const taskref = useRef(null);
+
+  useEffect(() => {
+    if (round && team) {
+      const existingTask = findExistingTask(round, team);
+      if (existingTask) {
+        setTask(existingTask.Task);
+        setDescription(existingTask.Desc);
+      } else {
+        setTask("");
+        setDescription("");
+      }
+    }
+  }, [round, team]);
+
+  const findExistingTask = (round, team) => {
+
+    const teamData = tasks.find((t) => t.TeamCode === parseInt(team));
+ 
+    if (teamData && teamData.Rounds) {
+     
+      setEditingTask(true)
+      return teamData.Rounds[round]; 
+     
+    }
+    setEditingTask(false)
+    return null;
+
+  };
+
   const handleSubmit = async () => {
     setLoad(true);
     if ((round || saveround) && task && description && team) {
@@ -149,9 +178,9 @@ export const RoundInput = ({ tasks, reload }) => {
           }}
           size="lg"
         >
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
+          <option value={1}>Round 1</option>
+          <option value={2}>Round 2</option>
+          <option value={3}>Round 3</option>
         </Select>
         <Select
           placeholder="Select Team Code"
@@ -161,7 +190,7 @@ export const RoundInput = ({ tasks, reload }) => {
         >
           {tasks?.map((team) => (
             <option key={team?.TeamCode} value={team?.TeamCode}>
-              {team?.TeamCode}
+              {team?.TeamCode} -{team?.Team}
             </option>
           ))}
         </Select>

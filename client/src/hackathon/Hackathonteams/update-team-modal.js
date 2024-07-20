@@ -17,28 +17,31 @@ import { Actions } from "../../actions/actions";
 
 export const UpdateTeam = ({ isOpen, onClose, team, refresh }) => {
     const toast = useToast();
-    const [teamName, setTeamName] = useState(team?.Team || "");
-    const [gmail, setGmail] = useState(team?.Gmail || "");
-    const [code, setCode] = useState(team?.TeamCode || "");
-    const [phone, setPhone] = useState(team?.Phone || "");
-    const [members, setMembers] = useState(team?.Members?.length || 0);
-    const [memberDetails, setMemberDetails] = useState(Array.isArray(team?.Members) ? team.Members : []);
+    const [teamName, setTeamName] = useState("");
+    const [gmail, setGmail] = useState("");
+    const [code, setCode] = useState("");
+    const [phone, setPhone] = useState("");
+    const [members, setMembers] = useState(0);
+    const [memberDetails, setMemberDetails] = useState([]);
 
     useEffect(() => {
         if (team) {
-            setTeamName(team.Team);
-            setGmail(team.Gmail);
-            setCode(team.TeamCode);
-            setPhone(team.Phone);
-            setMembers(team.Members?.length || 0);
-            setMemberDetails(Array.isArray(team.Members) ? team.Members : []);
+            const { Team, Gmail, TeamCode, Phone, Members } = team;
+            setTeamName(Team || "");
+            setGmail(Gmail || "");
+            setCode(TeamCode || "");
+            setPhone(Phone || "");
+            setMembers(Members?.length || 0);
+            setMemberDetails(Array.isArray(Members) ? Members : []);
         }
     }, [team]);
 
     const handleMemberDetailsChange = (index, value) => {
-        const newMemberDetails = [...memberDetails];
-        newMemberDetails[index] = value;
-        setMemberDetails(newMemberDetails);
+        setMemberDetails((prevDetails) => {
+            const newDetails = [...prevDetails];
+            newDetails[index] = value;
+            return newDetails;
+        });
     };
 
     const handleSubmit = async () => {
@@ -61,8 +64,8 @@ export const UpdateTeam = ({ isOpen, onClose, team, refresh }) => {
                 });
                 return;
             }
-            const memberDetailsString = memberDetails.join(",");
 
+            const memberDetailsString = memberDetails.join(",");
             try {
                 const res = await Actions.UpdateTeam(teamName, gmail, phone, code, memberDetailsString);
                 if (res?.data?.message === "Success") {
@@ -75,30 +78,19 @@ export const UpdateTeam = ({ isOpen, onClose, team, refresh }) => {
                     refresh();
                     onClose();
                 } else if (res?.data?.error) {
-
-
-                    if(res?.data?.code){
-                        toast({
-                            title: res.data.error,
-                            status: "warning",
-                            position: "bottom-right",
-                            isClosable: true,
-                            duration: 10000,
-                        });
+                    const { error, code, matchingNumbers } = res.data;
+                    toast({
+                        title: error,
+                        description: code ? "" : matchingNumbers?.length ? `Matching Numbers: ${matchingNumbers.join(", ")}` : "",
+                        status: code ? "warning" : "error",
+                        position: "bottom-right",
+                        isClosable: true,
+                        duration: 10000,
+                    });
+                    if (code) {
                         refresh();
                         onClose();
-
-                    }else{
-                        toast({
-                            title: res.data.error,
-                            description: res.data.matchingNumbers?.length ? `Matching Numbers: ${res.data.matchingNumbers.join(", ")}` : "",
-                            status: "error",
-                            position: "bottom-right",
-                            isClosable: true,
-                            duration: 10000,
-                        });
                     }
-                
                 } else {
                     toast({
                         title: "Failed to update team",
@@ -170,27 +162,37 @@ export const UpdateTeam = ({ isOpen, onClose, team, refresh }) => {
                             )}
                         </Select>
                         <Select
-                            placeholder="Select Number of Members"
-                            value={members}
-                            onChange={(e) => {
-                                setMembers(e.target.value);
-                                setMemberDetails(Array(parseInt(e.target.value)).fill(""));
-                            }}
-                            mb={2}
-                        >
-                            {[4, 5, 6].map((num) => (
-                                <option key={num} value={num}>
-                                    Team of {num}
-                                </option>
-                            ))}
-                        </Select>
-                        {Array.from({ length: parseInt(members) || 0 }).map((_, index) => (
+    placeholder="Select Number of Members"
+    value={members}
+    onChange={(e) => {
+        const newMembersCount = parseInt(e.target.value);
+        setMembers(newMembersCount);
+
+        setMemberDetails((prevDetails) => {
+            const newDetails = [...prevDetails];
+            if (newMembersCount > prevDetails.length) {
+                return [...newDetails, ...Array(newMembersCount - prevDetails.length).fill("")];
+            } else {
+                return newDetails.slice(0, newMembersCount);
+            }
+        });
+    }}
+    mb={2}
+>
+    {[4, 5, 6].map((num) => (
+        <option key={num} value={num}>
+            Team of {num}
+        </option>
+    ))}
+</Select>
+
+                        {Array.from({ length: members }).map((_, index) => (
                             <Input
                                 key={index}
                                 placeholder={`Team ${index + 1 === 1 ? "Leader" : "Member " + (index + 1)} Registration Number`}
                                 type="text"
                                 maxLength={10}
-                                value={memberDetails[index] || team.Members[index]}
+                                value={memberDetails[index] || ""}
                                 onChange={(e) => handleMemberDetailsChange(index, e.target.value.toLowerCase())}
                                 mb={2}
                             />
