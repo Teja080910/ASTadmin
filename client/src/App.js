@@ -31,7 +31,7 @@ import { ConsoleLogin } from './ast-console/sigin.js';
 
 function App() {
   const [set, setSet] = useState(false)
-  const [boot, setBoot] = useState(true)
+  const [boot, setBoot] = useState(false)
   const [bootload, setBootload] = useState(false)
   const [load, setLoad] = useState(false)
   const mail = useSelector((state) => state.user.bootmail);
