@@ -12,12 +12,14 @@ import { Addproject, Projects } from '../src/collection/project/project.js';
 import { Pro } from '../src/collection/project/sampleproject.js';
 import { Scrum } from '../src/collection/scrummaster/scrum.js';
 import './App.css';
+import EnhancedNetworkChecker from './NetworkChecker.js';
 import { Actions } from './actions/actions.js';
+import { ConsoleLogin } from './ast-console/sigin.js';
 import { RegisterForm } from './bootcamp/Register/register.js';
 import { BootcampSidebar } from './bootcamp/bootcampsidebar/bootcampsidebar.js';
 import { LoginForm } from './bootcamp/login/login.js';
 import { Attendance } from './collection/attendance/attendance.js';
-import { Face } from './collection/face/face.js';
+import { FaceRegorg } from './collection/face/face.js';
 import { Home } from './collection/home/homes.js';
 import { Send } from './collection/project/send.js';
 import { Appstore } from './collection/redux/login.js';
@@ -26,8 +28,6 @@ import { HackathonSidebar } from './hackathon/hackathonsidebar/hackathonsidebar.
 import Timer from './hackathon/main-timer/Timer.jsx';
 import './responce.css';
 import { socket } from './socket.js';
-import EnhancedNetworkChecker from './NetworkChecker.js';
-import { ConsoleLogin } from './ast-console/sigin.js';
 
 function App() {
   const [set, setSet] = useState(false)
@@ -84,7 +84,7 @@ function App() {
               <Route path='/scrummaster' element={<Scrum />} />
               <Route path='/pro' element={<Pro />} />
               <Route path='/chatwithme' element={<Send />} />
-              <Route path='/face' element={<Face />} />
+              <Route path='/face' element={<FaceRegorg />} />
               <Route path='sample' element={<Sample />} />
               <Route path='/redux' element={<Appstore />} />
               <Route path='/bootcampregister' element={<RegisterForm />} />

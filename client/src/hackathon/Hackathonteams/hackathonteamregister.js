@@ -15,6 +15,7 @@ import {
     Select,
     useToast,
     CircularProgress,
+    Text,
 } from "@chakra-ui/react";
 import { Actions } from "../../actions/actions";
 
@@ -173,6 +174,9 @@ const HackathonTeamRegistrer = () => {
 
     return (
         <Flex direction="column" align="center" p={8} maxW="1200px" m="0 auto">
+              <Box>
+                <Text as="h3" >Create Problem Statement Register</Text>
+            </Box>
             <Box w="100%" maxW="500px" mb={8}>
                 <form onSubmit={handleSubmit}>
                     <FormControl isRequired mb={4}>
