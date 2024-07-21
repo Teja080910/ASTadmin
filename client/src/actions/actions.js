@@ -110,6 +110,24 @@ export const Actions = {
     UpdateRegistrerStatus: async (id, status) => {
         return await axios.put(api + `/updateregistrerstatus/${id}`, { status });
     },
+    TeamMembers: async () => {
+        return await axios.post(api + "/teammembers");
+    },
+
+    CreateTechTeamMember: async (id, name, subject, password) => {
+        return await axios.post(api + "/createtechteammember", { id, name, subject, password });
+    },
+
+    DeleteTechTeamMember: async (id) => {
+        return await axios.delete(api + `/deletetechteammember/${id}`);
+    },
+    
+    UpdateTechTeamMemberStatus: async (id, status) => {
+        return await axios.put(api + `/updatetechteammemberstatus/${id}`, { status });
+    },
+    UpdateTechTeamMemberSubject: async (id, subject) => {
+        return await axios.put(api + `/updatetechteammembersubject/${id}`, { subject });
+    },
 
     InsertRound: async (code, roundno, task, desc) => {
         return await axios.post(api + "/insertround", { code, roundno, task, desc })
