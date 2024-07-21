@@ -9,6 +9,7 @@ export const PSInput = ({ tasks, reload }) => {
     const [statement, setStatement] = useState('');
     const [description, setDescription] = useState('');
     const [theme, setTheme] = useState('');
+    const [idealfor, setIdealfor] = useState('2');
     const [update, setUpdate] = useState(false);
     const [load, setLoad] = useState(false);
     const toast = useToast();
@@ -26,9 +27,11 @@ export const PSInput = ({ tasks, reload }) => {
         if (matchedTask) {
             setStatement(matchedTask.Statement);
             setDescription(matchedTask.Desc);
+            setIdealfor(matchedTask.IdealFor);
         } else {
             setStatement('');
             setDescription('');
+            setIdealfor(sessionStorage.idealfor || "2");
         }
     };
 
@@ -36,7 +39,7 @@ export const PSInput = ({ tasks, reload }) => {
         setLoad(true);
         if (number && statement && description && theme) {
             try {
-                const response = await axios.post(process.env.REACT_APP_database + '/insertstatement', { number, statement, description, theme });
+                const response = await axios.post(process.env.REACT_APP_database + '/insertstatement', { number, statement, description, theme, idealfor });
                 if (response?.data?.message) {
                     setLoad(false);
                     reload();
@@ -44,6 +47,7 @@ export const PSInput = ({ tasks, reload }) => {
                     setNumber('');
                     setStatement('');
                     setDescription('');
+                    setIdealfor(sessionStorage.idealfor || "2");
                     setTheme('');
                 }
                 if (response?.data?.error) {
@@ -78,12 +82,13 @@ export const PSInput = ({ tasks, reload }) => {
     const handleEdit = async (selectNumber, selectStatement, selectDesc) => {
         setLoad(true);
         try {
-            const edit = await axios.post(process.env.REACT_APP_database + '/editstatement', { selectnumber: selectNumber, selectstatement: selectStatement, selectdesc: selectDesc, theme });
+            const edit = await axios.post(process.env.REACT_APP_database + '/editstatement', { selectnumber: selectNumber, selectstatement: selectStatement, selectdesc: selectDesc, theme, idealfor });
             if (edit.data) {
                 reload();
                 setNumber('');
                 setStatement('');
                 setDescription('');
+                setIdealfor(sessionStorage.idealfor || "2");
                 setTheme('');
                 setUpdate(false);
                 toast({ title: "Edited successfully", status: "success", position: "top-right", isClosable: true });
@@ -98,11 +103,12 @@ export const PSInput = ({ tasks, reload }) => {
         }
     };
 
-    const handleEditTask = (selectStatement, selectNumber, selectDesc, selectTheme) => {
+    const handleEditTask = (selectStatement, selectNumber, selectDesc, selectTheme, selectIdealFor) => {
         setNumber(selectNumber);
         setStatement(selectStatement);
         setDescription(selectDesc);
         setTheme(selectTheme);
+        setIdealfor(selectIdealFor);
         setUpdate(true);
 
         if (numberRef.current) {
@@ -114,17 +120,30 @@ export const PSInput = ({ tasks, reload }) => {
         <div className="task-form">
             <CountProblemStatement show={show} hide={() => setShow(show ? false : true)} />
             <Stack spacing={4} p={4}>
-                <Select
-                    onChange={(e) => {
-                        sessionStorage.theme = e.target.value;
-                        handleNumberAndThemeChange(number, e.target.value);
-                    }}
-                    placeholder='Choose Theme'
-                    value={theme}
-                >
-                    <option value="yoga">Yoga and Health</option>
-                    <option value='sports'>Sports</option>
-                </Select>
+                <Box display="flex">
+                    <Select
+                        onChange={(e) => {
+                            sessionStorage.theme = e.target.value;
+                            handleNumberAndThemeChange(number, e.target.value);
+                        }}
+                        placeholder='Choose Theme'
+                        value={theme}
+                    >
+                        <option value="yoga">Yoga and Health</option>
+                        <option value='sports'>Sports</option>
+                    </Select>
+                    <Select
+                        onChange={(e) => {
+                            sessionStorage.idealfor = e.target.value;
+                            setIdealfor(e.target.value);
+                        }}
+                        placeholder='Select Ideal for'
+                        value={idealfor}
+                    >
+                        <option value="2">2nd Years (23)</option>
+                        <option value='others'>Others</option>
+                    </Select>
+                </Box>
                 <Input
                     ref={numberRef}
                     placeholder="Enter Statement Number"
@@ -164,10 +183,11 @@ export const PSInput = ({ tasks, reload }) => {
                                 <Text className='task-title'>Title : {task?.Statement}</Text>
                                 <Text className='task-description'>Description : {task?.Desc}</Text>
                                 <Text>Theme : {task?.Theme}</Text>
+                                <Text>Ideal for: {task?.IdealFor}</Text>
                                 <div className='task-select'>
                                     <div className='task-select2'>
                                         <Button bg="#CE5A67" color="white" onClick={() => handleDelete(task?.Statement)}>Delete</Button>
-                                        <Button bg="#F4BF96" color="white" onClick={() => handleEditTask(task?.Statement, task?.Number, task?.Desc, task?.Theme)}>Edit</Button>
+                                        <Button bg="#F4BF96" color="white" onClick={() => handleEditTask(task?.Statement, task?.Number, task?.Desc, task?.Theme, task?.IdealFor)}>Edit</Button>
                                     </div>
                                 </div>
                             </Box>
