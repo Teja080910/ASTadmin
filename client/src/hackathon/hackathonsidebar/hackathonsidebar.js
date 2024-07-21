@@ -25,6 +25,9 @@ import { useDispatch } from "react-redux";
 import HackathonTeamRegistrer from "../Hackathonteams/hackathonteamregister";
 import House from "@mui/icons-material/House";
 import HackathonTechTeam from "../techteam/techteam";
+import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
+import { Gallery } from "../gallery/gallery";
+
 
 const queryParams = new URLSearchParams(window.location.search);
 const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
@@ -43,13 +46,14 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
         <MenuItem icon={<HomeOutlinedIcon />} onClick={() => window.location.href = '/'}>Home</MenuItem>
         <MenuItem icon={<House />} onClick={() => window.location.href = '/hackathon'}>House</MenuItem>
         <MenuItem icon={<PeopleOutlinedIcon />} onClick={() => { select(2); queryParams.set("page", "team"); nav({ search: queryParams.toString() }) }}>Team</MenuItem>
-        <MenuItem icon={<ScoreIcon />} onClick={() => { select(5); queryParams.set("page", "score"); nav({ search: queryParams.toString() }) }}>Score</MenuItem>
-        <MenuItem icon={<AssignmentIcon />} onClick={() => { select(6); queryParams.set("page", "tasks"); nav({ search: queryParams.toString() }) }}>Tasks</MenuItem>
-        <MenuItem icon={<AccessibilityIcon />} onClick={() => { select(6); queryParams.set("page", "htrs"); nav({ search: queryParams.toString() }) }}>Htrs</MenuItem>
+        <MenuItem icon={<ScoreIcon />} onClick={() => { select(3); queryParams.set("page", "score"); nav({ search: queryParams.toString() }) }}>Score</MenuItem>
+        <MenuItem icon={<AssignmentIcon />} onClick={() => { select(4); queryParams.set("page", "tasks"); nav({ search: queryParams.toString() }) }}>Tasks</MenuItem>
+        <MenuItem icon={<AccessibilityIcon />} onClick={() => { select(5); queryParams.set("page", "htrs"); nav({ search: queryParams.toString() }) }}>Htrs</MenuItem>
         <MenuItem icon={<Diversity2Icon />} onClick={() => { select(6); queryParams.set("page", "techteam"); nav({ search: queryParams.toString() }) }}>Tech Team</MenuItem>
         <MenuItem icon={<LightbulbIcon />} onClick={() => { select(7); queryParams.set("page", "problemstatements"); nav({ search: queryParams.toString() }) }}>Problem Statements</MenuItem>
         <MenuItem icon={<AccessTimeFilledIcon />} onClick={() => { select(8); queryParams.set("page", "timer"); nav({ search: queryParams.toString() }); }}>Timer Manager</MenuItem>
-        <MenuItem icon={<Groups2OutlinedIcon />} onClick={() => { select(8); queryParams.set("page", "others"); nav({ search: queryParams.toString() }) }}>Others</MenuItem>
+        <MenuItem icon={<Groups2OutlinedIcon />} onClick={() => { select(9); queryParams.set("page", "others"); nav({ search: queryParams.toString() }) }}>Others</MenuItem>
+        <MenuItem icon={<PhotoLibraryIcon />} onClick={() => { select(10); queryParams.set("page", "gallery"); nav({ search: queryParams.toString() }) }}>Gallery</MenuItem>
         <MenuItem icon={<CodeIcon />} onClick={() => window.location.href = '/bootcamp'}>Bootcamp</MenuItem>
       </Menu>
       <Menu style={{ position: 'absolute', bottom: 0, color: "red", width: "100%" }}>
@@ -89,7 +93,8 @@ export const HackathonSidebar = ({ socket }) => {
           (set === "problemstatements" && <PSS />) ||
           (set === "timer" && <TimeManager socket={socket} />) ||
           (set === "htrs" && <HackathonTeamRegistrer />) ||
-          (set === "others" && <Others />)
+          (set === "others" && <Others />)||
+          (set==="gallery" && <Gallery/>)
         }
       </main>
     </div>

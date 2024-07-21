@@ -67,9 +67,11 @@ export const Actions = {
     ActivityMarks: async (user, marks) => {
         return await axios.post(api + "/activitymarks", { user, marks })
     },
+
     FeedbackOnDateByType: async (date, type) => {
         return await axios.post(api + `/feedbacks`, { date, type })
     },
+
     FeedbackInitial: async () => {
         return await axios.get(api + `/feedbacks/unique-dates`)
     },
@@ -78,6 +80,22 @@ export const Actions = {
 
 
     // *********************************************** Hackathon data ***************************************** //
+
+    UploadPhotos: async (formData) => {
+        return await axios.post(api + "/uploadphotos", formData)
+    },
+
+    EditPhotos: async (theme) => {
+        return await axios.post(api + "/editphoto", { theme })
+    },
+
+    DeletePhoto: async (photo, team) => {
+        return await axios.post(api + "/deletephoto", { photo, team })
+    },
+
+    DeleteAllPhotos: async (team) => {
+        return await axios.post(api + "/deleteallphotos", { team })
+    },
 
     UpdateTeam: async (team, gmail, phone, code, members) => {
         return await axios.post(api + "/updateteam/" + team + "/" + gmail + "/" + phone + "/" + code + "/" + members)
@@ -110,6 +128,7 @@ export const Actions = {
     UpdateRegistrerStatus: async (id, status) => {
         return await axios.put(api + `/updateregistrerstatus/${id}`, { status });
     },
+
     TeamMembers: async () => {
         return await axios.post(api + "/teammembers");
     },
@@ -121,10 +140,11 @@ export const Actions = {
     DeleteTechTeamMember: async (id) => {
         return await axios.delete(api + `/deletetechteammember/${id}`);
     },
-    
+
     UpdateTechTeamMemberStatus: async (id, status) => {
         return await axios.put(api + `/updatetechteammemberstatus/${id}`, { status });
     },
+
     UpdateTechTeamMemberSubject: async (id, subject) => {
         return await axios.put(api + `/updatetechteammembersubject/${id}`, { subject });
     },

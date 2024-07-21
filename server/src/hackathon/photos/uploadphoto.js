@@ -1,7 +1,6 @@
-import mime from 'mime';
 import { bucket, db1 } from '../../db.js';
-import { Material } from './materials.js';
-export const UploadFiles = async (files, theme, materialname, res) => {
+import { InsertPhoto } from './photo.js';
+export const UploadPhotos = async (files, teamname, res) => {
     try {
         const conflictingFiles = [];
         await Promise.all(files.map(async file => {
@@ -12,29 +11,13 @@ export const UploadFiles = async (files, theme, materialname, res) => {
             }
         }));
         if (conflictingFiles.length > 0) {
-            res.send({ error: 'files already exist', conflictingFiles });
+            res.send({ error: 'files already exist', data: conflictingFiles });
             return;
         }
-
-        const conflictingnames = [];
-        await Promise.all(files.map(async file => {
-            const { originalname } = file;
-            const existfile = await db1.collection('uploads.files').findOne({ "metadata.Name": materialname });
-            if (existfile?._id) {
-                conflictingnames.push(originalname);
-            }
-        }));
-        if (conflictingnames.length > 0) {
-            res.send({ error: 'filename already exist', conflictingFiles });
-            return;
-        }
-
         const uploadPromises = files.map(async file => {
             const { originalname, buffer } = file;
             return new Promise((resolve, reject) => {
-                const uploadStream = bucket.openUploadStream(originalname, {
-                    metadata: { Theme: theme, Name: materialname }
-                });
+                const uploadStream = bucket.openUploadStream(originalname, { metadata: { TeamName: teamname } });
                 uploadStream.end(buffer);
                 uploadStream.on('finish', () => {
                     resolve(uploadStream);
@@ -46,21 +29,13 @@ export const UploadFiles = async (files, theme, materialname, res) => {
         });
         const results = await Promise.all(uploadPromises);
         if (results.every(result => result?.bufToStore)) {
-            await Material(
-                results[0]?.options?.metadata?.Theme,
-                results[0]?.options?.metadata?.Name,
-                results[0]?.filename,
-                results[1]?.filename,
-                res
-            );
+            await InsertPhoto(results, teamname, res);
         } else {
             res.status(400).json({ error: "Try again" });
         }
     } catch (error) {
-        console.log(error);
         res.status(500).json({ error: 'Internal server error' });
     }
-
 }
 
 export const RetriveFiles = async (res) => {
@@ -71,24 +46,7 @@ export const RetriveFiles = async (res) => {
         }
         res.status(200).json(files);
     } catch (error) {
-        console.error(error);
         res.status(500).send('Error retrieving files');
-    }
-}
-
-export const FileByName = (filename, res) => {
-    try {
-        const downloadStream = bucket.openDownloadStreamByName(filename);
-        downloadStream.on('error', (error) => {
-            res.status(404).send('File not found');
-        });
-        downloadStream.on('file', (file) => {
-            const mimeType = mime.getType(file.filename);
-            res.set('Content-Type', mimeType);
-        });
-        downloadStream.pipe(res);
-    } catch (error) {
-
     }
 }
 
@@ -102,7 +60,6 @@ export const DeleteFile = async (photo, pdf) => {
                 await bucket.delete(fileId)
             }
         }
-    } catch (error) {
-
-    }
+        return files
+    } catch (error) {}
 }
