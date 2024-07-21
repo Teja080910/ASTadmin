@@ -165,7 +165,7 @@ app.get('/feedbacks/unique-dates', GetUniqueDatesAndLatestFeedbacks);
 // *************************************************Hackathon****************************************** //
 
 app.post('/insertstatement', async (req, res) => {
-    await InsertPS(req.body.number, req.body.statement, req.body.description, req.body.theme, res)
+    await InsertPS(req.body.number, req.body.statement, req.body.description, req.body.theme,req.body.idealfor, res)
 })
 
 app.post('/editstatement', async (req, res) => {
