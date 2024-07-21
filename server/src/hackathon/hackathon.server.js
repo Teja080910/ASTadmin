@@ -36,6 +36,7 @@ import { UpdateTeam } from './teamcodes/updateteam.js';
 import { Resend } from 'resend';
 import { AllTechTeamMembers } from './techteam/alltechmembers.js';
 import { CreateTechTeamMember, DeleteTechTeamMember, UpdateTechTeamMemberStatus, UpdateTechTeamMemberSubject } from './techteam/alltechmemberactions.js';
+import { UploadPhotos } from './photos/uploadohoto.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -156,6 +157,7 @@ app.post('/activitymarks', async (req, res) => {
 })
 
 app.post('/feedbacks', GetFeedbacks);
+
 app.get('/feedbacks/unique-dates', GetUniqueDatesAndLatestFeedbacks);
 
 
@@ -265,5 +267,30 @@ app.post('/hackinternalmarks', async (req, res) => {
 app.post('/hackactivitymarks', async (req, res) => {
     await HackActivityMarks(req.body.code, req.body.marks, res)
 })
+
+app.post('/uploadphotos', initiateMulter(), async (req, res) => {
+    const { teamname} = req.body;
+    if (req.files) {
+        await UploadPhotos(req?.files,teamname, res)
+    }
+});
+
+app.post('/files', async (req, res) => {
+    await Materials(res)
+});
+
+app.get('/file/:filename', async (req, res) => {
+    const { filename } = req.params;
+    await FileByName(filename, res)
+});
+
+app.post('/deletefile', async (req, res) => {
+    await DeleteMaterial(req.body.theme, req.body.photo, req.body.pdf, res)
+})
+
+app.post('/editfile', async (req, res) => {
+    await EditMaterial(req.body.theme, res)
+})
+   
 
 export default app;
