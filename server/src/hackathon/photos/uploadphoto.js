@@ -1,4 +1,3 @@
-import mime from 'mime';
 import { bucket, db1 } from '../../db.js';
 import { InsertPhoto } from './photo.js';
 export const UploadPhotos = async (files, teamname, res) => {
@@ -11,12 +10,10 @@ export const UploadPhotos = async (files, teamname, res) => {
                 conflictingFiles.push(originalname);
             }
         }));
-
         if (conflictingFiles.length > 0) {
-            res.send({ error: 'files already exist', data:conflictingFiles });
+            res.send({ error: 'files already exist', data: conflictingFiles });
             return;
         }
-
         const uploadPromises = files.map(async file => {
             const { originalname, buffer } = file;
             return new Promise((resolve, reject) => {
@@ -30,18 +27,15 @@ export const UploadPhotos = async (files, teamname, res) => {
                 });
             });
         });
-
         const results = await Promise.all(uploadPromises);
         if (results.every(result => result?.bufToStore)) {
-            await InsertPhoto(results,teamname,res);
+            await InsertPhoto(results, teamname, res);
         } else {
             res.status(400).json({ error: "Try again" });
         }
     } catch (error) {
-        console.log(error);
         res.status(500).json({ error: 'Internal server error' });
     }
-
 }
 
 export const RetriveFiles = async (res) => {
@@ -52,26 +46,7 @@ export const RetriveFiles = async (res) => {
         }
         res.status(200).json(files);
     } catch (error) {
-        console.error(error);
         res.status(500).send('Error retrieving files');
-    }
-}
-
-export const FileByName = (filename, res) => {
-    try {
-        const downloadStream = bucket.openDownloadStreamByName(filename);
-        downloadStream.on('error', (error) => {
-            console.error(error);
-            res.status(404).send('File not found');
-        });
-        downloadStream.on('file', (file) => {
-            const mimeType = mime.getType(file.filename);
-            res.set('Content-Type', mimeType);
-        });
-
-        downloadStream.pipe(res);
-    } catch (error) {
-
     }
 }
 
@@ -85,7 +60,6 @@ export const DeleteFile = async (photo, pdf) => {
                 await bucket.delete(fileId)
             }
         }
-    } catch (error) {
-
-    }
+        return files
+    } catch (error) {}
 }

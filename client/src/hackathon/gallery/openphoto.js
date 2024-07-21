@@ -7,7 +7,7 @@ export const OpenPhoto = ({ isOpen, closeModal, selectedImage }) => {
             <ModalContent>
                 <ModalCloseButton />
                 <ModalBody>
-                    <Image src={selectedImage} width={"100%"} height={"100%"} alt="Selected" />
+                    <Image src={selectedImage} width={"100%"} height={"100%"} alt={selectedImage} />
                 </ModalBody>
                 <ModalFooter>
                     <Button colorScheme="blue" onClick={closeModal}>Close</Button>

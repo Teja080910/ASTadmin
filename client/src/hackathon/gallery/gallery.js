@@ -18,7 +18,7 @@ export const Gallery = () => {
     return (
         <>
             <AddPhotos teams={data} />
-            <ShowPhotos teams={data}/>
+            <ShowPhotos teams={data} refresh={Teamcodes} />
         </>
     )
 }

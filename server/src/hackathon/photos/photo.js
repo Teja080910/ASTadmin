@@ -1,4 +1,5 @@
 import { db1 } from "../../db.js"
+import { DeleteFile } from "./uploadphoto.js";
 
 export const InsertPhoto = async (photoname, teamname, res) => {
     try {
@@ -15,24 +16,13 @@ export const InsertPhoto = async (photoname, teamname, res) => {
                         reject(e)
                     })
             )))
-
             if (photos.length === photoname.length) {
                 res.json({ message: "upload files" })
             }
         }
         else {
+            await DeleteFile(photoname)
             res.json({ error: "team not found" })
-        }
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-export const Photos = async (res) => {
-    try {
-        const tasks = await db1.collection("Teams").find().toArray()
-        if (tasks.length > 0) {
-            res.json(tasks)
         }
     } catch (error) {
         console.log(error)

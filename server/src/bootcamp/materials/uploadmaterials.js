@@ -80,14 +80,12 @@ export const FileByName = (filename, res) => {
     try {
         const downloadStream = bucket.openDownloadStreamByName(filename);
         downloadStream.on('error', (error) => {
-            console.error(error);
             res.status(404).send('File not found');
         });
         downloadStream.on('file', (file) => {
             const mimeType = mime.getType(file.filename);
             res.set('Content-Type', mimeType);
         });
-
         downloadStream.pipe(res);
     } catch (error) {
 

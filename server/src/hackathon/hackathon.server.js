@@ -1,13 +1,15 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
+import { Resend } from 'resend';
 import { AdminLogin } from '../bootcamp/admin/adminlogin.js';
 import { AdminRegister } from '../bootcamp/admin/adminregister.js';
 import { AbsentStudent, AttendStudent } from '../bootcamp/attendance/attendance.js';
+import { GetFeedbacks, GetUniqueDatesAndLatestFeedbacks } from '../bootcamp/feedbacks/feedback.js';
 import { DeleteMaterial, DeleteMaterials } from '../bootcamp/materials/deletematerials.js';
 import { EditMaterial } from '../bootcamp/materials/editmaterial.js';
 import { Materials } from '../bootcamp/materials/materials.js';
-import { FileByName, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
+import { FileByName } from '../bootcamp/materials/uploadmaterials.js';
 import { ActivityMarks, InternalMarks } from '../bootcamp/others/others.js';
 import { GivenMarks } from '../bootcamp/scoremanager/score.js';
 import { DeleteAll, Students } from '../bootcamp/studentdata/students.js';
@@ -18,25 +20,25 @@ import { EditTasks } from '../bootcamp/taskmanger/edittask.js';
 import { InsertTask } from '../bootcamp/taskmanger/insertask.js';
 import { HideDay, HideTasks, ShowDay, ShowTasks } from '../bootcamp/taskmanger/showtask.js';
 import { Tasks } from '../bootcamp/taskmanger/tasks.js';
+import { UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
 import { initiateMulter } from '../multer/multer.js';
 import { DeleteRound, InsertRound, RoundMarks } from './hacktasks/addround.js';
+import { HackActivityMarks, HackInternalMarks } from './others/others.js';
+import { DeletePhoto, DeleteTeamPhotos } from './photos/deletephoto.js';
 import { DeletePS } from './problemstatements/deleteps.js';
 import { EditPS } from './problemstatements/editps.js';
 import { InsertPS, PSSC, PssCount } from './problemstatements/insertps.js';
 import { PSS } from './problemstatements/pss.js';
+import { EndHackathon } from './start&stop/hackathonend.js';
+import { StartHackathon } from './start&stop/hackathonstart.js';
 import { AllTeamCodes } from './teamcodes/allteamcodes.js';
 import { AddTeamCodes, DeleteTeam } from './teamcodes/teamcodes.js';
-import { StartHackathon } from './start&stop/hackathonstart.js';
-import { EndHackathon } from './start&stop/hackathonend.js';
+import { UpdateTeam } from './teamcodes/updateteam.js';
 import { AllTeamRegistrers } from './teamregistrers/allregistrers.js';
 import { CreateRegistrer, DeleteRegistrer, UpdateRegistrerStatus } from './teamregistrers/registrersactions.js';
-import { HackActivityMarks, HackInternalMarks } from './others/others.js';
-import { GetFeedbacks, GetUniqueDatesAndLatestFeedbacks } from '../bootcamp/feedbacks/feedback.js';
-import { UpdateTeam } from './teamcodes/updateteam.js';
-import { Resend } from 'resend';
-import { AllTechTeamMembers } from './techteam/alltechmembers.js';
 import { CreateTechTeamMember, DeleteTechTeamMember, UpdateTechTeamMemberStatus, UpdateTechTeamMemberSubject } from './techteam/alltechmemberactions.js';
-import { UploadPhotos } from './photos/uploadohoto.js';
+import { AllTechTeamMembers } from './techteam/alltechmembers.js';
+import { UploadPhotos } from './photos/uploadphoto.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -44,7 +46,7 @@ app.use(express.json())
 app.get('/hackathon', (req, res) => {
     res.json("hackathon server is running.....");
 })
-const resend = new Resend(process.env.Resend_Key || "anil reddy");
+const resend = new Resend(process.env.Resend_Key);
 
 app.post('/bootcampadminlogin', async (req, res) => {
     await AdminLogin(req.body, res)
@@ -236,6 +238,7 @@ app.delete('/deletetechteammember/:id', async (req, res) => {
 app.put('/updatetechteammemberstatus/:id', async (req, res) => {
     await UpdateTechTeamMemberStatus(req, res);
 });
+
 app.put('/updatetechteammembersubject/:id', async (req, res) => {
     await UpdateTechTeamMemberSubject(req, res);
 });
@@ -279,13 +282,12 @@ app.post('/files', async (req, res) => {
     await Materials(res)
 });
 
-app.get('/file/:filename', async (req, res) => {
-    const { filename } = req.params;
-    await FileByName(filename, res)
-});
+app.post('/deletephoto', async (req, res) => {
+    await DeletePhoto(req.body.photo, req.body.team, res)
+})
 
-app.post('/deletefile', async (req, res) => {
-    await DeleteMaterial(req.body.theme, req.body.photo, req.body.pdf, res)
+app.post('/deleteallphotos', async (req, res) => {
+    await DeleteTeamPhotos(req.body.team,res)
 })
 
 app.post('/editfile', async (req, res) => {

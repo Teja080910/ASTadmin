@@ -1,21 +1,14 @@
-import { Actions } from "../../actions/actions";
-import { Button, useToast } from "@chakra-ui/react";
-import { Stack, Box, HStack } from "@chakra-ui/react";
+import { Button, Card, CardBody, CardFooter, Divider, Flex, Heading, Image, SimpleGrid, useToast } from "@chakra-ui/react";
 import { useState } from "react";
+import { Actions } from "../../actions/actions";
+import { OpenFile } from "../../actions/openfile";
 import { OpenPhoto } from "./openphoto";
 
-export const ShowPhotos = ({ teams }) => {
+export const ShowPhotos = ({ teams, refresh }) => {
     const toast = useToast()
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
-
-    const chunkArray = (array, size) => {
-        const result = [];
-        for (let i = 0; i < array.length; i += size) {
-            result.push(array.slice(i, i + size));
-        }
-        return result;
-    };
+    const [selectedImage, setSelectedImage] = useState();
+    const [image, setImage] = useState();
 
     const openModal = (image) => {
         setSelectedImage(image);
@@ -27,48 +20,75 @@ export const ShowPhotos = ({ teams }) => {
         setIsOpen(false);
     };
 
+    const fetchImageURL = async (link) => {
+        try {
+            const imageUrl = await OpenFile(link);
+            setImage(state => ({ ...state, [link]: imageUrl?.url }))
+        } catch (error) {
+            console.error("Error fetching image URL:", error);
+            return null;
+        }
+    };
+
     return (
         <>
             <OpenPhoto isOpen={isOpen} closeModal={closeModal} selectedImage={selectedImage} />
-            <div>
-                {
-                    teams?.map((team) => (
-                        team?.Photos?.map((photo) => (
-                            <Stack spacing={4}>
-                                {console.log(photo)}
-                                {chunkArray(photo, 5)?.map((row, rowIndex) => (
-                                    <HStack key={rowIndex} spacing={4}>
-                                        {row&&row?.map((preview, index) => (
-                                            <Box key={index} position="relative" boxSize="100px">
-                                                <img
-                                                    src={preview}
-                                                    alt={`Preview ${index}`}
-                                                    style={{ maxWidth: '100%', height: 'auto', cursor: 'pointer' }}
-                                                    onClick={() => openModal(preview)}
-                                                />
-                                            </Box>
-                                        ))}
-                                    </HStack>
-                                ))}
-                            </Stack>
-                        ))
-                    ))
-                }
+            {
+                teams?.map((team) => (
+                    team?.Team && team?.Photos && <>
+                        <Flex justifyContent={"space-evenly"}>
+                            <Heading size='lg' align="center">Team:<strong style={{ color: 'blue' }}>{team?.Team}</strong></Heading>
+                            <Button onClick={() => {
+                                Actions.DeleteAllPhotos(team?.TeamCode)
+                                    .then((res) => {
+                                        toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true });
+                                        window.location.reload();
+                                    }).catch((e) => console.log(e))
+                            }}
+                                bg="red.600"
+                                color="white"
+                                size='sm'
+                            >
+                                Delete All
+                            </Button>
+                        </Flex>
+                        <SimpleGrid minChildWidth='400px' spacing='40px'>
+                            {team?.Photos?.map((photo, photoindex) => (
 
-                <Button onClick={() => {
-                    Actions.DeleteAllMaterials()
-                        .then((res) => {
-                            toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true });
-                            window.location.reload();
-                        });
-                }}
-                    bg="red.600"
-                    color="white"
-                    size='sm'
-                >
-                    Delete All
-                </Button>
-            </div>
+                                <Card maxW='sm' key={photoindex}>
+                                    <CardBody onClick={() => { openModal(image[photo]) }}>
+                                        <Image
+                                            src={image ? image[photo] : fetchImageURL(photo)}
+                                            alt={photo}
+                                            width={"100%"}
+                                            height={"30vh"}
+                                            borderRadius='lg'
+                                        />
+                                    </CardBody>
+                                    <Divider />
+                                    <CardFooter justifyContent={"center"}>
+                                        <Button variant='solid' colorScheme='red'
+                                            onClick={() => {
+                                                Actions.DeletePhoto(photo, team?.TeamCode)
+                                                    .then((res) => {
+                                                        if (res?.data?.message) {
+                                                            toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true });
+                                                        } else {
+                                                            toast({ title: res?.data?.error, status: 'error', position: 'bottom-right', isClosable: true });
+                                                        }
+                                                        refresh()
+                                                    }).catch((e) => console.log(e))
+                                            }}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </CardFooter>
+                                </Card>
+                            ))}
+                        </SimpleGrid>
+                    </>
+                ))
+            }
         </>
     )
 }

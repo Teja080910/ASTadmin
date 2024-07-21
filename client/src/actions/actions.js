@@ -89,12 +89,12 @@ export const Actions = {
         return await axios.post(api + "/editphoto", { theme })
     },
 
-    DeletePhoto: async (photo, pdf, theme) => {
-        return await axios.post(api + "/deletephoto", { photo, pdf, theme })
+    DeletePhoto: async (photo, team) => {
+        return await axios.post(api + "/deletephoto", { photo, team })
     },
 
-    DeleteAllPhotos: async () => {
-        return await axios.post(api + "/deleteallphotos")
+    DeleteAllPhotos: async (team) => {
+        return await axios.post(api + "/deleteallphotos", { team })
     },
 
     UpdateTeam: async (team, gmail, phone, code, members) => {
@@ -144,6 +144,7 @@ export const Actions = {
     UpdateTechTeamMemberStatus: async (id, status) => {
         return await axios.put(api + `/updatetechteammemberstatus/${id}`, { status });
     },
+
     UpdateTechTeamMemberSubject: async (id, subject) => {
         return await axios.put(api + `/updatetechteammembersubject/${id}`, { subject });
     },
