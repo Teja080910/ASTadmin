@@ -1,10 +1,10 @@
 import { db1 } from "../../db.js"
 
-export const InsertPS = async (number, statement, description, theme, res) => {
+export const InsertPS = async (number, statement, description, theme,idealfor, res) => {
     try {
         const tasks = await db1.collection("ProblemStatements").findOne({ $or: [{ Statement: statement }, { Number: number }] });
         if (!tasks?._id) {
-            const insertps = await db1.collection("ProblemStatements").insertOne({ Statement: statement, Number: number, Count: 0, Desc: description, Theme: theme })
+            const insertps = await db1.collection("ProblemStatements").insertOne({ Statement: statement, Number: number, Count: 0, Desc: description, Theme: theme,IdealFor:idealfor })
             if (insertps) {
                 res.json({ message: "insert sucessfully", data: insertps })
             }
