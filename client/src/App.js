@@ -28,6 +28,7 @@ import { HackathonSidebar } from './hackathon/hackathonsidebar/hackathonsidebar.
 import Timer from './hackathon/main-timer/Timer.jsx';
 import './responce.css';
 import { socket } from './socket.js';
+import ConsoleHome from './ast-console/ast-console-home.js';
 
 function App() {
   const [set, setSet] = useState(false)
@@ -36,6 +37,10 @@ function App() {
   const [load, setLoad] = useState(false)
   const mail = useSelector((state) => state.user.bootmail);
   const password = useSelector((state) => state.user.bootpassword);
+  const adminEmail = useSelector(state=>state.user.adminEmail); // Replace with the actual admin email
+  const adminLoginState = useSelector(state=>state.user.adminLoginState); // Replace with the actual admin email
+
+
   const salt = CryptoENC
 
   // Admin login check
@@ -92,7 +97,15 @@ function App() {
               <Route path="/attendance" element={set ? <Attendance /> : <Admin />} />
               <Route path='/tech' element={set ? <Login /> : <Admin />} />
               <Route path='/yoga' element={set ? <Yoga /> : <Admin />} />
-              <Route path='/console' element={<ConsoleLogin/>}/>
+              <Route path='/console' element={
+               ! adminLoginState ?
+                <ConsoleLogin/>:
+                <ConsoleHome adminEmail={adminEmail}/>}/>
+              <Route path='/console/home' element={adminLoginState?
+                <ConsoleHome adminEmail={adminEmail}/>:
+                <ConsoleLogin/>
+                
+                }/>
             </>
           )}
           {bootload && (
