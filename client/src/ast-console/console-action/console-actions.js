@@ -6,8 +6,8 @@ export const ConsoleActions={
         return await axios.post(api + "/consolelogin", { mail, password })
     },
 
-    ConsoleRegister: async (mail, password,phone,event,date,club,members) => {
-        return await axios.post(api + "/consoleregister", { mail, password,phone,event,club,date,members})
+    ConsoleRegister: async (mail, password,phone,event,date,club,members,admail,adpass) => {
+        return await axios.post(api + "/consoleregister", { mail, password,phone,event,club,date,members,admail,adpass})
     },
 
     AnotherConsoleRegister: async (mail, password,phone,adminmail) => {

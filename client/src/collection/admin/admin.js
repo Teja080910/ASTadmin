@@ -26,7 +26,7 @@ export const Admin = () => {
               if (res1.data) {
                 if (res1.data.Date !== date.toDateString()) {
                   let tdays = parseInt(res1.data.Days) + 1;
-                  const res = await axios.post(process.env.REACT_APP_database +"/updateadmin/" +gmail +"/" +date.toDateString() +"/" +tdays);
+                  const res = await axios.post(process.env.REACT_APP_database + "/updateadmin/" + gmail + "/" + date.toDateString() + "/" + tdays);
                   {
                     if (res) {
                       sessionStorage.gmail = gmail;
@@ -166,10 +166,7 @@ export const Adminreg = () => {
   const [password, setpassword] = useState([]);
   const toast = useToast();
   const Submit = async () => {
-    await axios
-      .post(
-        process.env.REACT_APP_database + "/admincheck/" + gmail + "/" + password
-      )
+    await axios.post(process.env.REACT_APP_database + "/admincheck/" + gmail + "/" + password)
       .then(async (res) => {
         if (res.data) {
           toast({
