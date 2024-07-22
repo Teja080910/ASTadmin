@@ -14,7 +14,7 @@ import './ast-console.css';
 import { AST } from "./styles/ast";
 import { Motion } from "./styles/motion";
 
-export const ASTConsole = ({ gmail, password, action,change}) => {
+export const ASTConsole = ({ gmail, password, action, change, load }) => {
     return (
         <Flex bg="gray.100" w={"100%"} align="center" justify="center" h="100vh">
             <div className="boxmotion">
@@ -53,12 +53,12 @@ export const ASTConsole = ({ gmail, password, action,change}) => {
                             id="rememberMe"
                             name="rememberMe"
                             colorScheme="purple"
-                            onClick={()=>change()}
+                            onClick={() => change()}
                         >
                             Register?
                         </Field>
                         <Button type="submit" colorScheme="purple" width="full" onClick={() => action()}>
-                            Login
+                            {load ? "Logining..." : "Login"}
                         </Button>
                     </VStack>
                 </Formik>

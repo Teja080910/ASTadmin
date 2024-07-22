@@ -4,6 +4,7 @@ import express from 'express';
 import attendance from './attendance/attendance.server.js';
 import { connectToDB } from "./db.js";
 import hackathon from './hackathon/hackathon.server.js';
+import astconsole from './ast-console/console.server.js'
 
 dotenv.config()
 const app = express()
@@ -22,6 +23,8 @@ app.get('/', (req, res) => {
 app.use(attendance)
 
 app.use(hackathon)
+
+app.use(astconsole)
 
 connectToDB(() => {
     app.listen(8000, () => {
