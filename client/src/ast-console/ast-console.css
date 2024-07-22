@@ -22,11 +22,6 @@ h1 {
     justify-content: space-evenly;
 }
 
-.astname{
-    color: blue;
-    font-size: x-large;
-}
-
 
 @media (max-width:500px) {
     #motion{
@@ -34,5 +29,11 @@ h1 {
     }
     #signinform{
         width: 90%;
+    }
+    .boxmotion{
+        display: none;
+    }
+    .astname{
+       display: none;
     }
 }

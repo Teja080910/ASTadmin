@@ -22,7 +22,7 @@ export const Menu = () => {
                         <figcaption style={{ textAlign: 'center' }}>Team Work</figcaption>
                     </figure>
                     <figure style={{ width: "200px", height: "200px",fontWeight:'bold' }}>
-                        <Button onClick={() => {}} style={{ backgroundColor: 'white', width: "200px", height: "200px", backgroundImage: `url(${console})`, backgroundSize: '200px 200px', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></Button>
+                        <Button onClick={() => {window.location.href="console"}} style={{ backgroundColor: 'white', width: "200px", height: "200px", backgroundImage: `url(${console})`, backgroundSize: '200px 200px', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></Button>
                         <figcaption style={{ textAlign: 'center' }}>AST console</figcaption>
                     </figure>
                 </SimpleGrid>

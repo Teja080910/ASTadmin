@@ -1,37 +1,39 @@
 import {
     Box,
     Button,
-    Checkbox,
     Flex,
     FormControl,
     FormErrorMessage,
     FormLabel,
     Input,
+    Link,
     VStack
 } from "@chakra-ui/react";
 import { Field, Formik } from "formik";
 import './ast-console.css';
-import { Motion } from "./styles/motion";
 import { AST } from "./styles/ast";
+import { Motion } from "./styles/motion";
 
-export default function ASTConsole() {
+export const ASTConsole = ({ gmail, password, action,change}) => {
     return (
         <Flex bg="gray.100" w={"100%"} align="center" justify="center" h="100vh">
             <div className="boxmotion">
                 <Motion />
-                <AST />            </div>
+                <AST />
+            </div>
             <Box bg="white" p={5} rounded="md" id="signinform" w={"60%"}>
                 <Formik>
                     <VStack spacing={4} align="flex-start">
                         <h4>Welcome, To AST console</h4>
                         <FormControl>
-                            <FormLabel htmlFor="email">Email Address</FormLabel>
+                            <FormLabel htmlFor="email" >Email Address</FormLabel>
                             <Field
                                 as={Input}
                                 id="email"
                                 name="email"
                                 type="email"
                                 variant="filled"
+                                onChange={(e) => gmail(e.target.value)}
                             />
                         </FormControl>
                         <FormControl>
@@ -42,27 +44,20 @@ export default function ASTConsole() {
                                 name="password"
                                 type="password"
                                 variant="filled"
-                                validate={(value) => {
-                                    let error;
-
-                                    if (value?.length < 6) {
-                                        error = "Password must contain at least 6 characters";
-                                    }
-
-                                    return error;
-                                }}
+                                onChange={(e) => password(e.target.value)}
                             />
                             <FormErrorMessage></FormErrorMessage>
                         </FormControl>
                         <Field
-                            as={Checkbox}
+                            as={Link}
                             id="rememberMe"
                             name="rememberMe"
                             colorScheme="purple"
+                            onClick={()=>change()}
                         >
-                            Remember me?
+                            Register?
                         </Field>
-                        <Button type="submit" colorScheme="purple" width="full">
+                        <Button type="submit" colorScheme="purple" width="full" onClick={() => action()}>
                             Login
                         </Button>
                     </VStack>
