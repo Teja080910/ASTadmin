@@ -22,12 +22,10 @@ export const Admin = () => {
             const res1 = await axios.post(
               process.env.REACT_APP_database + "/totaldays"
             );
-            {
               if (res1.data) {
                 if (res1.data.Date !== date.toDateString()) {
                   let tdays = parseInt(res1.data.Days) + 1;
-                  const res = await axios.post(process.env.REACT_APP_database + "/updateadmin/" + gmail + "/" + date.toDateString() + "/" + tdays);
-                  {
+                  const res = await axios.post(process.env.REACT_APP_database + "/updateadmin/" + gmail + "/" + date.toDateString() + "/" + tdays)
                     if (res) {
                       sessionStorage.gmail = gmail;
                       sessionStorage.password = CryptoAES.encrypt(
@@ -54,7 +52,6 @@ export const Admin = () => {
                         isClosable: true,
                       });
                     }
-                  }
                 } else {
                   sessionStorage.gmail = gmail;
                   sessionStorage.password = CryptoAES.encrypt(
@@ -74,7 +71,6 @@ export const Admin = () => {
                   );
                 }
               }
-            }
           } else {
             sessionStorage.gmail = gmail;
             sessionStorage.password = CryptoAES.encrypt(
