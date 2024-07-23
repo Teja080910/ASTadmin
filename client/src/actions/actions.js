@@ -25,7 +25,7 @@ export const Actions = {
     },
 
     AttendanceAdminLogin: async () => {
-        await axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
+        return await axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
     },
 
     BootAdminRegister: async (email, password, name, phone) => {

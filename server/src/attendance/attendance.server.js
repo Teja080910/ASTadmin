@@ -5,8 +5,8 @@ import express from 'express';
 import session from 'express-session';
 import { Resend } from 'resend';
 import { db } from '../db.js';
-import { SendOtp } from './sendotp.js';
 import { AttendStudent } from './attendancelogin.js';
+import { SendOtp } from './sendotp.js';
 
 dotenv.config();
 const app = express();
@@ -25,7 +25,7 @@ app.use(session({
         path: '/',
         secure: false,
         maxAge: 600000,
-        sameSite:'strict'
+        sameSite: 'strict'
     }
 }));
 
@@ -34,11 +34,11 @@ app.get('/attendance', (req, res) => {
 });
 
 app.post('/sendotp', async (req, res) => {
-    await SendOtp(req,resend,res)
+    await SendOtp(req, resend, res)
 });
 
 app.post('/signin-student', async (req, res) => {
-    await AttendStudent(req,res)
+    await AttendStudent(req, res)
 });
 
 try {
@@ -85,6 +85,7 @@ try {
         await db.collection('admin').findOne({ Gmail: req.params.name })
             .then((details) => {
                 res.json(details);
+                console.log(details)
             })
             .catch((e) => console.log(e))
     })
