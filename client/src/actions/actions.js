@@ -24,6 +24,10 @@ export const Actions = {
         return await axios.post(api + "/bootcampadminlogin", { mail, password })
     },
 
+    AttendanceAdminLogin: async () => {
+        await axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
+    },
+
     BootAdminRegister: async (email, password, name, phone) => {
         return await axios.post(api + "/bootcampadminregister", { email, password, name, phone })
     },

@@ -1,3 +1,5 @@
+import cors from 'cors'
+import express from 'express'
 import { ConsoleSignin } from "./signin/signin.js"
 import { ConsoleRegister } from "./signin/signup.js"
 import express from 'express'
@@ -7,6 +9,7 @@ import { AllRoutes } from "./route-management/get-allroutes.js"
 import { ToggleRoutes } from "./route-management/modify-routes.js"
 import { deleteRoute } from "./route-management/delete-route.js"
 import { updateRouteName } from "./route-management/update-route-name.js"
+import { SigninMiddleware } from './middleware/console.middleware.js'
 
 
 const app = express()
@@ -15,11 +18,13 @@ app.use(express.json())
 
 
 app.post('/consolelogin', async (req, res) => {
-    await ConsoleSignin(req,res)
+    await ConsoleSignin(req, res)
 })
 
-app.post('/consoleregister', async (req, res) => {
-    await ConsoleRegister(req, res)
+app.post('/consoleregister',SigninMiddleware, async (req, res) => {
+    if (req.message) {
+        await ConsoleRegister(req, res)
+    }
 })
 
 

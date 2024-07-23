@@ -1,8 +1,4 @@
-import axios from 'axios';
-import CryptoAES from 'crypto-js/aes.js';
-import CryptoENC from "crypto-js/enc-utf8";
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Admin, Adminreg } from '../src/collection/admin/admin.js';
 import Login from '../src/collection/cerdentials/login.js';
@@ -14,6 +10,7 @@ import { Scrum } from '../src/collection/scrummaster/scrum.js';
 import './App.css';
 import EnhancedNetworkChecker from './NetworkChecker.js';
 import { Actions } from './actions/actions.js';
+import { Authentication } from './actions/auths.js';
 import { ConsoleLogin } from './ast-console/sigin.js';
 import { RegisterForm } from './bootcamp/Register/register.js';
 import { BootcampSidebar } from './bootcamp/bootcampsidebar/bootcampsidebar.js';
@@ -35,6 +32,9 @@ function App() {
   const [boot, setBoot] = useState(false)
   const [bootload, setBootload] = useState(false)
   const [load, setLoad] = useState(false)
+
+  
+  const { bootmail, adminpass, bootpass } = Authentication()
   const mail = useSelector((state) => state.user.bootmail);
   const password = useSelector((state) => state.user.bootpassword);
   const adminEmail = useSelector(state=>state.user.adminEmail); // Replace with the actual admin email
@@ -45,26 +45,26 @@ function App() {
 
   // Admin login check
   const AdminLogin = async () => {
-    await axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
+    await Actions.AttendanceAdminLogin()
       .then((res) => {
-        if (res?.data?.Password === CryptoAES.decrypt(sessionStorage.password ? sessionStorage.password : "1234", sessionStorage.gmail ? sessionStorage.gmail : "1234").toString(salt)) {
+        if (res?.data?.Password === adminpass) {
           setSet(true)
           setLoad(true)
         }
         setLoad(true)
-      }).catch((e) => {})
+      }).catch((e) => { })
   }
 
   // Bootcamp login check
   const BootCamp = async () => {
-    await Actions.BootAdminLogin(mail, CryptoAES.decrypt(password ? password : "1234", mail ? mail : "1234").toString(salt))
+    await Actions.BootAdminLogin(bootmail, bootpass)
       .then((res) => {
         if (res?.data?.message) {
           setBoot(true)
           setBootload(true)
         }
         setBootload(true)
-      }).catch((e) => {})
+      }).catch((e) => { })
   }
 
   // Call all checks on component mount
@@ -75,7 +75,7 @@ function App() {
 
   return (
     <>
-      <EnhancedNetworkChecker/>
+      <EnhancedNetworkChecker />
       <BrowserRouter>
         <Routes>
           {load && (

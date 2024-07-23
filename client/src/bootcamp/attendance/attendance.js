@@ -26,16 +26,16 @@ export const BootAttendance = () => {
     const toast = useToast();
     const searchRef = useRef(null);
 
-    const Attend = async () => {
+    const Attend = async (registerno) => {
         try {
             setShow(true)
-            // const responce = await axios.post(process.env.REACT_APP_database + "/attendstudent/" + registerno)
-            // if (responce?.data?.message) {
-            //     toast({ title: registerno + " Attend", status: "success", position: "top", isClosable: true });
-            //     fetchData();
-            // } else {
-            //     toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true });
-            // }
+            const responce = await axios.post(process.env.REACT_APP_database + "/attendstudent/" + registerno)
+            if (responce?.data?.message) {
+                toast({ title: registerno + " Attend", status: "success", position: "top", isClosable: true });
+                fetchData();
+            } else {
+                toast({ title: "Try again", status: "error", position: "bottom-left", isClosable: true });
+            }
         } catch (e) {
             console.log(e);
         }
@@ -106,7 +106,7 @@ export const BootAttendance = () => {
 
     return (
         <>
-            <FaceRegorg isOpen={show} onClose={() => setShow(false)} regd={regd} />
+            {/* <FaceRegorg isOpen={show} onClose={() => setShow(false)} regd={regd} /> */}
             <BootcampNav />
             <div className="yearbtns">
                 <Button className="yearbtnsink" style={{ backgroundColor: '#17D7A0', borderRadius: '10px', border: year === 1 ? "solid 3px black" : "white", }} onClick={Year} onClickCapture={(e) => { syear(1) }}><b>I B.Tech</b></Button>
@@ -140,7 +140,7 @@ export const BootAttendance = () => {
                                             {index + 1}. {x?.Name.toUpperCase()} ({x?.Reg_No.toUpperCase()})
                                         </Box>
                                         {x.Date !== date.toDateString() ?
-                                            <Button colorScheme="blue" onClick={() => { Attend()}} onClickCapture={()=>setRegd({num:x?.Reg_No,name:x?.Name})}>Attend</Button> :
+                                            <Button colorScheme="blue" onClick={() => { Attend(x?.Reg_No)}} onClickCapture={()=>setRegd({num:x?.Reg_No,name:x?.Name})}>Attend</Button> :
                                             <Button colorScheme="red" onClick={() => Absent(x?.Reg_No)}>Absent</Button>
                                         }
                                     </AccordionItem>
