@@ -3,6 +3,8 @@ import { useState } from "react"
 import { ASTConsole } from "./ast-console-login"
 import { ConsoleActions } from "./console-action/console-actions"
 import { ConsoleSignup } from "./signup"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 export const ConsoleLogin = () => {
     const [gmail, setGmail] = useState()
@@ -10,6 +12,8 @@ export const ConsoleLogin = () => {
     const [sigup, setSignup] = useState(false)
     const [load, setLoad] = useState(false)
     const toast = useToast()
+    const dispatch = useDispatch()
+    const nav = useNavigate()
     const Submit = async () => {
         setLoad(true)
         await ConsoleActions.ConsoleLogin(gmail, password)
@@ -18,6 +22,16 @@ export const ConsoleLogin = () => {
                 if (res?.data?.message) {
                     toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true })
                     setLoad(false)
+
+                    dispatch({
+                        type: 'CONSOLE', 
+                        payload: {
+                          adminEmail:res.data.data.Gmail,
+                          adminLoginState:true
+                        }
+                      });
+                   nav("/console/home")
+
                 }
                 else {
                     toast({ title: res?.data?.error, status: 'error', position: 'bottom-right', isClosable: true })
