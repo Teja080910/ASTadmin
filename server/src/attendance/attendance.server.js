@@ -65,10 +65,7 @@ try {
         if (completion.choices[0].message.content) {
             res.json(completion.choices[0].message.content)
         }
-        // console.log(completion.choices[0].message.content)
     })
-
-
 
 
     // ************************************** Admin *****************************************//
@@ -85,7 +82,6 @@ try {
         await db.collection('admin').findOne({ Gmail: req.params.name })
             .then((details) => {
                 res.json(details);
-                console.log(details)
             })
             .catch((e) => console.log(e))
     })
