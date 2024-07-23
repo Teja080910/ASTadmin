@@ -20,6 +20,12 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 round: action.payload.round
             }
+        case 'CONSOLE':
+            return{
+                ...state,
+                adminEmail: action.payload.adminEmail,
+                adminLoginState: action.payload.adminLoginState,
+            }
         default:
             return state;
     }

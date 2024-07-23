@@ -1,5 +1,5 @@
-import { api } from "../../actions/api"
-import axios from "axios"
+import axios from "axios";
+import { api } from "../../actions/api";
 
 export const ConsoleActions={
     ConsoleLogin: async (mail, password) => {
@@ -10,7 +10,29 @@ export const ConsoleActions={
         return await axios.post(api + "/consoleregister", { mail, password,phone,event,club,date,members,admail,adpass})
     },
 
-    AnotherConsoleRegister: async (mail, password,phone,adminmail) => {
-        return await axios.post(api + "/anotherconsoleregister", { mail, password,phone,adminmail})
-    },
-}
+
+
+  AnotherConsoleRegister: async (mail, password, phone, adminmail) => {
+    return await axios.post(api + "/anotherconsoleregister", { mail, password, phone, adminmail });
+  },
+
+  fetchRoutes: async (adminEmail) => {
+    return await axios.get(api + "/ast-console/allroutes", { params: { adminEmail } });
+  },
+
+  toggleRouteVisibility: async (path, adminEmail) => {
+    return await axios.post(api + "/ast-console/routes/toggle", { path, adminEmail });
+  },
+
+  addRoute: async (newRoute, adminEmail) => {
+    return await axios.post(api + "/ast-console/add-route", { ...newRoute, adminEmail });
+  },
+
+  deleteRoute: async (path, adminEmail) => {
+    return await axios.post(api + "/ast-console/delete-route", { path, adminEmail });
+  },
+
+  updateRouteName: async (oldPath, newPath, adminEmail) => {
+    return await axios.post(api + "/ast-console/update-route-name", { oldPath, newPath, adminEmail });
+  }
+};
