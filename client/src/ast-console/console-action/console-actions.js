@@ -1,6 +1,5 @@
 import axios from "axios";
-// import { api } from "../../actions/api";
-const api = "http://localhost:8000"
+import { api } from "../../actions/api";
 
 export const ConsoleActions={
     ConsoleLogin: async (mail, password) => {
