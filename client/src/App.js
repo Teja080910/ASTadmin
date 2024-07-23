@@ -25,6 +25,7 @@ import { HackathonSidebar } from './hackathon/hackathonsidebar/hackathonsidebar.
 import Timer from './hackathon/main-timer/Timer.jsx';
 import './responce.css';
 import { socket } from './socket.js';
+import ConsoleHome from './ast-console/ast-console-home.js';
 
 function App() {
   const [set, setSet] = useState(false)
@@ -32,9 +33,13 @@ function App() {
   const [bootload, setBootload] = useState(false)
   const [load, setLoad] = useState(false)
 
-  const { bootmail, adminpass, bootpass } = Authentication()
+  
+  const { bootmail, adminpass, bootpass,adminEmail, adminLoginState } = Authentication()
 
-  // Admin login check
+
+
+
+
   const AdminLogin = async () => {
     await Actions.AttendanceAdminLogin()
       .then((res) => {
@@ -88,7 +93,15 @@ function App() {
               <Route path="/attendance" element={set ? <Attendance /> : <Admin />} />
               <Route path='/tech' element={set ? <Login /> : <Admin />} />
               <Route path='/yoga' element={set ? <Yoga /> : <Admin />} />
-              <Route path='/console' element={<ConsoleLogin />} />
+              <Route path='/console' element={
+               ! adminLoginState ?
+                <ConsoleLogin/>:
+                <ConsoleHome adminEmail={adminEmail}/>}/>
+              <Route path='/console/home' element={adminLoginState?
+                <ConsoleHome adminEmail={adminEmail}/>:
+                <ConsoleLogin/>
+                
+                }/>
             </>
           )}
           {bootload && (
