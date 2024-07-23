@@ -2,9 +2,6 @@ import { db1 } from "../../db.js";
 
 export const AllRoutes = async(req,res)=>{
 
-
-
-
     const { adminEmail } = req.query;
 
     if (!adminEmail) {

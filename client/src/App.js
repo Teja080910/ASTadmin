@@ -34,16 +34,12 @@ function App() {
   const [load, setLoad] = useState(false)
 
   
-  const { bootmail, adminpass, bootpass } = Authentication()
-  const mail = useSelector((state) => state.user.bootmail);
-  const password = useSelector((state) => state.user.bootpassword);
-  const adminEmail = useSelector(state=>state.user.adminEmail); // Replace with the actual admin email
-  const adminLoginState = useSelector(state=>state.user.adminLoginState); // Replace with the actual admin email
+  const { bootmail, adminpass, bootpass,adminEmail, adminLoginState } = Authentication()
 
 
-  const salt = CryptoENC
 
-  // Admin login check
+
+
   const AdminLogin = async () => {
     await Actions.AttendanceAdminLogin()
       .then((res) => {

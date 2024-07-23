@@ -9,21 +9,19 @@ export const ToggleRoutes = async (req, res) => {
 
   try {
     // Find the current visibility status of the route
-    const admin = await db1.collection('Hacthonadmin').findOne(
-      { Gmail: adminEmail, 'Routes.path': path },
-      { projection: { 'Routes.$': 1 } }
-    );
+    const admin = await db1.collection('Hacthonadmin').findOne({ Gmail: adminEmail });
 
-    if (!admin) {
+    if (!admin || !admin.Routes || admin.Routes[path] === undefined) {
       return res.status(404).json({ error: 'Route or admin not found' });
     }
 
-    const currentVisibility = admin.Routes[0].visible;
+    const currentVisibility = admin.Routes[path];
 
     // Update the visibility status of the route
+    const update = { [`Routes.${path}`]: !currentVisibility };
     const result = await db1.collection('Hacthonadmin').updateOne(
-      { Gmail: adminEmail, 'Routes.path': path },
-      { $set: { 'Routes.$.visible': !currentVisibility } }
+      { Gmail: adminEmail },
+      { $set: update }
     );
 
     if (result.modifiedCount > 0) {

@@ -2,8 +2,6 @@ import cors from 'cors'
 import express from 'express'
 import { ConsoleSignin } from "./signin/signin.js"
 import { ConsoleRegister } from "./signin/signup.js"
-import express from 'express'
-import cors from 'cors'
 import { AddRoute } from "./route-management/add-route.js"
 import { AllRoutes } from "./route-management/get-allroutes.js"
 import { ToggleRoutes } from "./route-management/modify-routes.js"

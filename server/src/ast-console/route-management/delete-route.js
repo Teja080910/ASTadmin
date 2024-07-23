@@ -5,19 +5,20 @@ export const deleteRoute = async (req, res) => {
   const { path, adminEmail } = req.body;
 
   if (!path || !adminEmail) {
-    return res.json({ error: 'Path and admin email are required' });
+    return res.status(400).json({ error: 'Path and admin email are required' });
   }
 
   try {
+    // Unset the specified route
     const result = await db1.collection('Hacthonadmin').updateOne(
       { Gmail: adminEmail },
-      { $pull: { Routes: { path } } }
+      { $unset: { [`Routes.${path}`]: "" } }
     );
 
     if (result.modifiedCount > 0) {
       res.json({ success: true });
     } else {
-      res.json({ error: 'Route or admin not found' });
+      res.status(404).json({ error: 'Route or admin not found' });
     }
   } catch (error) {
     console.error('Error deleting route:', error);

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Table, Thead, Tbody, Tr, Th, Td, Switch, Input, Button, FormControl, FormLabel, IconButton, useToast, VStack, HStack, Divider, Text } from '@chakra-ui/react';
+import { Box, Table, Thead, Tbody, Tr, Th, Td, Switch, Input, Button, FormControl, FormLabel, IconButton, useToast, VStack, Divider, Text } from '@chakra-ui/react';
 import { ConsoleActions } from './console-action/console-actions';
 import { FaTrash, FaEdit } from 'react-icons/fa';
 
 const ConsoleHome = ({ adminEmail }) => {
-  const [routes, setRoutes] = useState([]);
-  const [newRoute, setNewRoute] = useState({ path: '', name: '' });
-  const [editRoute, setEditRoute] = useState({ path: '', name: '' });
-  const toast = useToast(); // Initialize toast notifications
+  const [routes, setRoutes] = useState({});
+  const [newRoute, setNewRoute] = useState('');
+  const [editRoute, setEditRoute] = useState('');
+  const [editNewRoute, setEditNewRoute] = useState('');
+  const toast = useToast();
 
   useEffect(() => {
-    // Fetch routes from the server based on admin email
     ConsoleActions.fetchRoutes(adminEmail)
       .then(response => {
         if (!response.data?.error) {
@@ -41,10 +41,10 @@ const ConsoleHome = ({ adminEmail }) => {
     ConsoleActions.toggleRouteVisibility(path, adminEmail)
       .then(response => {
         if (response.data.success) {
-          const newRoutes = routes.map(route => 
-            route.path === path ? { ...route, visible: !route.visible } : route
-          );
-          setRoutes(newRoutes);
+          setRoutes(prevRoutes => ({
+            ...prevRoutes,
+            [path]: !prevRoutes[path]
+          }));
           toast({
             title: 'Success',
             description: 'Route visibility updated.',
@@ -75,12 +75,15 @@ const ConsoleHome = ({ adminEmail }) => {
   };
 
   const addRoute = () => {
-    if (newRoute.path && newRoute.name) {
-      ConsoleActions.addRoute(newRoute, adminEmail)
+    if (newRoute) {
+      ConsoleActions.addRoute({ path: newRoute }, adminEmail)
         .then(response => {
           if (response.data.success) {
-            setRoutes([...routes, { ...newRoute, visible: true }]);
-            setNewRoute({ path: '', name: '' });
+            setRoutes(prevRoutes => ({
+              ...prevRoutes,
+              [newRoute]: true
+            }));
+            setNewRoute('');
             toast({
               title: 'Success',
               description: 'New route added.',
@@ -115,7 +118,11 @@ const ConsoleHome = ({ adminEmail }) => {
     ConsoleActions.deleteRoute(path, adminEmail)
       .then(response => {
         if (response.data.success) {
-          setRoutes(routes.filter(route => route.path !== path));
+          setRoutes(prevRoutes => {
+            const newRoutes = { ...prevRoutes };
+            delete newRoutes[path];
+            return newRoutes;
+          });
           toast({
             title: 'Success',
             description: 'Route deleted.',
@@ -145,113 +152,105 @@ const ConsoleHome = ({ adminEmail }) => {
       });
   };
 
-  const updateRoute = (path) => {
-    if (editRoute.name) {
-      ConsoleActions.updateRouteName(path, editRoute.name, adminEmail)
-        .then(response => {
-          if (response.data.success) {
-            const newRoutes = routes.map(route => 
-              route.path === path ? { ...route, name: editRoute.name } : route
-            );
-            setRoutes(newRoutes);
-            setEditRoute({ path: '', name: '' });
-            toast({
-              title: 'Success',
-              description: 'Route name updated.',
-              status: 'success',
-              duration: 5000,
-              isClosable: true,
-            });
-          } else {
-            toast({
-              title: 'Error',
-              description: response.data.error,
-              status: 'error',
-              duration: 5000,
-              isClosable: true,
-            });
-          }
-        })
-        .catch(error => {
-          console.error('Error updating route name:', error);
+  const updateRoute = (oldPath) => {
+    ConsoleActions.updateRouteName(oldPath, editNewRoute, adminEmail)
+      .then(response => {
+        if (response.data.success) {
+          setRoutes(prevRoutes => {
+            const newRoutes = { ...prevRoutes };
+            delete newRoutes[oldPath];
+            newRoutes[editNewRoute] = prevRoutes[oldPath];
+            return newRoutes;
+          });
+          setEditRoute('');
+          setEditNewRoute('');
+          toast({
+            title: 'Success',
+            description: 'Route name updated.',
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+          });
+        } else {
           toast({
             title: 'Error',
-            description: 'Failed to update route name.',
+            description: response.data.error,
             status: 'error',
             duration: 5000,
             isClosable: true,
           });
+        }
+      })
+      .catch(error => {
+        console.error('Error updating route name:', error);
+        toast({
+          title: 'Error',
+          description: 'Failed to update route name.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
         });
-    }
+      });
   };
 
   return (
     <Box p={4}>
       <VStack spacing={4} align="stretch">
-
-        <Box maxW={{base:"100%",md:"75%",lg:"50%"}} m={1} boxShadow={"base"} p={4}>
-<Text align="center" as="h3">Add Routes</Text> 
-       
-        <FormControl>
-          <FormLabel fontWeight="bold">Path</FormLabel>
-          <Input
-            value={newRoute.path}
-            onChange={(e) => setNewRoute({ ...newRoute, path: e.target.value })}
-            placeholder="/new-path"
-            variant="outline"
-          />
-          <FormLabel mt={4} fontWeight="bold">Name</FormLabel>
-          <Input
-            value={newRoute.name}
-            onChange={(e) => setNewRoute({ ...newRoute, name: e.target.value })}
-            placeholder="New Route"
-            variant="outline"
-          />
-          <Button mt={4} colorScheme="teal" onClick={addRoute}>Add Route</Button>
-        </FormControl>
+        <Box maxW={{ base: "100%", md: "75%", lg: "50%" }} m={1} boxShadow="base" p={4}>
+          <Text align="center" as="h3">Add Routes</Text> 
+          <FormControl>
+            <FormLabel fontWeight="bold">Path</FormLabel>
+            <Input
+              value={newRoute}
+              onChange={(e) => setNewRoute(e.target.value)}
+              placeholder="/new-path"
+              variant="outline"
+            />
+            <Button mt={4} colorScheme="teal" onClick={addRoute}>Add Route</Button>
+          </FormControl>
         </Box>
         <Divider my={4} />
-        <Text align="center" as="h3">Avaliable Routes</Text> 
-
-        <Table variant="simple" >
+        <Text align="center" as="h3">Available Routes</Text> 
+        <Table variant="simple">
           <Thead>
             <Tr>
-              {/* <Th>Route</Th> */}
-              <Th>Component</Th>
-              <Th>Is Visible ?</Th>
+              <Th>Path</Th>
+              <Th>Is Visible?</Th>
               <Th>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {routes.map((route, index) => (
+            {Object.keys(routes).map((path, index) => (
               <Tr key={index}>
-                {/* <Td>{route.path}</Td> */}
                 <Td>
-                  {editRoute.path === route.path ? (
+                  {editRoute === path ? (
                     <Input
-                      value={editRoute.name}
-                      onChange={(e) => setEditRoute({ ...editRoute, name: e.target.value })}
-                      placeholder="Edit Route Name"
+                      value={editNewRoute}
+                      onChange={(e) => setEditNewRoute(e.target.value)}
+                      placeholder="Edit Route Path"
                       variant="outline"
                     />
                   ) : (
-                    route.name
+                    path
                   )}
                 </Td>
                 <Td>
                   <Switch
-                    isChecked={route.visible}
-                    onChange={() => toggleVisibility(route.path)}
+                    isChecked={routes[path]}
+                    onChange={() => toggleVisibility(path)}
                     colorScheme="teal"
                   />
                 </Td>
                 <Td>
-                  {editRoute.path === route.path ? (
-                    <Button colorScheme="blue" onClick={() => updateRoute(route.path)} ml={2}>Update</Button>
+                  {editRoute === path ? (
+                    <>
+                      <Button colorScheme="blue" onClick={() => updateRoute(path)} ml={2}>Update</Button>
+                      <Button colorScheme="gray" onClick={() => { setEditRoute(''); setEditNewRoute(''); }} ml={2}>Cancel</Button>
+                    </>
                   ) : (
                     <IconButton
                       icon={<FaEdit />}
-                      onClick={() => setEditRoute({ path: route.path, name: route.name })}
+                      onClick={() => { setEditRoute(path); setEditNewRoute(path); }}
                       aria-label="Edit"
                       colorScheme="blue"
                       mr={2}
@@ -259,7 +258,7 @@ const ConsoleHome = ({ adminEmail }) => {
                   )}
                   <IconButton
                     icon={<FaTrash />}
-                    onClick={() => deleteRoute(route.path)}
+                    onClick={() => deleteRoute(path)}
                     aria-label="Delete"
                     colorScheme="red"
                   />
