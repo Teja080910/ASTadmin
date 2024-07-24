@@ -12,12 +12,12 @@ export const ConsoleActions={
 
 
 
-  AnotherConsoleRegister: async (mail, password, phone, admail) => {
-    return await axios.post(api + "/anotherconsoleregister", { mail, password, phone, admail });
+  AnotherConsoleRegister: async (mail, password, phone, adminEmail) => {
+    return await axios.post(api + "/anotherconsoleregister", { mail, password, phone, adminEmail });
   },
 
-  fetchRoutes: async (admail) => {
-    return await axios.get(api + "/ast-console/allroutes", { params: { admail } });
+  fetchRoutes: async (adminEmail) => {
+    return await axios.get(api + "/ast-console/allroutes", { params: { adminEmail } });
   },
 
   toggleRouteVisibility: async (path, admail,adpass) => {

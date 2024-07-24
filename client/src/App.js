@@ -11,7 +11,7 @@ import './App.css';
 import EnhancedNetworkChecker from './NetworkChecker.js';
 import { Actions } from './actions/actions.js';
 import { Authentication } from './actions/auths.js';
-import ConsoleHome from './ast-console/ast-console-home.js';
+import ConsoleHome from './ast-console/ast-console-routes.js';
 import { ConsoleLogin } from './ast-console/sigin.js';
 import { RegisterForm } from './bootcamp/Register/register.js';
 import { BootcampSidebar } from './bootcamp/bootcampsidebar/bootcampsidebar.js';
@@ -26,7 +26,6 @@ import { HackathonSidebar } from './hackathon/hackathonsidebar/hackathonsidebar.
 import Timer from './hackathon/main-timer/Timer.jsx';
 import './responce.css';
 import { socket } from './socket.js';
-import ConsoleHome from './ast-console/ast-console-home.js';
 import AstConsoleLayout from './ast-console/ast-console-layout.js';
 
 function App() {

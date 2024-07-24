@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import ConsoleHome from "./ast-console-home";
+import ConsoleHome from "./ast-console-routes";
 import HomeIcon from "@mui/icons-material/Home";
 import AltRouteIcon from "@mui/icons-material/AltRoute";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
