@@ -4,9 +4,9 @@ export const AllRoutes = async (req, res) => {
 
   const { admail } = req.query;
   try {
-    const admin = await db1.collection('Hacthonadmin').findOne({ Gmail: admail});
+    const admin = await db1.collection('Hackathonadmin').findOne({ Gmail: admail });
     if (admin) {
-      const route = await db1.collection('Hacthonadmin').findOne({ Gmail: "hackathon@gmail.com" })
+      const route = await db1.collection('Hackathonadmin').findOne({ Gmail: "hackathon@gmail.com" })
       res.json({ routes: route?.Routes });
     } else {
       res.json({ error: 'Admin or routes not found' });

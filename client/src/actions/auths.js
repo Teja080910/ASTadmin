@@ -31,10 +31,10 @@ export const Authentication = () => {
 
     let consolepass;
     try {
-        bootpass = CryptoAES.decrypt(consolepassword || "1234", adminEmail || "1234").toString(CryptoENC);
+        consolepass = CryptoAES.decrypt(consolepassword || "1234", adminEmail || "1234").toString(CryptoENC);
     } catch (error) {
         console.error('Error decrypting console password:', error);
-        bootpass = '';
+        consolepass = '';
     }
 
     return { bootmail, adminpass, bootpass, consolepass, adminEmail, adminLoginState };

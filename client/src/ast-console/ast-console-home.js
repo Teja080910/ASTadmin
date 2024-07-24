@@ -1,7 +1,7 @@
+import { Box, Button, Divider, FormControl, FormLabel, IconButton, Input, Switch, Table, Tbody, Td, Text, Th, Thead, Tr, useToast, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { Box, Table, Thead, Tbody, Tr, Th, Td, Switch, Input, Button, FormControl, FormLabel, IconButton, useToast, VStack, Divider, Text } from '@chakra-ui/react';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 import { ConsoleActions } from './console-action/console-actions';
-import { FaTrash, FaEdit } from 'react-icons/fa';
 
 const ConsoleHome = ({ adminEmail, password }) => {
   const [routes, setRoutes] = useState({});

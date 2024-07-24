@@ -28,7 +28,7 @@ export const ConsoleLogin = () => {
                         type: 'CONSOLE',
                         payload: {
                             adminEmail: res?.data?.data?.Gmail,
-                            adminPass:CryptoAES.encrypt(res?.data?.data?.Password,res?.data?.data?.Gmail).toString(),
+                            adminPass: CryptoAES.encrypt(res?.data?.data?.Password, res?.data?.data?.Gmail).toString(),
                             adminLoginState: true
                         }
                     });

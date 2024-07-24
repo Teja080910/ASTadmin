@@ -1,11 +1,11 @@
 import { db1 } from "../../db.js";
 
 export const AddRoute = async (req, res) => {
-  const { path} = req.body;
+  const { path } = req.body;
 
   if (path) {
     try {
-      const result = await db1.collection('Hacthonadmin').updateOne(
+      const result = await db1.collection('Hackathonadmin').updateOne(
         { Gmail: "hackathon@gmail.com" },
         {
           $set: { [`Routes.${path}`]: true }
