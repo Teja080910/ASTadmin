@@ -3,6 +3,7 @@ import { FileInput, Label, Select } from "flowbite-react";
 import { useState } from 'react';
 import { Actions } from '../../actions/actions';
 import { AllMaterials } from "./allmaterials";
+import { Authentication } from '../../actions/auths';
 export const BootcampMaterial = () => {
     const [photo, setPhoto] = useState()
     const [file, setFile] = useState()
@@ -10,6 +11,7 @@ export const BootcampMaterial = () => {
     const [theme, setTheme] = useState();
     const [isLoading, setIsLoading] = useState(false)
     const toast = useToast();
+    const {bootmail,bootpass}=Authentication()
     const UploadFile = async () => {
         setIsLoading(true)
         const formData = new FormData();
@@ -18,6 +20,7 @@ export const BootcampMaterial = () => {
             formData.append("file", file);
             formData.append("materialName", materialName);
             formData.append("theme", theme);
+            formData.append('password',bootpass)
             Actions.UploadMaterials(formData)
                 .then((res) => {
                     if (res?.data?.message) {
@@ -74,7 +77,7 @@ export const BootcampMaterial = () => {
                 </div>
             </div>
             <div className='deleteall'>
-                <Button onClick={() => { Actions.DeleteAllMaterials().then((res) => {toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true });window.location.reload(10)}) }} bg="red.600" color="white" size={'sm'}>Delete All</Button>
+                <Button onClick={() => { Actions.DeleteAllMaterials().then((res) => { toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true }); window.location.reload(10) }) }} bg="red.600" color="white" size={'sm'}>Delete All</Button>
             </div>
             <div className="allmetirials">
                 <div className="allmeti">

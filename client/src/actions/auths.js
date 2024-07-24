@@ -1,14 +1,14 @@
-import { useSelector } from 'react-redux';
 import CryptoAES from 'crypto-js/aes';
 import CryptoENC from 'crypto-js/enc-utf8';
+import { useSelector } from 'react-redux';
 
 export const Authentication = () => {
     const bootmail = useSelector((state) => state.user.bootmail);
     const password = useSelector((state) => state.user.bootpassword);
     const sessionMail = sessionStorage.gmail || "1234";
     const sessionPassword = sessionStorage.password || "1234";
-    const adminEmail = useSelector(state=>state.user.adminEmail); // Replace with the actual admin email
-    const adminLoginState = useSelector(state=>state.user.adminLoginState); // Replace with the actual admin email
+    const adminEmail = useSelector(state => state.user.adminEmail);
+    const adminLoginState = useSelector(state => state.user.adminLoginState);
     let adminpass;
     try {
         adminpass = CryptoAES.decrypt(sessionPassword, sessionMail).toString(CryptoENC);
@@ -23,5 +23,5 @@ export const Authentication = () => {
         console.error('Error decrypting boot password:', error);
         bootpass = '';
     }
-    return { bootmail, password, adminpass, bootpass,adminEmail, adminLoginState };
+    return { bootmail, adminpass, bootpass, adminEmail, adminLoginState };
 };

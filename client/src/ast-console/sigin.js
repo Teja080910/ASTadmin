@@ -1,10 +1,10 @@
 import { useToast } from "@chakra-ui/react"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import { ASTConsole } from "./ast-console-login"
 import { ConsoleActions } from "./console-action/console-actions"
 import { ConsoleSignup } from "./signup"
-import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
 
 export const ConsoleLogin = () => {
     const [gmail, setGmail] = useState()
@@ -24,13 +24,13 @@ export const ConsoleLogin = () => {
                     setLoad(false)
 
                     dispatch({
-                        type: 'CONSOLE', 
+                        type: 'CONSOLE',
                         payload: {
-                          adminEmail:res.data.data.Gmail,
-                          adminLoginState:true
+                            adminEmail: res.data.data.Gmail,
+                            adminLoginState: true
                         }
-                      });
-                   nav("/console/home")
+                    });
+                    nav("/console")
 
                 }
                 else {
