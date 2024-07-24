@@ -26,6 +26,7 @@ import Timer from './hackathon/main-timer/Timer.jsx';
 import './responce.css';
 import { socket } from './socket.js';
 import ConsoleHome from './ast-console/ast-console-home.js';
+import AstConsoleLayout from './ast-console/ast-console-layout.js';
 
 function App() {
   const [set, setSet] = useState(false)
@@ -93,15 +94,8 @@ function App() {
               <Route path="/attendance" element={set ? <Attendance /> : <Admin />} />
               <Route path='/tech' element={set ? <Login /> : <Admin />} />
               <Route path='/yoga' element={set ? <Yoga /> : <Admin />} />
-              <Route path='/console' element={
-               ! adminLoginState ?
-                <ConsoleLogin/>:
-                <ConsoleHome adminEmail={adminEmail}/>}/>
-              <Route path='/console/home' element={adminLoginState?
-                <ConsoleHome adminEmail={adminEmail}/>:
-                <ConsoleLogin/>
-                
-                }/>
+              <Route path='/console' element={! adminLoginState ?  <ConsoleLogin/>: <AstConsoleLayout adminEmail={adminEmail} />}/>
+              <Route path='/console/:page' element={adminLoginState?<AstConsoleLayout adminEmail={adminEmail} /> : <ConsoleLogin/> }/>
             </>
           )}
           {bootload && (
