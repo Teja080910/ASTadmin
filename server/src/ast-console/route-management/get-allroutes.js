@@ -2,15 +2,12 @@ import { db1 } from "../../db.js";
 
 export const AllRoutes = async (req, res) => {
 
-  const { adminEmail } = req.query;
-  if (!adminEmail) {
-    return res.status(400).json({ error: 'Admin email is required' });
-  }
+  const { admail } = req.query;
   try {
-    const admin = await db1.collection('Hacthonadmin').findOne({ Gmail: "hackathon@gmail.com" });
-
-    if (admin && admin.Routes) {
-      res.json({routes:admin.Routes});
+    const admin = await db1.collection('Hacthonadmin').findOne({ Gmail: admail});
+    if (admin) {
+      const route = await db1.collection('Hacthonadmin').findOne({ Gmail: "hackathon@gmail.com" })
+      res.json({ routes: route?.Routes });
     } else {
       res.json({ error: 'Admin or routes not found' });
     }
