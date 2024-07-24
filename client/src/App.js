@@ -33,7 +33,7 @@ function App() {
   const [boot, setBoot] = useState(false)
   const [bootload, setBootload] = useState(false)
   const [load, setLoad] = useState(false)
-  const { bootmail, adminpass, bootpass, adminEmail,consolepass, adminLoginState } = Authentication()
+  const { bootmail, adminpass, bootpass, adminEmail, consolepass, adminLoginState } = Authentication()
 
   const AdminLogin = async () => {
     await Actions.AttendanceAdminLogin()

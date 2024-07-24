@@ -1,26 +1,26 @@
 import { db1 } from "../../db.js";
 
 export const ToggleRoutes = async (req, res) => {
-  const { path, adminEmail } = req.body;
+  const { path, admail } = req.body;
 
-  if (!path || !adminEmail) {
+  if (!path) {
     return res.status(400).json({ error: 'Path and admin email are required' });
   }
 
   try {
     // Find the current visibility status of the route
-    const admin = await db1.collection('Hacthonadmin').findOne({ Gmail: "hackathon@gmail.com"  });
+    const admin = await db1.collection('Hackathonadmin').findOne({ Gmail: "hackathon@gmail.com" });
 
-    if (!admin || !admin.Routes || admin.Routes[path] === undefined) {
+    if (!admin || !admin?.Routes || admin?.Routes[path] === undefined) {
       return res.status(404).json({ error: 'Route or admin not found' });
     }
 
-    const currentVisibility = admin.Routes[path];
+    const currentVisibility = admin?.Routes[path];
 
     // Update the visibility status of the route
     const update = { [`Routes.${path}`]: !currentVisibility };
-    const result = await db1.collection('Hacthonadmin').updateOne(
-      { Gmail: "hackathon@gmail.com"  },
+    const result = await db1.collection('Hackathonadmin').updateOne(
+      { Gmail: "hackathon@gmail.com" },
       { $set: update }
     );
 

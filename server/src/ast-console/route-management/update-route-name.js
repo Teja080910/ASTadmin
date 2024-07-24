@@ -1,15 +1,15 @@
 import { db1 } from "../../db.js";
 
 export const updateRouteName = async (req, res) => {
-  const { oldPath, newPath, adminEmail } = req.body;
+  const { oldPath, newPath } = req.body;
 
-  if (!oldPath || !newPath || !adminEmail) {
+  if (!oldPath || !newPath) {
     return res.status(400).json({ error: 'Old path, new path, and admin email are required' });
   }
 
   try {
     // Fetch the existing route details
-    const adminData = await db1.collection('Hacthonadmin').findOne(
+    const adminData = await db1.collection('Hackathonadmin').findOne(
       { Gmail: "hackathon@gmail.com", [`Routes.${oldPath}`]: { $exists: true } },
       { projection: { [`Routes.${oldPath}`]: 1 } }
     );
@@ -18,17 +18,17 @@ export const updateRouteName = async (req, res) => {
       return res.status(404).json({ error: 'Route or admin not found' });
     }
 
-    const oldRouteDetails = adminData.Routes[oldPath];
+    const oldRouteDetails = adminData?.Routes[oldPath];
 
     // Set the new route with the value of the old route details
-    const result = await db1.collection('Hacthonadmin').updateOne(
+    const result = await db1.collection('Hackathonadmin').updateOne(
       { Gmail: "hackathon@gmail.com" },
       { $set: { [`Routes.${newPath}`]: oldRouteDetails } }
     );
 
     if (result.modifiedCount > 0) {
       // Remove the old route after successfully adding the new one
-      await db1.collection('Hacthonadmin').updateOne(
+      await db1.collection('Hackathonadmin').updateOne(
         { Gmail: "hackathon@gmail.com" },
         { $unset: { [`Routes.${oldPath}`]: "" } }
       );
