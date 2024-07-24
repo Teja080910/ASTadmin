@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { ASTConsole } from "./ast-console-login"
 import { ConsoleActions } from "./console-action/console-actions"
 import { ConsoleSignup } from "./signup"
+import CryptoAES from "crypto-js/aes";
 
 export const ConsoleLogin = () => {
     const [gmail, setGmail] = useState()
@@ -26,7 +27,8 @@ export const ConsoleLogin = () => {
                     dispatch({
                         type: 'CONSOLE',
                         payload: {
-                            adminEmail: res.data.data.Gmail,
+                            adminEmail: res?.data?.data?.Gmail,
+                            adminPass:CryptoAES.encrypt(res?.data?.data?.Password,res?.data?.data?.Gmail).toString(),
                             adminLoginState: true
                         }
                     });

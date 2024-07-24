@@ -8,7 +8,8 @@ export const ConsoleSignin = async (data, res) => {
             return res.json({ error: 'admin not found' });
         }
         if (admin?.Password === password) {
-            return res.json({ message: 'login successfully', data: admin })
+            const admin = await db1.collection('Hacthonadmin').findOne({ Gmail: "hackathon@gmail.com" });
+            return res.json({ message: 'login successfully', data: admin,routes:admin?.Routes})
         }
         else {
             res.json({ error: 'incorrect password' });

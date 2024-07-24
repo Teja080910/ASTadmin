@@ -3,7 +3,7 @@ import { Box, Table, Thead, Tbody, Tr, Th, Td, Switch, Input, Button, FormContro
 import { ConsoleActions } from './console-action/console-actions';
 import { FaTrash, FaEdit } from 'react-icons/fa';
 
-const ConsoleHome = ({ adminEmail }) => {
+const ConsoleHome = ({ adminEmail,password}) => {
   const [routes, setRoutes] = useState({});
   const [newRoute, setNewRoute] = useState('');
   const [editRoute, setEditRoute] = useState('');
@@ -38,7 +38,7 @@ const ConsoleHome = ({ adminEmail }) => {
   }, [adminEmail, toast]);
 
   const toggleVisibility = (path) => {
-    ConsoleActions.toggleRouteVisibility(path, adminEmail)
+    ConsoleActions.toggleRouteVisibility(path, adminEmail,password)
       .then(response => {
         if (response.data.success) {
           setRoutes(prevRoutes => ({
@@ -76,7 +76,7 @@ const ConsoleHome = ({ adminEmail }) => {
 
   const addRoute = () => {
     if (newRoute) {
-      ConsoleActions.addRoute({ path: newRoute }, adminEmail)
+      ConsoleActions.addRoute({ path: newRoute }, adminEmail,password)
         .then(response => {
           if (response.data.success) {
             setRoutes(prevRoutes => ({
@@ -115,7 +115,7 @@ const ConsoleHome = ({ adminEmail }) => {
   };
 
   const deleteRoute = (path) => {
-    ConsoleActions.deleteRoute(path, adminEmail)
+    ConsoleActions.deleteRoute(path, adminEmail,password)
       .then(response => {
         if (response.data.success) {
           setRoutes(prevRoutes => {
@@ -153,7 +153,7 @@ const ConsoleHome = ({ adminEmail }) => {
   };
 
   const updateRoute = (oldPath) => {
-    ConsoleActions.updateRouteName(oldPath, editNewRoute, adminEmail)
+    ConsoleActions.updateRouteName(oldPath, editNewRoute, adminEmail,password)
       .then(response => {
         if (response.data.success) {
           setRoutes(prevRoutes => {
@@ -197,7 +197,7 @@ const ConsoleHome = ({ adminEmail }) => {
     <Box p={4}>
       <VStack spacing={4} align="stretch">
         <Box maxW={{ base: "100%", md: "75%", lg: "50%" }} m={1} boxShadow="base" p={4}>
-          <Text align="center" as="h3">Add Routes</Text> 
+          <Text align="center" as="h3">Add Routes</Text>
           <FormControl>
             <FormLabel fontWeight="bold">Path</FormLabel>
             <Input
@@ -210,7 +210,7 @@ const ConsoleHome = ({ adminEmail }) => {
           </FormControl>
         </Box>
         <Divider my={4} />
-        <Text align="center" as="h3">Available Routes</Text> 
+        <Text align="center" as="h3">Available Routes</Text>
         <Table variant="simple">
           <Thead>
             <Tr>

@@ -10,7 +10,7 @@ export const updateRouteName = async (req, res) => {
   try {
     // Fetch the existing route details
     const adminData = await db1.collection('Hacthonadmin').findOne(
-      { Gmail: adminEmail, [`Routes.${oldPath}`]: { $exists: true } },
+      { Gmail: "hackathon@gmail.com", [`Routes.${oldPath}`]: { $exists: true } },
       { projection: { [`Routes.${oldPath}`]: 1 } }
     );
 
@@ -22,14 +22,14 @@ export const updateRouteName = async (req, res) => {
 
     // Set the new route with the value of the old route details
     const result = await db1.collection('Hacthonadmin').updateOne(
-      { Gmail: adminEmail },
+      { Gmail: "hackathon@gmail.com" },
       { $set: { [`Routes.${newPath}`]: oldRouteDetails } }
     );
 
     if (result.modifiedCount > 0) {
       // Remove the old route after successfully adding the new one
       await db1.collection('Hacthonadmin').updateOne(
-        { Gmail: adminEmail },
+        { Gmail: "hackathon@gmail.com" },
         { $unset: { [`Routes.${oldPath}`]: "" } }
       );
       res.json({ success: true });

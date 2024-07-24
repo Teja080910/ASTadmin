@@ -11,7 +11,7 @@ export const deleteRoute = async (req, res) => {
   try {
     // Unset the specified route
     const result = await db1.collection('Hacthonadmin').updateOne(
-      { Gmail: adminEmail },
+      { Gmail: "hackathon@gmail.com" },
       { $unset: { [`Routes.${path}`]: "" } }
     );
 

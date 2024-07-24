@@ -32,7 +32,7 @@ function App() {
   const [boot, setBoot] = useState(false)
   const [bootload, setBootload] = useState(false)
   const [load, setLoad] = useState(false)
-  const { bootmail, adminpass, bootpass, adminEmail, adminLoginState } = Authentication()
+  const { bootmail, adminpass, bootpass, adminEmail,consolepass, adminLoginState } = Authentication()
 
   const AdminLogin = async () => {
     await Actions.AttendanceAdminLogin()
@@ -87,7 +87,7 @@ function App() {
               <Route path="/attendance" element={set ? <Attendance /> : <Admin />} />
               <Route path='/tech' element={set ? <Login /> : <Admin />} />
               <Route path='/yoga' element={set ? <Yoga /> : <Admin />} />
-              <Route path='/console' element={!adminLoginState ? <ConsoleLogin /> : <ConsoleHome adminEmail={adminEmail} />} />
+              <Route path='/console' element={!adminLoginState ? <ConsoleLogin /> : <ConsoleHome adminEmail={adminEmail} password={consolepass}/>} />
               {/* <Route path='/console/home' element={adminLoginState ? <ConsoleHome adminEmail={adminEmail} /> : <ConsoleLogin />} /> */}
             </>
           )}
