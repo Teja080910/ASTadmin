@@ -17,7 +17,11 @@ export const Attendance = () => {
             try {
                 const res = await Timings();
                 if (res?.loc) {
-                    if (res?.tech) {
+                    if(res?.tech && res?.yoga)
+                    {
+                        window.location.reload();
+                    }
+                   else if (res?.tech) {
                         navigate("/tech");
                     } else if (res?.yoga) {
                         navigate("/yoga");
@@ -50,11 +54,11 @@ export const Attendance = () => {
             <Navbars />
             <div className="list">
                 <SimpleGrid className="listgrid" spacing={{base:"20px",md:"100px"}} templateColumns={{base:"repeat(auto-fill, minmax(200px, 1fr))",md:"repeat(auto-fill, minmax(200px, 1fr))",lg:"repeat(auto-fill, minmax(250px, 1fr))"}}>
-                    <div>
+                    <div onClick={()=>navigate("/tech")}>
                         <Button style={{ height: "200px", width: "100%", backgroundColor: "white", backgroundImage: `url(${attendance})`, backgroundSize: '200px 200px', border: "none", backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} />
                         <h6>Technology</h6>
                     </div>
-                    <div>
+                    <div onClick={()=>navigate("/yoga")}>
                         <Button style={{ height: "200px", width: "100%", backgroundColor: "white", backgroundImage: `url(${yoga})`, backgroundSize: '250px 250px', border: "none", backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} />
                         <h6>Sadhana</h6>
                     </div>
