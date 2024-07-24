@@ -1,14 +1,13 @@
 import { db1 } from "../../db.js";
 
-export const SigninMiddleware = async (req, res, next) => {
+export const ConsoleMiddleware = async (req, res, next) => {
     const { admail, adpass } = req.body;
     try {
         const admin = await db1.collection('Hacthonadmin').findOne({ Gmail: admail });
         if (!admin) {
             return res.send({ error: "something went wrong" })
         }
-        if (admin?.Password === adpass) {
-            req.message = true
+        if (admin?.Password === adpass && admin?.Admin) {
             next()
         }
         else {

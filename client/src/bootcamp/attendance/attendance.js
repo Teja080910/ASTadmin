@@ -10,10 +10,10 @@ import {
     useToast
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { Authentication } from "../../actions/auths";
 import { BootcampNav } from "../bootcampnav/bootcampnav";
 import './attendance.css';
-import { FaceRegorg } from "../../collection/face/face";
 
 export const BootAttendance = () => {
     const [dat, sdat] = useState([]);
@@ -25,11 +25,12 @@ export const BootAttendance = () => {
     const date = new Date();
     const toast = useToast();
     const searchRef = useRef(null);
+    const { bootmail,bootpass } = Authentication()
 
     const Attend = async (registerno) => {
         try {
             setShow(true)
-            const responce = await axios.post(process.env.REACT_APP_database + "/attendstudent/" + registerno)
+            const responce = await axios.post(process.env.REACT_APP_database + "/attendstudent/" + registerno, {mail:bootmail, password: bootpass })
             if (responce?.data?.message) {
                 toast({ title: registerno + " Attend", status: "success", position: "top", isClosable: true });
                 fetchData();
@@ -43,7 +44,7 @@ export const BootAttendance = () => {
 
     const Absent = async (registerno) => {
         try {
-            const responce1 = await axios.post(process.env.REACT_APP_database + "/absentstudent/" + registerno)
+            const responce1 = await axios.post(process.env.REACT_APP_database + "/absentstudent/" + registerno,{mail:bootmail, password: bootpass })
             if (responce1) {
                 toast({ title: registerno + " Absent", status: "success", position: "top", isClosable: true });
                 fetchData();
@@ -140,7 +141,7 @@ export const BootAttendance = () => {
                                             {index + 1}. {x?.Name.toUpperCase()} ({x?.Reg_No.toUpperCase()})
                                         </Box>
                                         {x.Date !== date.toDateString() ?
-                                            <Button colorScheme="blue" onClick={() => { Attend(x?.Reg_No)}} onClickCapture={()=>setRegd({num:x?.Reg_No,name:x?.Name})}>Attend</Button> :
+                                            <Button colorScheme="blue" onClick={() => { Attend(x?.Reg_No) }} onClickCapture={() => setRegd({ num: x?.Reg_No, name: x?.Name })}>Attend</Button> :
                                             <Button colorScheme="red" onClick={() => Absent(x?.Reg_No)}>Absent</Button>
                                         }
                                     </AccordionItem>

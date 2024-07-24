@@ -11,6 +11,7 @@ import './App.css';
 import EnhancedNetworkChecker from './NetworkChecker.js';
 import { Actions } from './actions/actions.js';
 import { Authentication } from './actions/auths.js';
+import ConsoleHome from './ast-console/ast-console-home.js';
 import { ConsoleLogin } from './ast-console/sigin.js';
 import { RegisterForm } from './bootcamp/Register/register.js';
 import { BootcampSidebar } from './bootcamp/bootcampsidebar/bootcampsidebar.js';
@@ -33,13 +34,7 @@ function App() {
   const [boot, setBoot] = useState(false)
   const [bootload, setBootload] = useState(false)
   const [load, setLoad] = useState(false)
-
-  
-  const { bootmail, adminpass, bootpass,adminEmail, adminLoginState } = Authentication()
-
-
-
-
+  const { bootmail, adminpass, bootpass, adminEmail,consolepass, adminLoginState } = Authentication()
 
   const AdminLogin = async () => {
     await Actions.AttendanceAdminLogin()

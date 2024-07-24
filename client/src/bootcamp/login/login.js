@@ -7,8 +7,6 @@ import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -21,11 +19,11 @@ import { Actions } from '../../actions/actions';
 
 const defaultTheme = createTheme();
 
-export const  LoginForm = () => {
+export const LoginForm = () => {
   const [mail, setMail] = useState()
   const dispatch = useDispatch()
   const toast = useToast()
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [password, setPassword] = useState()
   document.title = "LOGIN | AST ADMIN"
 
@@ -44,16 +42,16 @@ export const  LoginForm = () => {
       })
       .catch((e) => console.log(e))
       .finally(
-        ()=>{
+        () => {
           setLoading(false);
         }
       )
   }
-  const handelKeyDown =(e)=>{
+  const handelKeyDown = (e) => {
 
-   if(e.key === "Enter"){
-    Login()
-   }
+    if (e.key === "Enter") {
+      Login()
+    }
 
   }
   return (
@@ -110,9 +108,9 @@ export const  LoginForm = () => {
               sx={{ mt: 3, mb: 2 }}
               onClick={Login}
             >
-           {loading ?"logging in ....": "Sign In"}  
+              {loading ? "logging in ...." : "Sign In"}
             </Button>
-          
+
           </Box>
         </Box>
       </Container>

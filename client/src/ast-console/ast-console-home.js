@@ -35,7 +35,7 @@ import { FaTrash, FaEdit } from 'react-icons/fa';
 import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
 
-const ConsoleHome = ({ adminEmail }) => {
+const ConsoleHome = ({ adminEmail,password}) => {
   const [routes, setRoutes] = useState({});
   const [newRoute, setNewRoute] = useState('');
   const [editRoute, setEditRoute] = useState('');
@@ -73,7 +73,7 @@ const ConsoleHome = ({ adminEmail }) => {
   }, [adminEmail, toast]);
 
   const toggleVisibility = (path) => {
-    ConsoleActions.toggleRouteVisibility(path, adminEmail)
+    ConsoleActions.toggleRouteVisibility(path, adminEmail,password)
       .then(response => {
         if (response.data.success) {
           setRoutes(prevRoutes => ({
@@ -111,7 +111,7 @@ const ConsoleHome = ({ adminEmail }) => {
 
   const addRoute = () => {
     if (newRoute) {
-      ConsoleActions.addRoute({ path: newRoute }, adminEmail)
+      ConsoleActions.addRoute({ path: newRoute }, adminEmail,password)
         .then(response => {
           if (response.data.success) {
             setRoutes(prevRoutes => ({
@@ -151,7 +151,7 @@ const ConsoleHome = ({ adminEmail }) => {
   };
 
   const deleteRoute = (path) => {
-    ConsoleActions.deleteRoute(path, adminEmail)
+    ConsoleActions.deleteRoute(path, adminEmail,password)
       .then(response => {
         if (response.data.success) {
           setRoutes(prevRoutes => {
@@ -189,7 +189,7 @@ const ConsoleHome = ({ adminEmail }) => {
   };
 
   const updateRoute = (oldPath) => {
-    ConsoleActions.updateRouteName(oldPath, editNewRoute, adminEmail)
+    ConsoleActions.updateRouteName(oldPath, editNewRoute, adminEmail,password)
       .then(response => {
         if (response.data.success) {
           setRoutes(prevRoutes => {

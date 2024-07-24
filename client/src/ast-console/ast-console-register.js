@@ -116,29 +116,29 @@ export const ASTConsoleRegister = ({ data, change }) => {
                                 </Flex>
 
                                 <Flex gap={8}>
-                                <FormControl isInvalid={!!errors.password && touched.password}>
-                                    <FormLabel htmlFor="start">Event Counduct Time</FormLabel>
-                                    <Field
-                                        as={Input}
-                                        id="start"
-                                        name="start"
-                                        type="date"
-                                        variant="filled"
-                                        placeholder="Enter date"
-                                    />
-                                </FormControl>
+                                    <FormControl isInvalid={!!errors.password && touched.password}>
+                                        <FormLabel htmlFor="start">Event Counduct Time</FormLabel>
+                                        <Field
+                                            as={Input}
+                                            id="start"
+                                            name="start"
+                                            type="date"
+                                            variant="filled"
+                                            placeholder="Enter date"
+                                        />
+                                    </FormControl>
 
-                                <FormControl isInvalid={!!errors.password && touched.password}>
-                                    <FormLabel htmlFor="noofpersons">How Many Accounts </FormLabel>
-                                    <Field
-                                        as={Input}
-                                        id="noofpersons"
-                                        name="noofpersons"
-                                        type="number"
-                                        variant="filled"
-                                        placeholder="Enter members < 10"
-                                    />
-                                </FormControl>
+                                    <FormControl isInvalid={!!errors.password && touched.password}>
+                                        <FormLabel htmlFor="noofpersons">How Many Accounts </FormLabel>
+                                        <Field
+                                            as={Input}
+                                            id="noofpersons"
+                                            name="noofpersons"
+                                            type="number"
+                                            variant="filled"
+                                            placeholder="Enter members < 10"
+                                        />
+                                    </FormControl>
                                 </Flex>
 
                                 <Field
@@ -146,13 +146,13 @@ export const ASTConsoleRegister = ({ data, change }) => {
                                     id="rememberMe"
                                     name="rememberMe"
                                     colorScheme="purple"
-                                    onChange={() => {setCheck(check?false:true) }}
+                                    onChange={() => { setCheck(check ? false : true) }}
                                 >
                                     Super Admin?
                                 </Field>
 
                                 {
-                                    check&&<FormControl>
+                                    check && <FormControl>
                                         <FormLabel htmlFor="admin">Enter Password</FormLabel>
                                         <Field
                                             as={Input}

@@ -9,7 +9,7 @@ import { GetFeedbacks, GetUniqueDatesAndLatestFeedbacks } from '../bootcamp/feed
 import { DeleteMaterial, DeleteMaterials } from '../bootcamp/materials/deletematerials.js';
 import { EditMaterial } from '../bootcamp/materials/editmaterial.js';
 import { Materials } from '../bootcamp/materials/materials.js';
-import { FileByName } from '../bootcamp/materials/uploadmaterials.js';
+import { FileByName, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
 import { ActivityMarks, InternalMarks } from '../bootcamp/others/others.js';
 import { GivenMarks } from '../bootcamp/scoremanager/score.js';
 import { DeleteAll, Students } from '../bootcamp/studentdata/students.js';
@@ -20,11 +20,11 @@ import { EditTasks } from '../bootcamp/taskmanger/edittask.js';
 import { InsertTask } from '../bootcamp/taskmanger/insertask.js';
 import { HideDay, HideTasks, ShowDay, ShowTasks } from '../bootcamp/taskmanger/showtask.js';
 import { Tasks } from '../bootcamp/taskmanger/tasks.js';
-import { UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
 import { initiateMulter } from '../multer/multer.js';
 import { DeleteRound, InsertRound, RoundMarks } from './hacktasks/addround.js';
 import { HackActivityMarks, HackInternalMarks } from './others/others.js';
 import { DeletePhoto, DeleteTeamPhotos } from './photos/deletephoto.js';
+import { UploadPhotos } from './photos/uploadphoto.js';
 import { DeletePS } from './problemstatements/deleteps.js';
 import { EditPS } from './problemstatements/editps.js';
 import { InsertPS, PSSC, PssCount } from './problemstatements/insertps.js';
@@ -38,7 +38,8 @@ import { AllTeamRegistrers } from './teamregistrers/allregistrers.js';
 import { CreateRegistrer, DeleteRegistrer, UpdateRegistrerStatus } from './teamregistrers/registrersactions.js';
 import { CreateTechTeamMember, DeleteTechTeamMember, UpdateTechTeamMemberStatus, UpdateTechTeamMemberSubject } from './techteam/alltechmemberactions.js';
 import { AllTechTeamMembers } from './techteam/alltechmembers.js';
-import { UploadPhotos } from './photos/uploadphoto.js';
+import { BootcamMiddlware } from '../middlewares/bootcamp.middleware.js';
+import { BootcamTeamMiddlware } from '../middlewares/bottcamp.team.middleware.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -58,7 +59,7 @@ app.post('/bootcampadminregister', async (req, res) => {
 
 
 // ***********************************BootCamp***************************************************** //
-app.post('/uploadfile', initiateMulter(), async (req, res) => {
+app.post('/uploadfile',BootcamMiddlware, initiateMulter(), async (req, res) => {
     const { materialName, theme } = req.body;
     if (req.files) {
         await UploadFiles(req?.files, theme, materialName, res)
@@ -122,7 +123,7 @@ app.post('/bootcampstudents', async (req, res) => {
     await Students(res)
 })
 
-app.post('/attendstudent/:regd', async (req, res) => {
+app.post('/attendstudent/:regd',BootcamTeamMiddlware, async (req, res) => {
     await AttendStudent(req.params.regd, res)
 })
 
@@ -138,7 +139,7 @@ app.post('/deletestudents', async (req, res) => {
     await DeleteAll(res)
 })
 
-app.post('/absentstudent/:regd', async (req, res) => {
+app.post('/absentstudent/:regd',BootcamTeamMiddlware, async (req, res) => {
     await AbsentStudent(req.params.regd, res)
 })
 
@@ -167,7 +168,7 @@ app.get('/feedbacks/unique-dates', GetUniqueDatesAndLatestFeedbacks);
 // *************************************************Hackathon****************************************** //
 
 app.post('/insertstatement', async (req, res) => {
-    await InsertPS(req.body.number, req.body.statement, req.body.description, req.body.theme,req.body.idealfor, res)
+    await InsertPS(req.body.number, req.body.statement, req.body.description, req.body.theme, req.body.idealfor, res)
 })
 
 app.post('/editstatement', async (req, res) => {
@@ -272,9 +273,9 @@ app.post('/hackactivitymarks', async (req, res) => {
 })
 
 app.post('/uploadphotos', initiateMulter(), async (req, res) => {
-    const { teamname} = req.body;
+    const { teamname } = req.body;
     if (req.files) {
-        await UploadPhotos(req?.files,teamname, res)
+        await UploadPhotos(req?.files, teamname, res)
     }
 });
 
@@ -287,12 +288,12 @@ app.post('/deletephoto', async (req, res) => {
 })
 
 app.post('/deleteallphotos', async (req, res) => {
-    await DeleteTeamPhotos(req.body.team,res)
+    await DeleteTeamPhotos(req.body.team, res)
 })
 
 app.post('/editfile', async (req, res) => {
     await EditMaterial(req.body.theme, res)
 })
-   
+
 
 export default app;

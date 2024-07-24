@@ -12,27 +12,27 @@ export const ConsoleActions={
 
 
 
-  AnotherConsoleRegister: async (mail, password, phone, adminmail) => {
-    return await axios.post(api + "/anotherconsoleregister", { mail, password, phone, adminmail });
+  AnotherConsoleRegister: async (mail, password, phone, admail) => {
+    return await axios.post(api + "/anotherconsoleregister", { mail, password, phone, admail });
   },
 
-  fetchRoutes: async (adminEmail) => {
-    return await axios.get(api + "/ast-console/allroutes", { params: { adminEmail } });
+  fetchRoutes: async (admail) => {
+    return await axios.get(api + "/ast-console/allroutes", { params: { admail } });
   },
 
-  toggleRouteVisibility: async (path, adminEmail) => {
-    return await axios.post(api + "/ast-console/routes/toggle", { path, adminEmail });
+  toggleRouteVisibility: async (path, admail,adpass) => {
+    return await axios.post(api + "/ast-console/routes/toggle", { path, admail,adpass});
   },
 
-  addRoute: async (newRoute, adminEmail) => {
-    return await axios.post(api + "/ast-console/add-route", { ...newRoute, adminEmail });
+  addRoute: async (newRoute, admail,adpass) => {
+    return await axios.post(api + "/ast-console/add-route", { ...newRoute, admail,adpass });
   },
 
-  deleteRoute: async (path, adminEmail) => {
-    return await axios.post(api + "/ast-console/delete-route", { path, adminEmail });
+  deleteRoute: async (path, admail,adpass) => {
+    return await axios.post(api + "/ast-console/delete-route", { path, admail,adpass});
   },
 
-  updateRouteName: async (oldPath, newPath, adminEmail) => {
-    return await axios.post(api + "/ast-console/update-route-name", { oldPath, newPath, adminEmail });
+  updateRouteName: async (oldPath, newPath, admail,adpass) => {
+    return await axios.post(api + "/ast-console/update-route-name", { oldPath, newPath, admail,adpass });
   }
 };

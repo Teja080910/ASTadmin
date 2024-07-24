@@ -1,9 +1,9 @@
 import { db1 } from "../db.js";
 
-export const BootcamMiddlware = async (req, res, next) => {
-    const { password } = req.body;
+export const BootcamTeamMiddlware = async (req, res, next) => {
+    const { mail,password } = req.body;
     try {
-        const admin = await db1.collection('Hacthonadmin').findOne({ Gmail: "asthack@gmail.com" });
+        const admin = await db1.collection('Hacthonadmin').findOne({ Gmail:mail });
         if (!admin) {
             return res.send({ error: "something went wrong" })
         }

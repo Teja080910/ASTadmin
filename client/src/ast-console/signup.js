@@ -5,7 +5,7 @@ import { Authentication } from "../actions/auths"
 
 export const ConsoleSignup = ({ change }) => {
     const toast = useToast()
-    const { bootmail, bootpass } = Authentication()
+    const { bootmail, bootpass} = Authentication()
 
     const Submit = async (data) => {
         console.log(data)
