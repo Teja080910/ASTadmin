@@ -8,7 +8,6 @@ export const BootcamTeamMiddlware = async (req, res, next) => {
             return res.send({ error: "something went wrong" })
         }
         if (admin?.Password === password) {
-            req.message = true
             next()
         }
         else {

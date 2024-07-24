@@ -20,6 +20,8 @@ import { EditTasks } from '../bootcamp/taskmanger/edittask.js';
 import { InsertTask } from '../bootcamp/taskmanger/insertask.js';
 import { HideDay, HideTasks, ShowDay, ShowTasks } from '../bootcamp/taskmanger/showtask.js';
 import { Tasks } from '../bootcamp/taskmanger/tasks.js';
+import { BootcamMiddlware } from '../middlewares/bootcamp.middleware.js';
+import { BootcamTeamMiddlware } from '../middlewares/bottcamp.team.middleware.js';
 import { initiateMulter } from '../multer/multer.js';
 import { DeleteRound, InsertRound, RoundMarks } from './hacktasks/addround.js';
 import { HackActivityMarks, HackInternalMarks } from './others/others.js';
@@ -38,8 +40,8 @@ import { AllTeamRegistrers } from './teamregistrers/allregistrers.js';
 import { CreateRegistrer, DeleteRegistrer, UpdateRegistrerStatus } from './teamregistrers/registrersactions.js';
 import { CreateTechTeamMember, DeleteTechTeamMember, UpdateTechTeamMemberStatus, UpdateTechTeamMemberSubject } from './techteam/alltechmemberactions.js';
 import { AllTechTeamMembers } from './techteam/alltechmembers.js';
-import { BootcamMiddlware } from '../middlewares/bootcamp.middleware.js';
-import { BootcamTeamMiddlware } from '../middlewares/bottcamp.team.middleware.js';
+import { ConsoleMiddleware } from '../ast-console/middleware/console.middleware.js';
+import { HtrTeamMiddlware } from '../middlewares/htr.middleware.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -53,13 +55,13 @@ app.post('/bootcampadminlogin', async (req, res) => {
     await AdminLogin(req.body, res)
 });
 
-app.post('/bootcampadminregister', async (req, res) => {
+app.post('/bootcampadminregister', ConsoleMiddleware, async (req, res) => {
     await AdminRegister(req.body, res)
 });
 
 
 // ***********************************BootCamp***************************************************** //
-app.post('/uploadfile',BootcamMiddlware, initiateMulter(), async (req, res) => {
+app.post('/uploadfile', BootcamMiddlware, initiateMulter(), async (req, res) => {
     const { materialName, theme } = req.body;
     if (req.files) {
         await UploadFiles(req?.files, theme, materialName, res)
@@ -75,43 +77,43 @@ app.get('/file/:filename', async (req, res) => {
     await FileByName(filename, res)
 });
 
-app.post('/deletefile', async (req, res) => {
+app.post('/deletefile', ConsoleMiddleware, async (req, res) => {
     await DeleteMaterial(req.body.theme, req.body.photo, req.body.pdf, res)
 })
 
-app.post('/editfile', async (req, res) => {
+app.post('/editfile', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await EditMaterial(req.body.theme, res)
 })
 
-app.post('/deleteallfiles', async (req, res) => {
+app.post('/deleteallfiles', ConsoleMiddleware, async (req, res) => {
     await DeleteMaterials(res)
 })
 
-app.post('/inserttask', async (req, res) => {
+app.post('/inserttask', ConsoleMiddleware, async (req, res) => {
     await InsertTask(req.body.day, req.body.task, req.body.description, req.body.marks, res)
 })
 
-app.post('/deletetask', async (req, res) => {
+app.post('/deletetask', ConsoleMiddleware, async (req, res) => {
     await DeleteTasks(req.body.selectday, req.body.selecttask, res)
 })
 
-app.post('/edittask', async (req, res) => {
+app.post('/edittask', ConsoleMiddleware, async (req, res) => {
     await EditTasks(req.body.selectday, req.body.selecttask, req.body.selectdesc, req.body.selectmarks, req.body.index, res)
 })
 
-app.post('/showtask', async (req, res) => {
+app.post('/showtask', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await ShowTasks(req.body.selectday, req.body.index, res)
 })
 
-app.post('/hidetask', async (req, res) => {
+app.post('/hidetask', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await HideTasks(req.body.selectday, req.body.index, res)
 })
 
-app.post('/showday', async (req, res) => {
+app.post('/showday', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await ShowDay(req.body.dayshow, res)
 })
 
-app.post('/hideday', async (req, res) => {
+app.post('/hideday', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await HideDay(req.body.dayhide, res)
 })
 
@@ -123,39 +125,39 @@ app.post('/bootcampstudents', async (req, res) => {
     await Students(res)
 })
 
-app.post('/attendstudent/:regd',BootcamTeamMiddlware, async (req, res) => {
+app.post('/attendstudent/:regd', BootcamTeamMiddlware, async (req, res) => {
     await AttendStudent(req.params.regd, res)
 })
 
-app.post('/updatestudent', async (req, res) => {
+app.post('/updatestudent', BootcamTeamMiddlware, async (req, res) => {
     await UpdateStudent(req.body.student, res)
 })
 
-app.post('/deletestudent', async (req, res) => {
+app.post('/deletestudent', ConsoleMiddleware, async (req, res) => {
     await DeleteStudent(req.body.student, res)
 })
 
-app.post('/deletestudents', async (req, res) => {
+app.post('/deletestudents', ConsoleMiddleware, async (req, res) => {
     await DeleteAll(res)
 })
 
-app.post('/absentstudent/:regd',BootcamTeamMiddlware, async (req, res) => {
+app.post('/absentstudent/:regd', BootcamTeamMiddlware, async (req, res) => {
     await AbsentStudent(req.params.regd, res)
 })
 
-app.post('/givenmarks', async (req, res) => {
+app.post('/givenmarks', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await GivenMarks(req.body.user, req.body.marks, req.body.dayindex, req.body.taskindex, res)
 })
 
-app.post('/studentxlsx', initiateMulter(), async (req, res) => {
+app.post('/studentxlsx', ConsoleMiddleware, initiateMulter(), async (req, res) => {
     await UploadStudents(req?.files[0], res)
 })
 
-app.post('/internalmarks', async (req, res) => {
+app.post('/internalmarks', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await InternalMarks(req.body.user, req.body.marks, res)
 })
 
-app.post('/activitymarks', async (req, res) => {
+app.post('/activitymarks', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await ActivityMarks(req.body.user, req.body.marks, res)
 })
 
@@ -167,15 +169,15 @@ app.get('/feedbacks/unique-dates', GetUniqueDatesAndLatestFeedbacks);
 
 // *************************************************Hackathon****************************************** //
 
-app.post('/insertstatement', async (req, res) => {
+app.post('/insertstatement', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await InsertPS(req.body.number, req.body.statement, req.body.description, req.body.theme, req.body.idealfor, res)
 })
 
-app.post('/editstatement', async (req, res) => {
+app.post('/editstatement', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await EditPS(req.body.selectnumber, req.body.selectstatement, req.body.selectdesc, req.body.theme, res)
 })
 
-app.post('/psscount', async (req, res) => {
+app.post('/psscount', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await PssCount(req.body.count, res)
 })
 
@@ -183,7 +185,7 @@ app.post('/pssc', async (req, res) => {
     await PSSC(res)
 })
 
-app.post('/deletestatement', async (req, res) => {
+app.post('/deletestatement', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await DeletePS(req.body.selectstatement, res)
 })
 
@@ -191,16 +193,15 @@ app.post('/statements', async (req, res) => {
     await PSS(res)
 })
 
-app.post('/teamsinput', async (req, res) => {
+app.post('/teamsinput', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await AddTeamCodes(req.body.teams, res)
 })
 
-app.post('/deleteteam', async (req, res) => {
+app.post('/deleteteam', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await DeleteTeam(req.body.teams, res)
 })
 
-app.post('/updateteam/:team/:gmail/:phone/:code/:members', async (req, res) => {
-
+app.post('/updateteam/:team/:gmail/:phone/:code/:members', HtrTeamMiddlware, async (req, res) => {
     await UpdateTeam(req, res, resend);
 })
 
@@ -212,15 +213,15 @@ app.post('/teamregistrers', async (req, res) => {
     await AllTeamRegistrers(res)
 })
 
-app.post('/createregistrer', async (req, res) => {
+app.post('/createregistrer', HtrTeamMiddlware, async (req, res) => {
     await CreateRegistrer(req, res);
 });
 
-app.delete('/deleteregistrer/:id', async (req, res) => {
+app.delete('/deleteregistrer/:id', HtrTeamMiddlware, async (req, res) => {
     await DeleteRegistrer(req, res);
 });
 
-app.put('/updateregistrerstatus/:id', async (req, res) => {
+app.put('/updateregistrerstatus/:id', HtrTeamMiddlware, async (req, res) => {
     await UpdateRegistrerStatus(req, res);
 });
 
@@ -228,7 +229,7 @@ app.post('/teammembers', async (req, res) => {
     await AllTechTeamMembers(res);
 });
 
-app.post('/createtechteammember', async (req, res) => {
+app.post('/createtechteammember', ConsoleMiddleware, async (req, res) => {
     await CreateTechTeamMember(req, res);
 });
 
@@ -236,43 +237,43 @@ app.delete('/deletetechteammember/:id', async (req, res) => {
     await DeleteTechTeamMember(req, res);
 });
 
-app.put('/updatetechteammemberstatus/:id', async (req, res) => {
+app.put('/updatetechteammemberstatus/:id', BootcamTeamMiddlware, async (req, res) => {
     await UpdateTechTeamMemberStatus(req, res);
 });
 
-app.put('/updatetechteammembersubject/:id', async (req, res) => {
+app.put('/updatetechteammembersubject/:id', ConsoleMiddleware, async (req, res) => {
     await UpdateTechTeamMemberSubject(req, res);
 });
 
-app.post('/insertround', async (req, res) => {
+app.post('/insertround', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await InsertRound(req.body.code, req.body.roundno, req.body.task, req.body.desc, res)
 })
 
-app.post('/deleteround', async (req, res) => {
+app.post('/deleteround', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await DeleteRound(req.body.code, req.body.roundno, req.body.task, req.body.desc, res)
 })
 
-app.post('/roundmarks', async (req, res) => {
+app.post('/roundmarks', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await RoundMarks(req.body.code, req.body.marks, req.body.taskindex, res)
 })
 
-app.post('/starthack', async (req, res) => {
+app.post('/starthack', ConsoleMiddleware, async (req, res) => {
     await StartHackathon("hackathon@gmail.com", res)
 })
 
-app.post('/stophack', async (req, res) => {
+app.post('/stophack', ConsoleMiddleware, async (req, res) => {
     await EndHackathon("hackathon@gmail.com", res)
 })
 
-app.post('/hackinternalmarks', async (req, res) => {
+app.post('/hackinternalmarks', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await HackInternalMarks(req.body.code, req.body.marks, res)
 })
 
-app.post('/hackactivitymarks', async (req, res) => {
+app.post('/hackactivitymarks', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await HackActivityMarks(req.body.code, req.body.marks, res)
 })
 
-app.post('/uploadphotos', initiateMulter(), async (req, res) => {
+app.post('/uploadphotos', BootcamMiddlware, initiateMulter(), async (req, res) => {
     const { teamname } = req.body;
     if (req.files) {
         await UploadPhotos(req?.files, teamname, res)
@@ -283,15 +284,15 @@ app.post('/files', async (req, res) => {
     await Materials(res)
 });
 
-app.post('/deletephoto', async (req, res) => {
+app.post('/deletephoto', BootcamMiddlware, async (req, res) => {
     await DeletePhoto(req.body.photo, req.body.team, res)
 })
 
-app.post('/deleteallphotos', async (req, res) => {
+app.post('/deleteallphotos', BootcamMiddlware, async (req, res) => {
     await DeleteTeamPhotos(req.body.team, res)
 })
 
-app.post('/editfile', async (req, res) => {
+app.post('/editfile', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
     await EditMaterial(req.body.theme, res)
 })
 
