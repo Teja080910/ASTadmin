@@ -1,20 +1,56 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Table, Thead, Tbody, Tr, Th, Td, Switch, Input, Button, FormControl, FormLabel, IconButton, useToast, VStack, Divider, Text } from '@chakra-ui/react';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  Box,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  Switch,
+  Input,
+  Button,
+  FormControl,
+  FormLabel,
+  IconButton,
+  useToast,
+  VStack,
+  Divider,
+  Text,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  InputRightElement,
+  Kbd,
+  InputGroup,
+  Image,
+} from '@chakra-ui/react';
 import { ConsoleActions } from './console-action/console-actions';
 import { FaTrash, FaEdit } from 'react-icons/fa';
+import DoneIcon from '@mui/icons-material/Done';
+import ClearIcon from '@mui/icons-material/Clear';
 
-const ConsoleHome = ({ adminEmail }) => {
+const ConsoleHome = ({ adminEmail, password }) => {
   const [routes, setRoutes] = useState({});
   const [newRoute, setNewRoute] = useState('');
   const [editRoute, setEditRoute] = useState('');
   const [editNewRoute, setEditNewRoute] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchRef = useRef()
   const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
+
     ConsoleActions.fetchRoutes(adminEmail)
       .then(response => {
         if (!response.data?.error) {
-          setRoutes(response.data);
+          setRoutes(response?.data?.routes);
         } else {
           toast({
             title: 'Error',
@@ -38,7 +74,7 @@ const ConsoleHome = ({ adminEmail }) => {
   }, [adminEmail, toast]);
 
   const toggleVisibility = (path) => {
-    ConsoleActions.toggleRouteVisibility(path, adminEmail)
+    ConsoleActions.toggleRouteVisibility(path, adminEmail, password)
       .then(response => {
         if (response.data.success) {
           setRoutes(prevRoutes => ({
@@ -76,7 +112,7 @@ const ConsoleHome = ({ adminEmail }) => {
 
   const addRoute = () => {
     if (newRoute) {
-      ConsoleActions.addRoute({ path: newRoute }, adminEmail)
+      ConsoleActions.addRoute({ path: newRoute }, adminEmail, password)
         .then(response => {
           if (response.data.success) {
             setRoutes(prevRoutes => ({
@@ -91,6 +127,7 @@ const ConsoleHome = ({ adminEmail }) => {
               duration: 5000,
               isClosable: true,
             });
+            onClose();
           } else {
             toast({
               title: 'Error',
@@ -115,7 +152,7 @@ const ConsoleHome = ({ adminEmail }) => {
   };
 
   const deleteRoute = (path) => {
-    ConsoleActions.deleteRoute(path, adminEmail)
+    ConsoleActions.deleteRoute(path, adminEmail, password)
       .then(response => {
         if (response.data.success) {
           setRoutes(prevRoutes => {
@@ -153,7 +190,7 @@ const ConsoleHome = ({ adminEmail }) => {
   };
 
   const updateRoute = (oldPath) => {
-    ConsoleActions.updateRouteName(oldPath, editNewRoute, adminEmail)
+    ConsoleActions.updateRouteName(oldPath, editNewRoute, adminEmail, password)
       .then(response => {
         if (response.data.success) {
           setRoutes(prevRoutes => {
@@ -193,80 +230,138 @@ const ConsoleHome = ({ adminEmail }) => {
       });
   };
 
+  // Filter routes based on search query
+  const filteredRoutes = Object.keys(routes).filter(route => 
+    route.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key.toLowerCase() === 'f' &&event.shiftKey ) {
+        searchRef.current.focus();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
+
   return (
     <Box p={4}>
       <VStack spacing={4} align="stretch">
-        <Box maxW={{ base: "100%", md: "75%", lg: "50%" }} m={1} boxShadow="base" p={4}>
-          <Text align="center" as="h3">Add Routes</Text> 
-          <FormControl>
-            <FormLabel fontWeight="bold">Path</FormLabel>
-            <Input
-              value={newRoute}
-              onChange={(e) => setNewRoute(e.target.value)}
-              placeholder="/new-path"
-              variant="outline"
-            />
-            <Button mt={4} colorScheme="teal" onClick={addRoute}>Add Route</Button>
-          </FormControl>
+
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Add Route</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <FormControl>
+                <FormLabel fontWeight="bold">Path</FormLabel>
+                <Input
+                  value={newRoute}
+                  onChange={(e) => setNewRoute(e.target.value)}
+                  placeholder="/new-path"
+                  variant="outline"
+                />
+              </FormControl>
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="teal" onClick={addRoute}>Add Route</Button>
+              <Button ml={3} onClick={onClose}>Cancel</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
+
+
+
+
+
+
+        <Box justifyContent={"flex-end"} display={"flex"}>
+        <Button colorScheme="teal" onClick={onOpen}>Add Route</Button>
         </Box>
-        <Divider my={4} />
+       
+
         <Text align="center" as="h3">Available Routes</Text> 
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th>Path</Th>
-              <Th>Is Visible?</Th>
-              <Th>Actions</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {Object.keys(routes).map((path, index) => (
-              <Tr key={index}>
-                <Td>
-                  {editRoute === path ? (
-                    <Input
-                      value={editNewRoute}
-                      onChange={(e) => setEditNewRoute(e.target.value)}
-                      placeholder="Edit Route Path"
-                      variant="outline"
-                    />
-                  ) : (
-                    path
-                  )}
-                </Td>
-                <Td>
-                  <Switch
-                    isChecked={routes[path]}
-                    onChange={() => toggleVisibility(path)}
-                    colorScheme="teal"
-                  />
-                </Td>
-                <Td>
-                  {editRoute === path ? (
-                    <>
-                      <Button colorScheme="blue" onClick={() => updateRoute(path)} ml={2}>Update</Button>
-                      <Button colorScheme="gray" onClick={() => { setEditRoute(''); setEditNewRoute(''); }} ml={2}>Cancel</Button>
-                    </>
-                  ) : (
-                    <IconButton
-                      icon={<FaEdit />}
-                      onClick={() => { setEditRoute(path); setEditNewRoute(path); }}
-                      aria-label="Edit"
-                      colorScheme="blue"
-                      mr={2}
-                    />
-                  )}
-                  <IconButton
-                    icon={<FaTrash />}
-                    onClick={() => deleteRoute(path)}
-                    aria-label="Delete"
-                    colorScheme="red"
-                  />
-                </Td>
+        <InputGroup size="md" mb={4}>
+          <Input
+            placeholder="Search routes"
+            ref={searchRef}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            variant="outline"
+          />
+          <InputRightElement width="auto" mr={2}>
+            <Kbd bg='teal'>shift</Kbd> + <Kbd bg='teal'>f</Kbd>
+          </InputRightElement>
+        </InputGroup>
+        <Box overflow="auto">
+          <Table variant="simple">
+            <Thead>
+              <Tr>
+                <Th>Path</Th>
+                <Th>Is Visible?</Th>
+                <Th>Actions</Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
+            </Thead>
+            <Tbody>
+              {filteredRoutes.map((path, index) => (
+                <Tr key={index}>
+                  <Td>
+                    {editRoute === path ? (
+                      <Input
+                        value={editNewRoute}
+                        onChange={(e) => setEditNewRoute(e.target.value)}
+                        placeholder="Edit Route Path"
+                        variant="outline"
+                      />
+                    ) : (
+                      path
+                    )}
+                  </Td>
+                  <Td>
+                    <Switch
+                      isChecked={routes[path]}
+                      onChange={() => toggleVisibility(path)}
+                      colorScheme="teal"
+                    />
+                  </Td>
+                  <Td style={{display:"flex", flexDirection:"row", gap:2}}>
+                    {editRoute === path ? (
+                      <>
+                        <Button colorScheme="green" onClick={() => updateRoute(path)} p={0} width={"fit-content"}>
+                          <DoneIcon/>
+                        </Button>
+                        <Button colorScheme="orange" onClick={() => { setEditRoute(''); setEditNewRoute(''); }} p={0} width={"fit-content"}>
+                          <ClearIcon/>
+                        </Button>
+                      </>
+                    ) : (
+                      <IconButton
+                        icon={<FaEdit />}
+                        onClick={() => { setEditRoute(path); setEditNewRoute(path); }}
+                        aria-label="Edit"
+                        colorScheme="blue"
+                        w={"fit-content"}      
+                      />
+                    )}
+                    <IconButton
+                      icon={<FaTrash />}
+                      onClick={() => deleteRoute(path)}
+                      aria-label="Delete"
+                      colorScheme="red"
+                      w={"fit-content"}      
+                    />
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </Box>
       </VStack>
     </Box>
   );

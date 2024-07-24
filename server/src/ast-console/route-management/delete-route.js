@@ -2,16 +2,16 @@
 import { db1 } from "../../db.js";
 
 export const deleteRoute = async (req, res) => {
-  const { path, adminEmail } = req.body;
+  const { path } = req.body;
 
-  if (!path || !adminEmail) {
+  if (!path) {
     return res.status(400).json({ error: 'Path and admin email are required' });
   }
 
   try {
     // Unset the specified route
-    const result = await db1.collection('Hacthonadmin').updateOne(
-      { Gmail: adminEmail },
+    const result = await db1.collection('Hackathonadmin').updateOne(
+      { Gmail: "hackathon@gmail.com" },
       { $unset: { [`Routes.${path}`]: "" } }
     );
 

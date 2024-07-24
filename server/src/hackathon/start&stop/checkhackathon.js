@@ -1,7 +1,7 @@
 import { db1 } from "../../db.js";
 export const CheckHackathon = async (data, res) => {
     try {
-        const admin = await db1.collection('Hacthonadmin').findOne({ Gmail: data });
+        const admin = await db1.collection('Hackathonadmin').findOne({ Gmail: data });
         if (!admin) {
             return res.json({ error: 'Invalid admin' });
         }
