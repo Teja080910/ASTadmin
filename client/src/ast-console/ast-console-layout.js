@@ -43,13 +43,13 @@ const AstLayout = ({ adminEmail,password }) => {
 
   return (
     <Box style={{ height: "100vh" }} overflow={"scroll"}>
-      <Box display={"flex"} justifyContent={"center"}>
-        <Image src={"../logo512.png"} />
-        <Text as="h1" className="h1-animation">
-          AST CONSOLE
-        </Text>
-      </Box>
-      <Box p={5}>
+      <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
+  <Image src={"../logo512.png"} width={"60px"} height={"60px"} />
+  <Text as="h1" className="h1-animation-console" ml={2} alignItems={"center"} p={3}>
+    AST CONSOLE
+  </Text>
+</Box>
+      <Box p={5} marginBottom={"70px"}>
         {page === "home" && ""}
         {page === "routes" && <ConsoleHome adminEmail={adminEmail} password={password}/>}
         {page === "registeradmin" && ""}
