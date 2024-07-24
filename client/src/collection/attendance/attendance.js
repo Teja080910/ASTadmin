@@ -21,7 +21,7 @@ export const Attendance = () => {
                     {
                         window.location.reload();
                     }
-                   else if (res?.tech) {
+                     else if (res?.tech) {
                         navigate("/tech");
                     } else if (res?.yoga) {
                         navigate("/yoga");
