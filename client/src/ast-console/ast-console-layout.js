@@ -14,7 +14,7 @@ import AltRouteIcon from "@mui/icons-material/AltRoute";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useDispatch } from "react-redux";
-const AstLayout = ({ adminEmail }) => {
+const AstLayout = ({ adminEmail,password }) => {
   const [page, setPage] = useState("home");
   const params = useParams();
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ const AstLayout = ({ adminEmail }) => {
       </Box>
       <Box p={5}>
         {page === "home" && ""}
-        {page === "routes" && <ConsoleHome adminEmail={adminEmail} />}
+        {page === "routes" && <ConsoleHome adminEmail={adminEmail} password={password}/>}
         {page === "registeradmin" && ""}
         {page === "*" && ""}
       </Box>

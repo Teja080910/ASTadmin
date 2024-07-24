@@ -88,8 +88,8 @@ function App() {
               <Route path="/attendance" element={set ? <Attendance /> : <Admin />} />
               <Route path='/tech' element={set ? <Login /> : <Admin />} />
               <Route path='/yoga' element={set ? <Yoga /> : <Admin />} />
-              <Route path='/console' element={! adminLoginState ?  <ConsoleLogin/>: <AstConsoleLayout adminEmail={adminEmail} />}/>
-              <Route path='/console/:page' element={adminLoginState?<AstConsoleLayout adminEmail={adminEmail} /> : <ConsoleLogin/> }/>
+              <Route path='/console' element={! adminLoginState ?  <ConsoleLogin/>: <AstConsoleLayout adminEmail={adminEmail} password={consolepass}/>}/>
+              <Route path='/console/:page' element={adminLoginState?<AstConsoleLayout adminEmail={adminEmail} password={consolepass}/> : <ConsoleLogin/> }/>
             </>
           )}
           {bootload && (
