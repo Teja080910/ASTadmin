@@ -8,7 +8,7 @@ export const ConsoleMiddleware = async (req, res, next) => {
         if (!admin) {
             return res.send({ error: "something went wrong" })
         }
-        if (admin?.Password === adpass && admin?.Admin) {
+        if (admin?.Password === adpass && (admin?.isSuperAdmin || admin?.isOrg)) {
             next()
         }
         else {

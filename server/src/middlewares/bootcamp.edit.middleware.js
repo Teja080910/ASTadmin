@@ -1,14 +1,14 @@
 import { db1 } from "../db.js";
 
-export const BootcamMiddlware = async (req, res, next) => {
-    const { password } = req.body;
+export const BootcamEditMiddlware = async (req, res, next) => {
+    const { admail, adpass } = req.headers;
+    console.log(req.headers)
     try {
-        const admin = await db1.collection('Hackathonadmin').findOne({ Gmail: "tejasimma36@gmail.com" });
+        const admin = await db1.collection('Hackathonadmin').findOne({ Gmail: admail });
         if (!admin) {
             return res.send({ error: "something went wrong" })
         }
-        if (admin?.Password === password) {
-            req.message = true
+        if (admin?.Password === adpass && admin?.isEdit) {
             next()
         }
         else {

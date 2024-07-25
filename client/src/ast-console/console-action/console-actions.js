@@ -33,5 +33,5 @@ export const ConsoleActions = {
   updateRouteName: async (oldPath, newPath) => {
     return await axios.post(api + "/ast-console/update-route-name", { oldPath, newPath });
   }
-  
+
 };

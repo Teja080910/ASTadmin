@@ -10,7 +10,6 @@ export const Actions = {
         return { mail, password }
     },
 
-
     // **********************************************************Bootcamp data************************************************ //
 
     Students: async () => {
