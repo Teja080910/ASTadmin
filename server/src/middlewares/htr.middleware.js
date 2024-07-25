@@ -1,9 +1,9 @@
 import { db1 } from "../db.js";
 
 export const HtrTeamMiddlware = async (req, res, next) => {
-    const { mail,password } = req.body;
+    const { mail, password } = req.body;
     try {
-        const admin = await db1.collection('Htrs').findOne({ Gmail:mail });
+        const admin = await db1.collection('Htrs').findOne({ Gmail: mail });
         if (!admin) {
             return res.send({ error: "something went wrong" })
         }

@@ -1,7 +1,7 @@
 import { db1 } from "../../db.js";
 
 export const ConsoleMiddleware = async (req, res, next) => {
-    const { admail, adpass } = req.body;
+    const { admail, adpass } = req.headers;
     console.log(req.body)
     try {
         const admin = await db1.collection('Hackathonadmin').findOne({ Gmail: admail });
