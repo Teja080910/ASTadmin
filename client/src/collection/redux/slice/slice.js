@@ -13,7 +13,8 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 bootmail: action.payload.bootmail,
-                bootpassword: action.payload.bootpassword
+                bootpassword: action.payload.bootpassword,
+                bootloginstate:action.payload.bootloginstate
             };
         case 'ROUND':
             return {

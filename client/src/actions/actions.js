@@ -6,6 +6,10 @@ export const Actions = {
         return await axios.post(face_api + "/face", { regd, photo })
     },
 
+    Headers: async (mail, password) => {
+        return { mail, password }
+    },
+
     // **********************************************************Bootcamp data************************************************ //
 
     Students: async () => {

@@ -11,7 +11,7 @@ import './App.css';
 import EnhancedNetworkChecker from './NetworkChecker.js';
 import { Actions } from './actions/actions.js';
 import { Authentication } from './actions/auths.js';
-import ConsoleHome from './ast-console/ast-console-routes.js';
+import AstConsoleLayout from './ast-console/ast-console-layout.js';
 import { ConsoleLogin } from './ast-console/sigin.js';
 import { RegisterForm } from './bootcamp/Register/register.js';
 import { BootcampSidebar } from './bootcamp/bootcampsidebar/bootcampsidebar.js';
@@ -26,14 +26,13 @@ import { HackathonSidebar } from './hackathon/hackathonsidebar/hackathonsidebar.
 import Timer from './hackathon/main-timer/Timer.jsx';
 import './responce.css';
 import { socket } from './socket.js';
-import AstConsoleLayout from './ast-console/ast-console-layout.js';
 
 function App() {
   const [set, setSet] = useState(false)
   const [boot, setBoot] = useState(false)
   const [bootload, setBootload] = useState(false)
   const [load, setLoad] = useState(false)
-  const { bootmail, adminpass, bootpass, adminEmail, consolepass, adminLoginState } = Authentication()
+  const { bootmail, adminpass, bootpass, adminLoginState } = Authentication()
 
   const AdminLogin = async () => {
     await Actions.AttendanceAdminLogin()
@@ -88,8 +87,8 @@ function App() {
               <Route path="/attendance" element={set ? <Attendance /> : <Admin />} />
               <Route path='/tech' element={set ? <Login /> : <Admin />} />
               <Route path='/yoga' element={set ? <Yoga /> : <Admin />} />
-              <Route path='/console' element={! adminLoginState ?  <ConsoleLogin/>: <AstConsoleLayout adminEmail={adminEmail} password={consolepass}/>}/>
-              <Route path='/console/:page' element={adminLoginState?<AstConsoleLayout adminEmail={adminEmail} password={consolepass}/> : <ConsoleLogin/> }/>
+              <Route path='/console' element={!adminLoginState ? <ConsoleLogin /> : <AstConsoleLayout adminEmail={bootmail} p />} />
+              <Route path='/console/:page' element={adminLoginState ? <AstConsoleLayout adminEmail={bootmail} /> : <ConsoleLogin />} />
             </>
           )}
           {bootload && (

@@ -1,20 +1,19 @@
 import {
   Box,
   Button,
-  IconButton,
   Image,
   Text,
-  Tooltip,
+  Tooltip
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import ConsoleHome from "./ast-console-routes";
-import HomeIcon from "@mui/icons-material/Home";
-import AltRouteIcon from "@mui/icons-material/AltRoute";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import AltRouteIcon from "@mui/icons-material/AltRoute";
+import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-const AstLayout = ({ adminEmail,password }) => {
+import { useNavigate, useParams } from "react-router-dom";
+import ConsoleHome from "./ast-console-routes";
+const AstLayout = ({ adminEmail }) => {
   const [page, setPage] = useState("home");
   const params = useParams();
   const navigate = useNavigate();
@@ -33,10 +32,10 @@ const AstLayout = ({ adminEmail,password }) => {
   };
   const handleLogout = () => {
     dispatch({
-      type: "CONSOLE",
+      type: "BOOT",
       payload: {
-        adminEmail: "",
-        adminLoginState: false,
+        bootmail: "",
+        bootloginstate: false,
       },
     });
   };
@@ -51,7 +50,7 @@ const AstLayout = ({ adminEmail,password }) => {
       </Box>
       <Box p={5}>
         {page === "home" && ""}
-        {page === "routes" && <ConsoleHome adminEmail={adminEmail} password={password}/>}
+        {page === "routes" && <ConsoleHome adminEmail={adminEmail} />}
         {page === "registeradmin" && ""}
         {page === "*" && ""}
       </Box>
