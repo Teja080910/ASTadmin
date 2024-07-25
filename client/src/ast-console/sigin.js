@@ -23,17 +23,8 @@ export const ConsoleLogin = () => {
                 if (res?.data?.message) {
                     toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true })
                     setLoad(false)
-
-                    dispatch({
-                        type: 'CONSOLE',
-                        payload: {
-                            adminEmail: res?.data?.data?.Gmail,
-                            adminPass: CryptoAES.encrypt(res?.data?.data?.Password, res?.data?.data?.Gmail).toString(),
-                            adminLoginState: true
-                        }
-                    });
+                    dispatch({ type: 'BOOT', payload: { bootmail: res?.data?.data?.Gmail, bootpassword: CryptoAES.encrypt(res?.data?.data?.Password, res?.data?.data?.Gmail).toString(), bootloginstate: true } });
                     nav("/console")
-
                 }
                 else {
                     toast({ title: res?.data?.error, status: 'error', position: 'bottom-right', isClosable: true })

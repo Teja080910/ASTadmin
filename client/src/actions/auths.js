@@ -1,17 +1,16 @@
+import axios from 'axios';
 import CryptoAES from 'crypto-js/aes';
 import CryptoENC from 'crypto-js/enc-utf8';
 import { useSelector } from 'react-redux';
 
 export const Authentication = () => {
+
     const bootmail = useSelector((state) => state.user.bootmail);
     const password = useSelector((state) => state.user.bootpassword);
+    const adminLoginState = useSelector(state => state.user.bootloginstate);
 
     const sessionMail = sessionStorage.gmail || "1234";
     const sessionPassword = sessionStorage.password || "1234";
-
-    const adminEmail = useSelector(state => state.user.adminEmail);
-    const consolepassword = useSelector((state) => state.user.adminPass);
-    const adminLoginState = useSelector(state => state.user.adminLoginState);
 
     let adminpass;
     try {
@@ -29,13 +28,8 @@ export const Authentication = () => {
         bootpass = '';
     }
 
-    let consolepass;
-    try {
-        consolepass = CryptoAES.decrypt(consolepassword || "1234", adminEmail || "1234").toString(CryptoENC);
-    } catch (error) {
-        console.error('Error decrypting console password:', error);
-        consolepass = '';
-    }
+    axios.defaults.headers.common['admail'] = bootmail
+    axios.defaults.headers.common['adpass'] = bootpass
 
-    return { bootmail, adminpass, bootpass, consolepass, adminEmail, adminLoginState };
+    return { bootmail, adminpass, bootpass, adminLoginState };
 };

@@ -101,11 +101,11 @@ app.post('/edittask', ConsoleMiddleware, async (req, res) => {
     await EditTasks(req.body.selectday, req.body.selecttask, req.body.selectdesc, req.body.selectmarks, req.body.index, res)
 })
 
-app.post('/showtask', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
+app.post('/showtask', ConsoleMiddleware, async (req, res) => {
     await ShowTasks(req.body.selectday, req.body.index, res)
 })
 
-app.post('/hidetask', BootcamMiddlware || ConsoleMiddleware, async (req, res) => {
+app.post('/hidetask', ConsoleMiddleware, async (req, res) => {
     await HideTasks(req.body.selectday, req.body.index, res)
 })
 
