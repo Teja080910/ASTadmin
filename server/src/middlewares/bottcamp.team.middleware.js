@@ -2,12 +2,13 @@ import { db1 } from "../db.js";
 
 export const BootcamTeamMiddlware = async (req, res, next) => {
     const { mail,password } = req.body;
+    console.log(req.headers)
     try {
         const admin = await db1.collection('Hackathonadmin').findOne({ Gmail:mail });
         if (!admin) {
             return res.send({ error: "something went wrong" })
         }
-        if (admin?.Password === password) {
+        if (admin?.Password === password && admin?.isAdmin) {
             next()
         }
         else {
