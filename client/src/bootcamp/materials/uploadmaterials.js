@@ -2,8 +2,8 @@ import { Button, Input, Stack, useToast } from '@chakra-ui/react';
 import { FileInput, Label, Select } from "flowbite-react";
 import { useState } from 'react';
 import { Actions } from '../../actions/actions';
-import { AllMaterials } from "./allmaterials";
 import { Authentication } from '../../actions/auths';
+import { AllMaterials } from "./allmaterials";
 export const BootcampMaterial = () => {
     const [photo, setPhoto] = useState()
     const [file, setFile] = useState()
@@ -11,7 +11,7 @@ export const BootcampMaterial = () => {
     const [theme, setTheme] = useState();
     const [isLoading, setIsLoading] = useState(false)
     const toast = useToast();
-    const {bootmail,bootpass}=Authentication()
+    const {adminEmail,consolepass}=Authentication()
     const UploadFile = async () => {
         setIsLoading(true)
         const formData = new FormData();
@@ -20,7 +20,8 @@ export const BootcampMaterial = () => {
             formData.append("file", file);
             formData.append("materialName", materialName);
             formData.append("theme", theme);
-            formData.append('password',bootpass)
+            formData.append('admail',adminEmail)
+            formData.append('adpass',consolepass)
             Actions.UploadMaterials(formData)
                 .then((res) => {
                     if (res?.data?.message) {

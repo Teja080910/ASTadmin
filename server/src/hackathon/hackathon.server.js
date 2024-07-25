@@ -2,6 +2,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import { Resend } from 'resend';
+import { ConsoleMiddleware } from '../ast-console/middleware/console.middleware.js';
 import { AdminLogin } from '../bootcamp/admin/adminlogin.js';
 import { AdminRegister } from '../bootcamp/admin/adminregister.js';
 import { AbsentStudent, AttendStudent } from '../bootcamp/attendance/attendance.js';
@@ -22,6 +23,7 @@ import { HideDay, HideTasks, ShowDay, ShowTasks } from '../bootcamp/taskmanger/s
 import { Tasks } from '../bootcamp/taskmanger/tasks.js';
 import { BootcamMiddlware } from '../middlewares/bootcamp.middleware.js';
 import { BootcamTeamMiddlware } from '../middlewares/bottcamp.team.middleware.js';
+import { HtrTeamMiddlware } from '../middlewares/htr.middleware.js';
 import { initiateMulter } from '../multer/multer.js';
 import { DeleteRound, InsertRound, RoundMarks } from './hacktasks/addround.js';
 import { HackActivityMarks, HackInternalMarks } from './others/others.js';
@@ -40,8 +42,6 @@ import { AllTeamRegistrers } from './teamregistrers/allregistrers.js';
 import { CreateRegistrer, DeleteRegistrer, UpdateRegistrerStatus } from './teamregistrers/registrersactions.js';
 import { CreateTechTeamMember, DeleteTechTeamMember, UpdateTechTeamMemberStatus, UpdateTechTeamMemberSubject } from './techteam/alltechmemberactions.js';
 import { AllTechTeamMembers } from './techteam/alltechmembers.js';
-import { ConsoleMiddleware } from '../ast-console/middleware/console.middleware.js';
-import { HtrTeamMiddlware } from '../middlewares/htr.middleware.js';
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -61,7 +61,7 @@ app.post('/bootcampadminregister', ConsoleMiddleware, async (req, res) => {
 
 
 // ***********************************BootCamp***************************************************** //
-app.post('/uploadfile', BootcamMiddlware, initiateMulter(), async (req, res) => {
+app.post('/uploadfile', initiateMulter(), ConsoleMiddleware, async (req, res) => {
     const { materialName, theme } = req.body;
     if (req.files) {
         await UploadFiles(req?.files, theme, materialName, res)

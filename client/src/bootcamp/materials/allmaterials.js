@@ -17,6 +17,7 @@ import React, { useEffect, useState } from 'react';
 import { Actions } from '../../actions/actions';
 import { MaterialModel } from './materialmodel';
 import './materials.css';
+import { Authentication } from '../../actions/auths';
 
 export const AllMaterials = () => {
     const [data, setData] = useState([]);
@@ -27,6 +28,7 @@ export const AllMaterials = () => {
     const [model, setModel] = useState(false)
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { bootmail, bootpass, } = Authentication()
     window.title = "Student Materials | Bootcamp | VEDIC VISION | TEAM AST"
 
     const OpenFile = async (filename) => {
@@ -90,7 +92,7 @@ export const AllMaterials = () => {
     }, []);
 
     const Show = async (theme) => {
-        await Actions.EditMaterials(theme)
+        await Actions.EditMaterials(theme, bootmail, bootpass)
             .then((res) => {
                 if (res?.data) {
                     fecthFiles()
@@ -141,7 +143,7 @@ export const AllMaterials = () => {
                                 </Tr>
                             ) : error ? (
                                 <Tr>
-                                    <Td colSpan={4}>Error: {error} <Button size={'sm'} onClick={()=>{fecthFiles();setError('')}}>Refesh</Button></Td>
+                                    <Td colSpan={4}>Error: {error} <Button size={'sm'} onClick={() => { fecthFiles(); setError('') }}>Refesh</Button></Td>
                                 </Tr>
                             ) : (
                                 data?.map((material) => (

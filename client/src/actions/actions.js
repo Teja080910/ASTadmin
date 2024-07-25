@@ -6,6 +6,11 @@ export const Actions = {
         return await axios.post(face_api + "/face", { regd, photo })
     },
 
+    Headers: async (mail, password) => {
+        return { mail, password }
+    },
+
+
     // **********************************************************Bootcamp data************************************************ //
 
     Students: async () => {
@@ -28,8 +33,8 @@ export const Actions = {
         return await axios.post(process.env.REACT_APP_database + "/admincheck/" + sessionStorage.gmail)
     },
 
-    BootAdminRegister: async (email, password, name, phone) => {
-        return await axios.post(api + "/bootcampadminregister", { email, password, name, phone })
+    BootAdminRegister: async (email, password, name, phone, admail, adpass) => {
+        return await axios.post(api + "/bootcampadminregister", { email, password, name, phone, admail, adpass })
     },
 
     Givenmarks: async (user, marks, dayindex, taskindex) => {
@@ -44,12 +49,12 @@ export const Actions = {
         return await axios.post(api + "/uploadfile", formData)
     },
 
-    EditMaterials: async (theme) => {
-        return await axios.post(api + "/editfile", { theme })
+    EditMaterials: async (theme, admail, adpass) => {
+        return await axios.post(api + "/editfile", { theme, admail, adpass })
     },
 
-    DeleteMaterial: async (photo, pdf, theme) => {
-        return await axios.post(api + "/deletefile", { photo, pdf, theme })
+    DeleteMaterial: async (photo, pdf, theme, admail, adpass) => {
+        return await axios.post(api + "/deletefile", { photo, pdf, theme, admail, adpass })
     },
 
     DeleteAllMaterials: async () => {
