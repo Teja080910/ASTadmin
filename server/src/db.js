@@ -11,7 +11,7 @@ async function connectToDB(cb) {
     const url1 = process.env.database1
     const client1 = new MongoClient(url1);
     await client1.connect();
-    db1 = client1.db("Hackathon");
+    db1 = client1.db("VedicVision");
 
     bucket = new GridFSBucket(db1, { bucketName: 'uploads' });
     cb();

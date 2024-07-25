@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import ConsoleHome from "./ast-console-routes";
+import { AdminManagementPanel } from "./ast-console-admins";
 const AstLayout = ({ adminEmail }) => {
   const [page, setPage] = useState("home");
   const params = useParams();
@@ -51,7 +52,7 @@ const AstLayout = ({ adminEmail }) => {
       <Box p={5} marginBottom={"70px"}>
         {page === "home" && ""}
         {page === "routes" && <ConsoleHome adminEmail={adminEmail} />}
-        {page === "registeradmin" && ""}
+        {page === "registeradmin" && <AdminManagementPanel />}
         {page === "*" && ""}
       </Box>
       <Box
