@@ -16,10 +16,6 @@ app.get('/', (req, res) => {
     res.json("server is running successfully!");
 })
 
-
-
-
-
 app.use(attendance)
 
 app.use(hackathon)
