@@ -2,7 +2,6 @@ import { db1 } from "../../db.js";
 
 export const ConsoleMiddleware = async (req, res, next) => {
     const { admail, adpass } = req.headers;
-    console.log(req.headers)
     try {
         const admin = await db1.collection('Hackathonadmin').findOne({ Gmail: admail });
         if (!admin) {
@@ -12,10 +11,10 @@ export const ConsoleMiddleware = async (req, res, next) => {
             next()
         }
         else {
-            return res.send({ error: "something went wrong" })
+            return res.json({ error: "something went wrong" })
         }
     } catch (e) {
         console.error(e);
-        res.status(500).json({ message: 'Error during signup' });
+        res.status(500).json({ error: 'Error during signup' });
     }
 }
