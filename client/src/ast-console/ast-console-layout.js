@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import ConsoleHome from "./ast-console-routes";
+import { AdminManagementPanel } from "./ast-console-admins";
 const AstLayout = ({ adminEmail }) => {
   const [page, setPage] = useState("home");
   const params = useParams();
@@ -42,16 +43,16 @@ const AstLayout = ({ adminEmail }) => {
 
   return (
     <Box style={{ height: "100vh" }} overflow={"scroll"}>
-      <Box display={"flex"} justifyContent={"center"}>
-        <Image src={"../logo512.png"} />
-        <Text as="h1" className="h1-animation">
-          AST CONSOLE
-        </Text>
-      </Box>
-      <Box p={5}>
+      <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
+  <Image src={"../logo512.png"} width={"60px"} height={"60px"} />
+  <Text as="h1" className="h1-animation-console" ml={2} alignItems={"center"} p={3}>
+    AST CONSOLE
+  </Text>
+</Box>
+      <Box p={5} marginBottom={"70px"}>
         {page === "home" && ""}
         {page === "routes" && <ConsoleHome adminEmail={adminEmail} />}
-        {page === "registeradmin" && ""}
+        {page === "registeradmin" && <AdminManagementPanel />}
         {page === "*" && ""}
       </Box>
       <Box

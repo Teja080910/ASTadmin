@@ -16,6 +16,23 @@ app.get('/', (req, res) => {
     res.json("server is running successfully!");
 })
 
+const checkOrigin = (req, res, next) => {
+    if (req.headers.origin === 'http://localhost:3001' || req.headers.origin === 'http://localhost:3000' || req.headers.origin === 'https://ast-admin.in') {
+      next(); // Proceed to the next middleware or route handler
+    } else {
+      res.status(403).json({ error: 'Authentication Blocked' });
+    }
+  };
+
+
+  app.use(checkOrigin);
+  
+    
+
+
+
+
+
 app.use(attendance)
 
 app.use(hackathon)

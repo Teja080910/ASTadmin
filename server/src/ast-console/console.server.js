@@ -8,6 +8,9 @@ import { ToggleRoutes } from "./route-management/modify-routes.js"
 import { updateRouteName } from "./route-management/update-route-name.js"
 import { ConsoleSignin } from "./signin/signin.js"
 import { ConsoleRegister } from "./signin/signup.js"
+import { addNewAdmin } from './admin-management/addnewadmin.js'
+import { getAdmins } from './admin-management/getalladmins.js'
+import { deleteAdmin } from './admin-management/deleteadmin.js'
 
 
 const app = express()
@@ -23,7 +26,9 @@ app.post('/consoleregister', ConsoleMiddleware, async (req, res) => {
     await ConsoleRegister(req, res)
 })
 
-
+app.post("/ast-console/admins/addadmin", addNewAdmin);
+app.post("/ast-console/admins/getadmins", getAdmins);
+app.post("/ast-console/admins/deleteadmin", deleteAdmin);
 app.get('/ast-console/allroutes', AllRoutes);
 
 app.post('/ast-console/add-route', ConsoleMiddleware, AddRoute);
