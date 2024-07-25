@@ -1,41 +1,39 @@
-import React, { useEffect, useRef, useState } from 'react';
 import {
   Box,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Switch,
-  Input,
   Button,
   FormControl,
   FormLabel,
   IconButton,
-  useToast,
-  VStack,
-  Divider,
-  Text,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
+  Input,
+  InputGroup,
   InputRightElement,
   Kbd,
-  InputGroup,
-  Image,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Switch,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  useDisclosure,
+  useToast,
+  VStack
 } from '@chakra-ui/react';
-import { ConsoleActions } from './console-action/console-actions';
-import { FaTrash, FaEdit } from 'react-icons/fa';
-import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
+import DoneIcon from '@mui/icons-material/Done';
+import React, { useEffect, useRef, useState } from 'react';
+import { FaEdit, FaTrash } from 'react-icons/fa';
+import { ConsoleActions } from './console-action/console-actions';
 
-const ConsoleHome = ({ adminEmail, password }) => {
+const ConsoleHome = ({ adminEmail }) => {
   const [routes, setRoutes] = useState({});
   const [newRoute, setNewRoute] = useState('');
   const [editRoute, setEditRoute] = useState('');
@@ -74,7 +72,7 @@ const ConsoleHome = ({ adminEmail, password }) => {
   }, [adminEmail, toast]);
 
   const toggleVisibility = (path) => {
-    ConsoleActions.toggleRouteVisibility(path, adminEmail, password)
+    ConsoleActions.toggleRouteVisibility(path)
       .then(response => {
         if (response.data.success) {
           setRoutes(prevRoutes => ({
@@ -112,7 +110,7 @@ const ConsoleHome = ({ adminEmail, password }) => {
 
   const addRoute = () => {
     if (newRoute) {
-      ConsoleActions.addRoute({ path: newRoute }, adminEmail, password)
+      ConsoleActions.addRoute({ path: newRoute })
         .then(response => {
           if (response.data.success) {
             setRoutes(prevRoutes => ({
@@ -152,7 +150,7 @@ const ConsoleHome = ({ adminEmail, password }) => {
   };
 
   const deleteRoute = (path) => {
-    ConsoleActions.deleteRoute(path, adminEmail, password)
+    ConsoleActions.deleteRoute(path)
       .then(response => {
         if (response.data.success) {
           setRoutes(prevRoutes => {
@@ -190,7 +188,7 @@ const ConsoleHome = ({ adminEmail, password }) => {
   };
 
   const updateRoute = (oldPath) => {
-    ConsoleActions.updateRouteName(oldPath, editNewRoute, adminEmail, password)
+    ConsoleActions.updateRouteName(oldPath, editNewRoute)
       .then(response => {
         if (response.data.success) {
           setRoutes(prevRoutes => {
@@ -231,13 +229,13 @@ const ConsoleHome = ({ adminEmail, password }) => {
   };
 
   // Filter routes based on search query
-  const filteredRoutes = Object.keys(routes).filter(route => 
+  const filteredRoutes = Object.keys(routes).filter(route =>
     route.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key.toLowerCase() === 'f' &&event.shiftKey ) {
+      if (event.key.toLowerCase() === 'f' && event.shiftKey) {
         searchRef.current.focus();
       }
     };
@@ -274,19 +272,10 @@ const ConsoleHome = ({ adminEmail, password }) => {
             </ModalFooter>
           </ModalContent>
         </Modal>
-
-
-
-
-
-
-
         <Box justifyContent={"flex-end"} display={"flex"}>
-        <Button colorScheme="teal" onClick={onOpen}>Add Route</Button>
+          <Button colorScheme="teal" onClick={onOpen}>Add Route</Button>
         </Box>
-       
-
-        <Text align="center" as="h3">Available Routes</Text> 
+        <Text align="center" as="h3">Available Routes</Text>
         <InputGroup size="md" mb={4}>
           <Input
             placeholder="Search routes"
@@ -330,14 +319,14 @@ const ConsoleHome = ({ adminEmail, password }) => {
                       colorScheme="teal"
                     />
                   </Td>
-                  <Td style={{display:"flex", flexDirection:"row", gap:2}}>
+                  <Td style={{ display: "flex", flexDirection: "row", gap: 2 }}>
                     {editRoute === path ? (
                       <>
                         <Button colorScheme="green" onClick={() => updateRoute(path)} p={0} width={"fit-content"}>
-                          <DoneIcon/>
+                          <DoneIcon />
                         </Button>
                         <Button colorScheme="orange" onClick={() => { setEditRoute(''); setEditNewRoute(''); }} p={0} width={"fit-content"}>
-                          <ClearIcon/>
+                          <ClearIcon />
                         </Button>
                       </>
                     ) : (
@@ -346,7 +335,7 @@ const ConsoleHome = ({ adminEmail, password }) => {
                         onClick={() => { setEditRoute(path); setEditNewRoute(path); }}
                         aria-label="Edit"
                         colorScheme="blue"
-                        w={"fit-content"}      
+                        w={"fit-content"}
                       />
                     )}
                     <IconButton
@@ -354,7 +343,7 @@ const ConsoleHome = ({ adminEmail, password }) => {
                       onClick={() => deleteRoute(path)}
                       aria-label="Delete"
                       colorScheme="red"
-                      w={"fit-content"}      
+                      w={"fit-content"}
                     />
                   </Td>
                 </Tr>

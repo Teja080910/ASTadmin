@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import ConsoleHome from "./ast-console-routes";
-const AstLayout = ({ adminEmail, password }) => {
+const AstLayout = ({ adminEmail }) => {
   const [page, setPage] = useState("home");
   const params = useParams();
   const navigate = useNavigate();
@@ -32,10 +32,10 @@ const AstLayout = ({ adminEmail, password }) => {
   };
   const handleLogout = () => {
     dispatch({
-      type: "CONSOLE",
+      type: "BOOT",
       payload: {
-        adminEmail: "",
-        adminLoginState: false,
+        bootmail: "",
+        bootloginstate: false,
       },
     });
   };
@@ -50,7 +50,7 @@ const AstLayout = ({ adminEmail, password }) => {
 </Box>
       <Box p={5} marginBottom={"70px"}>
         {page === "home" && ""}
-        {page === "routes" && <ConsoleHome adminEmail={adminEmail} password={password} />}
+        {page === "routes" && <ConsoleHome adminEmail={adminEmail} />}
         {page === "registeradmin" && ""}
         {page === "*" && ""}
       </Box>
