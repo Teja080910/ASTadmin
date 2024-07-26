@@ -268,7 +268,7 @@ export const Yoga = () => {
                               Attend
                             </Button>
                           ) : (
-                            <Text>Already Attended</Text>
+                            <Text>A"</Text>
                           )}
                         </Td>
                         <Td>
