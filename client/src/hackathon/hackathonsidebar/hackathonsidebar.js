@@ -27,10 +27,11 @@ import House from "@mui/icons-material/House";
 import HackathonTechTeam from "../techteam/techteam";
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import { Gallery } from "../gallery/gallery";
+import { Tooltip } from "@chakra-ui/react";
 
 
 const queryParams = new URLSearchParams(window.location.search);
-const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
+const SidebarContent = ({ collapsed, toggleSidebar, select ,admail}) => {
   const nav = useNavigate()
   const dispatch = useDispatch()
   return (
@@ -57,13 +58,18 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
         <MenuItem icon={<CodeIcon />} onClick={() => window.location.href = '/bootcamp'}>Bootcamp</MenuItem>
       </Menu>
       <Menu style={{ position: 'absolute', bottom: 0, color: "red", width: "100%" }}>
+        <Tooltip hasArrow label={"Logging out as "+admail}>
+
+       
         <MenuItem icon={<PowerSettingsNewIcon />} onClick={() => { dispatch({ type: 'BOOT', payload: { bootmail: null, bootpassword: null } }); window.location.reload(1000) }}>Log out</MenuItem>
+               
+        </Tooltip>
       </Menu>
     </Sidebar>
   );
 }
 
-export const HackathonSidebar = ({ socket }) => {
+export const HackathonSidebar = ({ socket,admail }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [select, setSelect] = useState(sessionStorage?.select);
   const queryParams = new URLSearchParams(window.location.search);
@@ -78,6 +84,7 @@ export const HackathonSidebar = ({ socket }) => {
         collapsed={collapsed}
         toggleSidebar={toggleSidebar}
         select={(val) => setSelect(val || 1)}
+        admail={admail}
       />
       <main
         className="main-content"

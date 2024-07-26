@@ -1,17 +1,19 @@
 import { db1 } from "../db.js";
 
 export const BootcamTeamMiddlware = async (req, res, next) => {
-    const { mail, password } = req.body;
+    // const { mail, password } = req.body;
+    const {admail,adpass}= req.headers;
     try {
-        const admin = await db1.collection('Hackathonadmin').findOne({ Gmail: mail });
+        const admin = await db1.collection('Hackathonadmin').findOne({ Gmail: admail });
+        console.log(admin,admail,adpass);
         if (!admin) {
-            return res.send({ error: "something went wrong" })
+            return res.json({ error: "something went wrong" })
         }
-        if (admin?.Password === password && admin?.isAdmin) {
+        if (admin?.Password === adpass && admin?.isAdmin) {
             next()
         }
         else {
-            return res.send({ error: "something went wrong" })
+            return res.json({ error: "Not Authorized" })
         }
     } catch (e) {
         console.error(e);

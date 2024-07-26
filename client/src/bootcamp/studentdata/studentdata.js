@@ -11,10 +11,10 @@ import {
     useToast
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import '../attendance/attendance.css';
-import { StudentUpdateModel } from "./studentupdatemodel";
 import { UploadModel } from "./uploadmodel";
+import { StudentUpdateModal } from "./studentupdatemodel";
 export const StudentsData = () => {
     const [open, setOpen] = useState(false)
     const [show, setShow] = useState(false)
@@ -24,6 +24,7 @@ export const StudentsData = () => {
     const [select, sselect] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const toast = useToast()
+    const searchRef = useRef(null)
 
     const Remove = async (student) => {
         try {
@@ -74,18 +75,35 @@ export const StudentsData = () => {
             setIsLoading(false);
         }, 2000);
     }, [])
+
+
+    
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key.toLowerCase() === 'f' && event.shiftKey) {
+        event.preventDefault();
+        searchRef.current.focus();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
     return (
         <>
             {/* <BootcampNav /> */}
             <UploadModel isOpen={open} onClose={() => setOpen(false)} />
-            <StudentUpdateModel show={show} close={() => setShow(false)} data={data} />
-            <div style={{ width: "100%", display: "flex", justifyContent: "right", padding: "5%" }}>
-                <Button style={{ backgroundColor: "black", color: 'white' }} onClick={() => setOpen(true)}>Upload File</Button>
-            </div>
-            <div className="studentdata">
-                <Box display="flex" justifyContent="center" mb={6}>
-                    <Input id="search" value={select} placeholder="Enter User mail or name" onChange={(e) => sselect(e.target.value)} width="50%" />
+            <StudentUpdateModal show={show} close={() => setShow(false)} data={data} />
+            <Box display="flex" justifyContent="space-evenly" mb={6} >
+                    <Input id="search" value={select} placeholder="Enter User mail or name" ref={searchRef} onChange={(e) => sselect(e.target.value)} width="50%" />
+                    <Button style={{ backgroundColor: "black", color: 'white' }} onClick={() => setOpen(true)}>Upload File</Button>
+
                 </Box>
+          
+            <div className="studentdata">
+              
                 <table className="studetail">
                     {
                         isLoading ?
