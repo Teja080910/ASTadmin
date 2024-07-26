@@ -6,7 +6,7 @@ import Controls from '../hackathonTimer/Controls';
 import { StartAndStop } from './start&stop';
 import "./TimerManager.css";
 
-const TimeManager = ({ URL = "https://timer-server-edko.onrender.com", socket }) => {
+const TimeManager = ({ URL = "https://timer-server-eta.vercel.app", socket }) => {
   const [timers, setTimers] = useState([]);
   const [timer, setTimer] = useState();
   const [timerTitle, setTimerTitle] = useState("hackathon");
