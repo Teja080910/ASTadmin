@@ -128,7 +128,8 @@ app.post('/attendstudent/:regd', BootcamTeamMiddlware, async (req, res) => {
     await AttendStudent(req.params.regd, res)
 })
 
-app.post('/updatestudent', BootcamTeamMiddlware, async (req, res) => {
+app.post('/updatestudent', BootcamEditMiddlware, async (req, res) => {
+    console.log(req.body)
     await UpdateStudent(req.body.student, res)
 })
 

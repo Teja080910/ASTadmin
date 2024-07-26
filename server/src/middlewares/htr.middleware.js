@@ -11,7 +11,7 @@ export const HtrTeamMiddlware = async (req, res, next) => {
             next()
         }
         else {
-            return res.send({ error: "something went wrong" })
+            return res.json({ error: "Not Authorized" })
         }
     } catch (e) {
         console.error(e);

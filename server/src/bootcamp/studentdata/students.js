@@ -2,7 +2,7 @@ import { db1 } from "../../db.js"
 
 export const Students = async (res) => {
     try {
-        const students = await db1.collection("Hackathondata").find().toArray()
+        const students = await db1.collection("Hackathondata").find({}, { projection: { Password: 0 } }).toArray()
         if (students.length>0) {
             res.json(students)
         }
