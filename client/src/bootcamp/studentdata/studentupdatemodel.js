@@ -56,7 +56,7 @@ export const StudentUpdateModel = ({ show, close, data }) => {
                 <Input placeholder='name' type='text' value={student.name ? student.name : data?.Name} onChange={(e) => setStudent((val) => ({ ...val, name: e.target.value }))} /><br />
                 <Input placeholder='gmail' value={student.gmail || data?.Gmail} onChange={(e) => setStudent((val) => ({ ...val, gmail: e.target.value }))} /><br />
                 <Input placeholder='year' value={student.year || (data?.Year[0]) || data?.Year} onChange={(e) => setStudent((val) => ({ ...val, year: e.target.value }))} /><br />
-                <Input placeholder='branch' value={student.branch || (data?.Year)?.slice(3) || data?.Branch} onChange={(e) => setStudent((val) => ({ ...val, branch: e.target.value }))} /><br />
+                <Input placeholder='branch' value={student.branch || (data?.Year) || data?.Branch} onChange={(e) => setStudent((val) => ({ ...val, branch: e.target.value }))} /><br />
                 <Input placeholder='number' value={ data?.Number} /><br />
                 <Input placeholder='attendance' value={ data?.AttendDays} /><br />
             </Modal.Body>
