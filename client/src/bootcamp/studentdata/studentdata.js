@@ -13,8 +13,8 @@ import {
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import '../attendance/attendance.css';
-import { StudentUpdateModel } from "./studentupdatemodel";
 import { UploadModel } from "./uploadmodel";
+import { StudentUpdateModal } from "./studentupdatemodel";
 export const StudentsData = () => {
     const [open, setOpen] = useState(false)
     const [show, setShow] = useState(false)
@@ -95,7 +95,7 @@ export const StudentsData = () => {
         <>
             {/* <BootcampNav /> */}
             <UploadModel isOpen={open} onClose={() => setOpen(false)} />
-            <StudentUpdateModel show={show} close={() => setShow(false)} data={data} />
+            <StudentUpdateModal show={show} close={() => setShow(false)} data={data} />
             <Box display="flex" justifyContent="space-evenly" mb={6} >
                     <Input id="search" value={select} placeholder="Enter User mail or name" ref={searchRef} onChange={(e) => sselect(e.target.value)} width="50%" />
                     <Button style={{ backgroundColor: "black", color: 'white' }} onClick={() => setOpen(true)}>Upload File</Button>

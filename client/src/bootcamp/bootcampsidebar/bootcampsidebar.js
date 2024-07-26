@@ -22,9 +22,10 @@ import { Others } from '../others/others';
 import HouseIcon from '@mui/icons-material/House';
 import './bootcampsidebar.css';
 import Footer from '../footer/Footer';
+import { Tooltip } from '@chakra-ui/react';
 
 const queryParams = new URLSearchParams(window.location.search);
-const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
+const SidebarContent = ({ collapsed, toggleSidebar, select,admail }) => {
     const nav = useNavigate()
     const dispatch = useDispatch()
     return (
@@ -35,7 +36,10 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
                     onClick={toggleSidebar}
                     style={{ textAlign: 'center' }}
                 >
+                    
                     <h2>Bootcamp</h2>
+                   
+                  
                 </MenuItem>
                 <MenuItem icon={<HomeOutlinedIcon />} onClick={() => window.location.href = '/'}>Home</MenuItem>
                 <MenuItem icon={<HouseIcon />} onClick={() => window.location.href = '/bootcamp'}>House</MenuItem>
@@ -48,12 +52,15 @@ const SidebarContent = ({ collapsed, toggleSidebar, select }) => {
                 <MenuItem icon={<CodeIcon />} onClick={() => window.location.href = '/hackathon'}>Hackathon</MenuItem>
             </Menu>
             <Menu style={{ position: 'absolute', bottom: 0, color: "red", width: "100%" }}>
+
+            <Tooltip label={`Logging out as `+admail} hasArrow>
                 <MenuItem icon={<PowerSettingsNewIcon />} onClick={() => { dispatch({ type: 'BOOT', payload: { bootmail: null, bootpassword: null } }); window.location.reload(1000) }} >Log out</MenuItem>
+                </Tooltip>
             </Menu>
         </Sidebar>
     );
 }
-export const BootcampSidebar = () => {
+export const BootcampSidebar = ({admail}) => {
     const [collapsed, setCollapsed] = useState(false);
     const [select, setSelect] = useState(sessionStorage?.select)
     const queryParams = new URLSearchParams(window.location.search);
@@ -66,7 +73,7 @@ export const BootcampSidebar = () => {
     };
     return (<>
         <div id="app" style={{ height: '100vh', display: 'flex' }}>
-            <SidebarContent collapsed={collapsed} toggleSidebar={toggleSidebar} select={(val) => setSelect(val || 1)} />
+            <SidebarContent collapsed={collapsed} admail={admail} toggleSidebar={toggleSidebar} select={(val) => setSelect(val || 1)} />
             <main className='main-content' onClick={() => collapsed || toggleSidebar()}>
                 {
                     (set === "home" && <BootcampHome />) ||
