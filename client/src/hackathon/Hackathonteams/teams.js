@@ -64,6 +64,7 @@ export const Teams = ({ data, refresh }) => {
     };
 
     const handleUpdateOpen = (team) => {
+        console.log(team);
         setSelectedTeam(team);
         setIsUpdateOpen(true);
     };
@@ -91,7 +92,7 @@ export const Teams = ({ data, refresh }) => {
 
     return (
         <Box >
-            <TeamView data={selectedTeam} show={show} close={handleViewClose} />
+           { show &&<TeamView data={selectedTeam} show={show} close={handleViewClose} />}
             <Box mb={4} width="">
                 <Text fontWeight={"bold"}>No of Teams Register - <strong style={{ color: 'green' }}>{data?.filter(team => team.Team).length}</strong></Text>
                 <Input
