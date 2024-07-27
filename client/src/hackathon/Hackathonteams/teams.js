@@ -2,6 +2,12 @@ import {
     Box,
     Button,
     Input,
+    Popover,
+    PopoverArrow,
+    PopoverBody,
+    PopoverCloseButton,
+    PopoverContent,
+    PopoverHeader, PopoverTrigger, Portal,
     Table,
     TableCaption,
     TableContainer,
@@ -12,19 +18,21 @@ import {
     Tr,
     useToast
 } from '@chakra-ui/react';
-import { useState, useRef, useEffect } from 'react';
-import { Actions } from '../../actions/actions';
-import { UpdateTeam } from './update-team-modal';
+
+import { ViewIcon } from '@chakra-ui/icons';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { ViewIcon } from '@chakra-ui/icons';
+import { useEffect, useRef, useState } from 'react';
+import { Actions } from '../../actions/actions';
+import { DeleteTeam } from './deleteteam';
+import { UpdateTeam } from './update-team-modal';
 import { TeamView } from './viewteam';
 
 export const Teams = ({ data, refresh }) => {
     const toast = useToast();
     const [isUpdateOpen, setIsUpdateOpen] = useState(false);
     const [selectedTeam, setSelectedTeam] = useState(null);
-    const [show,setShow]=useState(false)
+    const [show, setShow] = useState(false)
     const [search, setSearch] = useState('');
     const searchInputRef = useRef(null);
 
@@ -84,7 +92,8 @@ export const Teams = ({ data, refresh }) => {
 
     return (
         <Box >
-            <TeamView data={selectedTeam} show={show} close={handleViewClose}/>
+            <TeamView data={selectedTeam} show={show} close={handleViewClose} />
+            {/* <DeleteTeam /> */}
             <Box mb={4} width="">
                 <Input
                     ref={searchInputRef}
@@ -107,17 +116,32 @@ export const Teams = ({ data, refresh }) => {
                     </Thead>
                     <Tbody>
                         {
-                            filteredData.map((team) => (
+                            filteredData.sort((a,b)=>a.TeamCode-b.TeamCode).map((team) => (
                                 <Tr key={team.TeamCode}>
                                     <Td>{team.TeamCode}</Td>
                                     <Td>{team?.Team}</Td>
-                                    <Td>{(team?.Members)?.length }-{(team?.Members)?.join(" | ")}</Td>
+                                    <Td>{(team?.Members)?.length}-{(team?.Members)?.join(" | ")}</Td>
                                     <Td>
                                         {team?.Team && (
                                             <div style={{ display: "flex", gap: "5px", alignItems: "stretch" }}>
                                                 <Button colorScheme='blue' onClick={() => handleUpdateOpen(team)} size="sm"><EditIcon /></Button>
                                                 <Button colorScheme='blue' onClick={() => handleViewOpen(team)} size="sm"><ViewIcon /></Button>
-                                                <Button bg={'red'} color={'white'} onClick={() => Delete(team?.TeamCode)} size="sm"><DeleteIcon /></Button>
+                                                {/* <Button bg={'red'} color={'white'} onClick={() => Delete(team?.TeamCode)} size="sm"><DeleteIcon /></Button> */}
+                                                <Popover>
+                                                    <Portal>
+                                                        <PopoverContent>
+                                                            <PopoverArrow />
+                                                            <PopoverHeader align="center">Team Detele</PopoverHeader>
+                                                            <PopoverCloseButton />
+                                                            <PopoverBody justifyContent="center" display={"flex"}>
+                                                                <Button bg={'red'} color={'white'} onClick={() => Delete(team?.TeamCode)}>Confirm Detele Team</Button>
+                                                            </PopoverBody>
+                                                        </PopoverContent>
+                                                    </Portal>
+                                                    <PopoverTrigger>
+                                                        <Button bg={'red'} color={'white'} size="sm"><DeleteIcon /></Button>
+                                                    </PopoverTrigger>
+                                                </Popover>
                                             </div>
                                         )}
                                     </Td>
