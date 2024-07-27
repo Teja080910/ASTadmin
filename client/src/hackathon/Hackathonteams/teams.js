@@ -84,7 +84,7 @@ export const Teams = ({ data, refresh }) => {
         setSelectedTeam(null);
     };
 
-    const filteredData = data.filter((team) =>
+    const filteredData = data?.filter((team) =>
         team.TeamCode.toString().includes(search) ||
         (team.Team && team.Team.toLowerCase().includes(search.toLowerCase())) ||
         (Array.isArray(team.Members) && team.Members.some(member => member.toLowerCase().includes(search.toLowerCase())))
