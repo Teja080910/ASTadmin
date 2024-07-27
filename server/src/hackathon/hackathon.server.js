@@ -133,7 +133,7 @@ app.post('/updatestudent', BootcamEditMiddlware, async (req, res) => {
     await UpdateStudent(req.body.student, res)
 })
 
-app.post('/deletestudent', ConsoleMiddleware, async (req, res) => {
+app.post('/deletestudent',ConsoleMiddleware, async (req, res) => {
     await DeleteStudent(req.body.student, res)
 })
 

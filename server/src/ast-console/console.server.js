@@ -26,9 +26,12 @@ app.post('/consoleregister', ConsoleMiddleware, async (req, res) => {
     await ConsoleRegister(req, res)
 })
 
-app.post("/ast-console/admins/addadmin", addNewAdmin);
-app.post("/ast-console/admins/getadmins", getAdmins);
-app.post("/ast-console/admins/deleteadmin", deleteAdmin);
+app.post("/ast-console/admins/addadmin",ConsoleMiddleware, addNewAdmin);
+
+app.post("/ast-console/admins/getadmins",ConsoleMiddleware, getAdmins);
+
+app.post("/ast-console/admins/deleteadmin",ConsoleMiddleware, deleteAdmin);
+
 app.get('/ast-console/allroutes', AllRoutes);
 
 app.post('/ast-console/add-route', ConsoleMiddleware, AddRoute);
