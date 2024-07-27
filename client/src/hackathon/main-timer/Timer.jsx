@@ -6,7 +6,7 @@ import Activities from "./Activitys";
 import { Button } from "@chakra-ui/react";
 import Scorer from "./Scorer";
 
-const Timer = ({ url = "https://timer-server-eta.vercel.app", socket }) => {
+const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
   const [timeLeft, setTimeLeft] = useState({
     hours: 24,
     minutes: 0,
