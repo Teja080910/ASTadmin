@@ -17,11 +17,14 @@ import { Actions } from '../../actions/actions';
 import { UpdateTeam } from './update-team-modal';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { ViewIcon } from '@chakra-ui/icons';
+import { TeamView } from './viewteam';
 
 export const Teams = ({ data, refresh }) => {
     const toast = useToast();
     const [isUpdateOpen, setIsUpdateOpen] = useState(false);
     const [selectedTeam, setSelectedTeam] = useState(null);
+    const [show,setShow]=useState(false)
     const [search, setSearch] = useState('');
     const searchInputRef = useRef(null);
 
@@ -63,6 +66,16 @@ export const Teams = ({ data, refresh }) => {
         setSelectedTeam(null);
     };
 
+    const handleViewOpen = (team) => {
+        setSelectedTeam(team?.Members);
+        setShow(true);
+    };
+
+    const handleViewClose = () => {
+        setShow(false);
+        setSelectedTeam(null);
+    };
+
     const filteredData = data.filter((team) =>
         team.TeamCode.toString().includes(search) ||
         (team.Team && team.Team.toLowerCase().includes(search.toLowerCase())) ||
@@ -71,6 +84,7 @@ export const Teams = ({ data, refresh }) => {
 
     return (
         <Box >
+            <TeamView data={selectedTeam} show={show} close={handleViewClose}/>
             <Box mb={4} width="">
                 <Input
                     ref={searchInputRef}
@@ -102,6 +116,7 @@ export const Teams = ({ data, refresh }) => {
                                         {team?.Team && (
                                             <div style={{ display: "flex", gap: "5px", alignItems: "stretch" }}>
                                                 <Button colorScheme='blue' onClick={() => handleUpdateOpen(team)} size="sm"><EditIcon /></Button>
+                                                <Button colorScheme='blue' onClick={() => handleViewOpen(team)} size="sm"><ViewIcon /></Button>
                                                 <Button bg={'red'} color={'white'} onClick={() => Delete(team?.TeamCode)} size="sm"><DeleteIcon /></Button>
                                             </div>
                                         )}
