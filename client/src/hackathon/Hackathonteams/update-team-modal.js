@@ -12,7 +12,7 @@ import {
     Select,
     useToast,
 } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Actions } from "../../actions/actions";
 
 export const UpdateTeam = ({ isOpen, onClose, team, refresh }) => {
@@ -32,7 +32,7 @@ export const UpdateTeam = ({ isOpen, onClose, team, refresh }) => {
             setCode(TeamCode || "");
             setPhone(Phone || "");
             setMembers(Members?.length || 0);
-            setMemberDetails(Array.isArray(Members) ? Members : []);
+            setMemberDetails(Array?.isArray(Members) ? Members : []);
         }
     }, [team]);
 
@@ -45,7 +45,7 @@ export const UpdateTeam = ({ isOpen, onClose, team, refresh }) => {
     };
 
     const handleSubmit = async () => {
-        if (teamName && gmail && code && phone && members && memberDetails.length === parseInt(members)) {
+        if (teamName && gmail && code && phone && members && memberDetails?.length === parseInt(members)) {
             if (new Set(memberDetails).size !== memberDetails.length) {
                 toast({
                     title: "Duplicate team details found",
@@ -55,7 +55,7 @@ export const UpdateTeam = ({ isOpen, onClose, team, refresh }) => {
                 });
                 return;
             }
-            if (!memberDetails.every((detail) => detail.length === 10)) {
+            if (!memberDetails?.every((detail) => detail.length === 10)) {
                 toast({
                     title: "Each team detail must be exactly 10 characters long",
                     status: "error",
@@ -117,7 +117,6 @@ export const UpdateTeam = ({ isOpen, onClose, team, refresh }) => {
             });
         }
     };
-
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
@@ -156,37 +155,35 @@ export const UpdateTeam = ({ isOpen, onClose, team, refresh }) => {
                             disabled
                         >
                             {team && (
-                                <option value={team.TeamCode}>
-                                    {team.TeamCode}
+                                <option value={team?.TeamCode}>
+                                    {team?.TeamCode}
                                 </option>
                             )}
                         </Select>
                         <Select
-    placeholder="Select Number of Members"
-    value={members}
-    onChange={(e) => {
-        const newMembersCount = parseInt(e.target.value);
-        setMembers(newMembersCount);
-
-        setMemberDetails((prevDetails) => {
-            const newDetails = [...prevDetails];
-            if (newMembersCount > prevDetails.length) {
-                return [...newDetails, ...Array(newMembersCount - prevDetails.length).fill("")];
-            } else {
-                return newDetails.slice(0, newMembersCount);
-            }
-        });
-    }}
-    mb={2}
->
-    {[4, 5, 6].map((num) => (
-        <option key={num} value={num}>
-            Team of {num}
-        </option>
-    ))}
-</Select>
-
-                        {Array.from({ length: members }).map((_, index) => (
+                            placeholder="Select Number of Members"
+                            value={members}
+                            onChange={(e) => {
+                                const newMembersCount = parseInt(e.target.value);
+                                setMembers(newMembersCount);
+                                setMemberDetails((prevDetails) => {
+                                    const newDetails = [...prevDetails];
+                                    if (newMembersCount > prevDetails.length) {
+                                        return [...newDetails, ...Array(newMembersCount - prevDetails.length).fill("")];
+                                    } else {
+                                        return newDetails.slice(0, newMembersCount);
+                                    }
+                                });
+                            }}
+                            mb={2}
+                        >
+                            {[4, 5, 6]?.map((num) => (
+                                <option key={num} value={num}>
+                                    Team of {num}
+                                </option>
+                            ))}
+                        </Select>
+                        {Array?.from({ length: members })?.map((_, index) => (
                             <Input
                                 key={index}
                                 placeholder={`Team ${index + 1 === 1 ? "Leader" : "Member " + (index + 1)} Registration Number`}

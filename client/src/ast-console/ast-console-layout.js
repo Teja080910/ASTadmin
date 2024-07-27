@@ -14,6 +14,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import ConsoleHome from "./ast-console-routes";
 import { AdminManagementPanel } from "./ast-console-admins";
+import HouseIcon from '@mui/icons-material/House';
+
 const AstLayout = ({ adminEmail }) => {
   const [page, setPage] = useState("home");
   const params = useParams();
@@ -66,6 +68,17 @@ const AstLayout = ({ adminEmail }) => {
         width="100%"
         bg="teal"
       >
+         <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          color={page === "home" ? "white" : "black"}
+          onClick={() => navigate("/")}
+          width="50px"
+        >
+          <HouseIcon />
+          <Text mb={0}>Home</Text>
+        </Box>
         <Box
           display="flex"
           flexDirection="column"
@@ -75,7 +88,7 @@ const AstLayout = ({ adminEmail }) => {
           width="50px"
         >
           <HomeIcon />
-          {page === "home" && <Text mb={0}>Home</Text>}
+          {page === "home" && <Text mb={0}>House</Text>}
         </Box>
         <Box
           display="flex"

@@ -11,7 +11,7 @@ export const BootcamEditMiddlware = async (req, res, next) => {
             next()
         }
         else {
-            return res.json({ error: "something went wrong" })
+            return res.json({ error: "Not Authorized" })
         }
     } catch (e) {
         console.error(e);

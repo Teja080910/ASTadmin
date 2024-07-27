@@ -236,6 +236,7 @@ const ConsoleHome = ({ adminEmail }) => {
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (event.key.toLowerCase() === 'f' && event.shiftKey) {
+        event.preventDefault();
         searchRef.current.focus();
       }
     };
