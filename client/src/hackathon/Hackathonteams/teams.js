@@ -13,6 +13,7 @@ import {
     TableContainer,
     Tbody,
     Td,
+    Text,
     Th,
     Thead,
     Tr,
@@ -24,7 +25,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useEffect, useRef, useState } from 'react';
 import { Actions } from '../../actions/actions';
-import { DeleteTeam } from './deleteteam';
 import { UpdateTeam } from './update-team-modal';
 import { TeamView } from './viewteam';
 
@@ -93,8 +93,8 @@ export const Teams = ({ data, refresh }) => {
     return (
         <Box >
             <TeamView data={selectedTeam} show={show} close={handleViewClose} />
-            {/* <DeleteTeam /> */}
             <Box mb={4} width="">
+                <Text fontWeight={"bold"}>No of Teams Register - <strong style={{ color: 'green' }}>{data?.filter(team => team.Team).length}</strong></Text>
                 <Input
                     ref={searchInputRef}
                     placeholder="Search by Team Code, Team Name or Members"
@@ -116,7 +116,7 @@ export const Teams = ({ data, refresh }) => {
                     </Thead>
                     <Tbody>
                         {
-                            filteredData.sort((a,b)=>a.TeamCode-b.TeamCode).map((team) => (
+                            filteredData.sort((a, b) => a.TeamCode - b.TeamCode).map((team) => (
                                 <Tr key={team.TeamCode}>
                                     <Td>{team.TeamCode}</Td>
                                     <Td>{team?.Team}</Td>
