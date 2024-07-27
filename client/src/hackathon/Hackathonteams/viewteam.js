@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardHeader, Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, SimpleGrid, Text } from "@chakra-ui/react"
+import { Button, Card, CardBody, CardHeader, Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, SimpleGrid, Table, Td, Text, Tr } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { Actions } from "../../actions/actions"
 
@@ -15,6 +15,7 @@ export const TeamView = ({ data, show, close }) => {
     useEffect(() => {
         Teams()
     }, [])
+    
     return (
         <Modal onClose={close} size={"50%"} isOpen={show}>
             <ModalOverlay />
@@ -22,23 +23,37 @@ export const TeamView = ({ data, show, close }) => {
                 <ModalHeader align="center">Team Members Data</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
+                    <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
                         {
                             filterData?.map((student) => (
-                                <Card>
-                                    <CardHeader>
-                                        <Heading size='sm'>{student?.Name}</Heading>
+                                <Card key={student?.Reg_No} p={0}>
+                                    <CardHeader m={0}>
+                                        <Heading size='sm' as="p" noOfLines={1}>{student?.Name?.toUpperCase()}</Heading>
                                     </CardHeader>
                                     <CardBody>
-                                        <Text>{student?.Reg_No}</Text>
-                                        <Text>{student?.Year} year</Text>
-                                        <Text>{student?.Branch}</Text>
-                                        <Text>{student?.Section}</Text>
-                                        <Text>{student?.Number}</Text>
+                                        <Table variant="simple">
+                                            <Tr>
+                                                <Td>Register Number </Td>
+                                                <Td>{student?.Reg_No}</Td>
+                                            </Tr>
+                                            <Tr>
+                                                <Td>Year </Td>
+                                                <Td>{student?.Year}/4</Td>
+                                            </Tr>
+                                            <Tr>
+                                                <Td>Branch </Td>
+                                                <Td>{student?.Branch}</Td>
+                                            </Tr>
+                                            <Tr>
+                                                <Td>Section </Td>
+                                                <Td>{student?.Section}</Td>
+                                            </Tr>
+                                            <Tr>
+                                                <Td>Mobile Number </Td>
+                                                <Td>{student?.Number}</Td>
+                                            </Tr>
+                                        </Table>
                                     </CardBody>
-                                    {/* <CardFooter>
-                                        <Button>View here</Button>
-                                    </CardFooter> */}
                                 </Card>
                             ))
                         }
