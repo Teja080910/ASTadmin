@@ -27,11 +27,11 @@ export const TeamView = ({ data, show, close }) => {
                         {
                             filterData?.map((student) => (
                                 <Card key={student?.Reg_No} p={0}>
-                                    <CardHeader m={0}>
-                                        <Heading size='sm' as="p" noOfLines={1}>{student?.Name?.toUpperCase()}</Heading>
+                                    <CardHeader m={0} p={1} textAlign="center">
+                                        <Heading size='sm' as="p" noOfLines={1} color="purple">{student?.Name?.toUpperCase()}</Heading>
                                     </CardHeader>
-                                    <CardBody>
-                                        <Table variant="simple">
+                                    <CardBody p={0} m={0}>
+                                        <Table variant="simple" >
                                             <Tr>
                                                 <Td>Register Number </Td>
                                                 <Td>{student?.Reg_No}</Td>
