@@ -10,7 +10,7 @@ export const TeamView = ({ data, show, close }) => {
             .catch((e) => console.log(e))
     }
 
-    const filterData = team?.filter(member => data?.includes(member?.Reg_No?.trim()))
+    const filterData = team?.filter(member => data && data?.includes(member?.Reg_No?.trim()))
 
     useEffect(() => {
         Teams()

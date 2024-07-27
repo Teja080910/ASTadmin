@@ -102,9 +102,9 @@ export const BootAttendance = () => {
             user?.Reg_No?.toUpperCase().includes(select) ||
             user?.Name?.toUpperCase().includes(select) ||
             user?.Name?.toLowerCase().includes(select)) &&
-        ((user?.Year && (user?.Year[0])) === sessionStorage.year)
+        ((parseInt(user?.Year) || parseInt((user?.Year[0]))) === parseInt(sessionStorage.year))
     );
-
+console.log(filteredData,dat)
     return (
         <>
             {/* <FaceRegorg isOpen={show} onClose={() => setShow(false)} regd={regd} /> */}
