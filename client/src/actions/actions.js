@@ -40,6 +40,10 @@ export const Actions = {
         return await axios.post(api + "/givenmarks", { user, marks, dayindex, taskindex })
     },
 
+    RemoveTask: async (user, marks, dayindex, taskindex) => {
+        return await axios.post(api + "/removetask", { user, marks, dayindex, taskindex })
+    },
+
     AllMaterials: async () => {
         return await axios.post(api + "/files")
     },

@@ -25,12 +25,12 @@ export const BootAttendance = () => {
     const date = new Date();
     const toast = useToast();
     const searchRef = useRef(null);
-    const { bootmail,bootpass } = Authentication()
+    const { bootmail, bootpass } = Authentication()
 
     const Attend = async (registerno) => {
         try {
             setShow(true)
-            const responce = await axios.post(process.env.REACT_APP_database + "/attendstudent/" + registerno, {mail:bootmail, password: bootpass })
+            const responce = await axios.post(process.env.REACT_APP_database + "/attendstudent/" + registerno, { mail: bootmail, password: bootpass })
             if (responce?.data?.message) {
                 toast({ title: registerno + " Attend", status: "success", position: "top", isClosable: true });
                 fetchData();
@@ -44,7 +44,7 @@ export const BootAttendance = () => {
 
     const Absent = async (registerno) => {
         try {
-            const responce1 = await axios.post(process.env.REACT_APP_database + "/absentstudent/" + registerno,{mail:bootmail, password: bootpass })
+            const responce1 = await axios.post(process.env.REACT_APP_database + "/absentstudent/" + registerno, { mail: bootmail, password: bootpass })
             if (responce1) {
                 toast({ title: registerno + " Absent", status: "success", position: "top", isClosable: true });
                 fetchData();
@@ -97,14 +97,13 @@ export const BootAttendance = () => {
         fetchData();
     }, [])
 
-    const filteredData = dat.filter(user =>
+    const filteredData = dat?.filter(user =>
         (user?.Reg_No?.toLowerCase().includes(select) ||
             user?.Reg_No?.toUpperCase().includes(select) ||
             user?.Name?.toUpperCase().includes(select) ||
             user?.Name?.toLowerCase().includes(select)) &&
         ((parseInt(user?.Year) || parseInt((user?.Year[0]))) === parseInt(sessionStorage.year))
     );
-console.log(filteredData,dat)
     return (
         <>
             {/* <FaceRegorg isOpen={show} onClose={() => setShow(false)} regd={regd} /> */}
@@ -128,6 +127,7 @@ console.log(filteredData,dat)
                     />
                 </Box>
                 <table className="studetail">
+                    <Text align={"left"} fontSize={"20px"}>No of Students Attend - {dat?.filter(student=>student?.Date===date.toDateString())?.length}</Text>
                     {
                         isLoading ?
                             <tr>
@@ -135,12 +135,12 @@ console.log(filteredData,dat)
                                     <Spinner size="xl" />
                                 </Box>  </tr> :
                             <Accordion allowToggle>
-                                {filteredData.length > 0 ? filteredData.map((x, index) => (
+                                {filteredData?.length > 0 ? filteredData?.map((x, index) => (
                                     <AccordionItem key={index} style={{ display: 'flex', justifyContent: 'space-evenly' }} p={1} >
                                         <Box style={{ fontFamily: 'bold' }} flex="1" textAlign="left">
                                             {index + 1}. {x?.Name.toUpperCase()} ({x?.Reg_No.toUpperCase()})
                                         </Box>
-                                        {x.Date !== date.toDateString() ?
+                                        {x?.Date !== date.toDateString() ?
                                             <Button colorScheme="blue" onClick={() => { Attend(x?.Reg_No) }} onClickCapture={() => setRegd({ num: x?.Reg_No, name: x?.Name })}>Attend</Button> :
                                             <Button colorScheme="red" onClick={() => Absent(x?.Reg_No)}>Absent</Button>
                                         }

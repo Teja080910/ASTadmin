@@ -12,16 +12,15 @@ import {
     Table,
     Tbody,
     Td,
-    Text,
     Th,
     Thead,
     Tr,
     useToast
 } from "@chakra-ui/react";
+import SearchIcon from '@mui/icons-material/Search';
 import React, { useEffect, useRef, useState } from "react";
 import { Actions } from "../../actions/actions";
 import './scoremanager.css';
-import SearchIcon from '@mui/icons-material/Search';
 
 export const BootcampScore = () => {
     const [dat, setDat] = useState([]);
@@ -58,6 +57,21 @@ export const BootcampScore = () => {
         } else {
             toast({ title: "Marks error", status: 'warning', position: 'bottom-right', isClosable: true });
         }
+    };
+
+    const RemoveTask = async (user, marks, dayindex, taskindex) => {
+        await Actions.RemoveTask(user, marks, dayindex, taskindex)
+            .then((res) => {
+                if (res?.data) {
+                    fetchStudentData()
+                    toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true })
+                } else {
+                    toast({ title: res?.data?.error, status: 'error', position: 'bottom-right', isClosable: true })
+                }
+            })
+            .catch((e) => {
+                toast({ title: e?.message, status: 'error', position: 'bottom-right', isClosable: true })
+            })
     };
 
     useEffect(() => {
@@ -102,8 +116,8 @@ export const BootcampScore = () => {
             ) : (
                 <Flex flexDirection="column" alignItems="center">
                     {dat.filter(user =>
-                        user?.Reg_No?.toLowerCase()?.includes(select) ||
-                        user?.Reg_No?.toUpperCase()?.includes(select) ||
+                        user?.Reg_No?.toString()?.toLowerCase()?.includes(select) ||
+                        user?.Reg_No?.toString()?.toUpperCase()?.includes(select) ||
                         user?.Name?.toUpperCase()?.includes(select) ||
                         user?.Name?.toLowerCase()?.includes(select)
                     )?.map((x, index) => (
@@ -119,7 +133,7 @@ export const BootcampScore = () => {
                             maxW="xxl"
                         >
                             <Flex justifyContent="space-between" alignItems="center" mb={4}>
-                            <Heading as="h2" size="md" mb={4}>{x?.Name.toUpperCase()}</Heading>
+                                <Heading as="h2" size="md" mb={4}>{x?.Name?.toUpperCase()}</Heading>
 
                                 <Badge colorScheme="blue">{x?.Year} B.Tech</Badge>
                             </Flex>
@@ -135,11 +149,11 @@ export const BootcampScore = () => {
                                     </Tr>
                                 </Thead>
                                 <Tbody>
-                                    {Object.values(x?.Tasks || {}).map((val, dayindex) =>
-                                        val.map((val2, taskindex) => (
+                                    {Object.values(x?.Tasks || {})?.map((val, dayindex) =>
+                                        val && val?.map((val2, taskindex) => (
                                             <Tr key={`${dayindex}-${taskindex}`}>
                                                 <Td> {dayindex + 1}</Td>
-                                                <Td> {taskindex+ 1}</Td>
+                                                <Td> {taskindex + 1}</Td>
 
                                                 <Td>{val2?.Task}</Td>
                                                 <Td>
@@ -152,13 +166,20 @@ export const BootcampScore = () => {
                                                     />
                                                 </Td>
                                                 <Td>{val2?.Marks}</Td>
-                                                <Td>
+                                                <Td justifyContent={'space-evenly'} display={'flex'}>
                                                     <Button
                                                         size="sm"
                                                         colorScheme="blue"
-                                                        onClick={() => GivenMarks(x?.Reg_No, marks[`${x?.Name}-${dayindex}-${taskindex}`] || val2?.GotMarks, val2?.Marks, dayindex, taskindex)}
+                                                        onClick={() => GivenMarks(x?.Reg_No?.trim(), marks[`${x?.Name}-${dayindex}-${taskindex}`] || val2?.GotMarks, val2?.Marks, dayindex, taskindex)}
                                                     >
                                                         Save
+                                                    </Button>
+                                                    <Button
+                                                        size="sm"
+                                                        colorScheme="red"
+                                                        onClick={() => RemoveTask(x?.Reg_No?.trim(),val2?.Task, dayindex, taskindex)}
+                                                    >
+                                                        X
                                                     </Button>
                                                 </Td>
                                             </Tr>
