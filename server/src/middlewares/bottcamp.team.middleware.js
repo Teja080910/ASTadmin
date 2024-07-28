@@ -5,7 +5,6 @@ export const BootcamTeamMiddlware = async (req, res, next) => {
     const {admail,adpass}= req.headers;
     try {
         const admin = await db1.collection('Hackathonadmin').findOne({ Gmail: admail });
-        console.log(admin,admail,adpass);
         if (!admin) {
             return res.json({ error: "something went wrong" })
         }
