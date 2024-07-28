@@ -124,8 +124,8 @@ app.post('/bootcampstudents', async (req, res) => {
     await Students(res)
 })
 
-app.post('/attendstudent/:regd', BootcamTeamMiddlware, async (req, res) => {
-    await AttendStudent(req.params.regd, res)
+app.post('/attendstudent', BootcamTeamMiddlware, async (req, res) => {
+    await AttendStudent(req.body.registerno, res)
 })
 
 app.post('/updatestudent', BootcamEditMiddlware, async (req, res) => {
@@ -141,8 +141,8 @@ app.post('/deletestudents', ConsoleMiddleware, async (req, res) => {
     await DeleteAll(res)
 })
 
-app.post('/absentstudent/:regd', BootcamTeamMiddlware, async (req, res) => {
-    await AbsentStudent(req.params.regd, res)
+app.post('/absentstudent', BootcamTeamMiddlware, async (req, res) => {
+    await AbsentStudent(req.body.registerno, res)
 })
 
 app.post('/givenmarks', ConsoleMiddleware, async (req, res) => {
