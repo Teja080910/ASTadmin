@@ -2,10 +2,44 @@ import { db1 } from '../../db.js';
 export const InternalMarks = async (reg, mark, res) => {
     try {
         let marks;
-        const user = await db1.collection("Hackathondata").findOne({ Reg_No: reg })
+        const user = await db1.collection("Hackathondata").findOne({
+            $expr: {
+                $eq: [
+                    {
+                        $replaceAll: {
+                            input: {
+                                $toUpper: {
+                                    $replaceAll: { input: "$Reg_No", find: " ", replacement: "" }
+                                }
+                            },
+                            find: " ",
+                            replacement: ""
+                        }
+                    },
+                    reg.toUpperCase().replace(/\s+/g, '')
+                ]
+            }
+        })
         if (user?._id) {
             marks = parseInt(mark) + parseInt(user?.InternalMarks || 0)
-            const attend = await db1.collection("Hackathondata").findOneAndUpdate({ Reg_No: reg }, { $set: { InternalMarks: marks } })
+            const attend = await db1.collection("Hackathondata").findOneAndUpdate({
+                $expr: {
+                    $eq: [
+                        {
+                            $replaceAll: {
+                                input: {
+                                    $toUpper: {
+                                        $replaceAll: { input: "$Reg_No", find: " ", replacement: "" }
+                                    }
+                                },
+                                find: " ",
+                                replacement: ""
+                            }
+                        },
+                        reg.toUpperCase().replace(/\s+/g, '')
+                    ]
+                }
+            }, { $set: { InternalMarks: marks } })
             if (attend?.value) {
                 res.json({ message: "update", data: attend })
             } else {
@@ -22,10 +56,44 @@ export const InternalMarks = async (reg, mark, res) => {
 export const ActivityMarks = async (reg, mark, res) => {
     try {
         let marks;
-        const user = await db1.collection("Hackathondata").findOne({ Reg_No: reg })
+        const user = await db1.collection("Hackathondata").findOne({
+            $expr: {
+                $eq: [
+                    {
+                        $replaceAll: {
+                            input: {
+                                $toUpper: {
+                                    $replaceAll: { input: "$Reg_No", find: " ", replacement: "" }
+                                }
+                            },
+                            find: " ",
+                            replacement: ""
+                        }
+                    },
+                    reg.toUpperCase().replace(/\s+/g, '')
+                ]
+            }
+        })
         if (user?._id) {
             marks = parseInt(mark) + parseInt(user?.ActivityMarks || 0)
-            const attend = await db1.collection("Hackathondata").findOneAndUpdate({ Reg_No: reg }, { $set: { ActivityMarks: marks } })
+            const attend = await db1.collection("Hackathondata").findOneAndUpdate({
+                $expr: {
+                    $eq: [
+                        {
+                            $replaceAll: {
+                                input: {
+                                    $toUpper: {
+                                        $replaceAll: { input: "$Reg_No", find: " ", replacement: "" }
+                                    }
+                                },
+                                find: " ",
+                                replacement: ""
+                            }
+                        },
+                        reg.toUpperCase().replace(/\s+/g, '')
+                    ]
+                }
+            }, { $set: { ActivityMarks: marks } })
             if (attend?.value) {
                 res.json({ message: "update", data: attend })
             } else {
