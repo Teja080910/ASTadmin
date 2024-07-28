@@ -170,14 +170,14 @@ export const BootcampScore = () => {
                                                     <Button
                                                         size="sm"
                                                         colorScheme="blue"
-                                                        onClick={() => GivenMarks(x?.Reg_No?.trim(), marks[`${x?.Name}-${dayindex}-${taskindex}`] || val2?.GotMarks, val2?.Marks, dayindex, taskindex)}
+                                                        onClick={() => GivenMarks(x?.Reg_No, marks[`${x?.Name}-${dayindex}-${taskindex}`] || val2?.GotMarks, val2?.Marks, dayindex, taskindex)}
                                                     >
                                                         Save
                                                     </Button>
                                                     <Button
                                                         size="sm"
                                                         colorScheme="red"
-                                                        onClick={() => RemoveTask(x?.Reg_No?.trim(),val2?.Task, dayindex, taskindex)}
+                                                        onClick={() => RemoveTask(x?.Reg_No,val2?.Task, dayindex, taskindex)}
                                                     >
                                                         X
                                                     </Button>
