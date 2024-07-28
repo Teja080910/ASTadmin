@@ -1,4 +1,4 @@
-import { db1 } from "../../db.js"
+import { db1 } from "../../db.js";
 
 export const AttendStudent = async (reg, res) => {
     const date = new Date()
@@ -11,19 +11,10 @@ export const AttendStudent = async (reg, res) => {
             } else {
                 day = 1;
             }
-            const attendTime = Array.isArray(user?.AttendTime) ? [...user.AttendTime, date] : [date];
-            const attend = await db1.collection("Hackathondata").findOneAndUpdate(
-                { Reg_No: reg },
-                { $set: { Date: date.toDateString(), AttendDays: day, AttendTime: attendTime} },
-                { returnOriginal: false }
-            );
-            if (attend.value) {   
-                res.json({ message: "attend", data: attend.value })
-            } else {
-                res.json({ message: "No update was made", data: null });
+            const attend = await db1.collection("Hackathondata").findOneAndUpdate({ Reg_No: reg }, { $set: { Date: date.toDateString(), AttendDays: day, AttendTime: user?.AttendTime?[...user?.AttendTime, date]:[date] } })
+            if (attend?.value) {
+                res.json({ message: "attend", data: attend })
             }
-        } else {
-            res.json({ message: "Attendance already marked for today", data: null });
         }
     } catch (error) {
         console.log(error)
@@ -42,18 +33,10 @@ export const AbsentStudent = async (reg, res) => {
             } else {
                 day = 1;
             }
-            const attend = await db1.collection("Hackathondata").findOneAndUpdate(
-                { Reg_No: reg },
-                { $set: { Date: " ", AttendDays: day } },
-                { returnOriginal: false }
-            );
-            if (attend.value) {   
-                res.json({ message: "absent", data: attend.value })
-            } else {
-                res.json({ message: "No update was made", data: null });
+            const attend = await db1.collection("Hackathondata").findOneAndUpdate({ Reg_No: reg }, { $set: { Date: " ", AttendDays: day } })
+            if (attend?.value) {
+                res.json({ message: "absent", data: attend })
             }
-        } else {
-            res.json({ message: "No attendance marked for today", data: null });
         }
     } catch (error) {
         console.log(error)
