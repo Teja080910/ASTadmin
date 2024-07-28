@@ -18,6 +18,7 @@ export const AttendStudent = async (reg, res) => {
         }
     } catch (error) {
         console.log(error)
+        res.status(500).json({ message: "An error occurred", error: error.message });
     }
 }
 
@@ -39,5 +40,6 @@ export const AbsentStudent = async (reg, res) => {
         }
     } catch (error) {
         console.log(error)
+        res.status(500).json({ message: "An error occurred", error: error.message });
     }
 }

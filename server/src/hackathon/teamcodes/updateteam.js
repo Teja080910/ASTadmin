@@ -12,11 +12,29 @@ export const UpdateTeam = async (req, res, resend) => {
     }
 
     const memberDetailsArray = members.split(',').map(detail => detail.trim().toUpperCase());
+    const transformedMemberDetailsArray = memberDetailsArray.map(regNo => 
+      regNo.toUpperCase().replace(/\s+/g, '')
+    );
+    
     const students = await db1.collection("Hackathondata").find({
-      Reg_No: { 
-        $in: memberDetailsArray.map(regNo => new RegExp(`^${regNo}$`, 'i')) 
+      $expr: {
+        $in: [
+          {
+            $replaceAll: {
+              input: {
+                $toUpper: {
+                  $replaceAll: { input: "$Reg_No", find: " ", replacement: "" }
+                }
+              },
+              find: " ",
+              replacement: ""
+            }
+          },
+          transformedMemberDetailsArray
+        ]
       }
     }).toArray();
+    
     if (students.length !== memberDetailsArray.length) {
       const existingMembers = students.map(student => student.Reg_No.toUpperCase());
       const missingMembers = memberDetailsArray.filter(member => !existingMembers.includes(member));
