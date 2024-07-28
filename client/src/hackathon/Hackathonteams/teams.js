@@ -2,12 +2,7 @@ import {
     Box,
     Button,
     Input,
-    Popover,
-    PopoverArrow,
-    PopoverBody,
-    PopoverCloseButton,
-    PopoverContent,
-    PopoverHeader, PopoverTrigger, Portal,
+
     Table,
     TableCaption,
     TableContainer,
@@ -19,6 +14,8 @@ import {
     Tr,
     useToast
 } from '@chakra-ui/react';
+
+import TeamDeletePopover from './deletepopover'
 
 import { ViewIcon } from '@chakra-ui/icons';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -52,8 +49,10 @@ export const Teams = ({ data, refresh }) => {
     }, []);
 
     const Delete = async (teamCode) => {
+     
         await Actions.DeleteTeam(teamCode)
             .then((res) => {
+                console.log(res);
                 if (res?.data?.message) {
                     refresh();
                     toast({ title: 'Deleted successfully', position: 'top-right', status: 'success', isClosable: true });
@@ -65,6 +64,7 @@ export const Teams = ({ data, refresh }) => {
     };
 
     const handleUpdateOpen = (team) => {
+        console.log(team);
         setSelectedTeam(team);
         setIsUpdateOpen(true);
     };
@@ -92,7 +92,7 @@ export const Teams = ({ data, refresh }) => {
 
     return (
         <Box >
-            <TeamView data={selectedTeam} show={show} close={handleViewClose} />
+           { show &&<TeamView data={selectedTeam} show={show} close={handleViewClose} />}
             <Box mb={4} width="">
                 <Text fontWeight={"bold"}>No of Teams Register - <strong style={{ color: 'green' }}>{data?.filter(team => team.Team).length}</strong></Text>
                 <Input
@@ -127,21 +127,9 @@ export const Teams = ({ data, refresh }) => {
                                                 <Button colorScheme='blue' onClick={() => handleUpdateOpen(team)} size="sm"><EditIcon /></Button>
                                                 <Button colorScheme='blue' onClick={() => handleViewOpen(team)} size="sm"><ViewIcon /></Button>
                                                 {/* <Button bg={'red'} color={'white'} onClick={() => Delete(team?.TeamCode)} size="sm"><DeleteIcon /></Button> */}
-                                                <Popover>
-                                                    <Portal>
-                                                        <PopoverContent>
-                                                            <PopoverArrow />
-                                                            <PopoverHeader align="center">Team Detele</PopoverHeader>
-                                                            <PopoverCloseButton />
-                                                            <PopoverBody justifyContent="center" display={"flex"}>
-                                                                <Button bg={'red'} color={'white'} onClick={() => Delete(team?.TeamCode)}>Confirm Detele Team</Button>
-                                                            </PopoverBody>
-                                                        </PopoverContent>
-                                                    </Portal>
-                                                    <PopoverTrigger>
-                                                        <Button bg={'red'} color={'white'} size="sm"><DeleteIcon /></Button>
-                                                    </PopoverTrigger>
-                                                </Popover>
+                                                <TeamDeletePopover team={team} Delete={(code)=>Delete(code)}/>
+
+                                               
                                             </div>
                                         )}
                                     </Td>

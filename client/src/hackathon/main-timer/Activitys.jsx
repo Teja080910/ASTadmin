@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./countdown/Activities.css";
 import { imageMappings } from "../resources";
 
-const Activities = ({ socket }) => {
+const Activities = ({ socket , setStateUpdate }) => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -40,6 +40,28 @@ const Activities = ({ socket }) => {
       socket.off("imageData");
     };
   }, []);
+
+useEffect(()=>{
+
+if(images.length<=0){
+  setStateUpdate("timer")
+}else{
+  setStateUpdate("activity")
+}
+
+
+
+},[images])
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="activities">
