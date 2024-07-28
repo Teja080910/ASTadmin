@@ -12,7 +12,7 @@ import { EditMaterial } from '../bootcamp/materials/editmaterial.js';
 import { Materials } from '../bootcamp/materials/materials.js';
 import { FileByName, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
 import { ActivityMarks, InternalMarks } from '../bootcamp/others/others.js';
-import { GivenMarks } from '../bootcamp/scoremanager/score.js';
+import { GivenMarks, RemoveTask } from '../bootcamp/scoremanager/score.js';
 import { DeleteAll, Students } from '../bootcamp/studentdata/students.js';
 import { DeleteStudent, UpdateStudent } from '../bootcamp/studentdata/updatestudent.js';
 import { UploadStudents } from '../bootcamp/studentdata/uploadstudentdata.js';
@@ -147,6 +147,10 @@ app.post('/absentstudent/:regd', BootcamTeamMiddlware, async (req, res) => {
 
 app.post('/givenmarks', ConsoleMiddleware, async (req, res) => {
     await GivenMarks(req.body.user, req.body.marks, req.body.dayindex, req.body.taskindex, res)
+})
+
+app.post('/removetask', ConsoleMiddleware, async (req, res) => {
+    await RemoveTask(req.body.user, req.body.marks, req.body.dayindex, req.body.taskindex, res)
 })
 
 app.post('/studentxlsx', initiateMulter(), ConsoleMiddleware, async (req, res) => {
