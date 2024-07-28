@@ -29,7 +29,7 @@ export const BootAttendance = () => {
     const Attend = async (registerno) => {
         try {
             setShow(true);
-            const response = await axios.post(process.env.REACT_APP_database + "/attendstudent/" + registerno);
+            const response = await axios.post(process.env.REACT_APP_database + "/attendstudent" ,{registerno});
             if (response?.data?.message) {
                 toast({ title: registerno + " Attend", status: "success", position: "top", isClosable: true });
                 fetchData();
@@ -43,7 +43,7 @@ export const BootAttendance = () => {
 
     const Absent = async (registerno) => {
         try {
-            const response1 = await axios.post(process.env.REACT_APP_database + "/absentstudent/" + registerno);
+            const response1 = await axios.post(process.env.REACT_APP_database + "/absentstudent" , {registerno});
             if (response1) {
                 toast({ title: registerno + " Absent", status: "success", position: "top", isClosable: true });
                 fetchData();
