@@ -10,7 +10,7 @@ import { GetFeedbacks, GetUniqueDatesAndLatestFeedbacks } from '../bootcamp/feed
 import { DeleteMaterial, DeleteMaterials } from '../bootcamp/materials/deletematerials.js';
 import { EditMaterial } from '../bootcamp/materials/editmaterial.js';
 import { Materials } from '../bootcamp/materials/materials.js';
-import { FileByName, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
+import { Chunks, FileByName, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
 import { ActivityMarks, InternalMarks } from '../bootcamp/others/others.js';
 import { GivenMarks, RemoveTask } from '../bootcamp/scoremanager/score.js';
 import { DeleteAll, Students } from '../bootcamp/studentdata/students.js';
@@ -86,6 +86,10 @@ app.post('/editfile', BootcamEditMiddlware, async (req, res) => {
 
 app.post('/deleteallfiles', ConsoleMiddleware, async (req, res) => {
     await DeleteMaterials(res)
+})
+
+app.post('/aggregatefiles',ConsoleMiddleware, async (req, res) => {
+    await Chunks(res)
 })
 
 app.post('/inserttask', ConsoleMiddleware, async (req, res) => {
