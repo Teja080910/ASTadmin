@@ -19,7 +19,7 @@ import { MaterialModel } from './materialmodel';
 import './materials.css';
 import { Authentication } from '../../actions/auths';
 
-export const AllMaterials = () => {
+export const AllMaterials = ({materials}) => {
     const [data, setData] = useState([]);
     const toast = useToast()
     const [fileUrl, setFileUrl] = useState('');
@@ -77,7 +77,8 @@ export const AllMaterials = () => {
     const fecthFiles = async () => {
         await Actions.AllMaterials()
             .then((res) => {
-                setData(res.data);
+                setData(res?.data);
+                materials(res?.data)
                 setIsLoading(false);
             })
             .catch((error) => {
@@ -146,9 +147,9 @@ export const AllMaterials = () => {
                                     <Td colSpan={4}>Error: {error} <Button size={'sm'} onClick={() => { fecthFiles(); setError('') }}>Refesh</Button></Td>
                                 </Tr>
                             ) : (
-                                data?.map((material) => (
+                                data?.map((material,index) => (
                                     <>
-                                        <Tr>
+                                        <Tr key={index}>
                                             <Th colSpan={3} textAlign={"center"}>Theme : <strong>{material?.Theme}</strong></Th>
                                             <Th colSpan={2}>
                                                 {!material?.Show ? <ChakraButton colorScheme="orange" size="sm" mr={2} onClick={() => Show(material?.Theme)}>Show</ChakraButton> :
@@ -156,8 +157,8 @@ export const AllMaterials = () => {
                                             </Th>
                                         </Tr>
                                         {
-                                            material?.Links?.map((link) => (
-                                                <Tr key={link?.id}>
+                                            material?.Links?.map((link,index) => (
+                                                <Tr key={index}>
                                                     <Td>{link?.Name}</Td>
                                                     <Td>{(link?.Photoname).slice(-3) + "," + (link?.Pdfname).slice(-3)}</Td>
                                                     <Td>

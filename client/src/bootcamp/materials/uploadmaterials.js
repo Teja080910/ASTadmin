@@ -2,7 +2,6 @@ import { Button, Input, Stack, useToast } from '@chakra-ui/react';
 import { FileInput, Label, Select } from "flowbite-react";
 import { useState } from 'react';
 import { Actions } from '../../actions/actions';
-import { Authentication } from '../../actions/auths';
 import { AllMaterials } from "./allmaterials";
 export const BootcampMaterial = () => {
     const [photo, setPhoto] = useState()
@@ -10,8 +9,9 @@ export const BootcampMaterial = () => {
     const [materialName, setMaterialName] = useState();
     const [theme, setTheme] = useState();
     const [isLoading, setIsLoading] = useState(false)
+    const [material, setMaterial] = useState([])
+    const [show, setShow] = useState(false)
     const toast = useToast();
-    const {adminEmail,consolepass}=Authentication()
     const UploadFile = async () => {
         setIsLoading(true)
         const formData = new FormData();
@@ -20,8 +20,6 @@ export const BootcampMaterial = () => {
             formData.append("file", file);
             formData.append("materialName", materialName);
             formData.append("theme", theme);
-            formData.append('admail',adminEmail)
-            formData.append('adpass',consolepass)
             Actions.UploadMaterials(formData)
                 .then((res) => {
                     if (res?.data?.message) {
@@ -44,6 +42,16 @@ export const BootcampMaterial = () => {
             toast({ title: "required all fields", status: 'error', position: 'bottom-right', isClosable: true })
         }
     }
+
+    const themeNames = material?.reduce((acc, mat) => {
+        if (mat?.Theme && !acc.includes(mat.Theme)) {
+            acc.push(mat.Theme);
+        }
+        return acc;
+    }, []);
+
+    console.log(themeNames)
+
     return (
         <div className="bootmati">
             <div className="mati">
@@ -63,15 +71,16 @@ export const BootcampMaterial = () => {
                     <div className="file-inputs">
                         <Stack spacing={8}>
                             <Input placeholder='Enter material name' size='lg' onChange={(e) => setMaterialName(e.target.value)} />
-                            <Select placeholder='Select option' onChange={(e) => setTheme(e.target.value)}>
-                                <option>Select Theme</option>
-                                <option value='HTML'>HTML</option>
-                                <option value='CSS'>CSS</option>
-                                <option value='JAVASCRIPT'>JAVASCRIPT</option>
-                                <option value='REACT'>REACT</option>
-                                <option value='NODE'>NODE</option>
-                                <option value='MONGODB'>MONGODB</option>
-                            </Select>
+                            {show ? <Input placeholder='Enter Theme' size='lg' onChange={(e) => setTheme(e.target.value)} /> :
+                                <Select placeholder='Select option' onChange={(e) => e.target.value === "show" ? setShow(true) : setTheme(e.target.value)}>
+                                    <option>Select Theme</option>
+                                    <option value={"show"}>Create Theme</option>
+                                    {
+                                        themeNames?.map((theme) => (
+                                            <option val={theme}>{theme}</option>
+                                        ))
+                                    }
+                                </Select>}
                             <Button colorScheme='cyan' onClick={UploadFile}>{isLoading ? "Uploading...." : "Upload"}</Button>
                         </Stack>
                     </div>
@@ -82,7 +91,7 @@ export const BootcampMaterial = () => {
             </div>
             <div className="allmetirials">
                 <div className="allmeti">
-                    <AllMaterials />
+                    <AllMaterials materials={(val) => setMaterial(val)} />
                 </div>
             </div>
         </div>
