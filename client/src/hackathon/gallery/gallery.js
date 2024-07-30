@@ -5,6 +5,7 @@ import { ShowPhotos } from "./showphotos"
 
 export const Gallery = () => {
     const [data, setData] = useState([])
+    
     const Teamcodes = async () => {
         await Actions.TeamsCodes()
             .then((res) => setData(res?.data))
@@ -18,7 +19,7 @@ export const Gallery = () => {
     return (
         <>
             <AddPhotos teams={data} />
-            <ShowPhotos teams={data} refresh={Teamcodes} />
+            <ShowPhotos />
         </>
     )
 }

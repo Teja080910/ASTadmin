@@ -1,14 +1,14 @@
-import { Button, Card, CardBody, CardFooter, Divider, Flex, Heading, Image, SimpleGrid, useToast } from "@chakra-ui/react";
-import { useState } from "react";
+import { Button, Card, CardBody, CardFooter, Divider, Flex, Heading, SimpleGrid, useToast } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Actions } from "../../actions/actions";
-import { OpenFile } from "../../actions/openfile";
 import { OpenPhoto } from "./openphoto";
 
-export const ShowPhotos = ({ teams, refresh }) => {
+export const ShowPhotos = () => {
     const toast = useToast()
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState();
     const [image, setImage] = useState();
+    const [data, setData] = useState([])
 
     const openModal = (image) => {
         setSelectedImage(image);
@@ -20,29 +20,30 @@ export const ShowPhotos = ({ teams, refresh }) => {
         setIsOpen(false);
     };
 
-    const fetchImageURL = async (link) => {
-        try {
-            const imageUrl = await OpenFile(link);
-            setImage(state => ({ ...state, [link]: imageUrl?.url }))
-        } catch (error) {
-            console.error("Error fetching image URL:", error);
-            return null;
-        }
-    };
+    const Photos = async () => {
+        await Actions.ShowPhotos()
+            .then((res) => setData(res?.data))
+            .catch((e) => console.log(e))
+    }
+
+    useEffect(() => {
+        Photos()
+    }, [])
 
     return (
         <>
             <OpenPhoto isOpen={isOpen} closeModal={closeModal} selectedImage={selectedImage} />
             {
-                teams?.map((team) => (
-                    team?.Team && team?.Photos && <>
+                data?.map((team) => (
+                    <>
+                        <br />
                         <Flex justifyContent={"space-evenly"}>
-                            <Heading size='lg' align="center">Team:<strong style={{ color: 'blue' }}>{team?.Team}</strong></Heading>
+                            <Heading size='lg' align="center">Team:<strong style={{ color: 'blue' }}>{team?.folder}</strong></Heading>
                             <Button onClick={() => {
-                                Actions.DeleteAllPhotos(team?.TeamCode)
+                                Actions.DeleteAllPhotos(team?.folder)
                                     .then((res) => {
                                         toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true });
-                                        window.location.reload();
+                                        Photos()
                                     }).catch((e) => console.log(e))
                             }}
                                 bg="red.600"
@@ -52,31 +53,26 @@ export const ShowPhotos = ({ teams, refresh }) => {
                                 Delete All
                             </Button>
                         </Flex>
+                        <br />
                         <SimpleGrid minChildWidth='400px' spacing='40px'>
-                            {team?.Photos?.map((photo, photoindex) => (
+                            {team?.Links?.map((photo, photoindex) => (
 
                                 <Card maxW='sm' key={photoindex}>
-                                    <CardBody onClick={() => { openModal(image[photo]) }}>
-                                        <Image
-                                            src={image ? image[photo] : fetchImageURL(photo)}
-                                            alt={photo}
-                                            width={"100%"}
-                                            height={"30vh"}
-                                            borderRadius='lg'
-                                        />
+                                    <CardBody onClick={() => { openModal(photo?.id) }}>
+                                        <iframe src={`https://drive.google.com/file/d/${photo?.id}/preview`} />
                                     </CardBody>
                                     <Divider />
                                     <CardFooter justifyContent={"center"}>
                                         <Button variant='solid' colorScheme='red'
                                             onClick={() => {
-                                                Actions.DeletePhoto(photo, team?.TeamCode)
+                                                Actions.DeletePhoto(photo?.id)
                                                     .then((res) => {
                                                         if (res?.data?.message) {
                                                             toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true });
                                                         } else {
                                                             toast({ title: res?.data?.error, status: 'error', position: 'bottom-right', isClosable: true });
                                                         }
-                                                        refresh()
+                                                        Photos()
                                                     }).catch((e) => console.log(e))
                                             }}
                                         >

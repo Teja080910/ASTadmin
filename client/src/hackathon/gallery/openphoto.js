@@ -5,13 +5,10 @@ export const OpenPhoto = ({ isOpen, closeModal, selectedImage }) => {
         <Modal isOpen={isOpen} onClose={closeModal} size="full">
             <ModalOverlay />
             <ModalContent>
-                <ModalCloseButton />
+                <ModalCloseButton bg={"red.600"}/>
                 <ModalBody>
-                    <Image src={selectedImage} width={"100%"} height={"100%"} alt={selectedImage} />
+                    <Image src={`https://drive.google.com/thumbnail?id=${selectedImage}`} width={"100%"} height={"100%"} alt={selectedImage} />
                 </ModalBody>
-                <ModalFooter>
-                    <Button colorScheme="blue" onClick={closeModal}>Close</Button>
-                </ModalFooter>
             </ModalContent>
         </Modal>
     )
