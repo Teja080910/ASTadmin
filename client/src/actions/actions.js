@@ -1,5 +1,5 @@
 import axios from "axios"
-import { api, face_api } from "./api"
+import { api, face_api, google_api } from "./api"
 export const Actions = {
 
     FaceVerify: async (regd, photo) => {
@@ -94,19 +94,23 @@ export const Actions = {
     // *********************************************** Hackathon data ***************************************** //
 
     UploadPhotos: async (formData) => {
-        return await axios.post(api + "/uploadphotos", formData)
+        return await axios.post(google_api + "/uploadphotos", formData)
+    },
+
+    ShowPhotos: async () => {
+        return await axios.post(google_api + "/showphotos")
     },
 
     EditPhotos: async (theme) => {
         return await axios.post(api + "/editphoto", { theme })
     },
 
-    DeletePhoto: async (photo, team) => {
-        return await axios.post(api + "/deletephoto", { photo, team })
+    DeletePhoto: async (id) => {
+        return await axios.post(google_api + "/deletephoto", { id })
     },
 
-    DeleteAllPhotos: async (team) => {
-        return await axios.post(api + "/deleteallphotos", { team })
+    DeleteAllPhotos: async (id) => {
+        return await axios.post(google_api + "/deleteallphotos", { id })
     },
 
     UpdateTeam: async (team, gmail, phone, code, members) => {
