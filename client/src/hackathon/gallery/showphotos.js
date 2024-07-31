@@ -7,7 +7,6 @@ export const ShowPhotos = () => {
     const toast = useToast()
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState();
-    const [image, setImage] = useState();
     const [data, setData] = useState([])
 
     const openModal = (image) => {
