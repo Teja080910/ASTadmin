@@ -3,7 +3,7 @@ import "./countdown/countdown.css";
 import axios from "axios";
 import TimeBasedComponent from "./TimeBasedComponent";
 import Activities from "./Activitys";
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, flexbox } from "@chakra-ui/react";
 import Scorer from "./Scorer";
 
 const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
@@ -14,7 +14,7 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
   });
   const [endTime, setEndTime] = useState(null);
   const [gamedata, setGameData] = useState(false);
-  const [pageState, setPageState] = useState("timer")
+  const [pageState, setPageState] = useState("timer");
 
   const getTimeLeft = (endTime) => {
     const total = endTime - Date.now();
@@ -52,11 +52,11 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
             localStorage.setItem("HackTime", hackathonEndTime.toString());
           }
         } else {
-          setEndTime(new Date(0)); 
+          setEndTime(new Date(0));
           localStorage.setItem("HackTime", new Date(0).toString());
         }
       } else {
-        setEndTime(new Date()); 
+        setEndTime(new Date());
         localStorage.setItem("HackTime", new Date(0).toString());
       }
     } catch (error) {
@@ -71,7 +71,7 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
     socket.emit("gameData");
 
     socket.on("gameData", (data) => {
-      if (data?.code === "000" ) {
+      if (data?.code === "000") {
         setGameData(null);
       } else {
         setGameData(data?.code);
@@ -89,60 +89,80 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
     }
   }, [endTime]);
 
-  console.log(pageState)
   return (
     <div className="countdown">
       <div className="background-attach">
         <TimeBasedComponent timeLeft={timeLeft} socket={socket} />
       </div>
       <div className="main-activity">
-        <Activities socket={socket} setStateUpdate={setPageState}/>
+        <Activities socket={socket} setStateUpdate={setPageState} />
       </div>
 
-      <div className="hack-title">
+      <div className="scalable">
         <h1 className="h1-animation">VEDIC VISION HACKATHON</h1>
+     
+        {pageState === "timer" && (<Box className="logos" position={"relative"} height={"120px"}>
+          <Box display={"flex"} justifyContent={"center"} gap={10}>
+            <img src="../eoclogo.png" style={{transform:"scale(1.19)"}}/>
+            <img src="../icsvbsc.jpg" style={{transform:"scale(1.1)" ,borderRadius: "10px" }} />
+            <img src="../ast-no-bg.png" style={{transform:"scale(1.5)"}} />
+            <img src="../logo-ieee.png" style={{transform:"scale(1.2)" ,borderRadius: "10px" }}/>
+            <img src="../paie-logo.jpg" style={{ borderRadius: "50%" }} />
+          </Box>
+
+          <Box
+            position="relative"
+            display={"flex"}
+            top={"-225px"}
+            justifyContent="space-between"
+            padding={50}
+          >
+            <img src="../srkr-logo.png" style={{ borderRadius: "20px",objectFit:"contain",width: "150px",height:"200px"}}/>
+            <img src="../vbsieee.jpg"  style={{ borderRadius: "10px",objectFit:"contain",width: "150px",height:"200px"}} />
+          </Box>
+        </Box>)}
       </div>
       {gamedata && <Scorer socket={socket} />}
 
-    { pageState ==="timer" && !gamedata && <Box >
+      {pageState === "timer" && !gamedata && (
+        <Box>
+          <div className="count-icon" style={{ textAlign: "center" }}>
+            {timeLeft.hours < 1 ? (
+              <Button
+                size="lg"
+                className="h1-animation"
+                variant="outline"
+                height="48px"
+                width="200px"
+                onClick={() => window.location.reload()}
+              >
+                Start
+              </Button>
+            ) : (
+              <h2 style={{ textAlign: "center" }}>Ends in</h2>
+            )}
+          </div>
 
-    
-      <div className="count-icon" style={{ textAlign: "center" }}>
-        {timeLeft.hours < 1 ? (
-          <Button
-            size="lg"
-            className="h1-animation"
-            variant="outline"
-            height="48px"
-            width="200px"
-            onClick={() => window.location.reload()}
-          >
-            Start
-          </Button>
-        ) : (
-          <h2 style={{ textAlign: "center" }}>Ends in</h2>
-        )}
-      </div>
-
-      <div className="content">
-        {timeLeft && (
-          <>
-            <div className="box">
-              <div className="value hours">{timeLeft.hours}</div>
-              <div className="label">Hours</div>
-            </div>
-            <div className="box">
-              <div className="value minutes">{timeLeft.minutes}</div>
-              <div className="label">Minutes</div>
-            </div>
-            <div className="box">
-              <div className="value seconds">{timeLeft.seconds}</div>
-              <div className="label">Seconds</div>
-            </div>
-          </>
-        )}
-      </div>
-      </Box>}
+          <div className="content">
+            {timeLeft && (
+              <>
+                <div className="box">
+                  <div className="value hours">{timeLeft.hours}</div>
+                  <div className="label">Hours</div>
+                </div>
+                <div className="box">
+                  <div className="value minutes">{timeLeft.minutes}</div>
+                  <div className="label">Minutes</div>
+                </div>
+                <div className="box">
+                  <div className="value seconds">{timeLeft.seconds}</div>
+                  <div className="label">Seconds</div>
+                </div>
+              </>
+            )}
+          </div>
+        </Box>
+      )}
     </div>
   );
 };

@@ -6,6 +6,15 @@
 /* Button Styles */
 
 
+@media (width<760px) {
+    .scalable *{
+        transform: scale(0.8);
+    }
+
+ 
+    
+}
+
 
 /* Countdown Styles */
 .countdown .content {
@@ -30,7 +39,7 @@ padding-top: 20px;
 }
 
 .h1-animation {
-    font-size: 4rem;
+    font-size: 3.2rem;
     font-weight: bold;
     background: linear-gradient(270deg,rgb(12, 214, 46),rgb(137, 119, 244),rgb(218, 10, 218), #4f3aea,rgb(70, 1, 70), rgb(227, 22, 22),#34036c,rgb(31, 185, 219));
     background-size: 400% 400%;
