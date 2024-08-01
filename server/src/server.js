@@ -20,7 +20,7 @@ const checkOrigin = (req, res, next) => {
     if (req.headers.origin === 'http://localhost:3001' || req.headers.origin === 'http://localhost:3000' || req.headers.origin === 'https://ast-admin.in') {
       next(); 
     } else {
-      res.json({ error: 'Authentication Blocked' });
+      res.json({ error: 'Data dhobbedham ane kadha chusthunnav' });
     }
   };
 

@@ -87,7 +87,7 @@ export const AddPhotos = ({ teams }) => {
                             <Select placeholder='Select team name' size='lg' onChange={(e) => setTeamName(e.target.value)}>
                                 <option value="">Select Team</option>
                                 {teams?.map((team) => (
-                                    team?.Team && <option key={team?.TeamCode} value={team?.TeamCode}>{team?.Team}</option>
+                                    team?.Team && <option key={team?.TeamCode} value={team?.Team}>{team?.Team}</option>
                                 ))}
                             </Select>
                             <div style={{ justifyContent: 'center', display: 'flex' }}>
