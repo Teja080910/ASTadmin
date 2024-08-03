@@ -210,14 +210,13 @@ export const BootcampScore = () => {
                         </Tr>
                       </Thead>
                       <Tbody>
-                        {Object.values(x?.Tasks || {})?.map(
-                          (val, dayindex) =>
+                        {Object.entries(x?.Tasks || {})?.map(
+                          ([key, val]) =>
                             val &&
                             val?.map((val2, taskindex) => (
-                              <Tr key={`${dayindex}-${taskindex}`}>
-                                <Td> {dayindex + 1}</Td>
-                                <Td> {taskindex + 1}</Td>
-
+                              <Tr key={`${key}-${taskindex}`}>
+                                <Td>{key}</Td> {/* Using the key from the tasks object */}
+                                <Td>{taskindex + 1}</Td>
                                 <Td>{val2?.Task}</Td>
                                 <Td>
                                   <Input
@@ -225,27 +224,20 @@ export const BootcampScore = () => {
                                     width="50px"
                                     textAlign="center"
                                     value={
-                                      marks[
-                                        `${x?.Name}-${dayindex}-${taskindex}`
-                                      ] ||
+                                      marks[`${x?.Name}-${key}-${taskindex}`] ||
                                       val2?.GetMarks ||
                                       ""
                                     }
                                     onChange={(e) =>
                                       setMarks((state) => ({
                                         ...state,
-                                        [`${x?.Name}-${dayindex}-${taskindex}`]:
-                                          e.target.value,
+                                        [`${x?.Name}-${key}-${taskindex}`]: e.target.value,
                                       }))
                                     }
                                   />
                                 </Td>
                                 <Td>{val2?.Marks}</Td>
-                                <Td
-                                 
-                                  display={"flex"}
-                                  gap={2}
-                                >
+                                <Td display={"flex"} gap={2}>
                                   <Button
                                     size="sm"
                                     colorScheme="blue"
@@ -253,25 +245,25 @@ export const BootcampScore = () => {
                                     onClick={() =>
                                       GivenMarks(
                                         x?.Reg_No,
-                                        marks[
-                                          `${x?.Name}-${dayindex}-${taskindex}`
-                                        ] || val2?.GotMarks,
+                                        marks[`${x?.Name}-${key}-${taskindex}`] || val2?.GotMarks,
                                         val2?.Marks,
-                                        dayindex,
+                                        key,
                                         taskindex
                                       )
                                     }
                                   >
                                     Save
                                   </Button>
-
                                   <Popover>
+                                    <PopoverTrigger>
+                                      <Button bg={"red"} color={"white"} size="sm" width={"fit-content"}>
+                                        <DeleteIcon />
+                                      </Button>
+                                    </PopoverTrigger>
                                     <Portal>
                                       <PopoverContent>
                                         <PopoverArrow />
-                                        <PopoverHeader align="center">
-                                          Delete Task
-                                        </PopoverHeader>
+                                        <PopoverHeader align="center">Delete Task</PopoverHeader>
                                         <PopoverCloseButton />
                                         <PopoverBody
                                           justifyContent="center"
@@ -286,7 +278,7 @@ export const BootcampScore = () => {
                                               RemoveTask(
                                                 x?.Reg_No,
                                                 val2?.Task,
-                                                dayindex,
+                                                key,
                                                 taskindex
                                               )
                                             }
@@ -296,16 +288,6 @@ export const BootcampScore = () => {
                                         </PopoverBody>
                                       </PopoverContent>
                                     </Portal>
-                                    <PopoverTrigger>
-                                      <Button
-                                        bg={"red"}
-                                        color={"white"}
-                                        size="sm"
-                                        width={"fit-content"}
-                                      >
-                                        <DeleteIcon />
-                                      </Button>
-                                    </PopoverTrigger>
                                   </Popover>
                                 </Td>
                               </Tr>
