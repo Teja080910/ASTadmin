@@ -212,10 +212,9 @@ export const BootcampScore = () => {
                       <Tbody>
                         {Object.entries(x?.Tasks || {})?.map(
                           ([key, val]) =>
-                            val &&
-                            val?.map((val2, taskindex) => (
+                            val && val?.map((val2, taskindex) => (
                               <Tr key={`${key}-${taskindex}`}>
-                                <Td>{key}</Td> {/* Using the key from the tasks object */}
+                                <Td>{key}</Td>
                                 <Td>{taskindex + 1}</Td>
                                 <Td>{val2?.Task}</Td>
                                 <Td>

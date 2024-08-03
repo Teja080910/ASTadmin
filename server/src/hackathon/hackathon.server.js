@@ -88,7 +88,7 @@ app.post('/deleteallfiles', ConsoleMiddleware, async (req, res) => {
     await DeleteMaterials(res)
 })
 
-app.post('/aggregatefiles',ConsoleMiddleware, async (req, res) => {
+app.post('/aggregatefiles', ConsoleMiddleware, async (req, res) => {
     await Chunks(res)
 })
 
@@ -137,7 +137,7 @@ app.post('/updatestudent', BootcamEditMiddlware, async (req, res) => {
     await UpdateStudent(req.body.student, res)
 })
 
-app.post('/deletestudent',ConsoleMiddleware, async (req, res) => {
+app.post('/deletestudent', ConsoleMiddleware, async (req, res) => {
     await DeleteStudent(req.body.student, res)
 })
 
@@ -149,11 +149,11 @@ app.post('/absentstudent', BootcamTeamMiddlware, async (req, res) => {
     await AbsentStudent(req.body.registerno, res)
 })
 
-app.post('/givenmarks', ConsoleMiddleware, async (req, res) => {
+app.post('/givenmarks', BootcamTeamMiddlware, async (req, res) => {
     await GivenMarks(req.body.user, req.body.marks, req.body.dayindex, req.body.taskindex, res)
 })
 
-app.post('/removetask', ConsoleMiddleware, async (req, res) => {
+app.post('/removetask', BootcamTeamMiddlware, async (req, res) => {
     await RemoveTask(req.body.user, req.body.marks, req.body.dayindex, req.body.taskindex, res)
 })
 
