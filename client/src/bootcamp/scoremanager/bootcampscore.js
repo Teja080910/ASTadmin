@@ -210,10 +210,9 @@ export const BootcampScore = () => {
                         </Tr>
                       </Thead>
                       <Tbody>
-                        {Object.entries(x?.Tasks || {})?.map(
-                          ([key, val]) =>
-                            val && val?.map((val2, taskindex) => (
-                              <Tr key={`${key}-${taskindex}`}>
+                        {Object.keys(x?.Tasks || {})?.map((key) =>
+                            x?.Tasks[key] && x?.Tasks[key]?.map((val2, taskindex) => (
+                              <Tr key={`${taskindex}`}>
                                 <Td>{key}</Td>
                                 <Td>{taskindex + 1}</Td>
                                 <Td>{val2?.Task}</Td>
@@ -222,18 +221,8 @@ export const BootcampScore = () => {
                                     size="sm"
                                     width="50px"
                                     textAlign="center"
-                                    value={
-                                      marks[`${x?.Name}-${key}-${taskindex}`] ||
-                                      val2?.GetMarks ||
-                                      ""
-                                    }
-                                    onChange={(e) =>
-                                      setMarks((state) => ({
-                                        ...state,
-                                        [`${x?.Name}-${key}-${taskindex}`]: e.target.value,
-                                      }))
-                                    }
-                                  />
+                                    value={marks[`${x?.Name}-${taskindex}`] ||val2?.GetMarks ||""}
+                                    onChange={(e) =>setMarks((state) => ({...state,[`${x?.Name}-${taskindex}`]: e.target.value,}))}/>
                                 </Td>
                                 <Td>{val2?.Marks}</Td>
                                 <Td display={"flex"} gap={2}>
@@ -244,15 +233,13 @@ export const BootcampScore = () => {
                                     onClick={() =>
                                       GivenMarks(
                                         x?.Reg_No,
-                                        marks[`${x?.Name}-${key}-${taskindex}`] || val2?.GotMarks,
+                                        marks[`${x?.Name}-${taskindex}`] || val2?.GotMarks,
                                         val2?.Marks,
                                         key,
                                         taskindex
                                       )
                                     }
-                                  >
-                                    Save
-                                  </Button>
+                                  >Save</Button>
                                   <Popover>
                                     <PopoverTrigger>
                                       <Button bg={"red"} color={"white"} size="sm" width={"fit-content"}>
@@ -281,9 +268,7 @@ export const BootcampScore = () => {
                                                 taskindex
                                               )
                                             }
-                                          >
-                                            X
-                                          </Button>
+                                          >X</Button>
                                         </PopoverBody>
                                       </PopoverContent>
                                     </Portal>
