@@ -210,7 +210,7 @@ export const BootcampScore = () => {
                         </Tr>
                       </Thead>
                       <Tbody>
-                        {Object.keys(x?.Tasks || {})?.map((key) =>
+                        {Object.keys(x?.Tasks || {})?.map((key,dayindex) =>
                             x?.Tasks[key] && x?.Tasks[key]?.map((val2, taskindex) => (
                               <Tr key={`${taskindex}`}>
                                 <Td>{key}</Td>
@@ -221,8 +221,8 @@ export const BootcampScore = () => {
                                     size="sm"
                                     width="50px"
                                     textAlign="center"
-                                    value={marks[`${x?.Name}-${taskindex}`] ||val2?.GetMarks ||""}
-                                    onChange={(e) =>setMarks((state) => ({...state,[`${x?.Name}-${taskindex}`]: e.target.value,}))}/>
+                                    value={marks[`${x?.Name}-${dayindex}-${taskindex}`] ||val2?.GetMarks ||""}
+                                    onChange={(e) =>setMarks((state) => ({...state,[`${x?.Name}-${dayindex}-${taskindex}`]: e.target.value,}))}/>
                                 </Td>
                                 <Td>{val2?.Marks}</Td>
                                 <Td display={"flex"} gap={2}>
@@ -233,7 +233,7 @@ export const BootcampScore = () => {
                                     onClick={() =>
                                       GivenMarks(
                                         x?.Reg_No,
-                                        marks[`${x?.Name}-${taskindex}`] || val2?.GotMarks,
+                                        marks[`${x?.Name}-${dayindex}-${taskindex}`] || val2?.GotMarks,
                                         val2?.Marks,
                                         key,
                                         taskindex
