@@ -29,7 +29,7 @@ export const BootcampScore = () => {
   const searchInputRef = useRef(null);
 
   const fetchStudentData = async () => {
-    await Actions.Students()
+    await Actions.StudentNames()
       .then((res) => {
         setDat(res?.data);
         setIsLoading(false);

@@ -16,6 +16,10 @@ export const Actions = {
         return await axios.post(api + "/bootcampstudents")
     },
 
+    StudentNames: async () => {
+        return await axios.post(api + "/bootcampstudetnames")
+    },
+
     Student: async (reg) => {
         return await axios.post(api + "/bootcampstudent",{reg})
     },

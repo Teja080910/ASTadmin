@@ -13,7 +13,7 @@ import { Materials } from '../bootcamp/materials/materials.js';
 import { Chunks, FileByName, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
 import { ActivityMarks, InternalMarks } from '../bootcamp/others/others.js';
 import { GivenMarks, RemoveTask } from '../bootcamp/scoremanager/score.js';
-import { DeleteAll, Student, StudentsNames } from '../bootcamp/studentdata/students.js';
+import { DeleteAll, Student, Students, StudentsNames } from '../bootcamp/studentdata/students.js';
 import { DeleteStudent, UpdateStudent } from '../bootcamp/studentdata/updatestudent.js';
 import { UploadStudents } from '../bootcamp/studentdata/uploadstudentdata.js';
 import { DeleteTasks } from '../bootcamp/taskmanger/deletetask.js';
@@ -124,8 +124,12 @@ app.post('/tasks', async (req, res) => {
     await Tasks(res)
 })
 
-app.post('/bootcampstudents', async (req, res) => {
+app.post('/bootcampstudetnames', async (req, res) => {
     await StudentsNames(res)
+})
+
+app.post('/bootcampstudents', async (req, res) => {
+    await Students(res)
 })
 
 app.post('/bootcampstudent',BootcamTeamMiddlware, async (req, res) => {
