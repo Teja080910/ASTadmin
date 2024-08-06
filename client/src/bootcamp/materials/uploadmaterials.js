@@ -3,6 +3,7 @@ import { FileInput, Label, Select } from "flowbite-react";
 import { useState } from 'react';
 import { Actions } from '../../actions/actions';
 import { AllMaterials } from "./allmaterials";
+
 export const BootcampMaterial = () => {
     const [photo, setPhoto] = useState()
     const [file, setFile] = useState()
@@ -49,8 +50,6 @@ export const BootcampMaterial = () => {
         }
         return acc;
     }, []);
-
-    console.log(themeNames)
 
     return (
         <div className="bootmati">
