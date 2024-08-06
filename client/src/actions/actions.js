@@ -1,5 +1,5 @@
 import axios from "axios"
-import { api, face_api, google_api } from "./api"
+import { api, face_api, google_api, students } from "./api"
 export const Actions = {
 
     FaceVerify: async (regd, photo) => {
@@ -13,7 +13,7 @@ export const Actions = {
     // **********************************************************Bootcamp data************************************************ //
 
     Students: async () => {
-        return await axios.post(api + "/bootcampstudents")
+        return await axios.post(students + "/bootcampstudents")
     },
 
     StudentLogin: async (regd) => {
