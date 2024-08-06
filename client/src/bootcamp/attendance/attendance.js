@@ -35,7 +35,7 @@ export const BootAttendance = () => {
     try {
       setShow(true);
       const response = await axios.post(
-        process.env.REACT_APP_database + "/attendstudent",
+        process.env.REACT_APP_database + "/attendstudents",
         { registerno }
       );
       if (response?.data?.message) {
