@@ -15,6 +15,7 @@ import React, { useEffect, useRef, useState } from "react";
 import '../attendance/attendance.css';
 import { UploadModel } from "./uploadmodel";
 import { StudentUpdateModal } from "./studentupdatemodel";
+import { students } from "../../actions/api";
 export const StudentsData = () => {
     const [open, setOpen] = useState(false)
     const [show, setShow] = useState(false)
@@ -67,7 +68,7 @@ export const StudentsData = () => {
     }
 
     useEffect(() => {
-        axios.post(process.env.REACT_APP_database + "/bootcampstudents")
+        axios.post(students + "/bootcampstudents")
             .then((result) => {
                 sdat((result.data.sort((a, b) => a.Year - b.Year)));
                 setIsLoading(false);
