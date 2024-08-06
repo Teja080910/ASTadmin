@@ -70,40 +70,41 @@ export const StudentsData = () => {
         axios.post(process.env.REACT_APP_database + "/bootcampstudents")
             .then((result) => {
                 sdat((result.data.sort((a, b) => a.Year - b.Year)));
-            }).catch((e) => console.log(e))
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
+                setIsLoading(false);
+            }).catch((e) => {
+                console.log(e)
+                setIsLoading(false);
+            })
     }, [])
 
 
-    
-  useEffect(() => {
-    const handleKeyPress = (event) => {
-      if (event.key.toLowerCase() === 'f' && event.shiftKey) {
-        event.preventDefault();
-        searchRef.current.focus();
-      }
-    };
 
-    window.addEventListener('keydown', handleKeyPress);
-    return () => {
-      window.removeEventListener('keydown', handleKeyPress);
-    };
-  }, []);
+    useEffect(() => {
+        const handleKeyPress = (event) => {
+            if (event.key.toLowerCase() === 'f' && event.shiftKey) {
+                event.preventDefault();
+                searchRef.current.focus();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyPress);
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+        };
+    }, []);
     return (
         <>
             {/* <BootcampNav /> */}
             <UploadModel isOpen={open} onClose={() => setOpen(false)} />
             <StudentUpdateModal show={show} close={() => setShow(false)} data={data} />
             <Box display="flex" justifyContent="space-evenly" mb={6} >
-                    <Input id="search" value={select} placeholder="Enter User mail or name" ref={searchRef} onChange={(e) => sselect(e.target.value)} width="50%" />
-                    <Button style={{ backgroundColor: "black", color: 'white' }} onClick={() => setOpen(true)}>Upload File</Button>
+                <Input id="search" value={select} placeholder="Enter User mail or name" ref={searchRef} onChange={(e) => sselect(e.target.value)} width="50%" />
+                <Button style={{ backgroundColor: "black", color: 'white' }} onClick={() => setOpen(true)}>Upload File</Button>
 
-                </Box>
-          
+            </Box>
+
             <div className="studentdata">
-              
+
                 <table className="studetail">
                     {
                         isLoading ?
@@ -138,11 +139,11 @@ export const StudentsData = () => {
                 </table>
 
                 <div style={{ width: "100%", display: "flex", justifyContent: "left", padding: "5%" }}>
-                    {!deletes?<Button style={{ backgroundColor: 'orangered', color: 'white' }} onClick={()=>setDelete(true)}>Delete All </Button>:
-                    <div style={{display:'inline-flex',justifyContent:'space-evenly',width:'20%'}}>
-                    <Button style={{ backgroundColor: 'yellowgreen', color: 'white' }} onClick={RemoveAll}>Confirm Delete</Button>
-                    <Button style={{ backgroundColor: 'orange', color: 'white' }} onClick={()=>setDelete(false)}>No</Button>
-                    </div>
+                    {!deletes ? <Button style={{ backgroundColor: 'orangered', color: 'white' }} onClick={() => setDelete(true)}>Delete All </Button> :
+                        <div style={{ display: 'inline-flex', justifyContent: 'space-evenly', width: '20%' }}>
+                            <Button style={{ backgroundColor: 'yellowgreen', color: 'white' }} onClick={RemoveAll}>Confirm Delete</Button>
+                            <Button style={{ backgroundColor: 'orange', color: 'white' }} onClick={() => setDelete(false)}>No</Button>
+                        </div>
                     }
                 </div>
             </div>

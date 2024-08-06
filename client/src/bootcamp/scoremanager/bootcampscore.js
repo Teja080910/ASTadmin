@@ -5,8 +5,7 @@ import {
   InputGroup,
   InputRightElement,
   Kbd,
-  Spinner,
-  useToast
+  Spinner
 } from "@chakra-ui/react";
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useEffect, useRef, useState } from "react";
@@ -46,13 +45,15 @@ export const BootcampScore = () => {
     };
   }, []);
 
-  const filteredData = dat?.filter(
+  let filteredData;
+
+  select?filteredData = dat?.filter(
     (user) =>
       user?.Reg_No?.toString()?.toLowerCase()?.includes(select) ||
       user?.Reg_No?.toString()?.toUpperCase()?.includes(select) ||
       user?.Name?.toUpperCase()?.includes(select) ||
       user?.Name?.toLowerCase()?.includes(select)
-  );
+  ):filteredData=dat
 
 
   return (
