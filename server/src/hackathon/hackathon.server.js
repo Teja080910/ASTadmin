@@ -13,7 +13,7 @@ import { Materials } from '../bootcamp/materials/materials.js';
 import { Chunks, FileByName, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
 import { ActivityMarks, InternalMarks } from '../bootcamp/others/others.js';
 import { GivenMarks, RemoveTask } from '../bootcamp/scoremanager/score.js';
-import { DeleteAll, Students } from '../bootcamp/studentdata/students.js';
+import { DeleteAll, Student, StudentsNames } from '../bootcamp/studentdata/students.js';
 import { DeleteStudent, UpdateStudent } from '../bootcamp/studentdata/updatestudent.js';
 import { UploadStudents } from '../bootcamp/studentdata/uploadstudentdata.js';
 import { DeleteTasks } from '../bootcamp/taskmanger/deletetask.js';
@@ -125,7 +125,11 @@ app.post('/tasks', async (req, res) => {
 })
 
 app.post('/bootcampstudents', async (req, res) => {
-    await Students(res)
+    await StudentsNames(res)
+})
+
+app.post('/bootcampstudent',BootcamTeamMiddlware, async (req, res) => {
+    await Student(req.body.reg, res)
 })
 
 app.post('/attendstudent', BootcamTeamMiddlware, async (req, res) => {
@@ -133,7 +137,6 @@ app.post('/attendstudent', BootcamTeamMiddlware, async (req, res) => {
 })
 
 app.post('/updatestudent', BootcamEditMiddlware, async (req, res) => {
-    console.log(req.body)
     await UpdateStudent(req.body.student, res)
 })
 
@@ -161,11 +164,11 @@ app.post('/studentxlsx', initiateMulter(), ConsoleMiddleware, async (req, res) =
     await UploadStudents(req?.files[0], res)
 })
 
-app.post('/internalmarks', ConsoleMiddleware, async (req, res) => {
+app.post('/internalmarks', BootcamTeamMiddlware, async (req, res) => {
     await InternalMarks(req.body.user, req.body.marks, res)
 })
 
-app.post('/activitymarks', ConsoleMiddleware, async (req, res) => {
+app.post('/activitymarks', BootcamTeamMiddlware, async (req, res) => {
     await ActivityMarks(req.body.user, req.body.marks, res)
 })
 
