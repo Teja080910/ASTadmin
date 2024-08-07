@@ -5,7 +5,7 @@ import { Resend } from 'resend';
 import { ConsoleMiddleware } from '../ast-console/middleware/console.middleware.js';
 import { AdminLogin } from '../bootcamp/admin/adminlogin.js';
 import { AdminRegister } from '../bootcamp/admin/adminregister.js';
-import { AbsentStudent, AttendStudent } from '../bootcamp/attendance/attendance.js';
+import { AbsentStudent, AttendStudent, StudentsAttendance } from '../bootcamp/attendance/attendance.js';
 import { GetFeedbacks, GetUniqueDatesAndLatestFeedbacks } from '../bootcamp/feedbacks/feedback.js';
 import { DeleteMaterial, DeleteMaterials } from '../bootcamp/materials/deletematerials.js';
 import { EditMaterial } from '../bootcamp/materials/editmaterial.js';
@@ -13,7 +13,7 @@ import { Materials } from '../bootcamp/materials/materials.js';
 import { Chunks, FileByName, UploadFiles } from '../bootcamp/materials/uploadmaterials.js';
 import { ActivityMarks, InternalMarks } from '../bootcamp/others/others.js';
 import { GivenMarks, RemoveTask } from '../bootcamp/scoremanager/score.js';
-import { DeleteAll, Students } from '../bootcamp/studentdata/students.js';
+import { DeleteAll, Student, Students, StudentsNames } from '../bootcamp/studentdata/students.js';
 import { DeleteStudent, UpdateStudent } from '../bootcamp/studentdata/updatestudent.js';
 import { UploadStudents } from '../bootcamp/studentdata/uploadstudentdata.js';
 import { DeleteTasks } from '../bootcamp/taskmanger/deletetask.js';
@@ -124,16 +124,28 @@ app.post('/tasks', async (req, res) => {
     await Tasks(res)
 })
 
+app.post('/bootcampstudetnames', async (req, res) => {
+    await StudentsNames(res)
+})
+
 app.post('/bootcampstudents', async (req, res) => {
     await Students(res)
 })
 
-app.post('/attendstudent', BootcamTeamMiddlware, async (req, res) => {
+app.post('/bootcampstudent',BootcamTeamMiddlware, async (req, res) => {
+    console.log(req.body.reg)
+    await Student(req.body.reg, res)
+})
+
+app.post('/bootcampstudentsattendance',BootcamTeamMiddlware, async (req, res) => {
+    await StudentsAttendance(res)
+})
+
+app.post('/attendstudents', BootcamTeamMiddlware, async (req, res) => {
     await AttendStudent(req.body.registerno, res)
 })
 
 app.post('/updatestudent', BootcamEditMiddlware, async (req, res) => {
-    console.log(req.body)
     await UpdateStudent(req.body.student, res)
 })
 
@@ -161,11 +173,11 @@ app.post('/studentxlsx', initiateMulter(), ConsoleMiddleware, async (req, res) =
     await UploadStudents(req?.files[0], res)
 })
 
-app.post('/internalmarks', ConsoleMiddleware, async (req, res) => {
+app.post('/internalmarks', BootcamTeamMiddlware, async (req, res) => {
     await InternalMarks(req.body.user, req.body.marks, res)
 })
 
-app.post('/activitymarks', ConsoleMiddleware, async (req, res) => {
+app.post('/activitymarks', BootcamTeamMiddlware, async (req, res) => {
     await ActivityMarks(req.body.user, req.body.marks, res)
 })
 

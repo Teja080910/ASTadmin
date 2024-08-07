@@ -1,5 +1,5 @@
 import axios from "axios"
-import { api, face_api, google_api } from "./api"
+import { api, face_api, google_api, students } from "./api"
 export const Actions = {
 
     FaceVerify: async (regd, photo) => {
@@ -14,6 +14,18 @@ export const Actions = {
 
     Students: async () => {
         return await axios.post(api + "/bootcampstudents")
+    },
+
+    StudentsAttendance: async () => {
+        return await axios.post(api + "/bootcampstudentsattendance")
+    },
+
+    StudentNames: async () => {
+        return await axios.post(api + "/bootcampstudetnames")
+    },
+
+    Student: async (reg) => {
+        return await axios.post(api + "/bootcampstudent",{reg})
     },
 
     StudentLogin: async (regd) => {
