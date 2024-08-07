@@ -133,6 +133,7 @@ app.post('/bootcampstudents', async (req, res) => {
 })
 
 app.post('/bootcampstudent',BootcamTeamMiddlware, async (req, res) => {
+    console.log(req.body.reg)
     await Student(req.body.reg, res)
 })
 
