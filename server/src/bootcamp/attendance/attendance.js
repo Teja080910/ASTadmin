@@ -43,3 +43,19 @@ export const AbsentStudent = async (reg, res) => {
         res.status(500).json({ message: "An error occurred", error: error.message });
     }
 }
+
+
+export const StudentsAttendance = async (res) => {
+    try {
+        let students = []
+        const student = await db1.collection("Hackathondata").find().toArray()
+        student?.map((val) => (
+            students.push({ Name: val?.Name, Reg_No: val?.Reg_No,Date:val?.Date,Year:val?.Year,Number:val?.Number})
+        ))
+        if (students.length > 0) {
+            res.send(students)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
