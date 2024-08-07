@@ -17,7 +17,7 @@ import "./attendance.css";
 import StudentAttendancePortal from "./attendanceAnylitics";
 import { motion } from "framer-motion";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { students } from "../../actions/api";
+import { api, students } from "../../actions/api";
 export const BootAttendance = () => {
   const [dat, sdat] = useState([]);
   const [select, sselect] = useState("");
@@ -93,8 +93,7 @@ export const BootAttendance = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
-    await axios
-      .post(students + "/bootcampstudents")
+    await axios.post(api + "/bootcampstudentsattendance")
       .then((result) => {
         sdat(result.data.sort((a, b) => a.Year - b.Year));
         setFilteredData(result.data.sort((a, b) => a.Year - b.Year));

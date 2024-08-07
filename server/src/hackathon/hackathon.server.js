@@ -5,7 +5,7 @@ import { Resend } from 'resend';
 import { ConsoleMiddleware } from '../ast-console/middleware/console.middleware.js';
 import { AdminLogin } from '../bootcamp/admin/adminlogin.js';
 import { AdminRegister } from '../bootcamp/admin/adminregister.js';
-import { AbsentStudent, AttendStudent } from '../bootcamp/attendance/attendance.js';
+import { AbsentStudent, AttendStudent, StudentsAttendance } from '../bootcamp/attendance/attendance.js';
 import { GetFeedbacks, GetUniqueDatesAndLatestFeedbacks } from '../bootcamp/feedbacks/feedback.js';
 import { DeleteMaterial, DeleteMaterials } from '../bootcamp/materials/deletematerials.js';
 import { EditMaterial } from '../bootcamp/materials/editmaterial.js';
@@ -134,6 +134,10 @@ app.post('/bootcampstudents', async (req, res) => {
 
 app.post('/bootcampstudent',BootcamTeamMiddlware, async (req, res) => {
     await Student(req.body.reg, res)
+})
+
+app.post('/bootcampstudentsattendance',BootcamTeamMiddlware, async (req, res) => {
+    await StudentsAttendance(res)
 })
 
 app.post('/attendstudents', BootcamTeamMiddlware, async (req, res) => {
