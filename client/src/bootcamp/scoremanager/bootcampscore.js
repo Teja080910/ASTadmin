@@ -69,7 +69,7 @@ export const BootcampScore = () => {
   }
 
   useEffect(() => {
-    select.length === 10 && Student(select)
+    select.length >= 10 && Student(select)
   }, [select])
 
 
