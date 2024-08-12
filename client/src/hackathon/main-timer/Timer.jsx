@@ -59,17 +59,14 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
           }
         } else {
           setStart(false);
-          setEndTime(new Date(0));
           localStorage.setItem("HackTime", new Date(0).toString());
         }
       } else {
         setStart(false);
-        setEndTime(new Date());
         localStorage.setItem("HackTime", new Date(0).toString());
       }
     } catch (error) {
       setStart(false);
-
       console.log(error);
     }
   };
@@ -91,14 +88,28 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
   }, []);
 
   useEffect(() => {
-    if (endTime) {
+    const endDate = new Date(endTime); 
+    const now = new Date(); 
+  
+  
+  
+    if (endDate > now) {
       const timer = setInterval(() => {
         setTimeLeft(getTimeLeft(endTime));
-      }, 1800);
-
-      return () => clearInterval(timer);
+      }, 1000);
+  
+    
+  
+      return () => clearInterval(timer); // Cleanup the timer
+    } else {
+      setTimeLeft({
+        hours: 24,
+        minutes: 0,
+        seconds: 0,
+      });
     }
   }, [endTime]);
+  
 
   useEffect(() => {
     const handleResize = () => {
@@ -123,8 +134,8 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
     <div className="countdown">
       {timeLeft.hours === 0 &&
         timeLeft.minutes === 0 &&
-        timeLeft.seconds <= 30 &&
-        start && <Confetti width={innerWidth - 10} height={innerHeight} />}
+        timeLeft.seconds <= 3 &&
+       <Confetti width={innerWidth - 10} height={innerHeight} />}
       {timeLeft.hours === 23 &&
         timeLeft.minutes >=58 &&
         timeLeft.seconds >= 0 && start && <Confetti width={innerWidth - 10} height={innerHeight} />}
@@ -188,7 +199,7 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
       {pageState === "timer" && !gamedata && (
         <Box>
           <div className="count-icon" style={{ textAlign: "center" }}>
-            {timeLeft.hours < 1 ? (
+            {timeLeft.hours ===24 ? (
               <Button
                 size="lg"
                 className="h1-animation"
