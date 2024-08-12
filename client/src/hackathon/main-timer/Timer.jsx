@@ -6,6 +6,7 @@ import Activities from "./Activitys";
 import { Box, Button } from "@chakra-ui/react";
 import Scorer from "./Scorer";
 import Confetti from "react-confetti";
+import Curtains from "./Curtains";
 
 const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
   const [timeLeft, setTimeLeft] = useState({
@@ -13,7 +14,7 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
     minutes: 0,
     seconds: 0,
   });
-
+  const [isOpen, setIsOpen] = useState(true);
   const [endTime, setEndTime] = useState(null);
   const [gamedata, setGameData] = useState(false);
   const [pageState, setPageState] = useState("timer");
@@ -55,7 +56,7 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
           if (storedTime !== hackathonEndTime.toString()) {
             setEndTime(hackathonEndTime);
             localStorage.setItem("HackTime", hackathonEndTime.toString());
-          setStart(true)
+            setStart(true);
           }
         } else {
           setStart(false);
@@ -88,18 +89,14 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
   }, []);
 
   useEffect(() => {
-    const endDate = new Date(endTime); 
-    const now = new Date(); 
-  
-  
-  
+    const endDate = new Date(endTime);
+    const now = new Date();
+
     if (endDate > now) {
       const timer = setInterval(() => {
         setTimeLeft(getTimeLeft(endTime));
       }, 1000);
-  
-    
-  
+
       return () => clearInterval(timer); // Cleanup the timer
     } else {
       setTimeLeft({
@@ -109,7 +106,6 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
       });
     }
   }, [endTime]);
-  
 
   useEffect(() => {
     const handleResize = () => {
@@ -124,21 +120,30 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
   }, []);
 
   const handleStartClick = () => {
-    getHackTime(url)
+    getHackTime(url);
     setTimeout(() => {
       setStart(false);
-    }, 30000); // 30 seconds
+    },60000 ); 
   };
 
   return (
     <div className="countdown">
+      {timeLeft.hours === 24 &&
+        timeLeft.minutes == 0 &&
+        timeLeft.seconds == 0 && isOpen && (
+          <Box h={"100vh"} position={"fixed"} zIndex={100000} w={"100vw"}>
+            <Curtains show={true} isOpen={isOpen} setIsOpen={setIsOpen} />
+          </Box>
+        )}
       {timeLeft.hours === 0 &&
         timeLeft.minutes === 0 &&
-        timeLeft.seconds <= 3 &&
-       <Confetti width={innerWidth - 10} height={innerHeight} />}
+        timeLeft.seconds <= 3 && (
+          <Confetti width={innerWidth - 10} height={innerHeight} />
+        )}
       {timeLeft.hours === 23 &&
-        timeLeft.minutes >=58 &&
-        timeLeft.seconds >= 0 && start && <Confetti width={innerWidth - 10} height={innerHeight} />}
+        timeLeft.minutes >= 58 &&
+        timeLeft.seconds >= 0 &&
+        start && <Confetti width={innerWidth - 10} height={innerHeight} />}
       <div className="background-attach">
         <TimeBasedComponent timeLeft={timeLeft} socket={socket} />
       </div>
@@ -199,7 +204,7 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
       {pageState === "timer" && !gamedata && (
         <Box>
           <div className="count-icon" style={{ textAlign: "center" }}>
-            {timeLeft.hours ===24 ? (
+            {timeLeft.hours === 24 ? (
               <Button
                 size="lg"
                 className="h1-animation"
