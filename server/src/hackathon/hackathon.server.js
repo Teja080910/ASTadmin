@@ -133,7 +133,6 @@ app.post('/bootcampstudents', async (req, res) => {
 })
 
 app.post('/bootcampstudent',BootcamTeamMiddlware, async (req, res) => {
-    console.log(req.body.reg)
     await Student(req.body.reg, res)
 })
 
@@ -223,7 +222,7 @@ app.post('/updateteam/:team/:gmail/:phone/:code/:members', BootcamEditMiddlware,
     await UpdateTeam(req, res, resend);
 })
 
-app.post('/teamscodes', async (req, res) => {
+app.post('/teamscodes',ConsoleMiddleware, async (req, res) => {
     await AllTeamCodes(res)
 })
 
