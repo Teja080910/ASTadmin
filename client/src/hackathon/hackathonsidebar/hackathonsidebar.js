@@ -61,7 +61,7 @@ const SidebarContent = ({ collapsed, toggleSidebar, select ,admail}) => {
         <Tooltip hasArrow label={"Logging out as "+admail}>
 
        
-        <MenuItem icon={<PowerSettingsNewIcon />} onClick={() => { dispatch({ type: 'BOOT', payload: { bootmail: null, bootpassword: null } }); window.location.reload(1000) }}>Log out</MenuItem>
+        <MenuItem icon={<PowerSettingsNewIcon />} onClick={() => { dispatch({ type: 'BOOT', payload: { bootmail: null, bootpassword: null } }); window.location.reload() }}>Log out</MenuItem>
                
         </Tooltip>
       </Menu>

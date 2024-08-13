@@ -11,6 +11,10 @@ const imageMappings = [
   { code: "008", path: ".././static/pray.png" },
   { code: "009", path: ".././static/snacks.png" },
   { code: "010", path: ".././static/checking-time.png" },
+  { code: "011", path: ".././static/modi-india.gif" },
+  { code: "012", path: ".././static/independence-day.gif" },
+
+
 ];
 
 const backgrounds = [

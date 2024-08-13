@@ -81,7 +81,8 @@ const TimeManager = ({ URL = "https://timer-server-edko.onrender.com", socket })
     try {
       const response = await axios.post(`${URL}/api/deletetimer`, { id: id });
       if (response.data.message === "Timer deleted successfully") {
-        setTimers((timers) => timers.filter((timer) => timer.title !== timerTitle));
+        setTimers((timers) => timers.filter((timer) => timer.id !== id));
+        console.log(timer, timerTitle);
         toast({ title: "Timer deleted successfully", status: "success", position: "top", isClosable: true });
       }
     } catch (error) {
