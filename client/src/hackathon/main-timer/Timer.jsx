@@ -5,6 +5,8 @@ import TimeBasedComponent from "./TimeBasedComponent";
 import Activities from "./Activitys";
 import { Box, Button } from "@chakra-ui/react";
 import Scorer from "./Scorer";
+import Confetti from "react-confetti";
+import Curtains from "./Curtains";
 
 const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
   const [timeLeft, setTimeLeft] = useState({
@@ -12,9 +14,13 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
     minutes: 0,
     seconds: 0,
   });
+  const [isOpen, setIsOpen] = useState(true);
   const [endTime, setEndTime] = useState(null);
   const [gamedata, setGameData] = useState(false);
-  const [pageState, setPageState] = useState("timer")
+  const [pageState, setPageState] = useState("timer");
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+  const [innerHeight, setInnerHeight] = useState(window.innerHeight);
+  const [start, setStart] = useState(false);
 
   const getTimeLeft = (endTime) => {
     const total = endTime - Date.now();
@@ -50,16 +56,18 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
           if (storedTime !== hackathonEndTime.toString()) {
             setEndTime(hackathonEndTime);
             localStorage.setItem("HackTime", hackathonEndTime.toString());
+            setStart(true);
           }
         } else {
-          setEndTime(new Date(0)); 
+          setStart(false);
           localStorage.setItem("HackTime", new Date(0).toString());
         }
       } else {
-        setEndTime(new Date()); 
+        setStart(false);
         localStorage.setItem("HackTime", new Date(0).toString());
       }
     } catch (error) {
+      setStart(false);
       console.log(error);
     }
   };
@@ -67,11 +75,12 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
   useEffect(() => {
     getHackTime(url);
   }, [url]);
+
   useEffect(() => {
     socket.emit("gameData");
 
     socket.on("gameData", (data) => {
-      if (data?.code === "000" ) {
+      if (data?.code === "000") {
         setGameData(null);
       } else {
         setGameData(data?.code);
@@ -80,69 +89,156 @@ const Timer = ({ url = "https://timer-server-edko.onrender.com", socket }) => {
   }, []);
 
   useEffect(() => {
-    if (endTime) {
+    const endDate = new Date(endTime);
+    const now = new Date();
+
+    if (endDate > now) {
       const timer = setInterval(() => {
         setTimeLeft(getTimeLeft(endTime));
       }, 1000);
 
-      return () => clearInterval(timer);
+      return () => clearInterval(timer); // Cleanup the timer
+    } else {
+      setTimeLeft({
+        hours: 24,
+        minutes: 0,
+        seconds: 0,
+      });
     }
   }, [endTime]);
 
-  console.log(pageState)
+  useEffect(() => {
+    const handleResize = () => {
+      setInnerWidth(window.innerWidth);
+
+      setInnerHeight(window.innerHeight);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleStartClick = () => {
+    getHackTime(url);
+    setTimeout(() => {
+      setStart(false);
+    },60000 ); 
+  };
+
   return (
     <div className="countdown">
+      {timeLeft.hours === 24 &&
+        timeLeft.minutes == 0 &&
+        timeLeft.seconds == 0 && isOpen && (
+          <Box h={"100vh"} position={"fixed"} zIndex={100000} w={"100vw"}>
+            <Curtains show={true} isOpen={isOpen} setIsOpen={setIsOpen} />
+          </Box>
+        )}
+      {timeLeft.hours === 0 &&
+        timeLeft.minutes === 0 &&
+        timeLeft.seconds <= 3 && (
+          <Confetti width={innerWidth - 10} height={innerHeight} />
+        )}
+      {timeLeft.hours === 23 &&
+        timeLeft.minutes >= 58 &&
+        timeLeft.seconds >= 0 &&
+        start && <Confetti width={innerWidth - 10} height={innerHeight} />}
       <div className="background-attach">
         <TimeBasedComponent timeLeft={timeLeft} socket={socket} />
       </div>
       <div className="main-activity">
-        <Activities socket={socket} setStateUpdate={setPageState}/>
+        <Activities socket={socket} setStateUpdate={setPageState} />
       </div>
 
-      <div className="hack-title">
+      <div className="scalable">
         <h1 className="h1-animation">VEDIC VISION HACKATHON</h1>
+
+        {pageState === "timer" && (
+          <Box className="logos" position={"relative"} height={"120px"}>
+            <Box display={"flex"} justifyContent={"center"} gap={10}>
+              <img src="../eoclogo.png" style={{ transform: "scale(1.19)" }} />
+              <img
+                src="../icsvbsc.jpg"
+                style={{ transform: "scale(1.1)", borderRadius: "10px" }}
+              />
+              <img src="../ast-no-bg.png" style={{ transform: "scale(1.5)" }} />
+              <img
+                src="../logo-ieee.png"
+                style={{ transform: "scale(1.2)", borderRadius: "10px" }}
+              />
+              <img src="../paie-logo.jpg" style={{ borderRadius: "50%" }} />
+            </Box>
+
+            <Box
+              position="relative"
+              display={"flex"}
+              top={"-225px"}
+              justifyContent="space-between"
+              padding={50}
+            >
+              <img
+                src="../srkr-logo.png"
+                style={{
+                  borderRadius: "20px",
+                  objectFit: "contain",
+                  width: "150px",
+                  height: "200px",
+                }}
+              />
+              <img
+                src="../vbsieee.jpg"
+                style={{
+                  borderRadius: "10px",
+                  objectFit: "contain",
+                  width: "150px",
+                  height: "200px",
+                }}
+              />
+            </Box>
+          </Box>
+        )}
       </div>
       {gamedata && <Scorer socket={socket} />}
 
-    { pageState ==="timer" && !gamedata && <Box >
-
-    
-      <div className="count-icon" style={{ textAlign: "center" }}>
-        {timeLeft.hours < 1 ? (
-          <Button
-            size="lg"
-            className="h1-animation"
-            variant="outline"
-            height="48px"
-            width="200px"
-            onClick={() => window.location.reload()}
-          >
-            Start
-          </Button>
-        ) : (
-          <h2 style={{ textAlign: "center" }}>Ends in</h2>
-        )}
-      </div>
-
-      <div className="content">
-        {timeLeft && (
-          <>
-            <div className="box">
-              <div className="value hours">{timeLeft.hours}</div>
-              <div className="label">Hours</div>
-            </div>
-            <div className="box">
-              <div className="value minutes">{timeLeft.minutes}</div>
-              <div className="label">Minutes</div>
-            </div>
-            <div className="box">
-              <div className="value seconds">{timeLeft.seconds}</div>
-              <div className="label">Seconds</div>
-            </div>
-          </>
-        )}
-      </div>
-      </Box>}
+      {pageState === "timer" && !gamedata && (
+        <Box>
+          <div className="count-icon" style={{ textAlign: "center" }}>
+            {timeLeft.hours === 24 ? (
+              <Button
+                size="lg"
+                className="h1-animation"
+                variant="outline"
+                height="48px"
+                width="200px"
+                onClick={handleStartClick}
+              >
+                Start
+              </Button>
+            ) : (
+              <h2 style={{ textAlign: "center" }}>Ends in</h2>
+            )}
+          </div>
+          <div className="content">
+            {timeLeft && (
+              <>
+                <div className="box">
+                  <div className="value hours">{timeLeft.hours}</div>
+                  <div className="label">Hours</div>
+                </div>
+                <div className="box">
+                  <div className="value minutes">{timeLeft.minutes}</div>
+                  <div className="label">Minutes</div>
+                </div>
+                <div className="box">
+                  <div className="value seconds">{timeLeft.seconds}</div>
+                  <div className="label">Seconds</div>
+                </div>
+              </>
+            )}
+          </div>
+        </Box>
+      )}
     </div>
   );
 };

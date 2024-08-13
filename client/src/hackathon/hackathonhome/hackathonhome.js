@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
-import { Box, Flex, Heading, Text, Grid, VStack, Container, Tr, Td, Table } from "@chakra-ui/react"
+import { Box, Flex, Heading, Text, Grid, VStack, Container, Tr, Td, Table, Icon, Button } from "@chakra-ui/react"
 import { Modules } from "./modules"
+import { LockIcon } from "@chakra-ui/icons"
 
 export const HackathonHome = () => {
-    const [attendance, setAttendance] = useState([])
+    const [display, setDisplay] = useState(false)
     const [score, setScore] = useState([])
     const [overall, setOverall] = useState([])
     const [internal, setInternal] = useState([])
@@ -25,9 +26,12 @@ export const HackathonHome = () => {
     }, [])
 
     return (
-        <Container maxW="container.xl" py={10} zIndex={-1}>
-            <Heading textAlign="center" mb={10} className="animate__animated animate__swing">Top Members</Heading>
-            <Grid templateColumns={{ base: "repeat(auto-fit, minmax(200px, 1fr))", md: "repeat(auto-fit, minmax(375px, 1fr))", xl: "repeat(auto-fit, minmax(420px, 1fr))", }} gap={6}>
+        <Container maxW="container.xl" py={10} zIndex={-1} >
+            <Heading textAlign="center" mb={10} className="animate__animated animate__swing">Top Members   <Button onClick={()=>setDisplay(!display)}>
+            <LockIcon/>
+            </Button> </Heading>
+          
+           { display && <Grid templateColumns={{ base: "repeat(auto-fit, minmax(200px, 1fr))", md: "repeat(auto-fit, minmax(375px, 1fr))", xl: "repeat(auto-fit, minmax(420px, 1fr))", }} gap={6} >
                 <Box className="animate__animated animate__jello" bg="white" p={5} shadow="md" borderRadius="md">
                     <Heading size="md" mb={4}>Overall</Heading>
                     <Table spacing={2}>
@@ -112,7 +116,7 @@ export const HackathonHome = () => {
                         </Table>
                     </Box>
                 </Box>
-            </Grid>
+            </Grid>}
         </Container>
     )
 }
