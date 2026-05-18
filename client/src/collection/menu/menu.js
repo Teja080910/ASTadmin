@@ -1,32 +1,60 @@
-import { Button, SimpleGrid } from "@chakra-ui/react"
+import { Box, SimpleGrid, Text } from "@chakra-ui/react"
+import { useNavigate } from "react-router-dom"
 import exam from './exam.jpeg'
 import "./menu.css"
 import team from './team.jpeg'
 import teamwork from './teamwork.jpeg'
 import console from './console.png'
+
+const menuItem = {
+  background: 'white',
+  borderRadius: '16px',
+  border: '1px solid',
+  borderColor: 'surface.100',
+  boxShadow: 'card',
+  transition: 'all 0.25s ease',
+  cursor: 'pointer',
+  overflow: 'hidden',
+  position: 'relative',
+}
+
 export const Menu = () => {
-    return (
-        <div className="menu">
-            <div className="menulist" >
-                <SimpleGrid className='simplegrid' spacingX={2} spacingY={30} templateColumns='repeat(auto-fill, minmax(200px, 2fr))'>
-                    <figure style={{ width: "200px", height: "200px", fontWeight: 'bold' }}>
-                        <Button onClick={() => window.open("https://asthack.me/exam/192.5264.27", "_blank")} style={{ width: "200px", height: "200px", backgroundImage: `url(${exam})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} />
-                        <figcaption style={{ textAlign: 'center' }}>Exam</figcaption>
-                    </figure>
-                    <figure style={{ width: "200px", height: "200px", fontWeight: 'bold' }}>
-                        <Button onClick={() => window.open("https://asthack.me/exam/studentscore", "_blank")} style={{ width: "200px", height: "200px", backgroundImage: `url(${team})`, backgroundSize: '200px 240px', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Team</Button>
-                        <figcaption style={{ textAlign: 'center' }}>Team Members</figcaption>
-                    </figure>
-                    <figure style={{ width: "200px", height: "200px", fontWeight: 'bold' }}>
-                        <Button onClick={() => window.open("https://asthack.me/exam/teamwork", "_blank")} style={{ width: "200px", height: "200px", backgroundImage: `url(${teamwork})`, backgroundSize: '220px 220px', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} />
-                        <figcaption style={{ textAlign: 'center' }}>Team Work</figcaption>
-                    </figure>
-                    <figure style={{ width: "200px", height: "200px", fontWeight: 'bold' }}>
-                        <Button onClick={() => { window.location.href = "console" }} style={{ backgroundColor: 'white', width: "200px", height: "200px", backgroundImage: `url(${console})`, backgroundSize: '200px 200px', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></Button>
-                        <figcaption style={{ textAlign: 'center' }}>AST console</figcaption>
-                    </figure>
-                </SimpleGrid>
-            </div>
-        </div>
-    )
+  const nav = useNavigate()
+  const items = [
+    { img: exam, label: 'Exam', link: 'https://asthack.me/exam/192.5264.27', external: true },
+    { img: team, label: 'Team Members', link: 'https://asthack.me/exam/studentscore', external: true },
+    { img: teamwork, label: 'Team Work', link: 'https://asthack.me/exam/teamwork', external: true },
+    { img: console, label: 'AST Console', link: '/console', external: false },
+  ]
+  return (
+    <Box className="menu">
+      <SimpleGrid columns={{ base: 2, md: 4 }} spacing={6} maxW="900px" w="100%">
+        {items.map((item, i) => (
+          <Box
+            key={i}
+            sx={menuItem}
+            onClick={() => item.external ? window.open(item.link, '_blank') : nav(item.link)}
+            _hover={{ transform: 'translateY(-4px)', boxShadow: 'elevated', borderColor: 'brand.200' }}
+            className="animate-fade-in"
+            style={{ animationDelay: `${i * 0.1}s` }}
+          >
+            <Box p={4}>
+              <Box
+                w="100%"
+                h="140px"
+                borderRadius="lg"
+                backgroundImage={`url(${item.img})`}
+                backgroundSize="cover"
+                backgroundPosition="center"
+                backgroundRepeat="no-repeat"
+              />
+              <Text fontWeight={600} fontSize="sm" color="surface.700" textAlign="center" mt={3}>
+                {item.label}
+              </Text>
+            </Box>
+          </Box>
+        ))}
+      </SimpleGrid>
+    </Box>
+  )
 }

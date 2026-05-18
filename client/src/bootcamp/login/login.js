@@ -16,6 +16,7 @@ import CryptoAES from 'crypto-js/aes';
 import * as React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Actions } from '../../actions/actions';
 
 
@@ -24,6 +25,7 @@ const defaultTheme = createTheme();
 export const  LoginForm = () => {
   const [mail, setMail] = useState()
   const dispatch = useDispatch()
+  const nav = useNavigate()
   const toast = useToast()
   const [loading,setLoading] = useState(false)
   const [password, setPassword] = useState()
@@ -36,7 +38,7 @@ export const  LoginForm = () => {
         if (res?.data?.message) {
           dispatch({ type: 'BOOT', payload: { bootmail: res?.data?.data?.Gmail, bootpassword: CryptoAES.encrypt(res?.data?.data?.Password, res?.data?.data?.Gmail).toString() } });
           toast({ title: res?.data?.message, status: 'success', position: 'top-right', isClosable: true })
-          window.location.href = '/bootcamp'
+          nav('/bootcamp')
         }
         if (res?.data?.error) {
           toast({ title: res?.data?.error, status: 'error', position: 'bottom-right', isClosable: true })
