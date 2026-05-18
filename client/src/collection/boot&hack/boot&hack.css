@@ -1,27 +1,76 @@
-.hackboot{
-    width: 60%;
-    height: 30vh;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    /* background-color: black; */
-    border-radius: 20px;
-}
-.hackboot button{
-    width: 30%;
-    height: 10vh;
-    font-size: large;
-    align-items: center;
+.hackboot {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 1rem;
 }
 
-@media (max-width:500px) {
-    .hackboot{
-        width: 80%;
-        height: 30vh;
-        display: grid;
-    }
-    .hackboot button{
-        width: 100%;
-        height: 8vh;
-    }
+.hackboot-card {
+  flex: 1;
+  max-width: 260px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.hackboot-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 16px 16px 0 0;
+}
+
+.hackboot-card:first-child::before {
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+}
+
+.hackboot-card:last-child::before {
+  background: linear-gradient(90deg, #f43f5e, #f97316);
+}
+
+.hackboot-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+  border-color: #c7d2fe;
+}
+
+.hackboot-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.hackboot-label {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.25rem;
+}
+
+.hackboot-desc {
+  font-size: 0.8125rem;
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+@media (max-width: 500px) {
+  .hackboot {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hackboot-card {
+    width: 100%;
+    max-width: 100%;
+  }
 }

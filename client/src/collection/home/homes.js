@@ -7,9 +7,12 @@ import { FiveStreak } from "./fivestreak";
 import { StreakGraph } from "./streakgraph.js";
 import { Applications } from "../otheraplications/applications.js";
 import { BootHack } from "../boot&hack/boot&hack.js";
+import { Box, Heading, Text, Container, Spinner, VStack } from "@chakra-ui/react";
+
 export const Home = () => {
     const [dat, sdat] = useState([]);
     const [tat, stat] = useState([]);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         axios.post(process.env.REACT_APP_database + "/students")
         .then((result) => {
@@ -21,22 +24,44 @@ export const Home = () => {
                 stat(result.data)
             })
             .catch((e)=>console.log(e))
+            .finally(() => setLoading(false))
     }, [])
+
+    if (loading) {
+        return (
+            <>
+                <Navbars />
+                <VStack justify="center" h="60vh">
+                    <Spinner size="xl" color="brand.500" thickness="3px" />
+                    <Text color="surface.400" fontSize="sm">Loading...</Text>
+                </VStack>
+            </>
+        )
+    }
+
     return (
         <>
             <Navbars />
-            <div className="home-container">
-                <div className="homename">AST Admin</div>
+            <Box className="home-container" as="section">
+                <Text className="homename">AST Admin</Text>
+                <Text className="homename-sub">ARKHA SODHARA TECH — SRKR CSE Department</Text>
                 <Menu />
-                <FiveStreak data={dat}/>
-                <StreakGraph studentdata={dat} totaldata={tat} />
-            </div>
-            <div className="boothack">
+                <Box mt={10}>
+                    <Heading as="h2" size="lg" textAlign="center" color="brand.600" mb={6} fontWeight={700}>
+                        Leaderboard
+                    </Heading>
+                    <FiveStreak data={dat}/>
+                </Box>
+                <Box mt={10}>
+                    <StreakGraph studentdata={dat} totaldata={tat} />
+                </Box>
+            </Box>
+            <Box className="applications" mb={4}>
                 <BootHack/>
-            </div>
-            <div className="applications">
-            <Applications/>
-            </div>
+            </Box>
+            <Box className="applications" pb={10}>
+                <Applications/>
+            </Box>
         </>
     )
 }

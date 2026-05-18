@@ -6,13 +6,16 @@
 
 #sidebar {
     height: 100vh;
+    border-right: 1px solid #e2e8f0 !important;
+    background: white !important;
+    transition: all 0.2s ease;
 }
 
 .main-content {
     flex: 1;
     padding: 2rem;
     height: 100vh;
-    background-color: white;
+    background: #f8fafc;
 }
 
 .mati {
@@ -28,11 +31,9 @@
 
 .allmetirials {
     width: 100%;
-    /* height: 80vh; */
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .allmeti {
@@ -41,7 +42,8 @@
 
 .file-inputs input,
 Select {
-    border: black 3px solid;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
 }
 
 .matform {
@@ -49,12 +51,30 @@ Select {
     height: 20vh;
 }
 
+.modern-sidebar .ps-sidebar-container {
+    background: white !important;
+}
 
-@media (max-width:500px) {
+.modern-sidebar .ps-menu-button:hover {
+    background: rgba(99, 102, 241, 0.08) !important;
+    color: #4f46e5 !important;
+    border-radius: 8px !important;
+}
+
+.modern-sidebar .ps-menu-button {
+    margin: 2px 8px !important;
+    border-radius: 8px !important;
+    transition: all 0.15s ease !important;
+}
+
+.modern-sidebar .ps-sidebar-container {
+    padding-top: 8px;
+}
+
+@media (max-width: 500px) {
     #sidebar {
         position: fixed;
     }
-
     .main-content {
         padding-left: 5rem;
         width: 100%;

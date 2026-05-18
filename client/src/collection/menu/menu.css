@@ -1,35 +1,33 @@
 .menu {
-    width: 100%;
-    min-height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* transform: scale(-100%,-100%); */
-    margin-top: 5%;
+  width: 100%;
+  min-height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
 }
 
 .menucard {
-    height: 200px;
+  height: 200px;
 }
 
 .menulist {
-    width: 40%;
-    /* margin: 0%; */
-    height: 100%;
-    /* background-color: black; */
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  max-width: 900px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .menucard button {
-    border: none;
-    color: blue;
+  border: none;
+  color: blue;
 }
 
 @media (max-width: 768px) {
-    .menulist {
-        width: 100%;
-        display: grid;
-        justify-content: center;
-    }
+  .menulist {
+    width: 100%;
+    display: grid;
+    justify-content: center;
+  }
 }
